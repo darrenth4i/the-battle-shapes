@@ -1,15 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Warrior here.
+ * Write a description of class Tank here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Warrior extends Units
+public class CTank extends Circle
 {
     /**
-     * Act - do whatever the Warrior wants to do. This method is called whenever
+     * Act - do whatever the Tank wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
