@@ -1,8 +1,8 @@
 #Greenfoot project file
-editor.fx.0.height=728
-editor.fx.0.width=800
-editor.fx.0.x=320
-editor.fx.0.y=74
+editor.fx.0.height=0
+editor.fx.0.width=0
+editor.fx.0.x=0
+editor.fx.0.y=0
 height=400
 package.numDependencies=0
 package.numTargets=1
@@ -29,5 +29,5 @@ target1.x=0
 target1.y=0
 version=3.1.0
 width=700
-xPosition=2149
-yPosition=117
+xPosition=100
+yPosition=100
