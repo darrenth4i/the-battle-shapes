@@ -8,7 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World
 {
-
+    private GreenfootImage bg = new GreenfootImage("Backgrounds/battlecatsbg.png");
+        
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -17,5 +18,8 @@ public class MyWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1024, 600, 1); 
+        bg.scale(1024,800);
+        setBackground(bg);
     }
+    
 }
