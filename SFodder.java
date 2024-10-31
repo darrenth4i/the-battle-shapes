@@ -16,4 +16,11 @@ public class SFodder extends Square
     {
         // Add your action code here.
     }
+    
+    public SFodder()
+    {
+        speed = 2;
+        atk = 1;
+        health = 4;
+    }
 }

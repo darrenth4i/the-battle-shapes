@@ -16,4 +16,11 @@ public class CRanger extends Circle
     {
         // Add your action code here.
     }
+    
+    public CRanger()
+    {
+        speed = 2;
+        atk = 1;
+        health = 4;
+    }
 }

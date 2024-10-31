@@ -16,4 +16,11 @@ public class STank extends Square
     {
         // Add your action code here.
     }
+    
+    public STank()
+    {
+        speed = 2;
+        atk = 1;
+        health = 4;
+    }
 }

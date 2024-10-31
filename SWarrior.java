@@ -16,4 +16,11 @@ public class SWarrior extends Square
     {
         // Add your action code here.
     }
+    
+    public SWarrior()
+    {
+        speed = 2;
+        atk = 1;
+        health = 4;
+    }
 }

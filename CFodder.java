@@ -14,6 +14,13 @@ public class CFodder extends Circle
      */
     public void act()
     {
-        // Add your action code here.
+        
+    }
+    
+    public CFodder()
+    {
+        speed = 2;
+        atk = 1;
+        health = 4;
     }
 }
