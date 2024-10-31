@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Units here.
  * 
- * @author (your name) 
+ * @author (Justin Ye and Andy Li) 
  * @version (a version number or a date)
  */
 public abstract class Units extends SuperSmoothMover
