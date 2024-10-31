@@ -16,4 +16,11 @@ public class SRanger extends Square
     {
         // Add your action code here.
     }
+    
+    public SRanger()
+    {
+        speed = 2;
+        atk = 1;
+        health = 4;
+    }
 }

@@ -16,4 +16,11 @@ public class CHealer extends Circle
     {
         // Add your action code here.
     }
+    
+    public CHealer()
+    {
+        speed = 2;
+        atk = 1;
+        health = 4;
+    }
 }

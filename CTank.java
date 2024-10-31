@@ -16,4 +16,11 @@ public class CTank extends Circle
     {
         // Add your action code here.
     }
+    
+    public CTank()
+    {
+        speed = 2;
+        atk = 1;
+        health = 4;
+    }
 }

@@ -16,4 +16,11 @@ public class CWarrior extends Circle
     {
         // Add your action code here.
     }
+    
+    public CWarrior()
+    {
+        speed = 2;
+        atk = 1;
+        health = 4;
+    }
 }
