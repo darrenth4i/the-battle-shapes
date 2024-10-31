@@ -1,15 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Fodder here.
+ * Write a description of class SRanger here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Fodder extends Units
+public class SRanger extends Square
 {
     /**
-     * Act - do whatever the Fodder wants to do. This method is called whenever
+     * Act - do whatever the SRanger wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
