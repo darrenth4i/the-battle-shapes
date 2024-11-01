@@ -22,6 +22,8 @@ public abstract class Unit extends SuperSmoothMover
     //Number of times unit could be knocked back 
     protected int knockbacks;
     protected ArrayList<Integer> knockbackHealth = new ArrayList<Integer>();
+    //Range which the unit can reach
+    protected int range;
     //frame of the attack 
     protected int attackFrame;
     //Percentage of the image size
@@ -30,6 +32,7 @@ public abstract class Unit extends SuperSmoothMover
     protected boolean isAttacking;
     //boolean for when it is knocked back
     protected boolean isKnockedBack;
+    protected int knockbackTimer; 
     
     protected int attackXOffset;
     protected int attackYOffset;
@@ -47,8 +50,10 @@ public abstract class Unit extends SuperSmoothMover
     
     protected Unit()
     {   
+        knockbackTimer = 0;
         isKnockedBack = false;
         isAttacking = false;
+        range = getImage().getWidth();
         atkCooldown = 60;
         attackFrame = 0; //Placeholder
     }
@@ -93,14 +98,42 @@ public abstract class Unit extends SuperSmoothMover
             }
             if (health <= 0)
             {
-                die();
+                getWorld().removeObject(this);
             }
         }
         else
         {
-            knockback();
+            if(knockbackTimer < 10)
+            {
+                knockbackTimer++;
+                knockback();
+            }
+            else
+            {
+                setRotation(0);
+                isKnockedBack = false;
+                knockbackTimer = 0;
+            }
         }
     }
+    
+    /**
+     * Walks forward if nothing is obstructing movement
+     */
+    protected abstract void walk();
+    
+    /**
+     * Checks the path of the unit for any obstructions
+     * @return If the path is clear
+     */
+    protected abstract boolean checkFront();
+    
+    protected abstract void knockback();
+    
+    /**
+     * Does damage to a target
+     */
+    protected abstract void attack();
     
     
     /**
@@ -131,48 +164,6 @@ public abstract class Unit extends SuperSmoothMover
     }
     
     /**
-     * Does damage to a target
-     */
-    protected void attack()
-    {
-        Unit target = getObjectsInRange(getImage().getWidth()+30, Unit.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Unit.class).get(0) : null;
-        if(target != null)
-        {
-            System.out.println("hit");
-            target.hurt(atk);
-        }
-        else
-        {
-            System.out.println("miss");
-        }
-    }
-    
-    /**
-     * Walks forward if nothing is obstructing movement
-     */
-    protected void walk()
-    {
-        if(checkFront() && !isAttacking)
-        {
-            move(speed);
-        }
-        else
-        {
-            isAttacking = true;
-        }
-    }
-    
-    /**
-     * Checks the path of the unit for any obstructions
-     * @return If the path is clear
-     */
-    protected boolean checkFront()
-    {
-        //if it is empty, the front is clear
-        return getOneObjectAtOffset(-getImage().getWidth(), 0, Unit.class) == null;
-    }
-    
-    /**
      * Takes damage from attack
      */
     protected void hurt(int damage)
@@ -180,35 +171,20 @@ public abstract class Unit extends SuperSmoothMover
         this.health -= damage;
         if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue())
         {
+            health = knockbackHealth.get(knockbackHealth.size()-1);
+            isKnockedBack = true;
+            isAttacking = false;
+            attackIndex = 0;
+            setImage(idleAnim.get(0)); // Replace with knockback Sprite later.
+            timer = 10000;
             knockback();
+            knockbackHealth.remove(knockbackHealth.size()-1);
         }
     }
     
     protected void heal(int recover)
     {
         this.health += recover;
-    }
-    
-    /**
-     * Animates and deletes object upon death
-     */
-    protected void die()
-    {
-        if(deathIndex != 12) //Arbitrary number, replace with total animation index later
-        {
-            //play animation
-            deathIndex++;
-        }
-        else
-        {
-            getWorld().removeObject(this);
-        }
-    }
-    
-    protected void knockback()
-    {
-        setLocation(getX()-10, getY());
-        knockbackHealth.remove(knockbackHealth.size()-1);
     }
     
     /**

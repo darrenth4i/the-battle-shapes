@@ -19,6 +19,7 @@ public abstract class Circle extends Unit
     
     public Circle()
     {
+        super();
         //Sets image size
         imageScale = 0.35;
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
@@ -41,9 +42,8 @@ public abstract class Circle extends Unit
     
     protected void knockback()
     {
-        setLocation(getX()+30, getY());
-        //make smoother later
-        knockbackHealth.remove(knockbackHealth.size()-1);
+        setLocation(getX()+10, getY()+(3*(knockbackTimer-5)));
+        setRotation(20);
     }
     
     /**
@@ -51,7 +51,7 @@ public abstract class Circle extends Unit
      */
     protected void attack()
     {
-        Square target = getObjectsInRange(getImage().getWidth()+30, Square.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Square.class).get(0) : null;
+        Square target = getObjectsInRange(getImage().getWidth()/2, Square.class).size() != 0 ? getObjectsInRange(getImage().getWidth()/2, Square.class).get(0) : null;
         if(target != null)
         {
             target.hurt(atk);

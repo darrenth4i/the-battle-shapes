@@ -19,6 +19,7 @@ public abstract class Square extends Unit
     
     public Square()
     {
+        super();
         //Sets image size
         imageScale = 1;
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
@@ -41,7 +42,7 @@ public abstract class Square extends Unit
      */
     protected void attack()
     {
-        Circle target = getObjectsInRange(getImage().getWidth()+30, Circle.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Circle.class).get(0) : null;
+        Circle target = getObjectsInRange(getImage().getWidth()/2, Circle.class).size() != 0 ? getObjectsInRange(getImage().getWidth()/2, Circle.class).get(0) : null;
         if(target != null)
         {
             target.hurt(atk);
@@ -50,9 +51,8 @@ public abstract class Square extends Unit
     
     protected void knockback()
     {
-        setLocation(getX()-30, getY());
-        //make smoother later
-        knockbackHealth.remove(knockbackHealth.size()-1);
+        setLocation(getX()-10, getY()+(3*(knockbackTimer-5)));
+        setRotation(-20);
     }
     
     protected boolean checkFront()

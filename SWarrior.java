@@ -19,8 +19,11 @@ public class SWarrior extends Square
     
     public SWarrior()
     {
-        speed = 2;
-        atk = 3;
-        health = 4;
+        super();
+        atkCooldown = 30;
+        knockbacks = 2;
+        speed = 3;
+        atk = 8;
+        health = 12;
     }
 }
