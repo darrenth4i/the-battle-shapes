@@ -28,7 +28,8 @@ public abstract class Units extends SuperSmoothMover
     //boolean for when it is attacking
     protected boolean isAttacking;
     
-    protected int attackOffset;
+    protected int attackXOffset;
+    protected int attackYOffset;
     
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnim = new ArrayList<GreenfootImage>();
@@ -46,7 +47,6 @@ public abstract class Units extends SuperSmoothMover
         attackFrame = 0; //Placeholder
         //Sets image size
         imageScale = 0.35;
-        loadAnimationFrames("images/Units/Fodder/StageOne");
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
@@ -62,7 +62,7 @@ public abstract class Units extends SuperSmoothMover
         }
         else if(getImage() == attackAnim.get(attackAnim.size()-1))
         {
-            setLocation(getX() - attackOffset, getY());
+            setLocation(getX() - attackXOffset, getY() - attackYOffset);
             setImage(idleAnim.get(0));
         }
         else if(timer < atkCooldown)
@@ -87,7 +87,7 @@ public abstract class Units extends SuperSmoothMover
         {
             if(attackIndex == 0)
             {
-                setLocation(getX() + attackOffset, getY());
+                setLocation(getX() + attackXOffset, getY() + attackYOffset);
             }
             //Animation code here
             setImage(attackAnim.get(attackIndex));
@@ -189,7 +189,7 @@ public abstract class Units extends SuperSmoothMover
         return index;
     }
     
-    private void loadAnimationFrames(String path)
+    protected void loadAnimationFrames(String path)
     {
         //Important: Ensure all folders are labelled with "attack", "move", and "stand"
         for(int i = 0; i < new File(path+"/attack").listFiles().length-1; i++)

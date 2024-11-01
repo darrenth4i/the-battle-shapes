@@ -19,9 +19,12 @@ public class CFodder extends Circle
     
     public CFodder()
     {
+        super();
+        loadAnimationFrames("images/Units/Fodder/StageOne");
         speed = 2;
         atk = 1;
         health = 4;
-        attackOffset = -50;
+        attackXOffset = -50;
+        attackYOffset = 0;
     }
 }
