@@ -14,10 +14,6 @@ public class SFodder extends Square
      */
     public void act()
     {
-        if(animationTimer.millisElapsed() < 17){
-            return;
-        }
-        animationTimer.mark();
         super.act();
     }
     
@@ -33,6 +29,5 @@ public class SFodder extends Square
         
         attackXOffset = 80;
         attackYOffset = -10;
-        animationTimer.mark();
     }
 }
