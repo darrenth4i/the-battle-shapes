@@ -47,12 +47,7 @@ public abstract class Circle extends Units
         Square target = getObjectsInRange(getImage().getWidth()+30, Square.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Square.class).get(0) : null;
         if(target != null)
         {
-            System.out.println("hit");
             target.hurt(atk);
-        }
-        else
-        {
-            System.out.println("miss");
         }
     }
     
