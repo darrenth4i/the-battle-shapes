@@ -28,6 +28,8 @@ public abstract class Units extends SuperSmoothMover
     protected double imageScale;
     //boolean for when it is attacking
     protected boolean isAttacking;
+    //boolean for when it is knocked back
+    protected boolean isKnockedBack;
     
     protected int attackXOffset;
     protected int attackYOffset;
@@ -43,6 +45,7 @@ public abstract class Units extends SuperSmoothMover
     
     protected Units()
     {   
+        isKnockedBack = false;
         isAttacking = false;
         atkCooldown = 60;
         attackFrame = 0; //Placeholder
@@ -68,28 +71,35 @@ public abstract class Units extends SuperSmoothMover
      */
     public void act()
     {
-        if(atkCooldown <= timer&&isAttacking)
+        if(!isKnockedBack)
         {
-            attackAnimation(attackFrame);
-        }
-        else if(getImage() == attackAnim.get(attackAnim.size()-1))
-        {
-            setLocation(getX() - attackXOffset, getY() - attackYOffset);
-            setImage(idleAnim.get(0));
-        }
-        else if(timer < atkCooldown)
-        {
-            idleIndex = animate(idleAnim, idleIndex);
-            timer++;
+            if(atkCooldown <= timer&&isAttacking)
+            {
+                attackAnimation(attackFrame);
+            }
+            else if(getImage() == attackAnim.get(attackAnim.size()-1))
+            {
+                setLocation(getX() - attackXOffset, getY() - attackYOffset);
+                setImage(idleAnim.get(0));
+            }
+            else if(timer < atkCooldown)
+            {
+                idleIndex = animate(idleAnim, idleIndex);
+                timer++;
+            }
+            else
+            {
+                walkIndex = animate(walkAnim, walkIndex);
+                walk();
+            }
+            if (health <= 0)
+            {
+                die();
+            }
         }
         else
         {
-            walkIndex = animate(walkAnim, walkIndex);
-            walk();
-        }
-        if (health <= 0)
-        {
-            die();
+            knockback();
         }
     }
     
@@ -198,8 +208,7 @@ public abstract class Units extends SuperSmoothMover
     
     protected void knockback()
     {
-        setLocation(getX()-50, getY());
-        //make smoother later
+        setLocation(getX()-10, getY());
         knockbackHealth.remove(knockbackHealth.size()-1);
     }
     
