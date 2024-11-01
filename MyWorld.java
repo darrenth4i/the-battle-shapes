@@ -20,6 +20,9 @@ public class MyWorld extends World
         super(1024, 600, 1); 
         bg.scale(1024,800);
         setBackground(bg);
+        
+        addObject(new CFodder(), 500, 500);
+        addObject(new SFodder(), 100, 500);
     }
     
 }
