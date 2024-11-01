@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Circle extends Units
+public abstract class Circle extends Unit
 {
     /**
      * Act - do whatever the Circle wants to do. This method is called whenever

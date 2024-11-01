@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Square extends Units
+public abstract class Square extends Unit
 {
     /**
      * Act - do whatever the Square wants to do. This method is called whenever
