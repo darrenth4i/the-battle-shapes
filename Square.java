@@ -29,6 +29,18 @@ public abstract class Square extends Units
         }
     }
     
+    /**
+     * Does damage to a target
+     */
+    protected void attack()
+    {
+        Circle target = getObjectsInRange(getImage().getWidth()+30, Circle.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Circle.class).get(0) : null;
+        if(target != null)
+        {
+            target.hurt(atk);
+        }
+    }
+    
     protected boolean checkFront()
     {
         //if it is empty, the front is clear

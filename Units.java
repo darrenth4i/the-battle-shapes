@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public abstract class Units extends SuperSmoothMover
 {
     // Health of the unit
-    protected int health;
+    protected int health, maxHealth;
     //Damage per hit
     protected int atk;
     //Time between attacks
@@ -21,14 +21,18 @@ public abstract class Units extends SuperSmoothMover
     protected int speed;
     //Number of times unit could be knocked back 
     protected int knockbacks;
+    protected ArrayList<Integer> knockbackHealth = new ArrayList<Integer>();
     //frame of the attack 
     protected int attackFrame;
     //Percentage of the image size
     protected double imageScale;
     //boolean for when it is attacking
     protected boolean isAttacking;
+    //boolean for when it is knocked back
+    protected boolean isKnockedBack;
     
-    protected int attackOffset;
+    protected int attackXOffset;
+    protected int attackYOffset;
     
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnim = new ArrayList<GreenfootImage>();
@@ -40,40 +44,62 @@ public abstract class Units extends SuperSmoothMover
     protected GreenfootImage knockback;
     
     protected Units()
-    {
+    {   
+        isKnockedBack = false;
         isAttacking = false;
         atkCooldown = 60;
         attackFrame = 0; //Placeholder
         //Sets image size
         imageScale = 0.35;
-        loadAnimationFrames("images/Units/Fodder/StageOne");
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
+    protected void addedToWorld(World world)
+    {
+        maxHealth = health;
+        System.out.println(maxHealth);
+        System.out.println(maxHealth/knockbacks);
+        System.out.println(knockbacks);
+        for(int i = 0; i < knockbacks; i++)
+        {
+            knockbackHealth.add((Integer)(maxHealth/knockbacks*i));
+        }
+    }
     
     /**
      * Act - Chooses whether to move, attack, or stand still if on cooldown
      */
     public void act()
     {
-        if(atkCooldown <= timer&&isAttacking)
+        if(!isKnockedBack)
         {
-            attackAnimation(attackFrame);
-        }
-        else if(getImage() == attackAnim.get(attackAnim.size()-1))
-        {
-            setLocation(getX() - attackOffset, getY());
-            setImage(idleAnim.get(0));
-        }
-        else if(timer < atkCooldown)
-        {
-            idleIndex = animate(idleAnim, idleIndex);
-            timer++;
+            if(atkCooldown <= timer&&isAttacking)
+            {
+                attackAnimation(attackFrame);
+            }
+            else if(getImage() == attackAnim.get(attackAnim.size()-1))
+            {
+                setLocation(getX() - attackXOffset, getY() - attackYOffset);
+                setImage(idleAnim.get(0));
+            }
+            else if(timer < atkCooldown)
+            {
+                idleIndex = animate(idleAnim, idleIndex);
+                timer++;
+            }
+            else
+            {
+                walkIndex = animate(walkAnim, walkIndex);
+                walk();
+            }
+            if (health <= 0)
+            {
+                die();
+            }
         }
         else
         {
-            walkIndex = animate(walkAnim, walkIndex);
-            walk();
+            knockback();
         }
     }
     
@@ -87,7 +113,7 @@ public abstract class Units extends SuperSmoothMover
         {
             if(attackIndex == 0)
             {
-                setLocation(getX() + attackOffset, getY());
+                setLocation(getX() + attackXOffset, getY() + attackYOffset);
             }
             //Animation code here
             setImage(attackAnim.get(attackIndex));
@@ -110,10 +136,15 @@ public abstract class Units extends SuperSmoothMover
      */
     protected void attack()
     {
-        Units target = (Units)getOneObjectAtOffset(-getImage().getWidth(), 0, Units.class);
+        Units target = getObjectsInRange(getImage().getWidth()+30, Units.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Units.class).get(0) : null;
         if(target != null)
         {
+            System.out.println("hit");
             target.hurt(atk);
+        }
+        else
+        {
+            System.out.println("miss");
         }
     }
     
@@ -148,9 +179,9 @@ public abstract class Units extends SuperSmoothMover
     protected void hurt(int damage)
     {
         this.health -= damage;
-        if (health <= 0)
+        if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue())
         {
-            //Death animation method
+            knockback();
         }
     }
     
@@ -175,6 +206,12 @@ public abstract class Units extends SuperSmoothMover
         }
     }
     
+    protected void knockback()
+    {
+        setLocation(getX()-10, getY());
+        knockbackHealth.remove(knockbackHealth.size()-1);
+    }
+    
     /**
      * Simple Animations
      */
@@ -189,7 +226,7 @@ public abstract class Units extends SuperSmoothMover
         return index;
     }
     
-    private void loadAnimationFrames(String path)
+    protected void loadAnimationFrames(String path)
     {
         //Important: Ensure all folders are labelled with "attack", "move", and "stand"
         for(int i = 0; i < new File(path+"/attack").listFiles().length-1; i++)
