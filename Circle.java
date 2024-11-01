@@ -32,6 +32,30 @@ public abstract class Circle extends Units
         }
     }
     
+    protected void knockback()
+    {
+        setLocation(getX()+50, getY());
+        //make smoother later
+        knockbackHealth.remove(0);
+    }
+    
+    /**
+     * Does damage to a target
+     */
+    protected void attack()
+    {
+        Square target = getObjectsInRange(getImage().getWidth()+30, Square.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Square.class).get(0) : null;
+        if(target != null)
+        {
+            System.out.println("hit");
+            target.hurt(atk);
+        }
+        else
+        {
+            System.out.println("miss");
+        }
+    }
+    
     protected boolean checkFront()
     {
         //if it is empty, the front is clear

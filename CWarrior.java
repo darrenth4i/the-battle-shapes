@@ -21,9 +21,11 @@ public class CWarrior extends Circle
     {
         super();
         loadAnimationFrames("images/Units/CWarrior/StageOne");
+        knockbacks = 2;
         speed = 2;
         atk = 3;
         health = 4;
+        attackFrame = 11;
         attackXOffset = -35;
         attackYOffset = -31;
     }

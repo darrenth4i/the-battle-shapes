@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public abstract class Units extends SuperSmoothMover
 {
     // Health of the unit
-    protected int health;
+    protected int health, maxHealth;
     //Damage per hit
     protected int atk;
     //Time between attacks
@@ -21,6 +21,7 @@ public abstract class Units extends SuperSmoothMover
     protected int speed;
     //Number of times unit could be knocked back 
     protected int knockbacks;
+    protected ArrayList<Integer> knockbackHealth = new ArrayList<Integer>();
     //frame of the attack 
     protected int attackFrame;
     //Percentage of the image size
@@ -41,7 +42,7 @@ public abstract class Units extends SuperSmoothMover
     protected GreenfootImage knockback;
     
     protected Units()
-    {
+    {   
         isAttacking = false;
         atkCooldown = 60;
         attackFrame = 0; //Placeholder
@@ -50,6 +51,17 @@ public abstract class Units extends SuperSmoothMover
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
+    protected void addedToWorld(World world)
+    {
+        maxHealth = health;
+        System.out.println(maxHealth);
+        System.out.println(maxHealth/knockbacks);
+        System.out.println(knockbacks);
+        for(int i = 0; i < knockbacks; i++)
+        {
+            knockbackHealth.add((Integer)(maxHealth/knockbacks*i));
+        }
+    }
     
     /**
      * Act - Chooses whether to move, attack, or stand still if on cooldown
@@ -74,6 +86,10 @@ public abstract class Units extends SuperSmoothMover
         {
             walkIndex = animate(walkAnim, walkIndex);
             walk();
+        }
+        if (health <= 0)
+        {
+            die();
         }
     }
     
@@ -110,10 +126,15 @@ public abstract class Units extends SuperSmoothMover
      */
     protected void attack()
     {
-        Units target = (Units)getOneObjectAtOffset(-getImage().getWidth(), 0, Units.class);
+        Units target = getObjectsInRange(getImage().getWidth()+30, Units.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Units.class).get(0) : null;
         if(target != null)
         {
+            System.out.println("hit");
             target.hurt(atk);
+        }
+        else
+        {
+            System.out.println("miss");
         }
     }
     
@@ -148,9 +169,9 @@ public abstract class Units extends SuperSmoothMover
     protected void hurt(int damage)
     {
         this.health -= damage;
-        if (health <= 0)
+        if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue())
         {
-            //Death animation method
+            knockback();
         }
     }
     
@@ -173,6 +194,13 @@ public abstract class Units extends SuperSmoothMover
         {
             getWorld().removeObject(this);
         }
+    }
+    
+    protected void knockback()
+    {
+        setLocation(getX()-50, getY());
+        //make smoother later
+        knockbackHealth.remove(knockbackHealth.size()-1);
     }
     
     /**
