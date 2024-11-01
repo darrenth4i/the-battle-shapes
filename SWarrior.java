@@ -20,7 +20,7 @@ public class SWarrior extends Square
     public SWarrior()
     {
         speed = 2;
-        atk = 1;
+        atk = 3;
         health = 4;
     }
 }

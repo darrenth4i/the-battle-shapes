@@ -14,13 +14,19 @@ public class CWarrior extends Circle
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public CWarrior()
     {
+        super();
+        loadAnimationFrames("images/Units/CWarrior/StageOne");
+        knockbacks = 2;
         speed = 2;
-        atk = 1;
+        atk = 3;
         health = 4;
+        attackFrame = 11;
+        attackXOffset = -35;
+        attackYOffset = -31;
     }
 }
