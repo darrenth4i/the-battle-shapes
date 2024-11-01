@@ -20,6 +20,6 @@ public abstract class Square extends Units
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getOneObjectAtOffset(-getImage().getWidth(), 0, Circle.class) != null;
+        return getOneObjectAtOffset(getImage().getWidth(), 0, Circle.class) == null;
     }
 }

@@ -1,4 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Superclass for every Unit in the Simulation
@@ -26,17 +28,25 @@ public abstract class Units extends SuperSmoothMover
     //boolean for when it is attacking
     protected boolean isAttacking;
     
+    protected int attackOffset;
+    
     protected int walkIndex;
+    protected ArrayList<GreenfootImage> walkAnim = new ArrayList<GreenfootImage>();
     protected int attackIndex;
+    protected ArrayList<GreenfootImage> attackAnim = new ArrayList<GreenfootImage>();
     protected int idleIndex;
+    protected ArrayList<GreenfootImage> idleAnim = new ArrayList<GreenfootImage>();
     protected int deathIndex;
+    protected GreenfootImage knockback;
     
     protected Units()
     {
         isAttacking = false;
+        atkCooldown = 60;
         attackFrame = 0; //Placeholder
         //Sets image size
-        imageScale = 0.40;
+        imageScale = 0.35;
+        loadAnimationFrames("images/Units/Fodder/StageOne");
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
@@ -46,14 +56,24 @@ public abstract class Units extends SuperSmoothMover
      */
     public void act()
     {
-        walk();
-        if(atkCooldown < timer)
+        if(atkCooldown <= timer&&isAttacking)
         {
             attackAnimation(attackFrame);
         }
+        else if(getImage() == attackAnim.get(attackAnim.size()-1))
+        {
+            setLocation(getX() - attackOffset, getY());
+            setImage(idleAnim.get(0));
+        }
+        else if(timer < atkCooldown)
+        {
+            idleIndex = animate(idleAnim, idleIndex);
+            timer++;
+        }
         else
         {
-            idle();
+            walkIndex = animate(walkAnim, walkIndex);
+            walk();
         }
     }
     
@@ -65,16 +85,23 @@ public abstract class Units extends SuperSmoothMover
     {
         if(isAttacking)
         {
+            if(attackIndex == 0)
+            {
+                setLocation(getX() + attackOffset, getY());
+            }
             //Animation code here
+            setImage(attackAnim.get(attackIndex));
             if(attackIndex == attackFrame)
             {
                 attack();
             }
-            if(attackIndex == 15) //Arbitrary number, replace with total animation index later
+            attackIndex++;
+            if(attackIndex == attackAnim.size()) //Arbitrary number, replace with total animation index later
             {
                 isAttacking = false;
+                attackIndex = 0;
+                timer = 0;
             }
-            attackIndex++;
         }
     }
     
@@ -95,7 +122,7 @@ public abstract class Units extends SuperSmoothMover
      */
     protected void walk()
     {
-        if(checkFront()&& !isAttacking)
+        if(checkFront() && !isAttacking)
         {
             move(speed);
         }
@@ -112,7 +139,7 @@ public abstract class Units extends SuperSmoothMover
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getOneObjectAtOffset(-getImage().getWidth(), 0, Units.class) != null;
+        return getOneObjectAtOffset(-getImage().getWidth(), 0, Units.class) == null;
     }
     
     /**
@@ -149,10 +176,36 @@ public abstract class Units extends SuperSmoothMover
     }
     
     /**
-     * idle animation
+     * Simple Animations
      */
-    protected void idle()
+    protected int animate(ArrayList<GreenfootImage> animation, int index)
     {
-        
+        setImage(animation.get(index));
+        index++;
+        if(index > animation.size()-1)
+        {
+            index = 0;
+        }
+        return index;
+    }
+    
+    private void loadAnimationFrames(String path)
+    {
+        //Important: Ensure all folders are labelled with "attack", "move", and "stand"
+        for(int i = 0; i < new File(path+"/attack").listFiles().length-1; i++)
+        {
+            attackAnim.add(new GreenfootImage(path + "/attack/" + i + ".png"));
+            attackAnim.get(i).scale((int)(attackAnim.get(i).getWidth()*imageScale),(int)(attackAnim.get(i).getHeight()*imageScale));
+        }
+        for(int i = 0; i < new File(path+"/move").listFiles().length-1; i++)
+        {
+            walkAnim.add(new GreenfootImage(path + "/move/" + i + ".png"));
+            walkAnim.get(i).scale((int)(walkAnim.get(i).getWidth()*imageScale),(int)(walkAnim.get(i).getHeight()*imageScale));
+        }
+        for(int i = 0; i < new File(path+"/stand").listFiles().length-1; i++)
+        {
+            idleAnim.add(new GreenfootImage(path + "/stand/" + i + ".png"));
+            idleAnim.get(i).scale((int)(idleAnim.get(i).getWidth()*imageScale),(int)(idleAnim.get(i).getHeight()*imageScale));
+        }
     }
 }

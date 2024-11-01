@@ -14,7 +14,7 @@ public class CFodder extends Circle
      */
     public void act()
     {
-        
+        super.act();
     }
     
     public CFodder()
@@ -22,5 +22,6 @@ public class CFodder extends Circle
         speed = 2;
         atk = 1;
         health = 4;
+        attackOffset = -50;
     }
 }

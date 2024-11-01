@@ -17,9 +17,24 @@ public abstract class Circle extends Units
         super.act();
     }
     
+    /**
+     * Walks forward if nothing is obstructing movement
+     */
+    protected void walk()
+    {
+        if(checkFront()&& !isAttacking)
+        {
+            move(-speed);
+        }
+        else
+        {
+            isAttacking = true;
+        }
+    }
+    
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getOneObjectAtOffset(-getImage().getWidth(), 0, Square.class) != null;
+        return getOneObjectAtOffset(-getImage().getWidth(), 0, Square.class) == null;
     }
 }
