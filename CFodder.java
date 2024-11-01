@@ -14,6 +14,10 @@ public class CFodder extends Circle
      */
     public void act()
     {
+        if(animationTimer.millisElapsed() < 17){
+            return;
+        }
+        animationTimer.mark();
         super.act();
     }
     
@@ -25,11 +29,12 @@ public class CFodder extends Circle
         
         knockbacks = 2;
         speed = 2;
-        atk = 1;
-        health = 4;
+        atk = 4;
+        health = 12;
         attackFrame = 5;
         
         attackXOffset = -50;
         attackYOffset = 0;
+        animationTimer.mark();
     }
 }

@@ -17,6 +17,13 @@ public abstract class Circle extends Unit
         super.act();
     }
     
+    public Circle()
+    {
+        //Sets image size
+        imageScale = 0.35;
+        getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
+    }
+    
     /**
      * Walks forward if nothing is obstructing movement
      */
@@ -34,9 +41,9 @@ public abstract class Circle extends Unit
     
     protected void knockback()
     {
-        setLocation(getX()+50, getY());
+        setLocation(getX()+30, getY());
         //make smoother later
-        knockbackHealth.remove(0);
+        knockbackHealth.remove(knockbackHealth.size()-1);
     }
     
     /**

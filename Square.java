@@ -17,6 +17,13 @@ public abstract class Square extends Unit
         super.act();
     }
     
+    public Square()
+    {
+        //Sets image size
+        imageScale = 1;
+        getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
+    }
+    
     protected void walk()
     {
         if(checkFront()&& !isAttacking)
@@ -39,6 +46,13 @@ public abstract class Square extends Unit
         {
             target.hurt(atk);
         }
+    }
+    
+    protected void knockback()
+    {
+        setLocation(getX()-30, getY());
+        //make smoother later
+        knockbackHealth.remove(knockbackHealth.size()-1);
     }
     
     protected boolean checkFront()
