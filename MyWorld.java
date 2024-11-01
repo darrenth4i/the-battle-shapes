@@ -21,7 +21,7 @@ public class MyWorld extends World
         bg.scale(1024,800);
         setBackground(bg);
         
-        addObject(new CFodder(), 500, 500);
+        addObject(new CFodder(), 900, 500);
         addObject(new SFodder(), 100, 500);
     }
     

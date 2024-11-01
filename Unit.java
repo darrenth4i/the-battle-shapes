@@ -43,15 +43,14 @@ public abstract class Unit extends SuperSmoothMover
     protected int deathIndex;
     protected GreenfootImage knockback;
     
+    protected SimpleTimer animationTimer = new SimpleTimer();
+    
     protected Unit()
     {   
         isKnockedBack = false;
         isAttacking = false;
         atkCooldown = 60;
         attackFrame = 0; //Placeholder
-        //Sets image size
-        imageScale = 0.35;
-        getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
     protected void addedToWorld(World world)
@@ -73,7 +72,7 @@ public abstract class Unit extends SuperSmoothMover
     {
         if(!isKnockedBack)
         {
-            if(atkCooldown <= timer&&isAttacking)
+            if(atkCooldown <= timer && isAttacking)
             {
                 attackAnimation(attackFrame);
             }
