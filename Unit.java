@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Justin Ye and Andy Li)
  * @version Oct 31
  */
-public abstract class Units extends SuperSmoothMover
+public abstract class Unit extends SuperSmoothMover
 {
     // Health of the unit
     protected int health, maxHealth;
@@ -43,7 +43,7 @@ public abstract class Units extends SuperSmoothMover
     protected int deathIndex;
     protected GreenfootImage knockback;
     
-    protected Units()
+    protected Unit()
     {   
         isKnockedBack = false;
         isAttacking = false;
@@ -136,7 +136,7 @@ public abstract class Units extends SuperSmoothMover
      */
     protected void attack()
     {
-        Units target = getObjectsInRange(getImage().getWidth()+30, Units.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Units.class).get(0) : null;
+        Unit target = getObjectsInRange(getImage().getWidth()+30, Unit.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Unit.class).get(0) : null;
         if(target != null)
         {
             System.out.println("hit");
@@ -170,7 +170,7 @@ public abstract class Units extends SuperSmoothMover
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getOneObjectAtOffset(-getImage().getWidth(), 0, Units.class) == null;
+        return getOneObjectAtOffset(-getImage().getWidth(), 0, Unit.class) == null;
     }
     
     /**
