@@ -8,6 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Support extends Tower
 {
+    public Support(boolean circle, int towerRange, int fireInterval)
+    {
+        super(circle, towerRange, fireInterval);
+    }
     /**
      * Act - do whatever the Support wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
