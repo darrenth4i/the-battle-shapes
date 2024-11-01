@@ -17,6 +17,18 @@ public abstract class Square extends Units
         super.act();
     }
     
+    protected void walk()
+    {
+        if(checkFront()&& !isAttacking)
+        {
+            move(speed);
+        }
+        else
+        {
+            isAttacking = true;
+        }
+    }
+    
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
