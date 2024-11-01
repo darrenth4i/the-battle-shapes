@@ -20,7 +20,7 @@ public class CWarrior extends Circle
     public CWarrior()
     {
         super();
-        loadAnimationFrames("images/Units/Warrior/StageOne");
+        loadAnimationFrames("images/Units/CWarrior/StageOne");
         speed = 2;
         atk = 3;
         health = 4;
