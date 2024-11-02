@@ -22,7 +22,6 @@ public class Offense extends Tower
     }
     public void shoot()
     {
-        Unit target = getNearestOppositeShape();
         getWorld().addObject(new OffenseProjectile(circle,getNearestOppositeShape(),1, 1), getX(), getY());
     }
 }

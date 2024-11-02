@@ -23,6 +23,6 @@ public class Support extends Tower
     
     public void shoot()
     {
-        
+        getWorld().addObject(new OffenseProjectile(circle,getLowestHealthSameShape(),1, 1), getX(), getY());
     }
 }

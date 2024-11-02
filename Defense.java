@@ -24,6 +24,6 @@ public class Defense extends Tower
     
     public void shoot()
     {
-        
+        getWorld().addObject(new DefenseProjectile(circle,getFurthestSameShape(),1, 1), getX(), getY());
     }
 }

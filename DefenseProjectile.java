@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class DefenseProjectile extends TowerProjectile
 {
-    private int mitigation;
+    private int mitigation; //Times the shield will mitigate damage
     public DefenseProjectile(boolean circle, Unit target, int speed, int mitigation)
     {
         super(circle, target, speed);
@@ -21,6 +21,6 @@ public class DefenseProjectile extends TowerProjectile
     }
     public void effect()
     {
-        //not yet implemented
+        target.shield(mitigation);
     }
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class Tower here.
  * 
- * @author (your name) 
+ * @author Brennan Lyn 
  * @version (a version number or a date)
  */
 
@@ -22,7 +22,7 @@ public abstract class Tower extends Actor
     
     
     //Helper variables
-    private double distance, nearestDistance;
+    private double distance, nearestDistance, furthestDistance, lowestHealth;
     protected int count;
     public Tower(boolean circle, int towerRange, int fireInterval)
     {
@@ -52,7 +52,12 @@ public abstract class Tower extends Actor
             shoot();
         }
     }
-    public Unit getNearestOppositeShape()
+    
+    /**
+     * Gets nearest instance of Unit class of opposite team
+     * Used by Offense tower to target the frontmost unit to shoot at
+     */
+    protected Unit getNearestOppositeShape()
     {
         if(circle)
         {
@@ -89,10 +94,85 @@ public abstract class Tower extends Actor
     }
     
     /**
+     * Gets furthest instance of Unit class of the same shape
+     * Used by Defense tower to target the frontmost unit of that "team"
+     */
+    protected Unit getFurthestSameShape()
+    {
+        if(!circle)
+        {
+            ArrayList<Square> nearSquares = (ArrayList<Square>)getObjectsInRange(towerRange, Square.class);
+            Square furthestSquare = null;
+            furthestDistance = -1;
+            for(Square s : nearSquares)
+            {
+                distance = getDistance(s);
+                if (distance > furthestDistance)
+                {
+                    furthestSquare = s;
+                    furthestDistance = distance;
+                }
+            }
+            return furthestSquare;
+        }
+        else
+        {
+            ArrayList<Circle> nearCircles = (ArrayList<Circle>)getObjectsInRange(towerRange, Circle.class);
+            Circle furthestCircle = null;
+            furthestDistance = -1;
+            for(Circle c : nearCircles)
+            {
+                distance = getDistance(c);
+                if (distance > furthestDistance)
+                {
+                    furthestCircle = c;
+                    furthestDistance = distance;
+                }
+            }
+            return furthestCircle;
+        }
+    }
+    
+    protected Unit getLowestHealthSameShape()
+    {
+        if(!circle)
+        {
+            ArrayList<Square> nearSquares = (ArrayList<Square>)getObjectsInRange(towerRange, Square.class);
+            Square lowHealthSquare = null;
+            lowestHealth = 1.0;
+            for(Square s : nearSquares)
+            {
+                if (s.getHealthDividedByMax()<=lowestHealth)
+                {
+                    lowHealthSquare = s;
+                    lowestHealth = s.getHealthDividedByMax();
+                }
+            }
+            return lowHealthSquare;
+        }
+        else
+        {
+            ArrayList<Circle> nearCircles = (ArrayList<Circle>)getObjectsInRange(towerRange, Circle.class);
+            Circle furthestCircle = null;
+            furthestDistance = -1;
+            for(Circle c : nearCircles)
+            {
+                distance = getDistance(c);
+                if (distance > furthestDistance)
+                {
+                    furthestCircle = c;
+                    furthestDistance = distance;
+                }
+            }
+            return furthestCircle;
+        }
+    }
+    
+    /**
      * Abstract method overrided by all subclasses
      * to shoot their class specific projectile
      */
-    public abstract void shoot();
+    protected abstract void shoot();
     
     /**
      * Used to find distance from an actor
@@ -101,6 +181,12 @@ public abstract class Tower extends Actor
     {
         return Math.hypot(actor.getX() - getX(), actor.getY() - getY());
     }
+    
+    /**
+     * Getter method to return boolean "circle"
+     * which is true when the tower team is circle, false
+     * if square
+     */
     public boolean getCircle()
     {
         return circle;

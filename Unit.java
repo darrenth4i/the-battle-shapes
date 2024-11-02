@@ -12,6 +12,8 @@ public abstract class Unit extends SuperSmoothMover
 {
     // Health of the unit
     protected int health, maxHealth;
+    // Shield from defense tower
+    protected int shield;
     //Damage per hit
     protected int atk;
     //Time between attacks
@@ -201,7 +203,15 @@ public abstract class Unit extends SuperSmoothMover
      */
     protected void hurt(int damage)
     {
-        this.health -= damage;
+        if(shield<1) //mitigates the damage dealt if shield is present
+        {
+            this.health -= damage;
+        }
+        else 
+        {
+            shield--;
+        }
+        
         if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue()&&!isKnockedBack&&knockbackTimer==0)
         {
             health = knockbackHealth.get(knockbackHealth.size()-1);
@@ -218,6 +228,16 @@ public abstract class Unit extends SuperSmoothMover
     protected void heal(int recover)
     {
         this.health += recover;
+    }
+    
+    protected void shield(int instance)
+    {
+        shield = instance;
+    }
+    
+    protected double getHealthDividedByMax()
+    {
+        return (double)health/maxHealth;
     }
     
     /**
