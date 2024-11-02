@@ -35,7 +35,7 @@ public class CFodder extends Circle
             break;
             
             case 2:
-            attackXOffset = -5;
+            attackXOffset = -15;
             attackYOffset = 5;
             moveXOffset = 0;
             moveYOffset = 20;
@@ -50,14 +50,18 @@ public class CFodder extends Circle
             break;
             
             case 3:
-            attackXOffset = -35;
-            attackYOffset = -15;
-            loadAnimationFrames("images/Units/CWarrior/StageThree");
+            attackXOffset = -50;
+            attackYOffset = 30;
+            moveXOffset = 0;
+            moveYOffset = 20;
+            loadAnimationFrames("images/Units/CFodder/StageThree");
+            
+            attackFrame = 8;
             atkCooldown = 30;
-            knockbacks = 2;
-            speed = 3;
-            atk = 16;
-            health = 36;
+            knockbacks = 3;
+            speed = 4;
+            atk = 10;
+            health = 30;
             break;
         }
     }
