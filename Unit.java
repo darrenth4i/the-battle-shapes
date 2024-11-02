@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Superclass for every Unit in the Simulation
  * 
- * @author Justin Ye and Andy Li)
+ * @author Justin Ye and Andy Li
  * @version Oct 31
  */
 public abstract class Unit extends SuperSmoothMover
