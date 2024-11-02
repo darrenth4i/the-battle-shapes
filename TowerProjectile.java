@@ -56,8 +56,8 @@ public abstract class TowerProjectile extends Actor
     protected void moveTowardsTarget() {
         int x1 = getX();
         int y1 = getY();
-        int x2 = target.getX();
-        int y2 = target.getY();
+        int x2 = target.getNormalX();
+        int y2 = target.getNormalY();
 
         // Calculate the angle towards the target
         double angle = Math.atan2(y2 - y1, x2 - x1);

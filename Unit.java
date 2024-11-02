@@ -283,4 +283,8 @@ public abstract class Unit extends SuperSmoothMover
     {
         return standingXPos;
     }
+    public int getNormalY()
+    {
+        return startYPos;
+    }
 }
