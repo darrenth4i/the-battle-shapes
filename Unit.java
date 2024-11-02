@@ -37,6 +37,8 @@ public abstract class Unit extends SuperSmoothMover
     protected int attackXOffset;
     protected int attackYOffset;
     
+    protected int startYPos;
+    
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnim = new ArrayList<GreenfootImage>();
     protected int attackIndex;
@@ -50,6 +52,7 @@ public abstract class Unit extends SuperSmoothMover
     
     protected Unit()
     {   
+        animationTimer.mark();
         knockbackTimer = 0;
         isKnockedBack = false;
         isAttacking = false;
@@ -60,6 +63,7 @@ public abstract class Unit extends SuperSmoothMover
     
     protected void addedToWorld(World world)
     {
+        startYPos = getY();
         maxHealth = health;
         System.out.println(maxHealth);
         System.out.println(maxHealth/knockbacks);
@@ -75,6 +79,9 @@ public abstract class Unit extends SuperSmoothMover
      */
     public void act()
     {
+        if(animationTimer.millisElapsed() < 16){
+            return;
+        }
         if(!isKnockedBack)
         {
             if(atkCooldown <= timer && isAttacking)
@@ -113,8 +120,10 @@ public abstract class Unit extends SuperSmoothMover
                 setRotation(0);
                 isKnockedBack = false;
                 knockbackTimer = 0;
+                setLocation(getX(), startYPos);
             }
         }
+        animationTimer.mark();
     }
     
     /**
@@ -169,7 +178,7 @@ public abstract class Unit extends SuperSmoothMover
     protected void hurt(int damage)
     {
         this.health -= damage;
-        if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue())
+        if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue()&&!isKnockedBack&&knockbackTimer==0)
         {
             health = knockbackHealth.get(knockbackHealth.size()-1);
             isKnockedBack = true;
