@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public abstract class Tower extends Actor
 {
     //Tower vaiables "traits"
+    protected int maxHealth = 1000, health = maxHealth;
     //Denotes team
     protected boolean circle;
     protected int towerRange;
@@ -67,6 +68,26 @@ public abstract class Tower extends Actor
         if(count%fireInterval == 0)
         {
             shoot();
+        }
+        if(health<0)
+        {
+            endSimulation();
+        }
+    }
+    
+    /** {NOT IMPLEMENTED YET}
+     * The method that is run to end the simulation, resulting 
+     * in either square's or circle's victory
+     */
+    protected void endSimulation()
+    {
+        if(circle)
+        {
+            
+        }
+        else
+        {
+            
         }
     }
     
@@ -150,6 +171,10 @@ public abstract class Tower extends Actor
         }
     }
     
+    /**
+     * Gets lowest health instance of Unit class of the same shape
+     * Used by Support tower to target the lowest health unit of that "team"
+     */
     protected Unit getLowestHealthSameShape()
     {
         if(!circle)
@@ -209,5 +234,8 @@ public abstract class Tower extends Actor
         return circle;
     }
     
-    
+    public void hurt(int damage)
+    {
+        health-=damage;
+    }
 }
