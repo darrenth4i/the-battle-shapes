@@ -7,7 +7,9 @@ public class SpawnUnitButton extends Actor
     private boolean circle, spawned;
     private Tower spawn;
     private int unitCost;
-    private int cFod, cTan, cRan, cHea, cWar, sFod, sTan, sRan, sHea, sWar;
+    //Level/stage of the shapes.
+    private int cFod, cTan, cRan, cHea, cWar; 
+    private int sFod, sTan, sRan, sHea, sWar;
     
 
     public SpawnUnitButton(String u, int cost, boolean c) {

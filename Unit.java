@@ -34,7 +34,7 @@ public abstract class Unit extends SuperSmoothMover
     protected boolean isKnockedBack;
     protected int knockbackTimer; 
     
-    protected static int stage;
+    protected int stage;
     
     protected int attackXOffset;
     protected int attackYOffset;
