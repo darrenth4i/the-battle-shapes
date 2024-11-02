@@ -66,7 +66,7 @@ public abstract class TowerProjectile extends Actor
         setRotation((int) Math.toDegrees(angle));
 
         // Move a certain number of units (speed) towards the target
-        int speed = 2;  // Adjust speed as needed
+        int speed = 4;  // Adjust speed as needed
         int dx = (int) (Math.cos(angle) * speed);
         int dy = (int) (Math.sin(angle) * speed);
 
