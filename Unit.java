@@ -39,6 +39,11 @@ public abstract class Unit extends SuperSmoothMover
     protected int attackXOffset;
     protected int attackYOffset;
     
+    protected int moveXOffset;
+    protected int moveYOffset;
+    protected boolean prepareMoveOffset;
+    
+    protected int standingXPos;
     protected int startYPos;
     
     protected int walkIndex;
@@ -65,7 +70,7 @@ public abstract class Unit extends SuperSmoothMover
     
     protected void addedToWorld(World world)
     {
-        range = attackAnim.get(0).getWidth();
+        range = attackAnim.get(0).getWidth()/2;
         startYPos = getY();
         maxHealth = health;
         System.out.println(maxHealth);
@@ -89,6 +94,11 @@ public abstract class Unit extends SuperSmoothMover
         {
             if(atkCooldown <= timer && isAttacking)
             {
+                if(!prepareMoveOffset)
+                {
+                    setLocation(getX() - moveXOffset, getY() - moveYOffset);
+                    prepareMoveOffset = true;
+                }
                 attackAnimation(attackFrame);
             }
             else if(getImage() == attackAnim.get(attackAnim.size()-1))
@@ -100,9 +110,20 @@ public abstract class Unit extends SuperSmoothMover
             {
                 idleIndex = animate(idleAnim, idleIndex);
                 timer++;
+                if(!prepareMoveOffset)
+                {
+                    setLocation(getX() - moveXOffset, getY() - moveYOffset);
+                    prepareMoveOffset = true;
+                }
             }
             else
             {
+                standingXPos = getX();
+                if(prepareMoveOffset)
+                {
+                    setLocation(getX() + moveXOffset, getY() + moveYOffset);
+                    prepareMoveOffset = false;
+                }
                 walkIndex = animate(walkAnim, walkIndex);
                 walk();
             }
@@ -123,7 +144,7 @@ public abstract class Unit extends SuperSmoothMover
                 setRotation(0);
                 isKnockedBack = false;
                 knockbackTimer = 0;
-                setLocation(getX(), startYPos);
+                setLocation(getX(), startYPos-moveYOffset);
             }
         }
         animationTimer.mark();
@@ -231,5 +252,10 @@ public abstract class Unit extends SuperSmoothMover
             idleAnim.add(new GreenfootImage(path + "/stand/" + i + ".png"));
             idleAnim.get(i).scale((int)(idleAnim.get(i).getWidth()*imageScale),(int)(idleAnim.get(i).getHeight()*imageScale));
         }
+    }
+    
+    public int getNormalX()
+    {
+        return standingXPos;
     }
 }

@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Square here.
@@ -42,16 +43,26 @@ public abstract class Square extends Unit
      */
     protected void attack()
     {
-        Circle target = getObjectsInRange(range, Circle.class).size() != 0 ? getObjectsInRange(range, Circle.class).get(0) : null;
-        if(target != null)
+        List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
+        if(potentialTargets.size() > 0)
         {
-            System.out.println("Shit");
-            target.hurt(atk);
-        }
-        else
-        
-        {
-            System.out.println("Smiss");
+            Circle target = potentialTargets.get(0);
+            for(int i = 0; i < potentialTargets.size(); i++)
+            {
+                if(potentialTargets.get(i).getNormalX() < target.getNormalX())
+                {
+                    target = potentialTargets.get(i);
+                }
+            }
+            if(target != null)
+            {
+                System.out.println("S hit");
+                target.hurt(atk);
+            }
+            else
+            {
+                System.out.println("Smiss");
+            }
         }
     }
     
@@ -64,6 +75,6 @@ public abstract class Square extends Unit
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getOneObjectAtOffset(getImage().getWidth(), 0, Circle.class) == null;
+        return getObjectsInRange(range, Circle.class).size() == 0;
     }
 }

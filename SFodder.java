@@ -27,7 +27,7 @@ public class SFodder extends Square
         health = 12;
         attackFrame = 5;
         
-        attackXOffset = 80;
+        attackXOffset = 40;
         attackYOffset = -10;
     }
 }

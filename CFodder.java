@@ -20,16 +20,45 @@ public class CFodder extends Circle
     public CFodder(int stage)
     {
         super(stage);
-        
-        loadAnimationFrames("images/Units/CFodder/StageOne");
-        
-        knockbacks = 2;
-        speed = 2;
-        atk = 4;
-        health = 12;
-        attackFrame = 5;
-        
-        attackXOffset = -50;
-        attackYOffset = 0;
+        switch(stage)
+        {
+            case 1:
+            attackXOffset = -45;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/CFodder/StageOne");    
+            
+            atkCooldown = 60;
+            knockbacks = 2;
+            speed = 2;
+            atk = 4;
+            health = 12;
+            break;
+            
+            case 2:
+            attackXOffset = -5;
+            attackYOffset = 5;
+            moveXOffset = 0;
+            moveYOffset = 20;
+            loadAnimationFrames("images/Units/CFodder/StageTwo");
+            
+            attackFrame = 8;
+            atkCooldown = 60;
+            knockbacks = 2;
+            speed = 4;
+            atk = 8;
+            health = 24;
+            break;
+            
+            case 3:
+            attackXOffset = -35;
+            attackYOffset = -15;
+            loadAnimationFrames("images/Units/CWarrior/StageThree");
+            atkCooldown = 30;
+            knockbacks = 2;
+            speed = 3;
+            atk = 16;
+            health = 36;
+            break;
+        }
     }
 }
