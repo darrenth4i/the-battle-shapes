@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Text extends Actor
+public class Text extends UI
 {
     public Text(String text, int size) {
         updateText(text, size);

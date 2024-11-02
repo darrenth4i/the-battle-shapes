@@ -14,7 +14,7 @@ public abstract class Unit extends SuperSmoothMover
     protected int health, maxHealth;
     // Shield from defense tower
     protected int shield;
-    
+
     //Damage per hit
     protected int atk;
     //Time between attacks
@@ -36,19 +36,19 @@ public abstract class Unit extends SuperSmoothMover
     //boolean for when it is knocked back
     protected boolean isKnockedBack;
     protected int knockbackTimer; 
-    
+
     protected int stage;
-    
+
     protected int attackXOffset;
     protected int attackYOffset;
-    
+
     protected int moveXOffset;
     protected int moveYOffset;
     protected boolean prepareMoveOffset;
-    
+
     protected int standingXPos;
     protected int startYPos;
-    
+
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnim = new ArrayList<GreenfootImage>();
     protected int attackIndex;
@@ -57,9 +57,9 @@ public abstract class Unit extends SuperSmoothMover
     protected ArrayList<GreenfootImage> idleAnim = new ArrayList<GreenfootImage>();
     protected int deathIndex;
     protected GreenfootImage knockback;
-    
+
     protected SimpleTimer animationTimer = new SimpleTimer();
-    
+
     public Unit(int stage)
     {   
         this.stage = stage;
@@ -70,7 +70,7 @@ public abstract class Unit extends SuperSmoothMover
         atkCooldown = 60;
         attackFrame = 0; //Placeholder
     }
-    
+
     protected void addedToWorld(World world)
     {
         range = attackAnim.get(0).getWidth()/2;
@@ -84,7 +84,7 @@ public abstract class Unit extends SuperSmoothMover
             knockbackHealth.add((Integer)(maxHealth/knockbacks*i));
         }
     }
-    
+
     /**
      * Act - Chooses whether to move, attack, or stand still if on cooldown
      */
@@ -152,26 +152,25 @@ public abstract class Unit extends SuperSmoothMover
         }
         animationTimer.mark();
     }
-    
+
     /**
      * Walks forward if nothing is obstructing movement
      */
     protected abstract void walk();
-    
+
     /**
      * Checks the path of the unit for any obstructions
      * @return If the path is clear
      */
     protected abstract boolean checkFront();
-    
+
     protected abstract void knockback();
-    
+
     /**
      * Does damage to a target
      */
     protected abstract void attack();
-    
-    
+
     /**
      * Animation for an attack
      */
@@ -198,14 +197,14 @@ public abstract class Unit extends SuperSmoothMover
             }
         }
     }
-    
+
     /**
      * Takes damage from attack
      */
     protected void hurt(int damage)
     {
         getWorld().addObject(new HitParticle(), getX(), getY());
-        
+
         if(shield<1) //mitigates the damage dealt if shield is present
         {
             this.health -= damage;
@@ -214,7 +213,7 @@ public abstract class Unit extends SuperSmoothMover
         {
             shield--;
         }
-        
+
         if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue()&&!isKnockedBack&&knockbackTimer==0)
         {
             health = knockbackHealth.get(knockbackHealth.size()-1);
@@ -227,24 +226,22 @@ public abstract class Unit extends SuperSmoothMover
             knockbackHealth.remove(knockbackHealth.size()-1);
         }
     }
-    
+
     protected void heal(int recover)
     {
         this.health += recover;
     }
-    
+
     protected void shield(int instance)
     {
         shield = instance;
     }
-    
+
     protected double getHealthDividedByMax()
     {
         return (double)health/maxHealth;
     }
-    
-    
-    
+
     /**
      * Simple Animations
      */
@@ -258,7 +255,7 @@ public abstract class Unit extends SuperSmoothMover
         }
         return index;
     }
-    
+
     protected void loadAnimationFrames(String path)
     {
         //Important: Ensure all folders are labelled with "attack", "move", and "stand"
@@ -278,11 +275,12 @@ public abstract class Unit extends SuperSmoothMover
             idleAnim.get(i).scale((int)(idleAnim.get(i).getWidth()*imageScale),(int)(idleAnim.get(i).getHeight()*imageScale));
         }
     }
-    
+
     public int getNormalX()
     {
         return standingXPos;
     }
+
     public int getNormalY()
     {
         return startYPos;

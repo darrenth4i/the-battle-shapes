@@ -24,23 +24,14 @@ public class MyWorld extends World
         addObject(new Offense(false, 500, 100), 100, 425);
         addObject(new Offense(true, 500, 100), 924, 425);
         
-        addObject(new CWarrior(1), 900, 500);
-        addObject(new CWarrior(1), 900, 500);
-        addObject(new CWarrior(1), 900, 500);
-        addObject(new CWarrior(1), 900, 500);
-        addObject(new CWarrior(1), 900, 500);
-        addObject(new CWarrior(1), 900, 500);
-        addObject(new CWarrior(1), 900, 500);
-        addObject(new CWarrior(1), 900, 500);
+        addObject(new SpawnUnitButton("CFodder", 1, 0, 3000), 924, 80);
+        addObject(new SpawnUnitButton("CFodder", 2, 0, 3000), 924, 150);
+        addObject(new SpawnUnitButton("CFodder", 3, 0, 3000), 924, 220);
+        addObject(new SpawnUnitButton("CWarrior", 1, 0, 3000), 824, 80);
+        addObject(new SpawnUnitButton("CWarrior", 2, 0, 3000), 824, 150);
+        addObject(new SpawnUnitButton("CWarrior", 3, 0, 3000), 824, 220);
         
-        addObject(new SWarrior(1), 100, 500);
-        addObject(new SWarrior(1), 100, 500);
-        addObject(new SWarrior(1), 100, 500);
-        addObject(new SWarrior(1), 100, 500);
-        addObject(new SWarrior(1), 100, 500);
-        addObject(new SWarrior(1), 100, 500);
-        addObject(new SWarrior(1), 100, 500);
-        addObject(new SWarrior(1), 100, 500);
-        
+        addObject(new SpawnUnitButton("SFodder", 1, 0, 3000), 100, 80);
+        addObject(new SpawnUnitButton("SWarrior", 1, 0, 3000), 200, 80);
     }
 }
