@@ -10,7 +10,7 @@ public class Support extends Tower
 {
     public Support(boolean circle, int towerRange, int fireInterval)
     {
-        super(circle, towerRange, fireInterval);
+        super(circle, towerRange, fireInterval, 2);
     }
     /**
      * Act - do whatever the Support wants to do. This method is called whenever
@@ -18,11 +18,14 @@ public class Support extends Tower
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public void shoot()
     {
-        getWorld().addObject(new OffenseProjectile(circle,getLowestHealthSameShape(),1, 1), getX(), getY());
+        if(getLowestHealthSameShape() != null)
+        {
+            getWorld().addObject(new SupportProjectile(circle,getLowestHealthSameShape(),1, 1), getX(), getY());
+        }
     }
 }

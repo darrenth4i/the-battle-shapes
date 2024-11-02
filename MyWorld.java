@@ -23,5 +23,7 @@ public class MyWorld extends World
         
         addObject(new CFodder(2), 900, 500);
         addObject(new SWarrior(1), 100, 500);
+        addObject(new Offense(false, 500, 100), 100, 425);
+        addObject(new Support(true, 500, 100), 924, 425);
     }
 }

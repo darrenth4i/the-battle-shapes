@@ -10,7 +10,7 @@ public class Offense extends Tower
 {
     public Offense(boolean circle, int towerRange, int fireInterval)
     {
-        super(circle, towerRange, fireInterval);
+        super(circle, towerRange, fireInterval, 1);
     }
     /**
      * Act - do whatever the Offense wants to do. This method is called whenever
@@ -18,10 +18,13 @@ public class Offense extends Tower
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     public void shoot()
     {
-        getWorld().addObject(new OffenseProjectile(circle,getNearestOppositeShape(),1, 1), getX(), getY());
+        if(getNearestOppositeShape() != null)
+        {
+            getWorld().addObject(new OffenseProjectile(circle,getNearestOppositeShape(),1, 1), getX(), getY());
+        }
     }
 }

@@ -16,28 +16,45 @@ public abstract class Tower extends Actor
     protected int fireInterval; //Higher rate means slower speed
     
     //Tower images - placeholders
-    protected GreenfootImage circleTower;
-    protected GreenfootImage squareTower;
+    protected GreenfootImage towerImage;
     
     
     
     //Helper variables
     private double distance, nearestDistance, furthestDistance, lowestHealth;
     protected int count;
-    public Tower(boolean circle, int towerRange, int fireInterval)
+    public Tower(boolean circle, int towerRange, int fireInterval, int type)
     {
         this.circle = circle;
         this.towerRange = towerRange;
         this.fireInterval = fireInterval;
         
-        //Sets tower image depending on side
+        //Sets tower image depending on side and type
         if(circle)
         {
-            setImage(circleTower);
+            if(type == 0){
+                towerImage = new GreenfootImage("Towers/Circle/Defense.png");
+            }
+            else if(type == 1){
+                towerImage = new GreenfootImage("Towers/Circle/Offense.png");
+            }
+            else{
+                towerImage = new GreenfootImage("Towers/Circle/Support.png");
+            }
+            setImage(towerImage);
         }
         else
         {
-            setImage(squareTower);
+            if(type == 0){
+                towerImage = new GreenfootImage("Towers/Square/Defense.png");
+            }
+            else if(type == 1){
+                towerImage = new GreenfootImage("Towers/Square/Offense.png");
+            }
+            else{
+                towerImage = new GreenfootImage("Towers/Square/Support.png");
+            }
+            setImage(towerImage);
         }
     }
     /**

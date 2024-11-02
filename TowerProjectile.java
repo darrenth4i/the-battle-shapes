@@ -11,11 +11,14 @@ public abstract class TowerProjectile extends Actor
     protected boolean circle;
     protected Unit target;
     protected int speed;
+    protected GreenfootImage projectile;
     public TowerProjectile(boolean circle, Unit target, int speed)
     {
         this.circle = circle;
         this.target = target;
         this.speed = speed;
+        projectile = getImage();
+        projectile.scale(10,10);
     }
     /**
      * Projectile moves towards target at set speed
@@ -24,10 +27,19 @@ public abstract class TowerProjectile extends Actor
      */
     public void act()
     {
-        moveTowards(target, speed);
-        if(intersects(target))
+        if (target != null && target.getWorld() != null) 
         {
-            effect();
+            // The target is still in the world
+            moveTowardsTarget();
+            if(intersects(target))
+            {
+                effect();
+                getWorld().removeObject(this);
+            }
+        }
+        else
+        {
+            getWorld().removeObject(this);
         }
     }
     
@@ -41,38 +53,23 @@ public abstract class TowerProjectile extends Actor
      * A method used to move towards an actor
      * Made by ChatGPT
      */
-    public void moveTowards(Actor targetObject, int speed) {
-        // Get the target's coordinates
-        if(targetObject.getWorld()==null)
-        {
-            return;
-        }
-        int targetX = targetObject.getX();
-        int targetY = targetObject.getY();
-    
-        // Get the moving object's current coordinates
-        int currentX = getX();
-        int currentY = getY();
-    
-        // Calculate the difference (direction vector)
-        int deltaX = targetX - currentX;
-        int deltaY = targetY - currentY;
-    
-        // Calculate the distance between the two objects
-        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    
-        // If the distance is not zero, move towards the target
-        if (distance != 0) {
-            // Calculate the normalized direction (unit vector)
-            double directionX = deltaX / distance;
-            double directionY = deltaY / distance;
-    
-            // Move in the direction of the target by 'speed' units
-            int newX = (int) (currentX + directionX * speed);
-            int newY = (int) (currentY + directionY * speed);
-    
-            // Set the new position of the moving object
-            setLocation(newX, newY);
-        }
+    protected void moveTowardsTarget() {
+        int x1 = getX();
+        int y1 = getY();
+        int x2 = target.getX();
+        int y2 = target.getY();
+
+        // Calculate the angle towards the target
+        double angle = Math.atan2(y2 - y1, x2 - x1);
+
+        // Set rotation to face the target (optional)
+        setRotation((int) Math.toDegrees(angle));
+
+        // Move a certain number of units (speed) towards the target
+        int speed = 2;  // Adjust speed as needed
+        int dx = (int) (Math.cos(angle) * speed);
+        int dy = (int) (Math.sin(angle) * speed);
+
+        setLocation(x1 + dx, y1 + dy);
     }
 }

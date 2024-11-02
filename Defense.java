@@ -10,7 +10,7 @@ public class Defense extends Tower
 {
     public Defense(boolean circle, int towerRange, int fireInterval)
     {
-        super(circle, towerRange, fireInterval);
+        super(circle, towerRange, fireInterval, 0);
     }
     
     /**
@@ -19,11 +19,14 @@ public class Defense extends Tower
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public void shoot()
     {
-        getWorld().addObject(new DefenseProjectile(circle,getFurthestSameShape(),1, 1), getX(), getY());
+        if(getFurthestSameShape() != null)
+        {
+            getWorld().addObject(new DefenseProjectile(circle,getFurthestSameShape(),1, 1), getX(), getY());
+        }
     }
 }

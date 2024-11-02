@@ -14,6 +14,7 @@ public abstract class Unit extends SuperSmoothMover
     protected int health, maxHealth;
     // Shield from defense tower
     protected int shield;
+    
     //Damage per hit
     protected int atk;
     //Time between attacks
@@ -239,6 +240,8 @@ public abstract class Unit extends SuperSmoothMover
     {
         return (double)health/maxHealth;
     }
+    
+    
     
     /**
      * Simple Animations
