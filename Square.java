@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Square extends Units
+public abstract class Square extends Unit
 {
     /**
      * Act - do whatever the Square wants to do. This method is called whenever
@@ -15,6 +15,14 @@ public abstract class Square extends Units
     public void act()
     {
         super.act();
+    }
+    
+    public Square()
+    {
+        super();
+        //Sets image size
+        imageScale = 1;
+        getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
     protected void walk()
@@ -34,11 +42,17 @@ public abstract class Square extends Units
      */
     protected void attack()
     {
-        Circle target = getObjectsInRange(getImage().getWidth()+30, Circle.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Circle.class).get(0) : null;
+        Circle target = getObjectsInRange(getImage().getWidth()/2, Circle.class).size() != 0 ? getObjectsInRange(getImage().getWidth()/2, Circle.class).get(0) : null;
         if(target != null)
         {
             target.hurt(atk);
         }
+    }
+    
+    protected void knockback()
+    {
+        setLocation(getX()-10, getY()+(3*(knockbackTimer-5)));
+        setRotation(-20);
     }
     
     protected boolean checkFront()

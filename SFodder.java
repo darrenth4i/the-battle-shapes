@@ -14,13 +14,20 @@ public class SFodder extends Square
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public SFodder()
     {
+        super();
+        loadAnimationFrames("images/Units/SFodder/StageOne");
+        knockbacks = 2;
         speed = 2;
-        atk = 1;
-        health = 4;
+        atk = 4;
+        health = 12;
+        attackFrame = 5;
+        
+        attackXOffset = 80;
+        attackYOffset = -10;
     }
 }

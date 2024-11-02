@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Justin Ye and Andy Li)
  * @version Oct 31
  */
-public abstract class Units extends SuperSmoothMover
+public abstract class Unit extends SuperSmoothMover
 {
     // Health of the unit
     protected int health, maxHealth;
@@ -22,6 +22,8 @@ public abstract class Units extends SuperSmoothMover
     //Number of times unit could be knocked back 
     protected int knockbacks;
     protected ArrayList<Integer> knockbackHealth = new ArrayList<Integer>();
+    //Range which the unit can reach
+    protected int range;
     //frame of the attack 
     protected int attackFrame;
     //Percentage of the image size
@@ -30,9 +32,12 @@ public abstract class Units extends SuperSmoothMover
     protected boolean isAttacking;
     //boolean for when it is knocked back
     protected boolean isKnockedBack;
+    protected int knockbackTimer; 
     
     protected int attackXOffset;
     protected int attackYOffset;
+    
+    protected int startYPos;
     
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnim = new ArrayList<GreenfootImage>();
@@ -43,19 +48,22 @@ public abstract class Units extends SuperSmoothMover
     protected int deathIndex;
     protected GreenfootImage knockback;
     
-    protected Units()
+    protected SimpleTimer animationTimer = new SimpleTimer();
+    
+    protected Unit()
     {   
+        animationTimer.mark();
+        knockbackTimer = 0;
         isKnockedBack = false;
         isAttacking = false;
+        range = getImage().getWidth();
         atkCooldown = 60;
         attackFrame = 0; //Placeholder
-        //Sets image size
-        imageScale = 0.35;
-        getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
     protected void addedToWorld(World world)
     {
+        startYPos = getY();
         maxHealth = health;
         System.out.println(maxHealth);
         System.out.println(maxHealth/knockbacks);
@@ -71,9 +79,12 @@ public abstract class Units extends SuperSmoothMover
      */
     public void act()
     {
+        if(animationTimer.millisElapsed() < 16){
+            return;
+        }
         if(!isKnockedBack)
         {
-            if(atkCooldown <= timer&&isAttacking)
+            if(atkCooldown <= timer && isAttacking)
             {
                 attackAnimation(attackFrame);
             }
@@ -94,14 +105,44 @@ public abstract class Units extends SuperSmoothMover
             }
             if (health <= 0)
             {
-                die();
+                getWorld().removeObject(this);
             }
         }
         else
         {
-            knockback();
+            if(knockbackTimer < 10)
+            {
+                knockbackTimer++;
+                knockback();
+            }
+            else
+            {
+                setRotation(0);
+                isKnockedBack = false;
+                knockbackTimer = 0;
+                setLocation(getX(), startYPos);
+            }
         }
+        animationTimer.mark();
     }
+    
+    /**
+     * Walks forward if nothing is obstructing movement
+     */
+    protected abstract void walk();
+    
+    /**
+     * Checks the path of the unit for any obstructions
+     * @return If the path is clear
+     */
+    protected abstract boolean checkFront();
+    
+    protected abstract void knockback();
+    
+    /**
+     * Does damage to a target
+     */
+    protected abstract void attack();
     
     
     /**
@@ -132,84 +173,27 @@ public abstract class Units extends SuperSmoothMover
     }
     
     /**
-     * Does damage to a target
-     */
-    protected void attack()
-    {
-        Units target = getObjectsInRange(getImage().getWidth()+30, Units.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Units.class).get(0) : null;
-        if(target != null)
-        {
-            System.out.println("hit");
-            target.hurt(atk);
-        }
-        else
-        {
-            System.out.println("miss");
-        }
-    }
-    
-    /**
-     * Walks forward if nothing is obstructing movement
-     */
-    protected void walk()
-    {
-        if(checkFront() && !isAttacking)
-        {
-            move(speed);
-        }
-        else
-        {
-            isAttacking = true;
-        }
-    }
-    
-    /**
-     * Checks the path of the unit for any obstructions
-     * @return If the path is clear
-     */
-    protected boolean checkFront()
-    {
-        //if it is empty, the front is clear
-        return getOneObjectAtOffset(-getImage().getWidth(), 0, Units.class) == null;
-    }
-    
-    /**
      * Takes damage from attack
      */
     protected void hurt(int damage)
     {
         this.health -= damage;
-        if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue())
+        if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue()&&!isKnockedBack&&knockbackTimer==0)
         {
+            health = knockbackHealth.get(knockbackHealth.size()-1);
+            isKnockedBack = true;
+            isAttacking = false;
+            attackIndex = 0;
+            setImage(idleAnim.get(0)); // Replace with knockback Sprite later.
+            timer = 10000;
             knockback();
+            knockbackHealth.remove(knockbackHealth.size()-1);
         }
     }
     
     protected void heal(int recover)
     {
         this.health += recover;
-    }
-    
-    /**
-     * Animates and deletes object upon death
-     */
-    protected void die()
-    {
-        if(deathIndex != 12) //Arbitrary number, replace with total animation index later
-        {
-            //play animation
-            deathIndex++;
-        }
-        else
-        {
-            getWorld().removeObject(this);
-        }
-    }
-    
-    protected void knockback()
-    {
-        setLocation(getX()-10, getY());
-        knockbackHealth.remove(knockbackHealth.size()-1);
     }
     
     /**

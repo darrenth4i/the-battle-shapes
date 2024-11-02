@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Circle extends Units
+public abstract class Circle extends Unit
 {
     /**
      * Act - do whatever the Circle wants to do. This method is called whenever
@@ -15,6 +15,14 @@ public abstract class Circle extends Units
     public void act()
     {
         super.act();
+    }
+    
+    public Circle()
+    {
+        super();
+        //Sets image size
+        imageScale = 0.35;
+        getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
     /**
@@ -34,9 +42,8 @@ public abstract class Circle extends Units
     
     protected void knockback()
     {
-        setLocation(getX()+50, getY());
-        //make smoother later
-        knockbackHealth.remove(0);
+        setLocation(getX()+10, getY()+(3*(knockbackTimer-5)));
+        setRotation(20);
     }
     
     /**
@@ -44,7 +51,7 @@ public abstract class Circle extends Units
      */
     protected void attack()
     {
-        Square target = getObjectsInRange(getImage().getWidth()+30, Square.class).size() != 0 ? getObjectsInRange(getImage().getWidth()+30, Square.class).get(0) : null;
+        Square target = getObjectsInRange(getImage().getWidth()/2, Square.class).size() != 0 ? getObjectsInRange(getImage().getWidth()/2, Square.class).get(0) : null;
         if(target != null)
         {
             target.hurt(atk);
