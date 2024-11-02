@@ -39,6 +39,10 @@ public abstract class Unit extends SuperSmoothMover
     protected int attackXOffset;
     protected int attackYOffset;
     
+    protected int moveXOffset;
+    protected int moveYOffset;
+    protected boolean prepareMoveOffset;
+    
     protected int standingXPos;
     protected int startYPos;
     
@@ -90,6 +94,11 @@ public abstract class Unit extends SuperSmoothMover
         {
             if(atkCooldown <= timer && isAttacking)
             {
+                if(!prepareMoveOffset)
+                {
+                    setLocation(getX() - moveXOffset, getY() - moveYOffset);
+                    prepareMoveOffset = true;
+                }
                 attackAnimation(attackFrame);
             }
             else if(getImage() == attackAnim.get(attackAnim.size()-1))
@@ -101,10 +110,20 @@ public abstract class Unit extends SuperSmoothMover
             {
                 idleIndex = animate(idleAnim, idleIndex);
                 timer++;
+                if(!prepareMoveOffset)
+                {
+                    setLocation(getX() - moveXOffset, getY() - moveYOffset);
+                    prepareMoveOffset = true;
+                }
             }
             else
             {
                 standingXPos = getX();
+                if(prepareMoveOffset)
+                {
+                    setLocation(getX() + moveXOffset, getY() + moveYOffset);
+                    prepareMoveOffset = false;
+                }
                 walkIndex = animate(walkAnim, walkIndex);
                 walk();
             }
@@ -125,7 +144,7 @@ public abstract class Unit extends SuperSmoothMover
                 setRotation(0);
                 isKnockedBack = false;
                 knockbackTimer = 0;
-                setLocation(getX(), startYPos);
+                setLocation(getX(), startYPos-moveYOffset);
             }
         }
         animationTimer.mark();
