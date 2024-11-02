@@ -82,7 +82,7 @@ public abstract class Unit extends SuperSmoothMover
      */
     public void act()
     {
-        if(animationTimer.millisElapsed() < 16){
+        if(animationTimer.millisElapsed() < 18){
             return;
         }
         if(!isKnockedBack)
