@@ -39,6 +39,7 @@ public abstract class Unit extends SuperSmoothMover
     protected int attackXOffset;
     protected int attackYOffset;
     
+    protected int standingXPos;
     protected int startYPos;
     
     protected int walkIndex;
@@ -65,7 +66,7 @@ public abstract class Unit extends SuperSmoothMover
     
     protected void addedToWorld(World world)
     {
-        range = attackAnim.get(0).getWidth();
+        range = attackAnim.get(0).getWidth()/2;
         startYPos = getY();
         maxHealth = health;
         System.out.println(maxHealth);
@@ -103,6 +104,7 @@ public abstract class Unit extends SuperSmoothMover
             }
             else
             {
+                standingXPos = getX();
                 walkIndex = animate(walkAnim, walkIndex);
                 walk();
             }
@@ -231,5 +233,10 @@ public abstract class Unit extends SuperSmoothMover
             idleAnim.add(new GreenfootImage(path + "/stand/" + i + ".png"));
             idleAnim.get(i).scale((int)(idleAnim.get(i).getWidth()*imageScale),(int)(idleAnim.get(i).getHeight()*imageScale));
         }
+    }
+    
+    public int getNormalX()
+    {
+        return standingXPos;
     }
 }

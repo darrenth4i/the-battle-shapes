@@ -1,9 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
- * Write a description of class Circle here.
+ * The superclass for every circle unit
  * 
- * @author (your name) 
+ * @author Andy Li
  * @version (a version number or a date)
  */
 public abstract class Circle extends Unit
@@ -51,21 +52,32 @@ public abstract class Circle extends Unit
      */
     protected void attack()
     {
-        Square target = getObjectsInRange(range, Square.class).size() != 0 ? getObjectsInRange(range, Square.class).get(0) : null;
-        if(target != null)
+        List<Square> potentialTargets = getObjectsInRange(range, Square.class);
+        if(potentialTargets.size() > 0)
         {
-            System.out.println("Chit");
-            target.hurt(atk);
-        }
-        else
-        {
-            System.out.println("Cmiss");
+            Square target = potentialTargets.get(0);
+            for(int i = 0; i < potentialTargets.size(); i++)
+            {
+                if(potentialTargets.get(i).getNormalX() > target.getNormalX())
+                {
+                    target = potentialTargets.get(i);
+                }
+            }
+            if(target != null)
+            {
+                System.out.println("Chit");
+                target.hurt(atk);
+            }
+            else
+            {
+                System.out.println("Cmiss");
+            }
         }
     }
     
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getOneObjectAtOffset(-getImage().getWidth(), 0, Square.class) == null;
+        return getObjectsInRange(range, Square.class).size() == 0;
     }
 }

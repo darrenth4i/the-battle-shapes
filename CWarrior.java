@@ -20,7 +20,9 @@ public class CWarrior extends Circle
     public CWarrior(int stage)
     {
         super(stage);
-        
+        attackFrame = 11;
+        attackXOffset = -35;
+        attackYOffset = -31;
         switch(stage)
         {
             case 1:
@@ -40,12 +42,17 @@ public class CWarrior extends Circle
             atk = 12;
             health = 40;
             break;
+            
+            case 3:
+            attackXOffset = -35;
+            attackYOffset = -15;
+            loadAnimationFrames("images/Units/CWarrior/StageThree");
+            atkCooldown = 30;
+            knockbacks = 2;
+            speed = 3;
+            atk = 16;
+            health = 50;
+            break;
         }
-        
-
-        
-        attackFrame = 11;
-        attackXOffset = -35;
-        attackYOffset = -31;
     }
 }

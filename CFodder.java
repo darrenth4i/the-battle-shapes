@@ -29,7 +29,7 @@ public class CFodder extends Circle
         health = 12;
         attackFrame = 5;
         
-        attackXOffset = -50;
+        attackXOffset = -45;
         attackYOffset = 0;
     }
 }
