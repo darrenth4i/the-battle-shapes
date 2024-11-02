@@ -21,9 +21,10 @@ public class MyWorld extends World
         bg.scale(1024,800);
         setBackground(bg);
         
-        addObject(new CFodder(2), 900, 500);
-        addObject(new SWarrior(1), 100, 500);
         addObject(new Offense(false, 500, 100), 100, 425);
         addObject(new Support(true, 500, 100), 924, 425);
+        
+        addObject(new CWarrior(1), 900, 500);
+        addObject(new SWarrior(1), 100, 500);
     }
 }

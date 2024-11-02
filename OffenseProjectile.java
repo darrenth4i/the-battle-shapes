@@ -13,7 +13,7 @@ public class OffenseProjectile extends TowerProjectile
     {
         super(circle, target, speed);
         this.damage = damage;
-        
+        setImage("images/TowerProjectile/Offense.png");
     }
     public void act()
     {

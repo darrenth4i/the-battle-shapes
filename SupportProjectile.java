@@ -13,7 +13,7 @@ public class SupportProjectile extends TowerProjectile
     {
         super(circle, target, speed);
         this.heal = heal;
-        
+        setImage("images/TowerProjectile/Support.png");
     }
     public void act()
     {

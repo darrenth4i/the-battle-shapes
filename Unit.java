@@ -204,6 +204,8 @@ public abstract class Unit extends SuperSmoothMover
      */
     protected void hurt(int damage)
     {
+        getWorld().addObject(new HitParticle(), getX(), getY());
+        
         if(shield<1) //mitigates the damage dealt if shield is present
         {
             this.health -= damage;

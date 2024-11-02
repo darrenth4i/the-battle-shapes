@@ -50,8 +50,8 @@ public class CFodder extends Circle
             break;
             
             case 3:
-            attackXOffset = -50;
-            attackYOffset = 30;
+            attackXOffset = -53;
+            attackYOffset = 28;
             moveXOffset = 0;
             moveYOffset = 20;
             loadAnimationFrames("images/Units/CFodder/StageThree");
