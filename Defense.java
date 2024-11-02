@@ -12,6 +12,7 @@ public class Defense extends Tower
     {
         super(circle, towerRange, fireInterval);
     }
+    
     /**
      * Act - do whatever the Defence wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -19,5 +20,10 @@ public class Defense extends Tower
     public void act()
     {
         // Add your action code here.
+    }
+    
+    public void shoot()
+    {
+        
     }
 }

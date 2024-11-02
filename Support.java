@@ -20,4 +20,9 @@ public class Support extends Tower
     {
         // Add your action code here.
     }
+    
+    public void shoot()
+    {
+        
+    }
 }

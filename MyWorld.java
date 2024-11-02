@@ -22,7 +22,7 @@ public class MyWorld extends World
         setBackground(bg);
         
         addObject(new CWarrior(), 900, 500);
-        addObject(new SFodder(), 100, 500);
+        addObject(new SWarrior(), 100, 500);
     }
     
 }

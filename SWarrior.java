@@ -14,16 +14,22 @@ public class SWarrior extends Square
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public SWarrior()
     {
         super();
+        loadAnimationFrames("images/Units/SWarrior/StageOne");
+        
         atkCooldown = 30;
         knockbacks = 2;
         speed = 3;
         atk = 8;
-        health = 12;
+        health = 33;
+        
+        attackFrame = 11;
+        attackXOffset = 15;
+        attackYOffset = 0;
     }
 }
