@@ -17,8 +17,9 @@ public class SRanger extends Square
         // Add your action code here.
     }
     
-    public SRanger()
+    public SRanger(int stage)
     {
+        super(stage);
         speed = 2;
         atk = 1;
         health = 4;

@@ -17,8 +17,9 @@ public class CRanger extends Circle
         // Add your action code here.
     }
     
-    public CRanger()
+    public CRanger(int stage)
     {
+        super(stage);
         speed = 2;
         atk = 1;
         health = 4;

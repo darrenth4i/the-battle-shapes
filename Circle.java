@@ -17,9 +17,9 @@ public abstract class Circle extends Unit
         super.act();
     }
     
-    public Circle()
+    public Circle(int stage)
     {
-        super();
+        super(stage);
         //Sets image size
         imageScale = 0.35;
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
@@ -51,10 +51,15 @@ public abstract class Circle extends Unit
      */
     protected void attack()
     {
-        Square target = getObjectsInRange(getImage().getWidth()/2, Square.class).size() != 0 ? getObjectsInRange(getImage().getWidth()/2, Square.class).get(0) : null;
+        Square target = getObjectsInRange(range, Square.class).size() != 0 ? getObjectsInRange(range, Square.class).get(0) : null;
         if(target != null)
         {
+            System.out.println("Chit");
             target.hurt(atk);
+        }
+        else
+        {
+            System.out.println("Cmiss");
         }
     }
     

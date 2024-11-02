@@ -7,6 +7,7 @@ public class SpawnUnitButton extends Actor
     private boolean circle, spawned;
     private Tower spawn;
     private int unitCost;
+    private int cFod, cTan, cRan, cHea, cWar, sFod, sTan, sRan, sHea, sWar;
     
 
     public SpawnUnitButton(String u, int cost, boolean c) {
@@ -35,16 +36,16 @@ public class SpawnUnitButton extends Actor
     }
 
     public void SpawnUnit() {
-        if (unit == "CFodder") {getWorld().addObject(new CFodder(), spawn.getX(), spawn.getY());
-        } else if (unit == "CTank") {getWorld().addObject(new CTank(), spawn.getX(), spawn.getY());
-        } else if (unit == "CRanger") {getWorld().addObject(new CRanger(), spawn.getX(), spawn.getY());
-        } else if (unit == "CHealer") {getWorld().addObject(new CHealer(), spawn.getX(), spawn.getY());
-        } else if (unit == "CWarrior") {getWorld().addObject(new CWarrior(), spawn.getX(), spawn.getY());
-        } else if (unit == "SFodder") {getWorld().addObject(new SFodder(), spawn.getX(), spawn.getY());
-        } else if (unit == "STank") {getWorld().addObject(new STank(), spawn.getX(), spawn.getY());
-        } else if (unit == "SRanger") {getWorld().addObject(new SRanger(), spawn.getX(), spawn.getY());
-        } else if (unit == "SHealer") {getWorld().addObject(new SHealer(), spawn.getX(), spawn.getY());
-        } else if (unit == "SWarrior") {getWorld().addObject(new SWarrior(), spawn.getX(), spawn.getY());
+        if (unit == "CFodder") {getWorld().addObject(new CFodder(cFod), spawn.getX(), spawn.getY());
+        } else if (unit == "CTank") {getWorld().addObject(new CTank(cTan), spawn.getX(), spawn.getY());
+        } else if (unit == "CRanger") {getWorld().addObject(new CRanger(cRan), spawn.getX(), spawn.getY());
+        } else if (unit == "CHealer") {getWorld().addObject(new CHealer(cHea), spawn.getX(), spawn.getY());
+        } else if (unit == "CWarrior") {getWorld().addObject(new CWarrior(cWar), spawn.getX(), spawn.getY());
+        } else if (unit == "SFodder") {getWorld().addObject(new SFodder(sFod), spawn.getX(), spawn.getY());
+        } else if (unit == "STank") {getWorld().addObject(new STank(sTan), spawn.getX(), spawn.getY());
+        } else if (unit == "SRanger") {getWorld().addObject(new SRanger(sRan), spawn.getX(), spawn.getY());
+        } else if (unit == "SHealer") {getWorld().addObject(new SHealer(sHea), spawn.getX(), spawn.getY());
+        } else if (unit == "SWarrior") {getWorld().addObject(new SWarrior(sWar), spawn.getX(), spawn.getY());
         }
     }
 }

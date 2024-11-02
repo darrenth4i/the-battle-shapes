@@ -17,8 +17,9 @@ public class CHealer extends Circle
         // Add your action code here.
     }
     
-    public CHealer()
+    public CHealer(int stage)
     {
+        super(stage);
         speed = 2;
         atk = 1;
         health = 4;

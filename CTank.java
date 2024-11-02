@@ -17,8 +17,9 @@ public class CTank extends Circle
         // Add your action code here.
     }
     
-    public CTank()
+    public CTank(int stage)
     {
+        super(stage);
         speed = 2;
         atk = 1;
         health = 4;

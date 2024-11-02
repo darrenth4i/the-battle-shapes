@@ -17,8 +17,9 @@ public class STank extends Square
         // Add your action code here.
     }
     
-    public STank()
+    public STank(int stage)
     {
+        super(stage);
         speed = 2;
         atk = 1;
         health = 4;

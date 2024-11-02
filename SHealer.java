@@ -17,8 +17,9 @@ public class SHealer extends Square
         // Add your action code here.
     }
     
-    public SHealer()
+    public SHealer(int stage)
     {
+        super(stage);
         speed = 2;
         atk = 1;
         health = 4;

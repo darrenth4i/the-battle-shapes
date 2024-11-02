@@ -17,9 +17,9 @@ public class CFodder extends Circle
         super.act();
     }
     
-    public CFodder()
+    public CFodder(int stage)
     {
-        super();
+        super(stage);
         
         loadAnimationFrames("images/Units/CFodder/StageOne");
         

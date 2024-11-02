@@ -21,8 +21,7 @@ public class MyWorld extends World
         bg.scale(1024,800);
         setBackground(bg);
         
-        addObject(new CWarrior(), 900, 500);
-        addObject(new SWarrior(), 100, 500);
+        addObject(new CWarrior(2), 900, 500);
+        addObject(new SWarrior(1), 100, 500);
     }
-    
 }

@@ -17,16 +17,32 @@ public class CWarrior extends Circle
         super.act();
     }
     
-    public CWarrior()
+    public CWarrior(int stage)
     {
-        super();
-        loadAnimationFrames("images/Units/CWarrior/StageOne");
+        super(stage);
         
-        atkCooldown = 30;
-        knockbacks = 2;
-        speed = 3;
-        atk = 8;
-        health = 16;
+        switch(stage)
+        {
+            case 1:
+            loadAnimationFrames("images/Units/CWarrior/StageOne");
+            atkCooldown = 30;
+            knockbacks = 2;
+            speed = 3;
+            atk = 8;
+            health = 30;
+            break;
+            
+            case 2:
+            loadAnimationFrames("images/Units/CWarrior/StageTwo");
+            atkCooldown = 30;
+            knockbacks = 2;
+            speed = 3;
+            atk = 12;
+            health = 40;
+            break;
+        }
+        
+
         
         attackFrame = 11;
         attackXOffset = -35;

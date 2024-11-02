@@ -34,6 +34,8 @@ public abstract class Unit extends SuperSmoothMover
     protected boolean isKnockedBack;
     protected int knockbackTimer; 
     
+    protected static int stage;
+    
     protected int attackXOffset;
     protected int attackYOffset;
     
@@ -50,19 +52,20 @@ public abstract class Unit extends SuperSmoothMover
     
     protected SimpleTimer animationTimer = new SimpleTimer();
     
-    protected Unit()
+    public Unit(int stage)
     {   
+        this.stage = stage;
         animationTimer.mark();
         knockbackTimer = 0;
         isKnockedBack = false;
         isAttacking = false;
-        range = getImage().getWidth();
         atkCooldown = 60;
         attackFrame = 0; //Placeholder
     }
     
     protected void addedToWorld(World world)
     {
+        range = attackAnim.get(0).getWidth();
         startYPos = getY();
         maxHealth = health;
         System.out.println(maxHealth);

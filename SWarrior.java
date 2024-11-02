@@ -17,16 +17,16 @@ public class SWarrior extends Square
         super.act();
     }
     
-    public SWarrior()
+    public SWarrior(int stage)
     {
-        super();
+        super(stage);
         loadAnimationFrames("images/Units/SWarrior/StageOne");
         
         atkCooldown = 30;
         knockbacks = 2;
         speed = 3;
         atk = 8;
-        health = 33;
+        health = 30;
         
         attackFrame = 11;
         attackXOffset = 15;

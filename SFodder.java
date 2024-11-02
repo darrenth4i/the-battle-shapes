@@ -17,9 +17,9 @@ public class SFodder extends Square
         super.act();
     }
     
-    public SFodder()
+    public SFodder(int stage)
     {
-        super();
+        super(stage);
         loadAnimationFrames("images/Units/SFodder/StageOne");
         knockbacks = 2;
         speed = 2;
