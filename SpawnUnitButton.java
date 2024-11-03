@@ -8,17 +8,18 @@ public class SpawnUnitButton extends UI
     private String unit;
     private boolean circle, spawned, onCooldown;
     private Tower spawn;
-    private int unitCost, unitStage, unitCooldown, cooldownTimes;
+    private int unitCost, unitStage, unitcooldown, cooldownTimes;
 
     private BlackBox blackbox;
-    private CooldownBar cooldownbar;
+    private BlackBox hoverBox;
+    private CooldownBar cooldownBar;
 
     public SpawnUnitButton(String u, int stage, int cost, int cooldown) {
         unit = u;
         unitCost = cost;
         unitStage = stage;
         //cooldown is in milliseconds
-        unitCooldown = cooldown;
+        unitcooldown = cooldown;
         if (u.equals("CFodder") || u.equals("CTank") || u.equals("CRanger") || u.equals("CHealer") || u.equals("CWarrior")) {
             circle = true;
         } else {
@@ -49,40 +50,37 @@ public class SpawnUnitButton extends UI
 
             spawned = false;
         }
-        if (Greenfoot.mouseClicked(this)) {
-            Cooldown();
-            SpawnUnit();
-        }
         if (onCooldown && cooldownTimes >= 50) {
-            OffCooldown();
+            offCooldown();
         }
-        if (onCooldown && timer.millisElapsed() > (unitCooldown/50)) {
+        if (onCooldown && timer.millisElapsed() > (unitcooldown/50)) {
             timer.mark();
             cooldownTimes++;
-            cooldownbar.update(unitCooldown - (unitCooldown/50 * cooldownTimes));
+            cooldownBar.update(unitcooldown - (unitcooldown/50 * cooldownTimes));
         }
+        darkenOnHover();
     }
 
-    public void OffCooldown() {
+    public void offCooldown() {
         onCooldown = false;
 
         getWorld().removeObject(blackbox);
-        getWorld().removeObject(cooldownbar);
+        getWorld().removeObject(cooldownBar);
     }
 
-    public void Cooldown() {
+    public void cooldown() {
         onCooldown = true;
         cooldownTimes = 0;
 
         blackbox = new BlackBox(120);
         getWorld().addObject(blackbox, getX(), getY());
-        cooldownbar = new CooldownBar(unitCooldown, unitCooldown, this, 78, 15, 0, Color.CYAN, Color.BLACK, false, Color.BLACK, 3);
-        getWorld().addObject(cooldownbar, getX(), getY() + 16);
+        cooldownBar = new CooldownBar(unitcooldown, unitcooldown, this, 78, 15, 0, Color.CYAN, Color.BLACK, false, Color.BLACK, 3);
+        getWorld().addObject(cooldownBar, getX(), getY() + 16);
 
         timer.mark();
     }
 
-    public void SpawnUnit() {
+    public void spawnUnit() {
         if (unit == "CFodder") {getWorld().addObject(new CFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "CTank") {getWorld().addObject(new CTank(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "CRanger") {getWorld().addObject(new CRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
@@ -93,6 +91,29 @@ public class SpawnUnitButton extends UI
         } else if (unit == "SRanger") {getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "SHealer") {getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "SWarrior") {getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        }
+    }
+    
+    /**
+     * Method to darken the button upon cursor hover
+     */
+    public void darkenOnHover() {
+        //If button touches cursor
+        if(isTouching(Cursor.class)){
+            //if no blackbox exists
+            if(!isTouching(BlackBox.class)){
+                hoverBox = new BlackBox(20);
+                getWorld().addObject(hoverBox, getX(), getY());    
+            }
+            //if click the button
+            if (Greenfoot.mouseClicked(null) && !onCooldown) {
+                spawnUnit();
+                cooldown();
+            }
+        }
+        //If button doesnt touch cursor and blackbox exists
+        if(!isTouching(Cursor.class) && isTouching(BlackBox.class)){
+            getWorld().removeObject(hoverBox);
         }
     }
 }
