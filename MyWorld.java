@@ -21,6 +21,8 @@ public class MyWorld extends World
         bg.scale(1024,800);
         setBackground(bg);
         
+        addObject(new Cursor(), 0, 0);
+        
         addObject(new Offense(false, 500, 100), 100, 425);
         addObject(new Offense(true, 500, 100), 924, 425);
         

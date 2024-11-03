@@ -20,9 +20,8 @@ public class Cursor extends SuperSmoothMover
     
     public Cursor(){
         cursorIdle = new GreenfootImage("images/cursor.png");
-        cursorHeld = new GreenfootImage("images/cursor.png");
         //Make held frame smaller, visual indicator of clicked
-        cursorHeld.scale((int)(getImage().getWidth() * 0.8), (int)(getImage().getHeight() * 0.8));
+        cursorHeld = new GreenfootImage("images/cursorHeld.png");  
         
         world = (MyWorld)this.getWorld();
         clicked = false;
