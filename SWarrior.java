@@ -29,7 +29,7 @@ public class SWarrior extends Square
         health = 30;
         
         attackFrame = 11;
-        attackXOffset = 15;
+        attackXOffset = 25;
         attackYOffset = 0;
     }
 }

@@ -14,14 +14,20 @@ public class STank extends Square
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public STank(int stage)
     {
         super(stage);
+        loadAnimationFrames("images/Units/STank/StageOne");
+        knockbacks = 2;
         speed = 2;
-        atk = 1;
-        health = 4;
+        atk = 3;
+        health = 90;
+        attackFrame = 5;
+        
+        attackXOffset = 20;
+        attackYOffset = 0;
     }
 }
