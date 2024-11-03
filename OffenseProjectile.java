@@ -25,7 +25,6 @@ public class OffenseProjectile extends TowerProjectile
             if(contacted)
             {
                 effect();
-                getWorld().addObject(new OffensiveProjectileExplosion(), getX(), getY());
                 getWorld().removeObject(this);
             }
         }

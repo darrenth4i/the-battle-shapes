@@ -18,7 +18,7 @@ public abstract class Unit extends SuperSmoothMover
     //Damage per hit
     protected int atk;
     //Time between attacks
-    protected int atkCooldown;
+    protected static int atkCooldown;
     protected int timer;
     //Walk speeds
     protected int speed;
@@ -132,7 +132,6 @@ public abstract class Unit extends SuperSmoothMover
             }
             if (health <= 0)
             {
-                createGhost();
                 getWorld().removeObject(this);
             }
         }
@@ -171,8 +170,6 @@ public abstract class Unit extends SuperSmoothMover
      * Does damage to a target
      */
     protected abstract void attack();
-    
-    protected abstract void createGhost();
 
     /**
      * Animation for an attack
