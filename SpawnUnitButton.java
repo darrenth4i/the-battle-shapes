@@ -13,6 +13,9 @@ public class SpawnUnitButton extends UI
     private BlackBox blackbox;
     private BlackBox hoverBox;
     private CooldownBar cooldownBar;
+    
+    //Boolean to determine if the cursor code "clicks" button 
+    private boolean clicked;
 
     public SpawnUnitButton(String u, int stage, int cost, int cooldown) {
         unit = u;
@@ -32,6 +35,7 @@ public class SpawnUnitButton extends UI
 
         cooldownTimes = 0;
         onCooldown = false;
+        clicked = false;
         spawned = true;
     }
 
@@ -105,8 +109,10 @@ public class SpawnUnitButton extends UI
                 hoverBox = new BlackBox(20);
                 getWorld().addObject(hoverBox, getX(), getY());    
             }
-            //if click the button
-            if (Greenfoot.mouseClicked(null) && !onCooldown) {
+            //if button clicked
+            //DEBUG remove Greenfoot.mouseClicked(null)
+            if ((Greenfoot.mouseClicked(null) || clicked) && !onCooldown) {
+                clicked = false;
                 spawnUnit();
                 cooldown();
             }
@@ -115,5 +121,19 @@ public class SpawnUnitButton extends UI
         if(!isTouching(Cursor.class) && isTouching(BlackBox.class)){
             getWorld().removeObject(hoverBox);
         }
+    }
+    
+    /**
+     * Setter method to change clicked 
+     */
+    public void setClicked(boolean c){
+        clicked = c;   
+    }
+    
+    /**
+     * Getter method to return onCooldown
+     */
+    public boolean getOnCooldown(){
+        return onCooldown;
     }
 }
