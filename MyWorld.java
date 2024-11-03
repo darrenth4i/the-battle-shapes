@@ -21,18 +21,18 @@ public class MyWorld extends World
         bg.scale(1024,800);
         setBackground(bg);
         
+        addObject(new Cursor(), 0, 0);
+        
         addObject(new Offense(false, 500, 100), 100, 425);
         addObject(new Offense(true, 500, 100), 924, 425);
         
-        addObject(new SpawnUnitButton("CFodder", 1, 0, 3000), 924, 80);
-        addObject(new SpawnUnitButton("CFodder", 2, 0, 3000), 924, 150);
-        addObject(new SpawnUnitButton("CFodder", 3, 0, 3000), 924, 220);
-        addObject(new SpawnUnitButton("CWarrior", 1, 0, 3000), 824, 80);
-        addObject(new SpawnUnitButton("CWarrior", 2, 0, 3000), 824, 150);
-        addObject(new SpawnUnitButton("CWarrior", 3, 0, 3000), 824, 220);
-        
         addObject(new SpawnUnitButton("SFodder", 1, 0, 3000), 100, 80);
         addObject(new SpawnUnitButton("SWarrior", 1, 0, 3000), 200, 80);
-        addObject(new SpawnUnitButton("STank", 1, 0, 3000), 300, 80);
+        
+        addObject(new SpawnUnitButton("CFodder", 1, 0, 3000), 800, 80);
+        addObject(new SpawnUnitButton("CWarrior", 1, 0, 3000), 900, 80);
+        
+        //Cursor shows up on top of everything
+        setPaintOrder(Cursor.class);
     }
 }
