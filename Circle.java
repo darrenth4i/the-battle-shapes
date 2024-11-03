@@ -78,11 +78,6 @@ public abstract class Circle extends Unit
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getObjectsInRange(range, Square.class).size() == 0 && (getOneObjectAtOffset(-range, 0, Tower.class) == null || ((Tower)getOneObjectAtOffset(-range, 0, Tower.class)).getCircle());
-    }
-    
-    protected void createGhost()
-    {
-        getWorld().addObject(new Ghost(true),getNormalX(), getNormalY());
+        return getObjectsInRange(range, Square.class).size() == 0 && (getOneObjectAtOffset(-range, 0, Tower.class) == null);
     }
 }
