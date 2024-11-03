@@ -26,7 +26,7 @@ public class MyWorld extends World
         addObject(new Offense(false, 500, 100), 100, 425);
         addObject(new Offense(true, 500, 100), 924, 425);
         
-        addObject(new CTank(2), 900, 500);
+        addObject(new CRanger(3), 900, 500);
         
         addObject(new SpawnUnitButton("SFodder", 1, 0, 3000), 100, 80);
         addObject(new SpawnUnitButton("SWarrior", 1, 0, 3000), 300, 80);
@@ -45,5 +45,7 @@ public class MyWorld extends World
         
         //Cursor shows up on top of everything
         setPaintOrder(Cursor.class);
+        
+        Greenfoot.setSpeed(50);
     }
 }

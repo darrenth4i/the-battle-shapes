@@ -15,6 +15,7 @@ public class OffenseProjectile extends TowerProjectile
         super(circle, target, speed);
         this.damage = damage;
         setImage("images/TowerProjectile/Offense.png");
+        getImage().setTransparency(0);
     }
     public void act()
     {
@@ -32,6 +33,10 @@ public class OffenseProjectile extends TowerProjectile
         else
         {
             getWorld().removeObject(this);
+        }
+        if(getImage().getTransparency() < 250)
+        {
+            getImage().setTransparency(getImage().getTransparency() + 10);
         }
     }
     public void effect()
