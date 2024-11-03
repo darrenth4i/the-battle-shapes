@@ -50,6 +50,7 @@ public class CFodder extends Circle
             break;
             
             case 3:
+            totalYOffset = -35;
             attackXOffset = -53;
             attackYOffset = 28;
             moveXOffset = 0;

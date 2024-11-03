@@ -67,7 +67,7 @@ public class OffenseProjectile extends TowerProjectile
         int dy;
         if(x1 > x2 - 40 && x1 < x2 +40)
         {
-            dy = 10;
+            dy = 15;
         }
         else
         {

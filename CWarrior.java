@@ -23,6 +23,7 @@ public class CWarrior extends Circle
         attackFrame = 11;
         attackXOffset = -35;
         attackYOffset = -31;
+        totalYOffset = -25;
         switch(stage)
         {
             case 1:

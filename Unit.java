@@ -45,6 +45,8 @@ public abstract class Unit extends SuperSmoothMover
     protected int moveXOffset;
     protected int moveYOffset;
     protected boolean prepareMoveOffset;
+    
+    protected int totalYOffset;
 
     protected int standingXPos;
     protected int startYPos;
@@ -74,7 +76,8 @@ public abstract class Unit extends SuperSmoothMover
     protected void addedToWorld(World world)
     {
         range = attackAnim.get(0).getWidth()/2;
-        startYPos = getY();
+        startYPos = getY()+totalYOffset;
+        setLocation(getX(), startYPos);
         maxHealth = health;
         System.out.println(maxHealth);
         System.out.println(maxHealth/knockbacks);
