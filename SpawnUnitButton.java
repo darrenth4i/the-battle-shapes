@@ -11,6 +11,7 @@ public class SpawnUnitButton extends UI
     private int unitCost, unitStage, unitCooldown, cooldownTimes;
 
     private BlackBox blackbox;
+    private BlackBox hoverBox;
     private CooldownBar cooldownbar;
 
     public SpawnUnitButton(String u, int stage, int cost, int cooldown) {
@@ -61,6 +62,7 @@ public class SpawnUnitButton extends UI
             cooldownTimes++;
             cooldownbar.update(unitCooldown - (unitCooldown/50 * cooldownTimes));
         }
+        darkenOnHover();
     }
 
     public void OffCooldown() {
@@ -93,6 +95,21 @@ public class SpawnUnitButton extends UI
         } else if (unit == "SRanger") {getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "SHealer") {getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "SWarrior") {getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        }
+    }
+    
+    /**
+     * Method to darken the button upon cursor hover
+     */
+    public void darkenOnHover() {
+        //If button touches cursor and no blackbox exists
+        if(isTouching(Cursor.class) && !isTouching(BlackBox.class)){
+            hoverBox = new BlackBox(20);
+            getWorld().addObject(hoverBox, getX(), getY());
+        }
+        //If button doesnt touch cursor and blackbox exists
+        if(!isTouching(Cursor.class) && isTouching(BlackBox.class)){
+            getWorld().removeObject(hoverBox);
         }
     }
 }
