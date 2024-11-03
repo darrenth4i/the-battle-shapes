@@ -132,6 +132,7 @@ public abstract class Unit extends SuperSmoothMover
             }
             if (health <= 0)
             {
+                createGhost();
                 getWorld().removeObject(this);
             }
         }
@@ -170,6 +171,8 @@ public abstract class Unit extends SuperSmoothMover
      * Does damage to a target
      */
     protected abstract void attack();
+    
+    protected abstract void createGhost();
 
     /**
      * Animation for an attack
