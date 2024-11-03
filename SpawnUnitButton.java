@@ -87,7 +87,7 @@ public class SpawnUnitButton extends UI
         } else if (unit == "CHealer") {getWorld().addObject(new CHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "CWarrior") {getWorld().addObject(new CWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "SFodder") {getWorld().addObject(new SFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } else if (unit == "STank") {getWorld().addObject(new STank(unitStage), spawn.getX(), spawn.getY() + 40 + Greenfoot.getRandomNumber(30));
+        } else if (unit == "STank") {getWorld().addObject(new STank(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "SRanger") {getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "SHealer") {getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         } else if (unit == "SWarrior") {getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
