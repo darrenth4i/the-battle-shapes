@@ -63,7 +63,7 @@ public abstract class Unit extends SuperSmoothMover
     protected SimpleTimer animationTimer = new SimpleTimer();
 
     public Unit(int stage)
-    {   
+    {   timer = 10000;
         this.stage = stage;
         animationTimer.mark();
         knockbackTimer = 0;
