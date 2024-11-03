@@ -18,7 +18,7 @@ public abstract class Unit extends SuperSmoothMover
     //Damage per hit
     protected int atk;
     //Time between attacks
-    protected static int atkCooldown;
+    protected int atkCooldown;
     protected int timer;
     //Walk speeds
     protected int speed;
