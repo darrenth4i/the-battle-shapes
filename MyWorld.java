@@ -31,5 +31,8 @@ public class MyWorld extends World
         
         addObject(new SpawnUnitButton("CFodder", 1, 0, 3000), 800, 80);
         addObject(new SpawnUnitButton("CWarrior", 1, 0, 3000), 900, 80);
+        
+        //Cursor shows up on top of everything
+        setPaintOrder(Cursor.class);
     }
 }
