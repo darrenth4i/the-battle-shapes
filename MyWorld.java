@@ -31,6 +31,7 @@ public class MyWorld extends World
         addObject(new SpawnUnitButton("SFodder", 1, 0, 3000), 100, 80);
         addObject(new SpawnUnitButton("SWarrior", 1, 0, 3000), 300, 80);
         addObject(new SpawnUnitButton("STank", 1, 0, 3000), 200, 80);
+        addObject(new SpawnUnitButton("SHealer", 1, 0, 3000), 400, 80);
         
         
         addObject(new SpawnUnitButton("CFodder", 1, 0, 3000), 924, 80);

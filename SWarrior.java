@@ -20,16 +20,19 @@ public class SWarrior extends Square
     public SWarrior(int stage)
     {
         super(stage);
-        loadAnimationFrames("images/Units/SWarrior/StageOne");
+        switch(stage)
+        {
+            case 1:
+            attackXOffset = 25;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/SWarrior/StageOne");
         
-        atkCooldown = 30;
-        knockbacks = 2;
-        speed = 3;
-        atk = 8;
-        health = 30;
-        
-        attackFrame = 11;
-        attackXOffset = 25;
-        attackYOffset = 0;
+            atkCooldown = 30;
+            knockbacks = 2;
+            speed = 3;
+            atk = 8;
+            health = 30;
+            attackFrame = 11;
+        }
     }
 }

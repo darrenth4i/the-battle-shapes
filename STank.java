@@ -20,14 +20,18 @@ public class STank extends Square
     public STank(int stage)
     {
         super(stage);
-        loadAnimationFrames("images/Units/STank/StageOne");
-        knockbacks = 2;
-        speed = 2;
-        atk = 3;
-        health = 90;
-        attackFrame = 5;
-        
-        attackXOffset = 20;
-        attackYOffset = 0;
+        switch(stage)
+        {
+            case 1:
+            attackXOffset = 20;
+            attackYOffset = 10;
+            loadAnimationFrames("images/Units/STank/StageOne");
+            
+            knockbacks = 3;
+            speed = 2;
+            atk = 3;
+            health = 90;
+            attackFrame = 5;
+        }
     }
 }

@@ -20,14 +20,18 @@ public class SFodder extends Square
     public SFodder(int stage)
     {
         super(stage);
-        loadAnimationFrames("images/Units/SFodder/StageOne");
-        knockbacks = 2;
-        speed = 2;
-        atk = 4;
-        health = 12;
-        attackFrame = 5;
-        
-        attackXOffset = 40;
-        attackYOffset = -10;
+        switch(stage)
+        {
+            case 1:
+            attackXOffset = 40;
+            attackYOffset = -10;
+            loadAnimationFrames("images/Units/SFodder/StageOne");
+               
+            knockbacks = 2;
+            speed = 2;
+            atk = 4;
+            health = 12;
+            attackFrame = 5;
+        }
     }
 }

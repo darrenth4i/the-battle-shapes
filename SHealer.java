@@ -14,14 +14,24 @@ public class SHealer extends Square
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public SHealer(int stage)
     {
         super(stage);
-        speed = 2;
-        atk = 1;
-        health = 4;
+        switch(stage)
+        {
+            case 1:
+            attackXOffset = 0;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/SHealer/StageOne");
+            
+            knockbacks = 2;
+            speed = 2;
+            atk = 4;
+            health = 12;
+            attackFrame = 5;
+        }
     }
 }
