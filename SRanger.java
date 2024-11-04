@@ -14,14 +14,25 @@ public class SRanger extends Square
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public SRanger(int stage)
     {
         super(stage);
-        speed = 2;
-        atk = 1;
-        health = 4;
+        switch(stage)
+        {
+            case 1:
+            attackXOffset = -12;
+            attackYOffset = -9;
+            loadAnimationFrames("images/Units/SRanger/StageOne");    
+            
+            attackFrame = 11;
+            atkCooldown = 60;
+            knockbacks = 6;
+            speed = 2;
+            atk = 6;
+            health = 12;
+        }
     }
 }
