@@ -95,36 +95,16 @@ public class SpawnUnitButton extends UI
     }
 
     public void spawnUnit() {
-        if (unit.equals("CFodder") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new CFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
-        } else if (unit.equals("CTank") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new CTank(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
-        } else if (unit.equals("CRanger") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new CRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
-        } else if (unit.equals("CHealer") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new CHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
-        } else if (unit.equals("CWarrior") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new CWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
-        } else if (unit.equals("SFodder") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new SFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
-        } else if (unit.equals("STank") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new STank(unitStage), spawn.getX(), spawn.getY() + 40 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
-        } else if (unit.equals("SRanger") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
-        } else if (unit.equals("SHealer") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
-        } else if (unit.equals("SWarrior") && wallet.getAmount() > unitCost) {
-            getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-            wallet.spend(unitCost);
+        if (unit.equals("CFodder")) {getWorld().addObject(new CFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } else if (unit.equals("CTank")) {getWorld().addObject(new CTank(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } else if (unit.equals("CRanger")) {getWorld().addObject(new CRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } else if (unit.equals("CHealer")) {getWorld().addObject(new CHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } else if (unit.equals("CWarrior")) {getWorld().addObject(new CWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } else if (unit.equals("SFodder")) {getWorld().addObject(new SFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } else if (unit.equals("STank")) {getWorld().addObject(new STank(unitStage), spawn.getX(), spawn.getY() + 40 + Greenfoot.getRandomNumber(30));
+        } else if (unit.equals("SRanger")) {getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } else if (unit.equals("SHealer")) {getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } else if (unit.equals("SWarrior")) {getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         }
     }
     
@@ -141,9 +121,10 @@ public class SpawnUnitButton extends UI
             }
             //if button clicked
             //DEBUG remove Greenfoot.mouseClicked(null)
-            if ((Greenfoot.mouseClicked(null) || clicked) && !onCooldown) {
+            if ((Greenfoot.mouseClicked(null) || clicked) && !onCooldown && wallet.getAmount() > unitCost) {
                 clicked = false;
                 spawnUnit();
+                wallet.spend(unitCost);
                 cooldown();
             }
         }

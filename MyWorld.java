@@ -26,8 +26,6 @@ public class MyWorld extends World
         addObject(new Offense(false, 500, 100), 100, 425);
         addObject(new Offense(true, 500, 100), 924, 425);
         
-        addObject(new CRanger(3), 900, 500);
-        
         addObject(new Wallet(false), 80, 560);
         addObject(new Wallet(true), 944, 560);
         

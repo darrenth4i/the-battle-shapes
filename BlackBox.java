@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class BlackBox here.
@@ -9,7 +10,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class BlackBox extends UI
 {
     private int transparency;
+    
     private GreenfootImage img;
+    
     
     public BlackBox(int t) {
         transparency = t;
