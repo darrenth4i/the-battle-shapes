@@ -60,7 +60,7 @@ public class SpawnUnitButton extends UI
                 }
             }
 
-            getWorld().addObject(new Text("$" + unitCost, 20), getX() - getImage().getWidth()/2 + 21, getY() + getImage().getHeight()/2 - 13);
+            getWorld().addObject(new Text("$" + unitCost, 20), getX() - getImage().getWidth()/2 + 25, getY() + getImage().getHeight()/2 - 13);
 
             spawned = false;
         }

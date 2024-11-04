@@ -8,12 +8,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Text extends UI
 {
+    private GreenfootImage img;
+    
     public Text(String text, int size) {
         updateText(text, size);
     }
 
     public void updateText(String text, int size) {
-        GreenfootImage img = new GreenfootImage(text, size, Color.BLACK , Color.WHITE);
-        setImage(img);  
+        
+        img = new GreenfootImage(text, size, Color.BLACK , null);
+        
+        setImage(img);
     }
 }

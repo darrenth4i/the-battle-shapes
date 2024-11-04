@@ -14,6 +14,8 @@ public class Wallet extends UI
     private Text display;
     
     public Wallet(boolean c) {
+        getImage().setTransparency(0);
+        
         if (c) {
             circle = true;
         } else {
