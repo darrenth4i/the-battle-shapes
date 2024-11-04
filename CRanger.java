@@ -59,10 +59,10 @@ public class CRanger extends Circle
             
             attackFrame = 33;
             atkCooldown = 30;
-            knockbacks = 1;
+            knockbacks = 7;
             speed = 2;
-            atk = 6;
-            health = 70;
+            atk = 10;
+            health = 20;
             break;
         }
     }

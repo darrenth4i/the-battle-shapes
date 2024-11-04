@@ -46,11 +46,15 @@ public class OffenseProjectile extends TowerProjectile
             //area of effect damage
             if(circle)
             {
-                getIntersectingObjects(Square.class).get(i).hurt(damage);
+                Square target = getIntersectingObjects(Square.class).get(i);
             }
             else 
             {
-                getIntersectingObjects(Circle.class).get(i).hurt(damage);
+                Circle target = getIntersectingObjects(Circle.class).get(i);
+            }
+            if(target.getNormalX() < getX() + 20 && target.getNormalX() > getX() - 20)
+            {
+                target.hurt(damage);
             }
         }
         //target.hurt(damage);
