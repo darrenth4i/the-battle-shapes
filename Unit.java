@@ -93,9 +93,6 @@ public abstract class Unit extends SuperSmoothMover
      */
     public void act()
     {
-        if(animationTimer.millisElapsed() < 18){
-            return;
-        }
         if(!isKnockedBack)
         {
             if(atkCooldown <= timer && isAttacking)
@@ -154,7 +151,6 @@ public abstract class Unit extends SuperSmoothMover
                 setLocation(getX(), startYPos-moveYOffset);
             }
         }
-        animationTimer.mark();
     }
 
     /**
@@ -182,6 +178,9 @@ public abstract class Unit extends SuperSmoothMover
      */
     protected void attackAnimation(int attackFrame)
     {
+        if(animationTimer.millisElapsed() < 20){
+            return;
+        }
         if(isAttacking)
         {
             if(attackIndex == 0)
@@ -201,6 +200,7 @@ public abstract class Unit extends SuperSmoothMover
                 attackIndex = 0;
                 timer = 0;
             }
+            animationTimer.mark();
         }
     }
 
@@ -253,12 +253,16 @@ public abstract class Unit extends SuperSmoothMover
      */
     protected int animate(ArrayList<GreenfootImage> animation, int index)
     {
+        if(animationTimer.millisElapsed() < 20){
+            return index;
+        }
         setImage(animation.get(index));
         index++;
         if(index > animation.size()-1)
         {
             index = 0;
         }
+        animationTimer.mark();
         return index;
     }
 
