@@ -43,6 +43,9 @@ public class MyWorld extends World
         addObject(new SpawnUnitButton("CWarrior", 1, 0, 3000), 724, 80);
         addObject(new SpawnUnitButton("CWarrior", 2, 0, 3000), 724, 180);
         addObject(new SpawnUnitButton("CWarrior", 3, 0, 3000), 724, 280);
+        addObject(new SpawnUnitButton("CRanger", 1, 0, 3000), 624, 80);
+        addObject(new SpawnUnitButton("CRanger", 2, 0, 3000), 624, 180);
+        addObject(new SpawnUnitButton("CRanger", 3, 0, 3000), 624, 280);
         
         //Cursor shows up on top of everything
         setPaintOrder(Cursor.class);
