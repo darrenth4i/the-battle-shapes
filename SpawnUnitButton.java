@@ -7,15 +7,15 @@ public class SpawnUnitButton extends UI
 
     private String unit;
     private boolean circle, spawned, onCooldown;
-    private int unitCost, unitStage, unitcooldown, cooldownTimes;
-    
-    private Wallet wallet;
     private Tower spawn;
-    
+    private int unitCost, unitStage, unitcooldown, cooldownTimes;
+
     private BlackBox blackbox;
     private BlackBox hoverBox;
     private CooldownBar cooldownBar;
     
+    private ArrayList<SpawnUnitButton> buttons;
+
     //Boolean to determine if the cursor code "clicks" button 
     private boolean clicked;
 
@@ -25,7 +25,7 @@ public class SpawnUnitButton extends UI
         unitStage = stage;
         //cooldown is in milliseconds
         unitcooldown = cooldown;
-        if (u.equals("CFodder") || u.equals("CTank") || u.equals("CRanger") || u.equals("CHealer") || u.equals("CWarrior")) {
+        if (u.substring(0, 1).equals("C")) {
             circle = true;
         } else {
             circle = false;
@@ -40,7 +40,7 @@ public class SpawnUnitButton extends UI
         clicked = false;
         spawned = true;
     }
-
+    
     public void act() {
         if (spawned) {
             ArrayList<Tower> towers = (ArrayList<Tower>)getWorld().getObjects(Tower.class);
@@ -51,17 +51,9 @@ public class SpawnUnitButton extends UI
                     spawn = towers.get(1);
                 }
             }
-            ArrayList<Wallet> allWallet = (ArrayList<Wallet>)getWorld().getObjects(Wallet.class);
-            if (allWallet.size() != 0) {
-                if (allWallet.get(0).getCircle() == circle) {
-                    wallet = allWallet.get(0);
-                } else {
-                    wallet = allWallet.get(1);
-                }
-            }
 
-            getWorld().addObject(new Text("$" + unitCost, 20), getX() - getImage().getWidth()/2 + 25, getY() + getImage().getHeight()/2 - 13);
-
+            getWorld().addObject(new Text("$" + unitCost, 20), getX() - getImage().getWidth()/2 + 21, getY() + getImage().getHeight()/2 - 13);
+            
             spawned = false;
         }
         if (onCooldown && cooldownTimes >= 50) {
@@ -95,19 +87,38 @@ public class SpawnUnitButton extends UI
     }
 
     public void spawnUnit() {
-        if (unit.equals("CFodder")) {getWorld().addObject(new CFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } else if (unit.equals("CTank")) {getWorld().addObject(new CTank(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } else if (unit.equals("CRanger")) {getWorld().addObject(new CRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } else if (unit.equals("CHealer")) {getWorld().addObject(new CHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } else if (unit.equals("CWarrior")) {getWorld().addObject(new CWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } else if (unit.equals("SFodder")) {getWorld().addObject(new SFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } else if (unit.equals("STank")) {getWorld().addObject(new STank(unitStage), spawn.getX(), spawn.getY() + 40 + Greenfoot.getRandomNumber(30));
-        } else if (unit.equals("SRanger")) {getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } else if (unit.equals("SHealer")) {getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } else if (unit.equals("SWarrior")) {getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        if (unit == "CFodder") {
+            getWorld().addObject(new CFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } 
+        else if (unit == "CTank") {
+            getWorld().addObject(new CTank(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } 
+        else if (unit == "CRanger") {
+            getWorld().addObject(new CRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } 
+        else if (unit == "CHealer") {
+            getWorld().addObject(new CHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } 
+        else if (unit == "CWarrior") {
+            getWorld().addObject(new CWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } 
+        else if (unit == "SFodder") {
+            getWorld().addObject(new SFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } 
+        else if (unit == "STank") {
+            getWorld().addObject(new STank(unitStage), spawn.getX(), spawn.getY() + 40 + Greenfoot.getRandomNumber(30));
+        } 
+        else if (unit == "SRanger") {
+            getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } 
+        else if (unit == "SHealer") {
+            getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        } 
+        else if (unit == "SWarrior") {
+            getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
         }
     }
-    
+
     /**
      * Method to darken the button upon cursor hover
      */
@@ -121,10 +132,9 @@ public class SpawnUnitButton extends UI
             }
             //if button clicked
             //DEBUG remove Greenfoot.mouseClicked(null)
-            if ((Greenfoot.mouseClicked(null) || clicked) && !onCooldown && wallet.getAmount() > unitCost) {
+            if ((Greenfoot.mouseClicked(null) || clicked) && !onCooldown) {
                 clicked = false;
                 spawnUnit();
-                wallet.spend(unitCost);
                 cooldown();
             }
         }
@@ -133,14 +143,14 @@ public class SpawnUnitButton extends UI
             getWorld().removeObject(hoverBox);
         }
     }
-    
+
     /**
      * Setter method to change clicked 
      */
     public void setClicked(boolean c){
         clicked = c;   
     }
-    
+
     /**
      * Getter method to return onCooldown
      */
