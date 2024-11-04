@@ -65,12 +65,12 @@ public abstract class Circle extends Unit
             }
             if(target != null)
             {
-                System.out.println("Chit");
+                //System.out.println("Chit");
                 target.hurt(atk);
             }
             else
             {
-                System.out.println("Cmiss");
+                //System.out.println("Cmiss");
             }
         }
     }

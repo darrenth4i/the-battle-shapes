@@ -56,12 +56,12 @@ public abstract class Square extends Unit
             }
             if(target != null)
             {
-                System.out.println("S hit");
+                //System.out.println("S hit");
                 target.hurt(atk);
             }
             else
             {
-                System.out.println("Smiss");
+                //System.out.println("Smiss");
             }
         }
     }
