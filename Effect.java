@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Andy
  * @version (a version number or a date)
  */
-public class Effect extends Actor
+public abstract class Effect extends Actor
 {
     protected GreenfootImage image;
     protected int animationIndex;

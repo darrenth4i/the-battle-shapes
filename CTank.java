@@ -67,4 +67,13 @@ public class CTank extends Circle
             break;
         }
     }
+    
+    public void addedToWorld(World world)
+    {
+        super.addedToWorld(world);
+        if(stage > 1)
+        {
+            range -= 20;
+        }
+    }
 }
