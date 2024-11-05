@@ -6,11 +6,17 @@ public class SpawnUnitButton extends UI
     private SimpleTimer timer = new SimpleTimer();
 
     private String unit;
+    private Wallet wallet;
     private int unitIndex;
     private boolean circle, spawned, onCooldown;
     private Tower spawn;
-    private int unitCost, unitStage, unitcooldown, cooldownTimes;
+    private int unitCost, unitStage, unitCooldown, cooldownTimes;
 
+    //Used for upgrade of the buttons to spawn upgraded units
+    private int spent;
+    final private int firstUpgrade = 1000;
+    final private int secondUpgrade = 10000;
+    
     private BlackBox blackbox;
     private BlackBox hoverBox;
     private CooldownBar cooldownBar;
@@ -26,7 +32,7 @@ public class SpawnUnitButton extends UI
         unitCost = cost;
         unitStage = stage;
         //cooldown is in milliseconds
-        unitcooldown = cooldown;
+        unitCooldown = cooldown;
         if (u.substring(0, 1).equals("C")) {
             circle = true;
         } else {
@@ -60,6 +66,14 @@ public class SpawnUnitButton extends UI
                     spawn = towers.get(1);
                 }
             }
+            ArrayList<Wallet> wallets = (ArrayList<Wallet>)getWorld().getObjects(Wallet.class);
+            if (wallets.size() != 0) {
+                if (wallets.get(0).getCircle() == circle) {
+                    wallet = wallets.get(0);
+                } else {
+                    wallet = wallets.get(1);
+                }
+            }
 
             getWorld().addObject(new Text("$" + unitCost, 18), getX() - getImage().getWidth()/2 + 24, getY() + getImage().getHeight()/2 - 15);
             
@@ -68,12 +82,20 @@ public class SpawnUnitButton extends UI
         if (onCooldown && cooldownTimes >= 50) {
             offCooldown();
         }
-        if (onCooldown && timer.millisElapsed() > (unitcooldown/50)) {
+        if (onCooldown && timer.millisElapsed() > (unitCooldown/50)) {
             timer.mark();
             cooldownTimes++;
-            cooldownBar.update(unitcooldown - (unitcooldown/50 * cooldownTimes));
+            cooldownBar.update(unitCooldown - (unitCooldown/50 * cooldownTimes));
         }
         darkenOnHover();
+        if(unitStage == 1 && spent>=firstUpgrade)
+        {
+            upgrade();
+        }
+        if(unitStage == 2 && spent>=secondUpgrade)
+        {
+            upgrade();
+        }
     }
 
     public void offCooldown() {
@@ -89,7 +111,7 @@ public class SpawnUnitButton extends UI
 
         blackbox = new BlackBox(120, this);
         getWorld().addObject(blackbox, getX(), getY());
-        cooldownBar = new CooldownBar(unitcooldown, unitcooldown, this, 78, 15, 0, Color.CYAN, Color.BLACK, false, Color.BLACK, 3);
+        cooldownBar = new CooldownBar(unitCooldown, unitCooldown, this, 78, 15, 0, Color.CYAN, Color.BLACK, false, Color.BLACK, 3);
         getWorld().addObject(cooldownBar, getX(), getY() + 16);
 
         timer.mark();
@@ -101,7 +123,7 @@ public class SpawnUnitButton extends UI
     public void spawnUnit() {
         //Tanks will offset less since they're taller
         int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 40 : 70; 
-        getWorld().addObject(unitArray[unitIndex], spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
+        getWorld().addObject(unitArray[unitIndex], spawn.getX(), spawn.getY() + yOffset + Greenfoot.getRandomNumber(30));
     }
 
     /**
@@ -117,9 +139,11 @@ public class SpawnUnitButton extends UI
             }
             //if button clicked
             //DEBUG remove Greenfoot.mouseClicked(null)
-            if ((Greenfoot.mouseClicked(null) || clicked) && !onCooldown) {
+            if ((Greenfoot.mouseClicked(null) || clicked) && !onCooldown && wallet.getAmount() > unitCost) {
                 clicked = false;
                 spawnUnit();
+                wallet.spend(unitCost);
+                spent+=unitCost;
                 cooldown();
             }
         }
@@ -141,5 +165,11 @@ public class SpawnUnitButton extends UI
      */
     public boolean getOnCooldown(){
         return onCooldown;
+    }
+    
+    public void upgrade()
+    {
+        getWorld().addObject(new SpawnUnitButton(unit, unitIndex, unitStage+1, unitCost, unitCooldown), getX(), getY());
+        getWorld().removeObject(this);
     }
 }
