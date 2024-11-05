@@ -9,8 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Wallet extends UI
 {
     private boolean circle, spawned;
-    private int amount;
-    private int money;
+    private double amount;
     
     private Text display;
     
@@ -25,7 +24,7 @@ public class Wallet extends UI
         spawned = true;
         amount = 0;
         
-        display = new Text("$" + amount, 30);
+        display = new Text("$" + (int) amount, 30);
     }
     
     public void act() {
@@ -33,12 +32,8 @@ public class Wallet extends UI
             getWorld().addObject(display, getX(), getY());
             spawned = false;
         }
-        amount ++;
-        if(amount % 100 == 0)
-        {
-            money = amount;
-        }
-        display.updateText("$" + money, 30);
+        amount += 1; //* getMultiplier() When an upgrade to wallet is added
+        display.updateText("$" + (int) amount, 30);
     }
     
     public void spend(int cost) {
@@ -46,5 +41,5 @@ public class Wallet extends UI
     }
 
     public boolean getCircle() {return circle;}
-    public int getAmount() {return amount;}
+    public double getAmount() {return amount;}
 }

@@ -52,7 +52,7 @@ public class SpawnUnitButton extends UI
                 }
             }
 
-            getWorld().addObject(new Text("$" + unitCost, 20), getX() - getImage().getWidth()/2 + 21, getY() + getImage().getHeight()/2 - 13);
+            getWorld().addObject(new Text("$" + unitCost, 18), getX() - getImage().getWidth()/2 + 24, getY() + getImage().getHeight()/2 - 15);
             
             spawned = false;
         }
@@ -78,7 +78,7 @@ public class SpawnUnitButton extends UI
         onCooldown = true;
         cooldownTimes = 0;
 
-        blackbox = new BlackBox(120);
+        blackbox = new BlackBox(120, this);
         getWorld().addObject(blackbox, getX(), getY());
         cooldownBar = new CooldownBar(unitcooldown, unitcooldown, this, 78, 15, 0, Color.CYAN, Color.BLACK, false, Color.BLACK, 3);
         getWorld().addObject(cooldownBar, getX(), getY() + 16);
@@ -127,7 +127,7 @@ public class SpawnUnitButton extends UI
         if(isTouching(Cursor.class)){
             //if no blackbox exists
             if(!isTouching(BlackBox.class)){
-                hoverBox = new BlackBox(20);
+                hoverBox = new BlackBox(20, this);
                 getWorld().addObject(hoverBox, getX(), getY());    
             }
             //if button clicked

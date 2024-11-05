@@ -15,9 +15,7 @@ public class Text extends UI
     }
 
     public void updateText(String text, int size) {
-        
         img = new GreenfootImage(text, size, Color.BLACK , null);
-        
         setImage(img);
     }
 }

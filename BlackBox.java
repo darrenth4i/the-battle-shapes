@@ -11,16 +11,17 @@ public class BlackBox extends UI
 {
     private int transparency;
     
+    private SpawnUnitButton attachedButton;
     private GreenfootImage img;
-    
-    
-    public BlackBox(int t) {
-        transparency = t;
         
-        img = new GreenfootImage(90, 60);
+    public BlackBox(int t, SpawnUnitButton button) {
+        transparency = t;
+        attachedButton = button;
+        
+        img = new GreenfootImage(attachedButton.getImage().getWidth(), attachedButton.getImage().getHeight());
         img.setColor(Color.BLACK);
-        img.fillRect(0, 0, 90, 60); 
-        img.scale(90,60);
+        img.fillRect(0, 0, attachedButton.getImage().getWidth(), attachedButton.getImage().getHeight()); 
+        img.scale(90, attachedButton.getImage().getHeight());
         img.setTransparency(transparency);
         setImage(img);
     }
