@@ -1,16 +1,16 @@
 #BlueJ class context
 comment0.target=CHealer
-comment0.text=\n\ Write\ a\ description\ of\ class\ Healer\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Healer\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\n\ Act\ -\ do\ whatever\ the\ Healer\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ Healer\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment2.params=stage
 comment2.target=CHealer(int)
 comment3.params=world
 comment3.target=void\ addedToWorld(greenfoot.World)
 comment4.params=
 comment4.target=void\ attack()
-comment4.text=\n\ Heals\ an\ ally\n
+comment4.text=\r\n\ Heals\ an\ ally\r\n
 comment5.params=path
 comment5.target=void\ loadStageOneAnimationFrames(java.lang.String)
 comment6.params=path
