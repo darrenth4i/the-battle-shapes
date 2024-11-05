@@ -28,12 +28,12 @@ public class SRanger extends Square
             attackYOffset = -9;
             loadAnimationFrames("images/Units/SRanger/StageOne");    
             
-            attackFrame = 2;
             atkCooldown = 100;
+            health = 10;
             knockbacks = 6;
             speed = 2;
             atk = 6;
-            health = 12;
+            attackFrame = 2;
         }        
     }
     

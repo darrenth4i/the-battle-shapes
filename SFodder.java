@@ -24,14 +24,30 @@ public class SFodder extends Square
         {
             case 1:
             attackXOffset = 40;
-            attackYOffset = -10;
+            attackYOffset = -30;
             loadAnimationFrames("images/Units/SFodder/StageOne");
-               
+            
+            atkCooldown = 60;
             knockbacks = 2;
             speed = 2;
             atk = 4;
             health = 12;
             attackFrame = 5;
+            
+            break;
+            
+            case 2:
+            attackXOffset = 40;
+            attackYOffset = -30;
+            loadAnimationFrames("images/Units/SFodder/StageTwo");
+               
+            atkCooldown = 60;
+            knockbacks = 2;
+            speed = 4;
+            atk = 8;
+            health = 24;
+            attackFrame = 5;
+            break;
         }
     }
 }
