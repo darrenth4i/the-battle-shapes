@@ -33,6 +33,7 @@ public class CFodder extends Circle
             speed = 2;
             atk = 4;
             health = 12;
+            attackFrame = 5;
             break;
             
             case 2:
