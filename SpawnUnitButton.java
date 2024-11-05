@@ -40,8 +40,8 @@ public class SpawnUnitButton extends UI
         //preload objects so they dont lag in the middle of a game
         unitArray = new Unit[]
         {
-            new SFodder(unitStage), new STank(unitStage), new SWarrior(unitStage), new SRanger(unitStage), new SHealer(unitStage), 
-            new CFodder(unitStage), new CTank(unitStage), new CWarrior(unitStage), new CRanger(unitStage), new CHealer(unitStage)
+            new SFodder(unitStage), new SWarrior(unitStage), new STank(unitStage), new SRanger(unitStage), new SHealer(unitStage), 
+            new CFodder(unitStage), new CWarrior(unitStage), new CTank(unitStage), new CRanger(unitStage), new CHealer(unitStage)
         };
         
         cooldownTimes = 0;
