@@ -50,6 +50,8 @@ public abstract class Unit extends SuperSmoothMover
 
     protected int standingXPos;
     protected int startYPos;
+    
+    protected int feetYPos;
 
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnim = new ArrayList<GreenfootImage>();
@@ -79,9 +81,10 @@ public abstract class Unit extends SuperSmoothMover
         startYPos = getY()+totalYOffset;
         setLocation(getX(), startYPos);
         maxHealth = health;
-        System.out.println(maxHealth);
-        System.out.println(maxHealth/knockbacks);
-        System.out.println(knockbacks);
+        //System.out.println(maxHealth);
+        //System.out.println(maxHealth/knockbacks);
+        //System.out.println(knockbacks);
+        feetYPos = getY() + idleAnim.get(0).getHeight()/2;
         for(int i = 0; i < knockbacks; i++)
         {
             knockbackHealth.add((Integer)(maxHealth/knockbacks*i));
@@ -235,6 +238,7 @@ public abstract class Unit extends SuperSmoothMover
 
     protected void heal(int recover)
     {
+        getWorld().addObject(new HealEffect(), getNormalX(), feetYPos);
         this.health += recover;
     }
 

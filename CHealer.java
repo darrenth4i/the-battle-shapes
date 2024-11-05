@@ -1,5 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Write a description of class Healer here.
@@ -15,7 +17,7 @@ public class CHealer extends Circle
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public CHealer(int stage)
@@ -24,47 +26,50 @@ public class CHealer extends Circle
         switch(stage)
         {
             case 1:
-            attackXOffset = -12;
-            attackYOffset = -9;
-            loadAnimationFrames("images/Units/CRanger/StageOne");    
+            attackXOffset = 0;
+            attackYOffset = -35;
+            loadStageOneAnimationFrames("images/Units/CHealer/StageOne");    
             
-            attackFrame = 11;
+            attackFrame = 26;
             atkCooldown = 60;
-            knockbacks = 6;
+            knockbacks = 2;
             speed = 2;
-            atk = 6;
+            atk = 2;
             health = 12;
             break;
             
             case 2:
-            attackXOffset = -25;
-            attackYOffset = -35;
-            loadAnimationFrames("images/Units/CRanger/StageTwo");    
+            attackXOffset = -10;
+            attackYOffset = -34;
+            loadStageTwoAnimationFrames("images/Units/CHealer/StageTwo");
             
-            attackFrame = 6;
-            atkCooldown = 45;
-            knockbacks = 6;
-            speed = 2;
-            atk = 8;
-            health = 16;
+            attackFrame = 26;
+            atkCooldown = 60;
+            knockbacks = 2;
+            speed = 4;
+            atk = 4;
+            health = 24;
             break;
             
             case 3:
-            totalYOffset = -30;
-            attackXOffset = -65;
-            attackYOffset = 21;
-            moveXOffset = 0;
-            moveYOffset = 0;
-            loadAnimationFrames("images/Units/CRanger/StageThree");
+            attackXOffset = 10;
+            attackYOffset = -50;
+            loadAnimationFrames("images/Units/CHealer/StageThree");
             
-            attackFrame = 33;
+            attackFrame = 30;
             atkCooldown = 30;
-            knockbacks = 7;
-            speed = 2;
-            atk = 10;
-            health = 20;
+            knockbacks = 3;
+            speed = 4;
+            atk = 6;
+            health = 30;
             break;
         }
+    }
+    
+    public void addedToWorld(World world)
+    {
+        super.addedToWorld(world);
+        range = 300;
     }
     
     /**
@@ -78,7 +83,7 @@ public class CHealer extends Circle
             Circle target = potentialTargets.get(0);
             for(int i = 0; i < potentialTargets.size(); i++)
             {
-                if(potentialTargets.get(i).getNormalX() > target.getNormalX())
+                if(potentialTargets.get(i).getHealthDividedByMax() < target.getHealthDividedByMax())
                 {
                     target = potentialTargets.get(i);
                 }
@@ -92,6 +97,49 @@ public class CHealer extends Circle
             {
                 //System.out.println("Cmiss");
             }
+        }
+    }
+    
+    //Accidentally messed up animations
+    
+    private void loadStageOneAnimationFrames(String path)
+    {
+        //Important: Ensure all folders are labelled with "attack", "move", and "stand"
+        for(int i = 0; i < new File(path+"/attack").listFiles().length-1; i++)
+        {
+            attackAnim.add(new GreenfootImage(path + "/attack/" + i + ".gif"));
+            attackAnim.get(i).scale((int)(attackAnim.get(i).getWidth()*imageScale),(int)(attackAnim.get(i).getHeight()*imageScale));
+        }
+        for(int i = 0; i < new File(path+"/move").listFiles().length-1; i++)
+        {
+            walkAnim.add(new GreenfootImage(path + "/move/" + i + ".gif"));
+            walkAnim.get(i).scale((int)(walkAnim.get(i).getWidth()*imageScale),(int)(walkAnim.get(i).getHeight()*imageScale));
+        }
+        for(int i = 0; i < new File(path+"/stand").listFiles().length-1; i++)
+        {
+            idleAnim.add(new GreenfootImage(path + "/stand/" + i + ".gif"));
+            idleAnim.get(i).scale((int)(idleAnim.get(i).getWidth()*imageScale),(int)(idleAnim.get(i).getHeight()*imageScale));
+        }
+    }
+    
+    private void loadStageTwoAnimationFrames(String path)
+    {
+        //Important: Ensure all folders are labelled with "attack", "move", and "stand"
+        for(int i = 0; i < new File(path+"/attack").listFiles().length-1; i++)
+        {
+
+            attackAnim.add(new GreenfootImage(path + "/attack/" + "0(2)-"+ i + " 2.png"));
+            attackAnim.get(i).scale((int)(attackAnim.get(i).getWidth()*(imageScale*1.2)),(int)(attackAnim.get(i).getHeight()*(imageScale*1.2)));
+        }
+        for(int i = 0; i < new File(path+"/move").listFiles().length-1; i++)
+        {
+            walkAnim.add(new GreenfootImage(path + "/move/" + i + ".png"));
+            walkAnim.get(i).scale((int)(walkAnim.get(i).getWidth()*imageScale),(int)(walkAnim.get(i).getHeight()*imageScale));
+        }
+        for(int i = 0; i < new File(path+"/stand").listFiles().length-1; i++)
+        {
+            idleAnim.add(new GreenfootImage(path + "/stand/" + i + ".png"));
+            idleAnim.get(i).scale((int)(idleAnim.get(i).getWidth()*imageScale),(int)(idleAnim.get(i).getHeight()*imageScale));
         }
     }
 }
