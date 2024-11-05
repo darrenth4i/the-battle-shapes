@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class SRanger here.
@@ -27,12 +28,42 @@ public class SRanger extends Square
             attackYOffset = -9;
             loadAnimationFrames("images/Units/SRanger/StageOne");    
             
-            attackFrame = 11;
-            atkCooldown = 60;
+            attackFrame = 2;
+            atkCooldown = 100;
             knockbacks = 6;
             speed = 2;
             atk = 6;
             health = 12;
+        }        
+    }
+    
+    public void addedToWorld(World world)
+    {
+        super.addedToWorld(world);
+        range = 400;
+    }
+    
+    protected void attack()
+    {
+        List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
+    
+        if (potentialTargets.size() > 0) {
+            Circle target = potentialTargets.get(0);
+            
+            // Find the closest target approaching from the right (highest NormalX value).
+            for (int i = 0; i < potentialTargets.size(); i++) {
+                if (potentialTargets.get(i).getNormalX() > target.getNormalX()) {
+                    target = potentialTargets.get(i);
+                }
+            }
+            //flip the values
+            if (target.getNormalX() < getNormalX() + 200) {
+                target = null;
+            }
+            
+            if (target != null) {
+                target.hurt(atk);
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ public class Wallet extends UI
 {
     private boolean circle, spawned;
     private int amount;
+    private int money;
     
     private Text display;
     
@@ -33,7 +34,11 @@ public class Wallet extends UI
             spawned = false;
         }
         amount ++;
-        display.updateText("$" + amount, 30);
+        if(amount % 100 == 0)
+        {
+            money = amount;
+        }
+        display.updateText("$" + money, 30);
     }
     
     public void spend(int cost) {
