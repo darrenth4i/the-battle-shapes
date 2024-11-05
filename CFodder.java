@@ -27,6 +27,7 @@ public class CFodder extends Circle
             attackYOffset = 0;
             loadAnimationFrames("images/Units/CFodder/StageOne");    
             
+            attackFrame = 5;
             atkCooldown = 60;
             knockbacks = 2;
             speed = 2;
