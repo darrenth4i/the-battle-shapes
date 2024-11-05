@@ -31,7 +31,6 @@ public class MyWorld extends World
         addObject(new Wallet(false), 80, 560);
         addObject(new Wallet(true), 944, 560);
         
-        
         //SpawnUnitButton Parameters
         //(Name, unitIndex, level, cost, cooldown), x, y)
         //unitIndex help:
