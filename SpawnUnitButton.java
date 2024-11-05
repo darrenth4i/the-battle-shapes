@@ -6,6 +6,7 @@ public class SpawnUnitButton extends UI
     private SimpleTimer timer = new SimpleTimer();
 
     private String unit;
+    private int unitIndex;
     private boolean circle, spawned, onCooldown;
     private Tower spawn;
     private int unitCost, unitStage, unitcooldown, cooldownTimes;
@@ -14,13 +15,14 @@ public class SpawnUnitButton extends UI
     private BlackBox hoverBox;
     private CooldownBar cooldownBar;
     
-    private ArrayList<SpawnUnitButton> buttons;
+    private Unit[] unitArray;
 
     //Boolean to determine if the cursor code "clicks" button 
     private boolean clicked;
 
-    public SpawnUnitButton(String u, int stage, int cost, int cooldown) {
+    public SpawnUnitButton(String u, int uIndex, int stage, int cost, int cooldown) {
         unit = u;
+        unitIndex = uIndex;
         unitCost = cost;
         unitStage = stage;
         //cooldown is in milliseconds
@@ -34,7 +36,14 @@ public class SpawnUnitButton extends UI
         String filePath = "/UnitButtons/" + unit + "_" + unitStage + ".png";
         setImage(filePath);
         getImage().scale(90,60);
-
+        
+        //preload objects so they dont lag in the middle of a game
+        unitArray = new Unit[]
+        {
+            new SFodder(unitStage), new SWarrior(unitStage), new STank(unitStage), new SRanger(unitStage), new SHealer(unitStage), 
+            new CFodder(unitStage), new CWarrior(unitStage), new CTank(unitStage), new CRanger(unitStage), new CHealer(unitStage)
+        };
+        
         cooldownTimes = 0;
         onCooldown = false;
         clicked = false;
@@ -85,38 +94,14 @@ public class SpawnUnitButton extends UI
 
         timer.mark();
     }
-
+    
+    /**
+     * Method to spawn a preloaded unit based on its unitIndex 
+     */
     public void spawnUnit() {
-        if (unit == "CFodder") {
-            getWorld().addObject(new CFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } 
-        else if (unit == "CTank") {
-            getWorld().addObject(new CTank(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } 
-        else if (unit == "CRanger") {
-            getWorld().addObject(new CRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } 
-        else if (unit == "CHealer") {
-            getWorld().addObject(new CHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } 
-        else if (unit == "CWarrior") {
-            getWorld().addObject(new CWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } 
-        else if (unit == "SFodder") {
-            getWorld().addObject(new SFodder(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } 
-        else if (unit == "STank") {
-            getWorld().addObject(new STank(unitStage), spawn.getX(), spawn.getY() + 40 + Greenfoot.getRandomNumber(30));
-        } 
-        else if (unit == "SRanger") {
-            getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } 
-        else if (unit == "SHealer") {
-            getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        } 
-        else if (unit == "SWarrior") {
-            getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
-        }
+        //Tanks will offset less since they're taller
+        int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 40 : 70; 
+        getWorld().addObject(unitArray[unitIndex], spawn.getX(), spawn.getY() + 70 + Greenfoot.getRandomNumber(30));
     }
 
     /**
