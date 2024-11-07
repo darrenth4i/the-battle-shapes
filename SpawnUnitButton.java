@@ -13,23 +13,26 @@ public class SpawnUnitButton extends UI
 
     //Used for upgrade of the buttons to spawn upgraded units
     private int spent;
-    final private int firstUpgrade = 1000;
-    final private int secondUpgrade = 10000;
-    
+    final private int firstUpgrade;
+    final private int secondUpgrade;
+
     private BlackBox blackbox;
     private BlackBox hoverBox;
-    private CooldownBar cooldownBar;
+    private ProgressBar cooldownBar;
+    private ProgressBar upgradeBar;
+    private Text lvlText;
 
     //Boolean to determine if the cursor code "clicks" button 
     private boolean clicked;
-    
+
     //boolean to check if the last button has been created
     private boolean last;
-    
+
     //Constructor for Buttons without "last" boolean = true
     public SpawnUnitButton(String u, int stage, int cost, int cooldown) {
         this(u, stage, cost, cooldown, true, false);
     }
+<<<<<<< Updated upstream
     
     public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade) {
         this(u, stage, cost, cooldown, canUpgrade, false);
@@ -41,6 +44,17 @@ public class SpawnUnitButton extends UI
         unitStage = stage;
         this.canUpgrade = canUpgrade;
         
+=======
+
+    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean lastButton) {
+        unit = u;
+        unitCost = cost;
+        unitStage = stage;
+        spent = 0;
+
+        firstUpgrade = unitCost * 5;
+        secondUpgrade = unitCost * 15;
+>>>>>>> Stashed changes
         //cooldown is in milliseconds
         unitCooldown = cooldown;
         if (u.substring(0, 1).equals("C")) {
@@ -52,14 +66,14 @@ public class SpawnUnitButton extends UI
         String filePath = "/UnitButtons/" + unit + "_" + unitStage + ".png";
         setImage(filePath);
         getImage().scale(90,60);
-        
+
         cooldownTimes = 0;
         onCooldown = false;
         clicked = false;
         spawned = true;
         last = lastButton;
     }
-    
+
     /**
      * Method to preload objects into world and then remove them so that
      * Greenfoot can cache images (prevent freezing)
@@ -70,11 +84,11 @@ public class SpawnUnitButton extends UI
         int tempStage = unitStage;
         //name of all units
         String[] unitString = new String[]
-        {
-            "SFodder", "SWarrior", "STank", "SRanger", "SHealer", 
-            "CFodder", "CWarrior", "CTank", "CRanger", "CHealer"
-        };
-        
+            {
+                "SFodder", "SWarrior", "STank", "SRanger", "SHealer", 
+                "CFodder", "CWarrior", "CTank", "CRanger", "CHealer"
+            };
+
         //create every object so greenfoot can cache img animations
         for(int x = 1; x<4; x++){
             unitStage = x;
@@ -84,21 +98,24 @@ public class SpawnUnitButton extends UI
             }
             unitStage++;
         }
-            
-        
+
         //get all units created and remove them
         ArrayList<Unit> units = (ArrayList<Unit>)getWorld().getObjects(Unit.class);
         for(Unit shapes : units){
             getWorld().removeObject(shapes);
         }
+<<<<<<< Updated upstream
         
         
         
+=======
+
+>>>>>>> Stashed changes
         //Back to original value 
         unit = tempUnit;
         unitStage = tempStage;
     }
-    
+
     public void act() {
         if (spawned) {
             ArrayList<Tower> towers = (ArrayList<Tower>)getWorld().getObjects(Tower.class);
@@ -119,11 +136,28 @@ public class SpawnUnitButton extends UI
             }
 
             getWorld().addObject(new Text("$" + unitCost, 18), getX() - getImage().getWidth()/2 + 24, getY() + getImage().getHeight()/2 - 15);
-            
+
+            if (unitStage == 1) {
+                upgradeBar = new ProgressBar(firstUpgrade, 1, this, 78, 15, 0, Color.YELLOW, Color.WHITE, false, Color.BLACK, 3);
+                getWorld().addObject(upgradeBar, getX(), getY() + 50);
+                lvlText = new Text("LVL 1", 13);
+                getWorld().addObject(lvlText, getX(), getY() + 52);
+            } else if (unitStage == 2) {
+                upgradeBar = new ProgressBar(secondUpgrade - firstUpgrade, 1, this, 78, 15, 0, Color.YELLOW, Color.WHITE, false, Color.BLACK, 3);
+                getWorld().addObject(upgradeBar, getX(), getY() + 50);
+                lvlText = new Text("LVL 2", 13);
+                getWorld().addObject(lvlText, getX(), getY() + 52);
+            } else if (unitStage == 3) {
+                upgradeBar = new ProgressBar(1, 1, this, 78, 15, 0, Color.YELLOW, Color.WHITE, false, Color.BLACK, 3);
+                getWorld().addObject(upgradeBar, getX(), getY() + 50);
+                lvlText = new Text("LVL MAX", 13);
+                getWorld().addObject(lvlText, getX(), getY() + 52);
+            }
+
             if(last){
                 preload();   
             }
-            
+
             spawned = false;
         }
         if (onCooldown && cooldownTimes >= 50) {
@@ -146,6 +180,9 @@ public class SpawnUnitButton extends UI
                 upgrade();
             }
         }
+        if (upgradeBar.getWorld() != null && unitStage != 3) {
+            upgradeBar.update(spent);
+        }
     }
 
     public void offCooldown() {
@@ -161,12 +198,12 @@ public class SpawnUnitButton extends UI
 
         blackbox = new BlackBox(120, this);
         getWorld().addObject(blackbox, getX(), getY());
-        cooldownBar = new CooldownBar(unitCooldown, unitCooldown, this, 78, 15, 0, Color.CYAN, Color.BLACK, false, Color.BLACK, 3);
+        cooldownBar = new ProgressBar(unitCooldown, unitCooldown, this, 78, 15, 0, Color.CYAN, Color.BLACK, false, Color.BLACK, 3);
         getWorld().addObject(cooldownBar, getX(), getY() + 16);
 
         timer.mark();
     }
-    
+
     /**
      * Method to spawn a preloaded unit based on its unitIndex 
      */
@@ -174,7 +211,7 @@ public class SpawnUnitButton extends UI
         //Tanks will offset less since they're taller
         int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 40 : 70; 
         yOffset += Greenfoot.getRandomNumber(30);
-        
+
         if(!circle){
             if (unit == "SFodder") {
                 getWorld().addObject(new SFodder(unitStage), spawn.getX(), spawn.getY() + yOffset);
@@ -250,10 +287,12 @@ public class SpawnUnitButton extends UI
     public boolean getOnCooldown(){
         return onCooldown;
     }
-    
+
     public void upgrade()
     {
         getWorld().addObject(new SpawnUnitButton(unit, unitStage+1, unitCost, unitCooldown), getX(), getY());
         getWorld().removeObject(this);
     }
+
+    public int getSpent() {return spent;}
 }

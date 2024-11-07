@@ -38,26 +38,26 @@ public class MyWorld extends World
         addObject(new SpawnUnitButton("SFodder", 1, 100, 3000), 100, 55);
         addObject(new SpawnUnitButton("SFodder", 2, 100, 3000), 100, 125);
         addObject(new SpawnUnitButton("SFodder", 3, 100, 3000), 100, 195);
-        addObject(new SpawnUnitButton("STank", 1, 0, 3000), 200, 55);
-        addObject(new SpawnUnitButton("SWarrior", 1, 0, 3000), 300, 55);
-        addObject(new SpawnUnitButton("SRanger", 1, 0, 3000), 400, 55);
-        addObject(new SpawnUnitButton("SHealer", 1, 0, 3000), 500, 55);
+        addObject(new SpawnUnitButton("STank", 1, 100, 3000), 200, 55);
+        addObject(new SpawnUnitButton("SWarrior", 1, 100, 3000), 300, 55);
+        addObject(new SpawnUnitButton("SRanger", 1, 100, 3000), 400, 55);
+        addObject(new SpawnUnitButton("SHealer", 1, 100, 3000), 500, 55);
         
         addObject(new SpawnUnitButton("CFodder", 1, 100, 3000), 900, 575);
-        addObject(new SpawnUnitButton("CFodder", 2, 0, 3000), 900, 645);
-        addObject(new SpawnUnitButton("CFodder", 3, 0, 3000), 900, 505);
-        addObject(new SpawnUnitButton("CTank", 1, 0, 3000), 800, 575);
-        addObject(new SpawnUnitButton("CTank", 2, 0, 3000), 800, 645);
-        addObject(new SpawnUnitButton("CTank", 3, 0, 3000), 800, 505);
-        addObject(new SpawnUnitButton("CWarrior", 1, 0, 3000), 700, 575);
-        addObject(new SpawnUnitButton("CWarrior", 2, 0, 3000), 700, 645);
-        addObject(new SpawnUnitButton("CWarrior", 3, 0, 3000), 700, 505);
-        addObject(new SpawnUnitButton("CRanger", 1, 0, 3000), 500, 575);
-        addObject(new SpawnUnitButton("CRanger", 2, 0, 3000), 500, 645);
-        addObject(new SpawnUnitButton("CRanger", 3, 0, 3000), 500, 505);
-        addObject(new SpawnUnitButton("CHealer", 1, 0, 3000, true), 600, 575);
-        addObject(new SpawnUnitButton("CHealer", 2, 0, 3000), 600, 645);
-        addObject(new SpawnUnitButton("CHealer", 3, 0, 3000), 600, 505);
+        addObject(new SpawnUnitButton("CFodder", 2, 100, 3000), 900, 645);
+        addObject(new SpawnUnitButton("CFodder", 3, 100, 3000), 900, 505);
+        addObject(new SpawnUnitButton("CTank", 1, 100, 3000), 800, 575);
+        addObject(new SpawnUnitButton("CTank", 2, 100, 3000), 800, 645);
+        addObject(new SpawnUnitButton("CTank", 3, 100, 3000), 800, 505);
+        addObject(new SpawnUnitButton("CWarrior", 1, 100, 3000), 700, 575);
+        addObject(new SpawnUnitButton("CWarrior", 2, 100, 3000), 700, 645);
+        addObject(new SpawnUnitButton("CWarrior", 3, 100, 3000), 700, 505);
+        addObject(new SpawnUnitButton("CRanger", 1, 100, 3000), 500, 575);
+        addObject(new SpawnUnitButton("CRanger", 2, 100, 3000), 500, 645);
+        addObject(new SpawnUnitButton("CRanger", 3, 100, 3000), 500, 505);
+        addObject(new SpawnUnitButton("CHealer", 1, 100, 3000, true), 600, 575);
+        addObject(new SpawnUnitButton("CHealer", 2, 100, 3000), 600, 645);
+        addObject(new SpawnUnitButton("CHealer", 3, 100, 3000), 600, 505);
         
         //Cursor shows up on top of everything
         setPaintOrder(Cursor.class);
