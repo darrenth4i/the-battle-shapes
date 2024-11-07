@@ -10,6 +10,7 @@ public class OffensiveProjectileExplosion extends Effect
 {
     public OffensiveProjectileExplosion()
     {
+        super();
         imageScale = 1.5;
         loadAnimationFrames("offensiveExplosion");
         animationIndex = 0;

@@ -33,7 +33,7 @@ public class SRanger extends Square
             knockbacks = 6;
             speed = 2;
             atk = 6;
-            attackFrame = 2;
+            attackFrame = 0;
         }        
     }
     
@@ -41,27 +41,32 @@ public class SRanger extends Square
     {
         super.addedToWorld(world);
         range = 400;
+        standingRange = range - 50;
     }
     
     protected void attack()
-    {
+    { 
         List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
-    
-        if (potentialTargets.size() > 0) {
-            Circle target = potentialTargets.get(0);
-            
-            // Find the closest target approaching from the right (highest NormalX value).
-            for (int i = 0; i < potentialTargets.size(); i++) {
-                if (potentialTargets.get(i).getNormalX() > target.getNormalX()) {
+        Tower tower = (Tower)getOneObjectAtOffset(range+10, 0,Tower.class);
+
+        if(potentialTargets.size() > 0||tower != null)
+        {
+            Circle target = potentialTargets.size() > 0 ? potentialTargets.get(0) : null;
+            for(int i = 0; i < potentialTargets.size(); i++)
+            {
+                if(potentialTargets.get(i).getNormalX() < target.getNormalX())
+                {
                     target = potentialTargets.get(i);
                 }
             }
-            //flip the values
-            if (target.getNormalX() < getNormalX() + 200) {
+            if(tower != null && (target == null || (target.getNormalX() < getNormalX() + 200 && tower.getX() < target.getNormalX())))
+            {
                 target = null;
+                
+                tower.hurt(atk);
             }
-            
-            if (target != null) {
+            if(target != null && target.getNormalX() > getNormalX() + 200)
+            {
                 target.hurt(atk);
             }
         }

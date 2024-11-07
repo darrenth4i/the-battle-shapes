@@ -54,7 +54,7 @@ public class OffenseProjectile extends TowerProjectile
             }
             if(target.getNormalX() < getX() + 20 && target.getNormalX() > getX() - 20)
             {
-                //target.hurt(damage);
+                target.hurt(damage);
             }
         }
         //target.hurt(damage);

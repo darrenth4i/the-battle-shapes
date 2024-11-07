@@ -70,7 +70,8 @@ public class CRanger extends Circle
     public void addedToWorld(World world)
     {
         super.addedToWorld(world);
-        range = 300;
+        range = 400;
+        standingRange = range - 50;
     }
     
     /**
@@ -79,9 +80,11 @@ public class CRanger extends Circle
     protected void attack()
     {
         List<Square> potentialTargets = getObjectsInRange(range, Square.class);
-        if(potentialTargets.size() > 0)
+        Tower tower = (Tower)getOneObjectAtOffset(-range, 0,Tower.class);
+
+        if(potentialTargets.size() > 0||tower != null)
         {
-            Square target = potentialTargets.get(0);
+            Square target = potentialTargets.size() > 0 ? potentialTargets.get(0) : null;
             for(int i = 0; i < potentialTargets.size(); i++)
             {
                 if(potentialTargets.get(i).getNormalX() < target.getNormalX())
@@ -89,22 +92,23 @@ public class CRanger extends Circle
                     target = potentialTargets.get(i);
                 }
             }
-            if(target.getNormalX() > getNormalX() - 200)
+            if(tower != null && (target == null || (target.getNormalX() > getNormalX() - 200 && tower.getX() > target.getNormalX())))
             {
                 target = null;
+                
+                tower.hurt(atk);
+                if(stage == 3)
+                {
+                    getWorld().addObject(new RangerExplosion(), tower.getX(), tower.getY()+20);
+                }
             }
-            if(target != null)
+            if(target != null && target.getNormalX() < getNormalX() - 200)
             {
-                System.out.println("Chit");
                 target.hurt(atk);
                 if(stage == 3)
                 {
                     getWorld().addObject(new RangerExplosion(), target.getNormalX(), target.getNormalY());
                 }
-            }
-            else
-            {
-                System.out.println("Cmiss");
             }
         }
     }

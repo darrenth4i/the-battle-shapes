@@ -10,6 +10,7 @@ public class RangerExplosion extends Effect
 {
     public RangerExplosion()
     {
+        super();
         imageScale = 3;
         loadAnimationFrames("rangerExplosion");
         animationIndex = 0;

@@ -16,6 +16,8 @@ public abstract class Tower extends Actor
     protected int towerRange;
     protected int fireInterval; //Higher rate means slower speed
     
+    protected int deathAnim = -1000;
+    
     //Tower images - placeholders
     protected GreenfootImage towerImage;
     
@@ -81,13 +83,19 @@ public abstract class Tower extends Actor
      */
     protected void endSimulation()
     {
+        setLocation(getX() + (int)(Math.sin(deathAnim) * 5), getY());
+        deathAnim ++;
+        if(deathAnim > 1000)
+        {
+            deathAnim = -1000;
+        }
         if(circle)
         {
-            
+            //System.out.println("Square Victory");
         }
         else
         {
-            
+            //System.out.println("Circle Victory");
         }
     }
     
@@ -237,5 +245,6 @@ public abstract class Tower extends Actor
     public void hurt(int damage)
     {
         health-=damage;
+        getWorld().addObject(new HitParticle(), getX()+Greenfoot.getRandomNumber(getImage().getWidth())-getImage().getWidth()/2, getY()+Greenfoot.getRandomNumber(getImage().getHeight()/2));
     }
 }

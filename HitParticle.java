@@ -12,6 +12,7 @@ public class HitParticle extends Effect
     
     public HitParticle()
     {
+        super();
         imageScale = 1.5;
         loadAnimationFrames("hit");
         animationIndex = 0;

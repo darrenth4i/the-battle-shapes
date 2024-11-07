@@ -53,9 +53,11 @@ public abstract class Circle extends Unit
     protected void attack()
     {
         List<Square> potentialTargets = getObjectsInRange(range, Square.class);
-        if(potentialTargets.size() > 0)
+        List<Tower> towerTarget = getObjectsInRange(2 * range,Tower.class);
+        Tower tower = towerTarget.size() > 0 ? towerTarget.get(0) : null;
+        if(potentialTargets.size() > 0||towerTarget.size() > 0)
         {
-            Square target = potentialTargets.get(0);
+            Square target = potentialTargets.size() > 0 ? potentialTargets.get(0) : null;
             for(int i = 0; i < potentialTargets.size(); i++)
             {
                 if(potentialTargets.get(i).getNormalX() > target.getNormalX())
@@ -63,14 +65,18 @@ public abstract class Circle extends Unit
                     target = potentialTargets.get(i);
                 }
             }
+            if(tower != null && !tower.getCircle() && (target == null || tower.getX() > target.getNormalX()))
+            {
+                tower = towerTarget.get(0);
+                target = null;
+            }
             if(target != null)
             {
-                //System.out.println("Chit");
                 target.hurt(atk);
             }
-            else
+            else if(tower != null)
             {
-                //System.out.println("Cmiss");
+                tower.hurt(atk);
             }
         }
     }
@@ -78,7 +84,7 @@ public abstract class Circle extends Unit
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getObjectsInRange(range, Square.class).size() == 0 && (getOneObjectAtOffset(-range, 0, Tower.class) == null || ((Tower)getOneObjectAtOffset(-range, 0, Tower.class)).getCircle());
+        return getObjectsInRange(standingRange, Square.class).size() == 0 && (getOneObjectAtOffset(-standingRange, 0, Tower.class) == null || ((Tower)getOneObjectAtOffset(-standingRange, 0, Tower.class)).getCircle());
     }
     
     protected void createGhost()

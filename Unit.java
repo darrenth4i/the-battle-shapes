@@ -27,6 +27,8 @@ public abstract class Unit extends SuperSmoothMover
     protected ArrayList<Integer> knockbackHealth = new ArrayList<Integer>();
     //Range which the unit can reach
     protected int range;
+    //Range where unit starts attacking
+    protected int standingRange;
     //frame of the attack 
     protected int attackFrame;
     //Percentage of the image size
@@ -77,7 +79,8 @@ public abstract class Unit extends SuperSmoothMover
 
     protected void addedToWorld(World world)
     {
-        range = attackAnim.get(0).getWidth()/2;
+        range = attackAnim.get(0).getWidth()/2 + 25;
+        standingRange = attackAnim.get(0).getWidth()/2;
         startYPos = getY()+totalYOffset;
         setLocation(getX(), startYPos);
         maxHealth = health;
@@ -212,7 +215,7 @@ public abstract class Unit extends SuperSmoothMover
      */
     protected void hurt(int damage)
     {
-        getWorld().addObject(new HitParticle(), getX(), getY());
+        getWorld().addObject(new HitParticle(), getX()+Greenfoot.getRandomNumber(20)-10, getY()+Greenfoot.getRandomNumber(20)-10);
 
         if(shield<1) //mitigates the damage dealt if shield is present
         {

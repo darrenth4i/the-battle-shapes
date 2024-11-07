@@ -44,9 +44,11 @@ public abstract class Square extends Unit
     protected void attack()
     {
         List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
-        if(potentialTargets.size() > 0)
+        List<Tower> towerTarget = getObjectsInRange(2 * range,Tower.class);
+        Tower tower = towerTarget.size() > 0 ? towerTarget.get(0) : null;
+        if(potentialTargets.size() > 0||towerTarget.size() > 0)
         {
-            Circle target = potentialTargets.get(0);
+            Circle target = potentialTargets.size() > 0 ? potentialTargets.get(0) : null;
             for(int i = 0; i < potentialTargets.size(); i++)
             {
                 if(potentialTargets.get(i).getNormalX() < target.getNormalX())
@@ -54,14 +56,18 @@ public abstract class Square extends Unit
                     target = potentialTargets.get(i);
                 }
             }
+            if(tower != null && tower.getCircle() && (target == null || tower.getX() < target.getNormalX()))
+            {
+                tower = towerTarget.get(0);
+                target = null;
+            }
             if(target != null)
             {
-                //System.out.println("S hit");
                 target.hurt(atk);
             }
-            else
+            else if(tower != null)
             {
-                //System.out.println("Smiss");
+                tower.hurt(atk);
             }
         }
     }
@@ -75,7 +81,7 @@ public abstract class Square extends Unit
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getObjectsInRange(range, Circle.class).size() == 0 && (getOneObjectAtOffset(range, 0, Tower.class) == null || !((Tower)getOneObjectAtOffset(range, 0, Tower.class)).getCircle());
+        return getObjectsInRange(standingRange, Circle.class).size() == 0 && (getOneObjectAtOffset(standingRange, 0, Tower.class) == null || !((Tower)getOneObjectAtOffset(standingRange, 0, Tower.class)).getCircle());
     }
     
     protected void createGhost()

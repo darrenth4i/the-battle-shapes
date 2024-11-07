@@ -16,6 +16,12 @@ public abstract class Effect extends Actor
     //Percentage of the image size
     protected double imageScale;
     protected SimpleTimer animationTimer = new SimpleTimer();
+    protected GreenfootImage notGreenFoot = new GreenfootImage("images/LiterallyNothing.png");
+    
+    protected Effect()
+    {
+        setImage(notGreenFoot);
+    }
     
     protected void fade (int actsLeft, int fadeLength){
         double percent = (double)actsLeft / fadeLength;

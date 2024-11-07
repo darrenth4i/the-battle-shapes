@@ -10,6 +10,7 @@ public class Ghost extends Effect
 {
     public Ghost(boolean isCircle)
     {
+        super();
         imageScale = 0.75;
         if(isCircle)
         {

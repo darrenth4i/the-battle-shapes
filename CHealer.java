@@ -70,6 +70,7 @@ public class CHealer extends Circle
     {
         super.addedToWorld(world);
         range = 300;
+        standingRange = range - range/10;
     }
     
     /**

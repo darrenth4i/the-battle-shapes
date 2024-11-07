@@ -1,19 +1,19 @@
 #BlueJ class context
 comment0.target=Circle
-comment0.text=\r\n\ The\ superclass\ for\ every\ circle\ unit\r\n\ \r\n\ @author\ Andy\ Li\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ The\ superclass\ for\ every\ circle\ unit\n\ \n\ @author\ Andy\ Li\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ Circle\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment1.text=\n\ Act\ -\ do\ whatever\ the\ Circle\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment2.params=stage
 comment2.target=Circle(int)
 comment3.params=
 comment3.target=void\ walk()
-comment3.text=\r\n\ Walks\ forward\ if\ nothing\ is\ obstructing\ movement\r\n
+comment3.text=\n\ Walks\ forward\ if\ nothing\ is\ obstructing\ movement\n
 comment4.params=
 comment4.target=void\ knockback()
 comment5.params=
 comment5.target=void\ attack()
-comment5.text=\r\n\ Does\ damage\ to\ a\ target\r\n
+comment5.text=\n\ Does\ damage\ to\ a\ target\n
 comment6.params=
 comment6.target=boolean\ checkFront()
 comment7.params=
