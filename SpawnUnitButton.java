@@ -7,7 +7,6 @@ public class SpawnUnitButton extends UI
 
     private String unit;
     private Wallet wallet;
-    private int unitIndex;
     private boolean circle, spawned, onCooldown;
     private Tower spawn;
     private int unitCost, unitStage, unitCooldown, cooldownTimes;
@@ -20,15 +19,20 @@ public class SpawnUnitButton extends UI
     private BlackBox blackbox;
     private BlackBox hoverBox;
     private CooldownBar cooldownBar;
-    
-    private Unit[] unitArray;
 
     //Boolean to determine if the cursor code "clicks" button 
     private boolean clicked;
-
-    public SpawnUnitButton(String u, int uIndex, int stage, int cost, int cooldown) {
+    
+    //boolean to check if the last button has been created
+    private boolean last;
+    
+    //Constructor for Buttons without "last" boolean = true
+    public SpawnUnitButton(String u, int stage, int cost, int cooldown) {
+        this(u, stage, cost, cooldown, false);
+    }
+    
+    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean lastButton) {
         unit = u;
-        unitIndex = uIndex;
         unitCost = cost;
         unitStage = stage;
         //cooldown is in milliseconds
@@ -43,17 +47,41 @@ public class SpawnUnitButton extends UI
         setImage(filePath);
         getImage().scale(90,60);
         
-        //preload objects so they dont lag in the middle of a game
-        unitArray = new Unit[]
-        {
-            new SFodder(unitStage), new SWarrior(unitStage), new STank(unitStage), new SRanger(unitStage), new SHealer(unitStage), 
-            new CFodder(unitStage), new CWarrior(unitStage), new CTank(unitStage), new CRanger(unitStage), new CHealer(unitStage)
-        };
-        
         cooldownTimes = 0;
         onCooldown = false;
         clicked = false;
         spawned = true;
+        last = lastButton;
+    }
+    
+    /**
+     * Method to preload objects into world and then remove them so that
+     * Greenfoot can cache images (prevent freezing)
+     */
+    public void preload(){
+        //Temporarily store proper String unit while objects get preloaded
+        String tempUnit = unit;
+        //name of all units
+        String[] unitString = new String[]
+        {
+            "SFodder", "SWarrior", "STank", "SRanger", "SHealer", 
+            "CFodder", "CWarrior", "CTank", "CRanger", "CHealer"
+        };
+        
+        //create every object so greenfoot can cache img animations
+        for(int i = 0; i<unitString.length; i++){
+            unit = unitString[i];
+            spawnUnit();
+        }
+        
+        //get all units created and remove them
+        ArrayList<Unit> units = (ArrayList<Unit>)getWorld().getObjects(Unit.class);
+        for(Unit shapes : units){
+            getWorld().removeObject(shapes);
+        }
+        
+        //Back to original value 
+        unit = tempUnit;
     }
     
     public void act() {
@@ -76,6 +104,10 @@ public class SpawnUnitButton extends UI
             }
 
             getWorld().addObject(new Text("$" + unitCost, 18), getX() - getImage().getWidth()/2 + 24, getY() + getImage().getHeight()/2 - 15);
+            
+            if(last){
+                preload();   
+            }
             
             spawned = false;
         }
@@ -123,7 +155,41 @@ public class SpawnUnitButton extends UI
     public void spawnUnit() {
         //Tanks will offset less since they're taller
         int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 40 : 70; 
-        getWorld().addObject(unitArray[unitIndex], spawn.getX(), spawn.getY() + yOffset + Greenfoot.getRandomNumber(30));
+        yOffset += Greenfoot.getRandomNumber(30);
+        
+        if(!circle){
+            if (unit == "SFodder") {
+                getWorld().addObject(new SFodder(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            } 
+            else if (unit == "STank") {
+                getWorld().addObject(new STank(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            } 
+            else if (unit == "SRanger") {
+                getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            } 
+            else if (unit == "SHealer") {
+                getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            } 
+            else if (unit == "SWarrior") {
+                getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            }
+            return;
+        }
+        if (unit == "CFodder") {
+            getWorld().addObject(new CFodder(unitStage), spawn.getX(), spawn.getY() + yOffset);
+        } 
+        else if (unit == "CTank") {
+            getWorld().addObject(new CTank(unitStage), spawn.getX(), spawn.getY() + yOffset);
+        } 
+        else if (unit == "CRanger") {
+            getWorld().addObject(new CRanger(unitStage), spawn.getX(), spawn.getY() + yOffset);
+        } 
+        else if (unit == "CHealer") {
+            getWorld().addObject(new CHealer(unitStage), spawn.getX(), spawn.getY() + yOffset);
+        } 
+        else if (unit == "CWarrior") {
+            getWorld().addObject(new CWarrior(unitStage), spawn.getX(), spawn.getY() + yOffset);
+        } 
     }
 
     /**
@@ -169,7 +235,7 @@ public class SpawnUnitButton extends UI
     
     public void upgrade()
     {
-        getWorld().addObject(new SpawnUnitButton(unit, unitIndex, unitStage+1, unitCost, unitCooldown), getX(), getY());
+        getWorld().addObject(new SpawnUnitButton(unit, unitStage+1, unitCost, unitCooldown), getX(), getY());
         getWorld().removeObject(this);
     }
 }
