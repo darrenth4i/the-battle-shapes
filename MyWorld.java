@@ -55,7 +55,7 @@ public class MyWorld extends World
         addObject(new SpawnUnitButton("CRanger", 1, 100, 3000), 500, 575);
         addObject(new SpawnUnitButton("CRanger", 2, 100, 3000), 500, 645);
         addObject(new SpawnUnitButton("CRanger", 3, 100, 3000), 500, 505);
-        addObject(new SpawnUnitButton("CHealer", 1, 100, 3000, true), 600, 575);
+        addObject(new SpawnUnitButton("CHealer", 1, 100, 3000, true, true), 600, 575);
         addObject(new SpawnUnitButton("CHealer", 2, 100, 3000), 600, 645);
         addObject(new SpawnUnitButton("CHealer", 3, 100, 3000), 600, 505);
         

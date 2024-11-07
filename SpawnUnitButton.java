@@ -32,30 +32,20 @@ public class SpawnUnitButton extends UI
     public SpawnUnitButton(String u, int stage, int cost, int cooldown) {
         this(u, stage, cost, cooldown, true, false);
     }
-<<<<<<< Updated upstream
-    
+
     public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade) {
         this(u, stage, cost, cooldown, canUpgrade, false);
     }
-    
+
     public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade, boolean lastButton) {
         unit = u;
         unitCost = cost;
         unitStage = stage;
         this.canUpgrade = canUpgrade;
-        
-=======
-
-    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean lastButton) {
-        unit = u;
-        unitCost = cost;
-        unitStage = stage;
-        spent = 0;
 
         firstUpgrade = unitCost * 5;
         secondUpgrade = unitCost * 15;
->>>>>>> Stashed changes
-        //cooldown is in milliseconds
+        
         unitCooldown = cooldown;
         if (u.substring(0, 1).equals("C")) {
             circle = true;
@@ -104,14 +94,7 @@ public class SpawnUnitButton extends UI
         for(Unit shapes : units){
             getWorld().removeObject(shapes);
         }
-<<<<<<< Updated upstream
         
-        
-        
-=======
-
->>>>>>> Stashed changes
-        //Back to original value 
         unit = tempUnit;
         unitStage = tempStage;
     }
