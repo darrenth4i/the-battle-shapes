@@ -7,7 +7,7 @@ public class SpawnUnitButton extends UI
 
     private String unit;
     private Wallet wallet;
-    private boolean circle, spawned, onCooldown;
+    private boolean circle, spawned, onCooldown, canUpgrade;
     private Tower spawn;
     private int unitCost, unitStage, unitCooldown, cooldownTimes;
 
@@ -28,13 +28,19 @@ public class SpawnUnitButton extends UI
     
     //Constructor for Buttons without "last" boolean = true
     public SpawnUnitButton(String u, int stage, int cost, int cooldown) {
-        this(u, stage, cost, cooldown, false);
+        this(u, stage, cost, cooldown, true, false);
     }
     
-    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean lastButton) {
+    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade) {
+        this(u, stage, cost, cooldown, canUpgrade, false);
+    }
+    
+    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade, boolean lastButton) {
         unit = u;
         unitCost = cost;
         unitStage = stage;
+        this.canUpgrade = canUpgrade;
+        
         //cooldown is in milliseconds
         unitCooldown = cooldown;
         if (u.substring(0, 1).equals("C")) {
@@ -86,6 +92,8 @@ public class SpawnUnitButton extends UI
             getWorld().removeObject(shapes);
         }
         
+        
+        
         //Back to original value 
         unit = tempUnit;
         unitStage = tempStage;
@@ -127,13 +135,16 @@ public class SpawnUnitButton extends UI
             cooldownBar.update(unitCooldown - (unitCooldown/50 * cooldownTimes));
         }
         darkenOnHover();
-        if(unitStage == 1 && spent>=firstUpgrade)
+        if(canUpgrade)
         {
-            upgrade();
-        }
-        if(unitStage == 2 && spent>=secondUpgrade)
-        {
-            upgrade();
+            if(unitStage == 1 && spent>=firstUpgrade)
+            {
+                upgrade();
+            }
+            if(unitStage == 2 && spent>=secondUpgrade)
+            {
+                upgrade();
+            }
         }
     }
 
