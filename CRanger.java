@@ -80,7 +80,7 @@ public class CRanger extends Circle
     protected void attack()
     {
         List<Square> potentialTargets = getObjectsInRange(range, Square.class);
-        Tower tower = (Tower)getOneObjectAtOffset(-range, 0,Tower.class);
+        Tower tower = stage == 3 ? (Tower)getOneObjectAtOffset(-range+30, 0,Tower.class) : (Tower)getOneObjectAtOffset(-range+10, 0,Tower.class);
 
         if(potentialTargets.size() > 0||tower != null)
         {
