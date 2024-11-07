@@ -24,7 +24,7 @@ public class SRanger extends Square
         switch(stage)
         {
             case 1:
-            attackXOffset = -12;
+            attackXOffset = 0;
             attackYOffset = -9;
             loadAnimationFrames("images/Units/SRanger/StageOne");    
             

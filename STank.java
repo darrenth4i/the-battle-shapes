@@ -23,8 +23,9 @@ public class STank extends Square
         switch(stage)
         {
             case 1:
-            attackXOffset = 20;
-            attackYOffset = 10;
+            totalYOffset = -60;
+            attackXOffset = 55;
+            attackYOffset = 0;
             loadAnimationFrames("images/Units/STank/StageOne");
             
             knockbacks = 3;

@@ -192,7 +192,7 @@ public class SpawnUnitButton extends UI
      */
     public void spawnUnit() {
         //Tanks will offset less since they're taller
-        int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 40 : 70; 
+        int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 10 : 70; 
         yOffset += Greenfoot.getRandomNumber(30);
 
         if(!circle){
