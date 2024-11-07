@@ -48,6 +48,19 @@ public class SFodder extends Square
             health = 24;
             attackFrame = 5;
             break;
+            
+            case 3:
+            attackXOffset = 0;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/SFodder/StageThree");
+            
+            attackFrame = 5;
+            atkCooldown = 30;
+            knockbacks = 3;
+            speed = 4;
+            atk = 10;
+            health = 30;
+            break;
         }
     }
 }
