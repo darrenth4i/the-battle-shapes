@@ -32,9 +32,9 @@ public class MyWorld extends World
         
         //SpawnUnitButton Parameters
         //(Name, level, cost, cooldown), x, y)
-        //IMPORTANT: Last SET of SpawnUnitButtons MUST have "true" as the fifth parameter. Other buttons may only have four
+        //IMPORTANT: FIRST STAGE of LAST UNIT TYPE MUST have "true" as the fifth parameter. Other buttons may only have four
         //This is to cache images of unitStage 1, 2, and 3 for all Units (get rid of freezing)
-        //eg. CHealer levels 1-3 must have the fifth parameter... Likely will not have to change since we plan only 5 units per team?
+        //eg. CHealer level 1 must have the fifth parameter... Likely will not have to change since we plan only 5 units per team?
         addObject(new SpawnUnitButton("SFodder", 1, 100, 3000), 100, 55);
         addObject(new SpawnUnitButton("STank", 1, 0, 3000), 200, 55);
         addObject(new SpawnUnitButton("SWarrior", 1, 0, 3000), 300, 55);
@@ -54,8 +54,8 @@ public class MyWorld extends World
         addObject(new SpawnUnitButton("CRanger", 2, 0, 3000), 500, 645);
         addObject(new SpawnUnitButton("CRanger", 3, 0, 3000), 500, 505);
         addObject(new SpawnUnitButton("CHealer", 1, 0, 3000, true), 600, 575);
-        addObject(new SpawnUnitButton("CHealer", 2, 0, 3000, true), 600, 645);
-        addObject(new SpawnUnitButton("CHealer", 3, 0, 3000, true), 600, 505);
+        addObject(new SpawnUnitButton("CHealer", 2, 0, 3000), 600, 645);
+        addObject(new SpawnUnitButton("CHealer", 3, 0, 3000), 600, 505);
         
         //Cursor shows up on top of everything
         setPaintOrder(Cursor.class);

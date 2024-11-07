@@ -61,6 +61,7 @@ public class SpawnUnitButton extends UI
     public void preload(){
         //Temporarily store proper String unit while objects get preloaded
         String tempUnit = unit;
+        int tempStage = unitStage;
         //name of all units
         String[] unitString = new String[]
         {
@@ -69,10 +70,15 @@ public class SpawnUnitButton extends UI
         };
         
         //create every object so greenfoot can cache img animations
-        for(int i = 0; i<unitString.length; i++){
-            unit = unitString[i];
-            spawnUnit();
+        for(int x = 1; x<4; x++){
+            unitStage = x;
+            for(int i = 0; i<unitString.length; i++){
+                unit = unitString[i];
+                spawnUnit();
+            }
+            unitStage++;
         }
+            
         
         //get all units created and remove them
         ArrayList<Unit> units = (ArrayList<Unit>)getWorld().getObjects(Unit.class);
@@ -82,6 +88,7 @@ public class SpawnUnitButton extends UI
         
         //Back to original value 
         unit = tempUnit;
+        unitStage = tempStage;
     }
     
     public void act() {
