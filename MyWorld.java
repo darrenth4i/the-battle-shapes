@@ -36,6 +36,8 @@ public class MyWorld extends World
         //This is to cache images of unitStage 1, 2, and 3 for all Units (get rid of freezing)
         //eg. CHealer level 1 must have the fifth parameter... Likely will not have to change since we plan only 5 units per team?
         addObject(new SpawnUnitButton("SFodder", 1, 100, 3000), 100, 55);
+        addObject(new SpawnUnitButton("SFodder", 2, 100, 3000), 100, 125);
+        addObject(new SpawnUnitButton("SFodder", 3, 100, 3000), 100, 195);
         addObject(new SpawnUnitButton("STank", 1, 0, 3000), 200, 55);
         addObject(new SpawnUnitButton("SWarrior", 1, 0, 3000), 300, 55);
         addObject(new SpawnUnitButton("SRanger", 1, 0, 3000), 400, 55);

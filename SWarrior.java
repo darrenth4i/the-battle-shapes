@@ -23,8 +23,8 @@ public class SWarrior extends Square
         switch(stage)
         {
             case 1:
-            attackXOffset = 25;
-            attackYOffset = 0;
+            attackXOffset = 60;
+            attackYOffset = -30;
             loadAnimationFrames("images/Units/SWarrior/StageOne");
         
             atkCooldown = 30;

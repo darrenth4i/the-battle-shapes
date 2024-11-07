@@ -50,8 +50,8 @@ public class SFodder extends Square
             break;
             
             case 3:
-            attackXOffset = 0;
-            attackYOffset = 0;
+            attackXOffset = 40;
+            attackYOffset = -30;
             loadAnimationFrames("images/Units/SFodder/StageThree");
             
             attackFrame = 5;
