@@ -11,16 +11,17 @@ public abstract class Tower extends Actor
 {
     //Tower vaiables "traits"
     protected int maxHealth = 1000, health = maxHealth;
+    protected SuperStatBar healthBar = new SuperStatBar(maxHealth, health, this, 80, 10, 0, Color.GREEN, Color.GRAY);
     //Denotes team
     protected boolean circle;
     protected int towerRange;
     protected int fireInterval; //Higher rate means slower speed
-    
+
+    //Animation index for death
     protected int deathAnim = -1000;
     
     //Tower images - placeholders
     protected GreenfootImage towerImage;
-    
     
     
     //Helper variables
@@ -60,6 +61,12 @@ public abstract class Tower extends Actor
             setImage(towerImage);
         }
     }
+    
+    public void addedToWorld(World world)
+    {
+        getWorld().addObject(healthBar, getX(), getY() - getImage().getHeight() - 10);
+    }
+    
     /**
      * Act - do whatever the Tower wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -245,6 +252,7 @@ public abstract class Tower extends Actor
     public void hurt(int damage)
     {
         health-=damage;
+        healthBar.update(health);
         getWorld().addObject(new HitParticle(), getX()+Greenfoot.getRandomNumber(getImage().getWidth())-getImage().getWidth()/2, getY()+Greenfoot.getRandomNumber(getImage().getHeight()/2));
     }
 }

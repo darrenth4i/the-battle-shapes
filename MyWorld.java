@@ -60,7 +60,7 @@ public class MyWorld extends World
         addObject(new SpawnUnitButton("CHealer", 3, 100, 3000), 600, 505);
         
         //Cursor shows up on top of everything
-        setPaintOrder(Cursor.class);
+        setPaintOrder(Cursor.class, UI.class, Effect.class,TowerProjectile.class);
         
         Greenfoot.setSpeed(50);
     }
