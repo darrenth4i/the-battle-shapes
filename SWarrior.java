@@ -33,6 +33,19 @@ public class SWarrior extends Square
             atk = 8;
             health = 30;
             attackFrame = 11;
+            break;
+            
+            case 2:
+            attackXOffset = 65;
+            attackYOffset = -30;
+            loadAnimationFrames("images/Units/SWarrior/StageTwo");
+            atkCooldown = 30;
+            attackFrame = 14;
+            knockbacks = 2;
+            speed = 3;
+            atk = 12;
+            health = 40;
+            break;
         }
     }
 }
