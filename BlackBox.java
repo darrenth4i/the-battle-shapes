@@ -26,12 +26,29 @@ public class BlackBox extends UI
         setImage(img);
     }
     
+    public BlackBox(int t, int width, int height) {
+        transparency = t;
+        
+        img = new GreenfootImage(width, height);
+        img.setColor(Color.BLACK);
+        img.fillRect(0, 0, width, height); 
+        img.scale(width, height);
+        img.setTransparency(transparency);
+        setImage(img);
+    }
+    
     public void hide() {
         img.setTransparency(0);
         setImage(img);
     }
     
     public void show() {
+        img.setTransparency(transparency);
+        setImage(img);
+    }
+    
+    public void changeTransparency(int transparency)
+    {
         img.setTransparency(transparency);
         setImage(img);
     }

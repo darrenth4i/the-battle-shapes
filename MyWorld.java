@@ -17,7 +17,7 @@ public class MyWorld extends World
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1024, 700, 1); 
+        super(1024, 700, 1, false); 
         setBackground(bg);
         
         addObject(new Cursor(), 0, 0);
@@ -60,7 +60,9 @@ public class MyWorld extends World
         addObject(new SpawnUnitButton("CHealer", 3, 100, 3000), 600, 505);
         
         //Cursor shows up on top of everything
-        setPaintOrder(Cursor.class, UI.class, Effect.class,TowerProjectile.class);
+        setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
+        
+        addObject(new FullscreenTransition(), 512, 300);
         
         Greenfoot.setSpeed(50);
     }
