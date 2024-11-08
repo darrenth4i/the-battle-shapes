@@ -10,9 +10,12 @@ public class Title extends UI
 {
     private double velocity = 27;
     private int passesPointNum = 0;
-    public Title()
+    private GreenfootImage image;
+    
+    public Title(String path)
     {
-        getImage().scale(getImage().getWidth()/2, getImage().getHeight()/2);
+        image = new GreenfootImage("images/" + path);
+        setImage(image);
     }
     /**
      * Act - do whatever the Title wants to do. This method is called whenever

@@ -27,7 +27,7 @@ public class TitleWorld extends World
      */
     private void prepare()
     {
-        Title title = new Title();
+        Title title = new Title("TheBattleShapes.png");
         addObject(title,512,1000);
         MenuButtons play = new MenuButtons(0);
         addObject(play,512,1500);
