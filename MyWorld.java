@@ -35,30 +35,32 @@ public class MyWorld extends World
         //IMPORTANT: FIRST STAGE of LAST UNIT TYPE MUST have "true" as the fifth parameter. Other buttons may only have four
         //This is to cache images of unitStage 1, 2, and 3 for all Units (get rid of freezing)
         //eg. CHealer level 1 must have the fifth parameter... Likely will not have to change since we plan only 5 units per team?
-        addObject(new SpawnUnitButton("SFodder", 1, 100, 3000), 100, 55);
-        addObject(new SpawnUnitButton("SFodder", 2, 100, 3000), 100, 125);
-        addObject(new SpawnUnitButton("SFodder", 3, 100, 3000), 100, 195);
-        addObject(new SpawnUnitButton("STank", 1, 100, 3000), 200, 55);
-        addObject(new SpawnUnitButton("SWarrior", 1, 100, 3000), 300, 55);
-        addObject(new SpawnUnitButton("SWarrior", 2, 100, 3000), 300, 125);
-        addObject(new SpawnUnitButton("SRanger", 1, 100, 3000), 400, 55);
-        addObject(new SpawnUnitButton("SHealer", 1, 100, 3000), 500, 55);
+        addObject(new SpawnUnitButton("SFodder", 1, 100, 3000, true), 100, 55);
+        addObject(new SpawnUnitButton("SFodder", 2, 100, 3000, true), 100, 125);
+        addObject(new SpawnUnitButton("SFodder", 3, 100, 3000, true), 100, 195);
+        addObject(new SpawnUnitButton("STank", 1, 100, 3000, true), 200, 55);
+        addObject(new SpawnUnitButton("SWarrior", 1, 100, 3000, true), 300, 55);
+        addObject(new SpawnUnitButton("SWarrior", 2, 100, 3000, true), 300, 125);
+        addObject(new SpawnUnitButton("SRanger", 1, 100, 3000,true), 400, 55);
+        addObject(new SpawnUnitButton("SHealer", 1, 100, 3000, true), 500, 55);
         
-        addObject(new SpawnUnitButton("CFodder", 1, 100, 3000), 900, 575);
-        addObject(new SpawnUnitButton("CFodder", 2, 100, 3000), 900, 645);
-        addObject(new SpawnUnitButton("CFodder", 3, 100, 3000), 900, 505);
-        addObject(new SpawnUnitButton("CTank", 1, 100, 3000), 800, 575);
-        addObject(new SpawnUnitButton("CTank", 2, 100, 3000), 800, 645);
-        addObject(new SpawnUnitButton("CTank", 3, 100, 3000), 800, 505);
-        addObject(new SpawnUnitButton("CWarrior", 1, 100, 3000), 700, 575);
-        addObject(new SpawnUnitButton("CWarrior", 2, 100, 3000), 700, 645);
-        addObject(new SpawnUnitButton("CWarrior", 3, 100, 3000), 700, 505);
-        addObject(new SpawnUnitButton("CRanger", 1, 100, 3000), 500, 575);
-        addObject(new SpawnUnitButton("CRanger", 2, 100, 3000), 500, 645);
-        addObject(new SpawnUnitButton("CRanger", 3, 100, 3000), 500, 505);
-        addObject(new SpawnUnitButton("CHealer", 1, 100, 3000, true, true), 600, 575);
-        addObject(new SpawnUnitButton("CHealer", 2, 100, 3000), 600, 645);
-        addObject(new SpawnUnitButton("CHealer", 3, 100, 3000), 600, 505);
+        addObject(new SpawnUnitButton("CFodder", 1, 100, 3000, true), 900, 625);
+        addObject(new SpawnUnitButton("CTank", 1, 100, 3000, true), 800, 625);
+        addObject(new SpawnUnitButton("CWarrior", 1, 100, 3000, true), 700, 625);
+        addObject(new SpawnUnitButton("CRanger", 1, 100, 3000, true), 500, 625);
+        addObject(new SpawnUnitButton("CHealer", 1, 100, 3000, true), 600, 625);
+
+        //preload assets
+        addObject(new SpawnUnitButton("CFodder", 2, 100, 3000, false), 900, -500);
+        addObject(new SpawnUnitButton("CFodder", 3, 100, 3000, false), 900, -500);
+        addObject(new SpawnUnitButton("CTank", 2, 100, 3000, false), 800, -500);
+        addObject(new SpawnUnitButton("CTank", 3, 100, 3000, false), 800, -500);
+        addObject(new SpawnUnitButton("CWarrior", 2, 100, 3000, false), 700, -500);
+        addObject(new SpawnUnitButton("CWarrior", 3, 100, 3000, false), 700, -500);
+        addObject(new SpawnUnitButton("CRanger", 2, 100, 3000, false), 500, -500);
+        addObject(new SpawnUnitButton("CRanger", 3, 100, 3000, false), 500, -500);
+        addObject(new SpawnUnitButton("CHealer", 2, 100, 3000, true, true, false), 600, -500);
+        addObject(new SpawnUnitButton("CHealer", 3, 100, 3000, false), 600, -500);
         
         //Cursor shows up on top of everything
         setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
