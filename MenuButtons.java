@@ -24,7 +24,7 @@ public class MenuButtons extends Menu
         switch(buttonType)
         {
             case 0:
-                velocity = 30;
+                velocity = 32;
         }
     }
 
@@ -38,7 +38,7 @@ public class MenuButtons extends Menu
         {
             case 0:
             playButtonAnimation();
-            if(getY() == 500)
+            if(getY() == 400)
             {
                 if(blackBoxTransparency == 0)
                 {
@@ -51,6 +51,8 @@ public class MenuButtons extends Menu
                     blackBoxTransparency+= 10;
                 }
             }
+            break;
+            case 1:
             break;
         }
         buttonClick();
@@ -87,23 +89,27 @@ public class MenuButtons extends Menu
         switch(buttonType)
         {
             case 0:
-            FullscreenTransition trans = new FullscreenTransition(new MyWorld());
-            getWorld().addObject(trans, 512, 1200);
-            break;
+                FullscreenTransition trans = new FullscreenTransition(new SelectionWorld());
+                getWorld().addObject(trans, 512, 1200);
+                break;
+            case 1:
+                trans = new FullscreenTransition(new MyWorld());
+                getWorld().addObject(trans, 512, 1200);
+                break;
         }
     }
     
     public void playButtonAnimation()
     {
-        if(getY() > 500)
+        if(getY() > 400)
         {
             System.out.println(getY());
             setLocation(getX(), getY() - velocity);
             velocity -= 0.45;
         }
-        else if(getY() != 500)
+        else if(getY() != 400)
         {
-            setLocation(getX(), 500);
+            setLocation(getX(), 400);
             
         }
     }

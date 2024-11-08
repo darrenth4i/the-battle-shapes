@@ -21,6 +21,8 @@ public class SpawnUnitButton extends UI
     private ProgressBar cooldownBar;
     private ProgressBar upgradeBar;
     private Text lvlText;
+    
+    private boolean visible;
 
     //Boolean to determine if the cursor code "clicks" button 
     private boolean clicked;
@@ -29,15 +31,15 @@ public class SpawnUnitButton extends UI
     private boolean last;
 
     //Constructor for Buttons without "last" boolean = true
-    public SpawnUnitButton(String u, int stage, int cost, int cooldown) {
-        this(u, stage, cost, cooldown, true, false);
+    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean visible) {
+        this(u, stage, cost, cooldown, true, false, visible);
     }
 
-    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade) {
-        this(u, stage, cost, cooldown, canUpgrade, false);
+    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade, boolean visible) {
+        this(u, stage, cost, cooldown, canUpgrade, false, visible);
     }
 
-    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade, boolean lastButton) {
+    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade, boolean lastButton, boolean visible) {
         unit = u;
         unitCost = cost;
         unitStage = stage;
@@ -54,8 +56,11 @@ public class SpawnUnitButton extends UI
         }
 
         String filePath = "/UnitButtons/" + unit + "_" + unitStage + ".png";
-        setImage(filePath);
-        getImage().scale(90,60);
+        if(visible)
+        {
+            setImage(filePath);
+            getImage().scale(90,60);
+        }
 
         cooldownTimes = 0;
         onCooldown = false;
@@ -273,7 +278,7 @@ public class SpawnUnitButton extends UI
 
     public void upgrade()
     {
-        getWorld().addObject(new SpawnUnitButton(unit, unitStage+1, unitCost, unitCooldown), getX(), getY());
+        getWorld().addObject(new SpawnUnitButton(unit, unitStage+1, unitCost, unitCooldown, true), getX(), getY());
         getWorld().removeObject(this);
     }
 
