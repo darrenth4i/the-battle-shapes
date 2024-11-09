@@ -10,6 +10,8 @@ public class SpawnUnitButton extends UI
     private boolean circle, spawned, onCooldown, canUpgrade;
     private Tower spawn;
     private int unitCost, unitStage, unitCooldown, cooldownTimes;
+    
+    private int[] unitCostIndex = {100, 150, 300, 400, 400};
 
     //Used for upgrade of the buttons to spawn upgraded units
     private int spent;
@@ -31,19 +33,40 @@ public class SpawnUnitButton extends UI
     private boolean last;
 
     //Constructor for Buttons without "last" boolean = true
-    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean visible) {
-        this(u, stage, cost, cooldown, true, false, visible);
+    public SpawnUnitButton(String u, int stage, int cooldown, boolean visible) {
+        this(u, stage, cooldown, true, false, visible);
     }
 
-    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade, boolean visible) {
-        this(u, stage, cost, cooldown, canUpgrade, false, visible);
+    public SpawnUnitButton(String u, int stage, int cooldown, boolean canUpgrade, boolean visible) {
+        this(u, stage, cooldown, canUpgrade, false, visible);
     }
 
-    public SpawnUnitButton(String u, int stage, int cost, int cooldown, boolean canUpgrade, boolean lastButton, boolean visible) {
+    public SpawnUnitButton(String u, int stage, int cooldown, boolean canUpgrade, boolean lastButton, boolean visible) {
         unit = u;
-        unitCost = cost;
         unitStage = stage;
         this.canUpgrade = canUpgrade;
+        
+        if(u.contains("Fodder"))
+        {
+            unitCost = unitCostIndex[0];
+        }
+        else if(u.contains("Tank"))
+        {
+            unitCost = unitCostIndex[1];
+        }
+        else if(u.contains("Warrior"))
+        {
+            unitCost = unitCostIndex[2];
+        }
+        else if(u.contains("Ranger"))
+        {
+            unitCost = unitCostIndex[3];
+        }
+        else if(u.contains("Healer"))
+        {
+            unitCost = unitCostIndex[4];
+        }
+        
 
         firstUpgrade = unitCost * 5;
         secondUpgrade = unitCost * 15;
@@ -278,7 +301,7 @@ public class SpawnUnitButton extends UI
 
     public void upgrade()
     {
-        getWorld().addObject(new SpawnUnitButton(unit, unitStage+1, unitCost, unitCooldown, true), getX(), getY());
+        getWorld().addObject(new SpawnUnitButton(unit, unitStage+1, unitCooldown, true), getX(), getY());
         getWorld().removeObject(this);
     }
 

@@ -39,9 +39,12 @@ public class SRanger extends Square
     
     public void addedToWorld(World world)
     {
-        super.addedToWorld(world);
-        range = 400;
-        standingRange = range - 50;
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range = 400;
+            standingRange = range - 50;
+        }
     }
     
     protected void attack()

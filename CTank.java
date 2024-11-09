@@ -70,10 +70,13 @@ public class CTank extends Circle
     
     public void addedToWorld(World world)
     {
-        super.addedToWorld(world);
-        if(stage > 1)
+        if(justAddedToWorld)
         {
-            range -= 20;
+            super.addedToWorld(world);
+            if(stage > 1)
+            {
+                range -= 20;
+            }
         }
     }
 }

@@ -69,9 +69,12 @@ public class CRanger extends Circle
     
     public void addedToWorld(World world)
     {
-        super.addedToWorld(world);
-        range = 400;
-        standingRange = range - 50;
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range = 400;
+            standingRange = range - 50;
+        }
     }
     
     /**

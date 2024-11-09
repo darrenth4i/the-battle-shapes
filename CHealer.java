@@ -68,9 +68,12 @@ public class CHealer extends Circle
     
     public void addedToWorld(World world)
     {
-        super.addedToWorld(world);
-        range = 300;
-        standingRange = range - range/10;
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range = 300;
+            standingRange = range - range/10;
+        }
     }
     
     /**

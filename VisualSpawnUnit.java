@@ -1,39 +1,24 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
-public class VisualSpawnUnit extends Menu
+public class VisualSpawnUnit extends MenuButtons
 {
     private SimpleTimer timer = new SimpleTimer();
 
     private String unit;
-    private Wallet wallet;
-    private boolean circle, spawned, onCooldown, canUpgrade;
-    private Tower spawn;
-    private int unitCost, unitStage;
-
-    //Used for upgrade of the buttons to spawn upgraded units
-    private int spent;
-    final private int firstUpgrade;
-    final private int secondUpgrade;
-    
+    private boolean circle;
+    private int unitCost;
+    private MenuButtons origin;
     private boolean visible;
-
-    //Boolean to determine if the cursor code "clicks" button 
-    private boolean clicked;
-
-    //boolean to check if the last button has been created
-    private boolean last;
-
+    private Text displayCost;
+    
+    private int targetX, targetY;
     //Constructor for Buttons without "last" boolean = true
 
-    public VisualSpawnUnit(String u, int stage, int cost) {
+    public VisualSpawnUnit(String u, int cost, MenuButtons origin) {
         unit = u;
         unitCost = cost;
-        unitStage = stage;
-        this.canUpgrade = canUpgrade;
-
-        firstUpgrade = unitCost * 5;
-        secondUpgrade = unitCost * 15;
+        this.origin = origin;
         
         if (u.substring(0, 1).equals("C")) {
             circle = true;
@@ -41,13 +26,60 @@ public class VisualSpawnUnit extends Menu
             circle = false;
         }
 
-        String filePath = "/UnitButtons/" + unit + "_" + unitStage + ".png";
-        if(visible)
+        setImage("images/MenuButtons/3.png");
+        width = 90;
+        height = 60;
+        getImage().scale(width,height);
+    }
+    
+    public void addedToWorld(World world)
+    {
+        displayCost = new Text("$" + unitCost, 18);
+        targetX = getX();
+        targetY = origin.getY();
+        setLocation(origin.getX(), origin.getY());
+    }
+    
+    public void act()
+    {
+        if(getX() == targetX && getY() == targetY)
         {
+            String filePath = "/UnitButtons/" + unit + "_" + 1 + ".png";
             setImage(filePath);
-            getImage().scale(90,60);
+            getImage().scale(width,height);
+            getWorld().addObject(displayCost, getX() - getImage().getWidth()/2 + 24, getY() + getImage().getHeight()/2 - 15);
+        }
+        else
+        {
+            moveToPosition(targetX, targetY, 10);
+        }
+        buttonClick();
+        if(!origin.getMenu())
+        {
+            getWorld().removeObject(displayCost);
+            getWorld().removeObject(this);
         }
     }
+    
+    public void buttonFunction()
+    {
+        origin.selectUnit(unit, unitCost);
+        origin.closeMenu();
+    }
+    
+    public void moveToPosition(int x, int y, int speed)
+    {
+        double angle = Math.atan2(y - getY(), x - getX());
+        
+        int dx = (int) (Math.cos(angle) * speed);
+        int dy = (int) (Math.sin(angle) * speed);
 
+        setLocation(getX() + dx, getY() + dy);
+        
+        if(getX() < x + 10 && getX() > x - 10 && getY() < y + 10 && getY() > y - 10)
+        {
+            setLocation(x, y);
+        }
+    }
     
 }

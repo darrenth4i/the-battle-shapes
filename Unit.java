@@ -54,6 +54,8 @@ public abstract class Unit extends SuperSmoothMover
     protected int startYPos;
     
     protected int feetYPos;
+    
+    protected boolean justAddedToWorld = true;
 
     protected int walkIndex;
     protected ArrayList<GreenfootImage> walkAnim = new ArrayList<GreenfootImage>();
@@ -79,18 +81,22 @@ public abstract class Unit extends SuperSmoothMover
 
     protected void addedToWorld(World world)
     {
-        range = attackAnim.get(0).getWidth()/2 + 25;
-        standingRange = attackAnim.get(0).getWidth()/2;
-        startYPos = getY()+totalYOffset;
-        setLocation(getX(), startYPos);
-        maxHealth = health;
-        //System.out.println(maxHealth);
-        //System.out.println(maxHealth/knockbacks);
-        //System.out.println(knockbacks);
-        feetYPos = getY() + idleAnim.get(0).getHeight()/2;
-        for(int i = 0; i < knockbacks; i++)
+        if(justAddedToWorld)
         {
-            knockbackHealth.add((Integer)(maxHealth/knockbacks*i));
+            range = attackAnim.get(0).getWidth()/2 + 25;
+            standingRange = attackAnim.get(0).getWidth()/2;
+            startYPos = getY()+totalYOffset;
+            setLocation(getX(), startYPos);
+            maxHealth = health;
+            //System.out.println(maxHealth);
+            //System.out.println(maxHealth/knockbacks);
+            //System.out.println(knockbacks);
+            feetYPos = getY() + idleAnim.get(0).getHeight()/2;
+            for(int i = 0; i < knockbacks; i++)
+            {
+                knockbackHealth.add((Integer)(maxHealth/knockbacks*i));
+            }
+            justAddedToWorld = false;
         }
     }
 

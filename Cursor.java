@@ -17,7 +17,7 @@ public class Cursor extends SuperSmoothMover
     private MouseInfo mouse;
     //variables to determine if left clicked
     private boolean clicked;
-    private MyWorld world;
+    private SimulationWorld world;
     
     private ArrayList<SpawnUnitButton> buttons;
     private SpawnUnitButton targetSpawnUnitButton;
@@ -34,7 +34,7 @@ public class Cursor extends SuperSmoothMover
         speed = 3;
         cursorTimer = 0;
         
-        world = (MyWorld)this.getWorld();
+        world = (SimulationWorld)this.getWorld();
         clicked = false;
         setImage(cursorIdle);
     }
