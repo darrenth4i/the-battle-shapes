@@ -8,10 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MenuButtons extends Menu
 {
-    private int buttonType;
-    private double velocity;
+    protected int buttonType;
+    protected double velocity;
     protected int width, height;
-    private boolean buttonPressed;
+    protected boolean buttonPressed;
     
     //Simulation World Preperation
     String sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5;
@@ -22,12 +22,16 @@ public class MenuButtons extends Menu
     private VisualSpawnUnit cU1, cU2, cU3, cU4, cU5;
     private String selectedUnit;
     private Text selectedCost;
+    private boolean confirmed = false;
+    
+    //Song select variables
+    private SongSelection origin;
     
     public MenuButtons(int type)
     {
         buttonType = type;
         //0 = Play button
-        setImage("images/MenuButtons/" + buttonType + ".png");
+        setImage("images/UIElements/MenuButtons/" + buttonType + ".png");
         getImage().scale(getImage().getWidth()/2, getImage().getHeight()/2);
         width = getImage().getWidth();
         height = getImage().getHeight();
@@ -41,6 +45,12 @@ public class MenuButtons extends Menu
                 height = 60;
                 break;
         }
+    }
+    
+    public MenuButtons(int type, SongSelection origin)
+    {
+        this(type);
+        this.origin = origin;
     }
     
     public MenuButtons(int type, String sUnit1, String sUnit2, String sUnit3, String sUnit4, String sUnit5, String cUnit1, String cUnit2, String cUnit3, String cUnit4, String cUnit5)
@@ -88,6 +98,12 @@ public class MenuButtons extends Menu
                     }
                 }
                 break;
+            case 3:
+                if(confirmed)
+                {
+                    moveOffScreen();
+                    return;
+                }
         }
         buttonClick();
         
@@ -128,6 +144,7 @@ public class MenuButtons extends Menu
                 break;
             case 1:
                 trans = new FullscreenTransition(new SimulationWorld(sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5));
+                getWorldOfType(SelectionWorld.class).stopAllSongs();
                 getWorld().addObject(trans, 512, 1200);
                 break;
             case 2:
@@ -171,6 +188,12 @@ public class MenuButtons extends Menu
                     closeMenu();
                 }
                 break;
+            case 4:
+                origin.nextSong();
+                break;
+            case 5:
+                origin.previousSong();
+                break;
         }
     }
     
@@ -201,6 +224,30 @@ public class MenuButtons extends Menu
     public String getSelectedUnit()
     {
         return selectedUnit;
+    }
+    
+    public void moveOffScreen()
+    {
+        getWorld().removeObject(selectedCost);
+        closeMenu();
+        confirmed = true;
+        if(getX() < 512)
+        {
+            setLocation(getX() - 10, getY());
+            if(getX() < -500)
+            {
+                getWorld().removeObject(this);
+                return;
+            }
+        }
+        else
+        {
+            setLocation(getX() + 10, getY());
+            if(getX() > 2000)
+            {
+                getWorld().removeObject(this);
+            }
+        }
     }
     
     public void playButtonAnimation()

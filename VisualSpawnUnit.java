@@ -26,7 +26,7 @@ public class VisualSpawnUnit extends MenuButtons
             circle = false;
         }
 
-        setImage("images/MenuButtons/3.png");
+        setImage("images/UIElements/MenuButtons/3.png");
         width = 90;
         height = 60;
         getImage().scale(width,height);

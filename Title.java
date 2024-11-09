@@ -6,16 +6,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Title extends Menu
+public class Title extends Graphic
 {
     private double velocity = 27;
     private int passesPointNum = 0;
-    private GreenfootImage image;
     
     public Title(String path)
     {
-        image = new GreenfootImage("images/" + path);
-        setImage(image);
+        super(path);
     }
     /**
      * Act - do whatever the Title wants to do. This method is called whenever

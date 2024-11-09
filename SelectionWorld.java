@@ -10,11 +10,16 @@ import java.util.ArrayList;
 public class SelectionWorld extends World
 {
     private String circleUnit1, circleUnit2, circleUnit3, circleUnit4, circleUnit5;
-    private ArrayList<String> circleSelection = new ArrayList<String>(); // Create an ArrayList object
     private MenuButtons cU1, cU2, cU3, cU4, cU5;
     private String squareUnit1, squareUnit2, squareUnit3, squareUnit4, squareUnit5;
     private MenuButtons sU1, sU2, sU3, sU4, sU5;
-    MenuButtons confirmButton = new MenuButtons(2);
+    
+    private PreSimTower sTower = new PreSimTower("Towers/Square/Offense.png", false, 500, 100, 1, 312);
+    private PreSimTower cTower = new PreSimTower("Towers/Circle/Offense.png", true, 500, 100, 1, 712);
+    
+    private MenuButtons confirmButton = new MenuButtons(2);
+    
+    private SongSelection song = new SongSelection("SongSelection/noSong.png");
     /**
      * Constructor for objects of class SelectionWorld.
      * 
@@ -50,8 +55,11 @@ public class SelectionWorld extends World
         addObject(sU4, 324, 410);
         addObject(sU5, 324, 480);
         
+    
+        addObject(song, 512, 0);
+        
         addObject(confirmButton, 512, 640);
-        addObject(new FullscreenTransition(), 512, 300);
+        //addObject(new FullscreenTransition(), 512, 300);
     }
     
     public void confirm()
@@ -72,9 +80,26 @@ public class SelectionWorld extends World
         {
             if(squareUnit1 != null && squareUnit2 != null && squareUnit3 != null && squareUnit4 != null && squareUnit5 != null)
             {
+                cU1.moveOffScreen();
+                cU2.moveOffScreen();
+                cU3.moveOffScreen();
+                cU4.moveOffScreen();
+                cU5.moveOffScreen();
+                sU1.moveOffScreen();
+                sU2.moveOffScreen();
+                sU3.moveOffScreen();
+                sU4.moveOffScreen();
+                sU5.moveOffScreen();
                 removeObject(confirmButton);
                 addObject(new MenuButtons(1,  squareUnit1, squareUnit2, squareUnit3, squareUnit4, squareUnit5, circleUnit1, circleUnit2, circleUnit3, circleUnit4, circleUnit5), 512, 640);
+                addObject(sTower, -200, 200);
+                addObject(cTower, 1224, 200);
             }
         }
+    }
+    
+    public void stopAllSongs()
+    {
+        song.stopAllSongs();
     }
 }

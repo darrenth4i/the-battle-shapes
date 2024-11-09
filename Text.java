@@ -9,7 +9,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Text extends UI
 {
     private GreenfootImage img;
-    
     public Text(String text, int size) {
         updateText(text, size);
     }
