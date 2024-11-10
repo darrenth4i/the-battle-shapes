@@ -74,7 +74,7 @@ public class SpawnUnitButton extends UI
         
 
         firstUpgrade = unitCost * 5;
-        secondUpgrade = unitCost * 15;
+        secondUpgrade = unitCost * 10;
         
         unitCooldown = cooldown;
         if (u.substring(0, 1).equals("C")) {
@@ -173,7 +173,7 @@ public class SpawnUnitButton extends UI
                 lvlText = new Text("LVL 1", 13);
                 getWorld().addObject(lvlText, getX(), getY() + 52);
             } else if (unitStage == 2) {
-                upgradeBar = new ProgressBar(secondUpgrade - firstUpgrade, 1, this, 78, 15, 0, Color.YELLOW, Color.WHITE, false, Color.BLACK, 3);
+                upgradeBar = new ProgressBar(secondUpgrade, 1, this, 78, 15, 0, Color.YELLOW, Color.WHITE, false, Color.BLACK, 3);
                 getWorld().addObject(upgradeBar, getX(), getY() + 50);
                 lvlText = new Text("LVL 2", 13);
                 getWorld().addObject(lvlText, getX(), getY() + 52);
