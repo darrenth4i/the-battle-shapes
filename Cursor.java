@@ -60,11 +60,15 @@ public class Cursor extends SuperSmoothMover
      */
     public void act()
     {
+        //run only once when object is spawned
         if(!spawned){
+            //look for buttons
             buttons = (ArrayList<SpawnUnitButton>)getWorld().getObjects(SpawnUnitButton.class);
+            //if buttons not spawned yet, try again
             if(buttons == null){
                 return;
             }
+            //only want one team buttons
             for(SpawnUnitButton c : buttons){
                 //add to team specific array list if cursor/button is circle/square
                 if((circle && c.getCircle()) || (!circle && !c.getCircle())){
@@ -74,15 +78,7 @@ public class Cursor extends SuperSmoothMover
             spawned = true;
         }
         
-        //if mouse is held, set clicked to true, if let go, set to false
-        if(Greenfoot.mousePressed(world)){
-            clicked = true;
-        }
-        if(Greenfoot.mouseClicked(world)){
-            clicked = false;
-        }
-        
-        //reset destination index if too large
+        //reset destination index if too large DEBUG? maybe remove
         if(destinationIndex >= buttonsTeam.size() - 1){
             destinationIndex = 0;
         }
@@ -103,11 +99,15 @@ public class Cursor extends SuperSmoothMover
             click(true);
         }
         
+        //DEBUG remove
         if(Greenfoot.isKeyDown("space")){
             destinationIndex++;
         }
     }
     
+    /**
+     * Method to get the coordinates to a specific button's destination in buttonsTeam
+     */
     private Coordinate getNextDestination (int index) {
         return buttonsTeam.get(index).getCoordinate();
     }
@@ -181,10 +181,16 @@ public class Cursor extends SuperSmoothMover
         }
     }
 
+    //Return if cursor is part of circle team
     public boolean getCircle(){
         return circle;
     }
     
+    /**
+     * Method to replace a SpawnUnitButton in buttonsTeam 
+     * when it gets upgraded so the list has the right button
+     * at all times
+     */
     public void replaceButtonsTeam(int index, SpawnUnitButton b) {
         currentDestination = null;
         buttonsTeam.set(index, b);
