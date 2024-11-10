@@ -31,38 +31,22 @@ public class SimulationWorld extends World
         addObject(new Wallet(true), 100, 650);
         
         //SpawnUnitButton Parameters
-        //(Name, level, cost, cooldown), x, y)
-        //IMPORTANT: FIRST STAGE of LAST UNIT TYPE MUST have "true" as the fifth parameter. Other buttons may only have four
+        //(Name, level, cost, cooldown, canUpgrade, lastButton, visible), x, y)
+        //IMPORTANT: ONE STAGE of ONE UNIT MUST have "true" as the fifth parameter + include 6th param. Other buttons may only have four
         //This is to cache images of unitStage 1, 2, and 3 for all Units (get rid of freezing)
-        //eg. CHealer level 1 must have the fifth parameter... Likely will not have to change since we plan only 5 units per team?
+        //eg. CU1 level 1 must have the fifth and sixth param
         addObject(new SpawnUnitButton(sU1, 1, 3000, true), 100, 55);
         addObject(new SpawnUnitButton(sU2, 1, 3000, true), 200, 55);
         addObject(new SpawnUnitButton(sU3, 1, 3000, true), 300, 55);
         addObject(new SpawnUnitButton(sU4, 1, 3000,true), 400, 55);
         addObject(new SpawnUnitButton(sU5, 1, 3000, true), 500, 55);
         
-        addObject(new SpawnUnitButton(cU1, 1, 3000, true), 900, 625);
+        addObject(new SpawnUnitButton(cU1, 1, 3000, true, true, true), 900, 625);
         addObject(new SpawnUnitButton(cU2, 1, 3000, true), 800, 625);
         addObject(new SpawnUnitButton(cU3, 1, 3000, true), 700, 625);
         addObject(new SpawnUnitButton(cU4, 1, 3000, true), 500, 625);
         addObject(new SpawnUnitButton(cU5, 1, 3000, true), 600, 625);
-
-        //preload assets
-        addObject(new SpawnUnitButton(sU1, 2, 3000, false), 100, -500);
-        addObject(new SpawnUnitButton(sU1, 3, 3000, false), 100, -500);
-        addObject(new SpawnUnitButton(sU3, 2, 3000, false), 300, -500);
-        
-        addObject(new SpawnUnitButton(cU1, 2, 3000, false), 900, -500);
-        addObject(new SpawnUnitButton(cU1, 3, 3000, false), 900, -500);
-        addObject(new SpawnUnitButton(cU2, 2, 3000, false), 800, -500);
-        addObject(new SpawnUnitButton(cU2, 3, 3000, false), 800, -500);
-        addObject(new SpawnUnitButton(cU3, 2, 3000, false), 700, -500);
-        addObject(new SpawnUnitButton(cU3, 3, 3000, false), 700, -500);
-        addObject(new SpawnUnitButton(cU4, 2, 3000, false), 500, -500);
-        addObject(new SpawnUnitButton(cU4, 3, 3000, false), 500, -500);
-        addObject(new SpawnUnitButton(cU5, 2, 3000, false), 600, -500);
-        addObject(new SpawnUnitButton(cU5, 3, 3000, true, true, false), 600, -500);
-        
+       
         //Cursor shows up on top of everything
         setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
         
