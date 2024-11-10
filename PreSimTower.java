@@ -8,17 +8,18 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class PreSimTower extends Graphic
 {
-    //Tower vaiables "traits"
-    protected int maxHealth = 1000, health = maxHealth;
-    protected SuperStatBar healthBar = new SuperStatBar(maxHealth, health, this, 80, 10, 0, Color.GREEN, Color.GRAY);
+    protected int maxHealth = 1000;
     //Denotes team
     protected boolean circle;
     protected int towerRange;
     protected int fireInterval; //Higher rate means slower speed
     private int targetX;
-    private int type;
+    private int type = 0;
+    private int level = 0;
     
-    protected GreenfootImage towerImage;
+    private BaseStageSetter stageSetter = new BaseStageSetter(6, this);
+    
+    private GreenfootImage towerImage;
     public PreSimTower(String path, boolean circle, int towerRange, int fireInterval, int type, int targetX)
     {
         super(path);
@@ -29,19 +30,7 @@ public class PreSimTower extends Graphic
         this.type = type;
         
         //Sets tower image depending on side and type
-        changeType();
-    }
-    
-    public void addedToWorld(World world)
-    {
-        if(circle)
-        {
-            getWorld().addObject(new BaseSwitcher(4, this), getX() + 100, getY());
-        }
-        else
-        {
-            getWorld().addObject(new BaseSwitcher(5, this), getX() - 100, getY());
-        }
+        updateImage();
     }
     
     public void moveToPosition(int x, int y, int speed)
@@ -64,11 +53,10 @@ public class PreSimTower extends Graphic
             {
                 getWorld().addObject(new BaseSwitcher(5, this), getX() - 100, getY());
             }
+            getWorld().addObject(stageSetter, getX(), getY() + 200);
+            getWorld().addObject(new Slider(2000, 1000, this, 300, 20, -170), getX(), getY() + 300);
         }
     }
-    
-    
-    
     
     /**
      * Act - do whatever the PreSimTower wants to do. This method is called whenever
@@ -82,6 +70,13 @@ public class PreSimTower extends Graphic
         }
     }
     
+    public void changeLevel(int level)
+    {
+        this.level = level;
+        updateImage();
+        getWorldOfType(SelectionWorld.class).setTower(this);
+    }
+    
     public void changeType()
     {
         type ++;
@@ -89,29 +84,130 @@ public class PreSimTower extends Graphic
         {
             type = 0;
         }
+        getWorldOfType(SelectionWorld.class).setTower(this);
+        updateImage();
+    }
+    
+    public void changeHP(int newHP)
+    {
+        if(newHP > 0)
+        {
+            maxHealth = newHP;
+            getWorldOfType(SelectionWorld.class).setTower(this);
+        }
+    }
+    
+    public int getHP()
+    {
+        return maxHealth;
+    }
+    
+    public int getLevel()
+    {
+        return level;
+    }
+    
+    public int getType()
+    {
+         return type;
+    }
+    
+    public boolean getCircle()
+    {
+        return circle;
+    }
+    
+    public void updateImage()
+    {
         if(circle)
         {
             if(type == 0){
-                towerImage = new GreenfootImage("Towers/Circle/Defense.png");
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Circle/Defense 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Circle/Defense 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Circle/Defense 3.png");
+                    break;
+                }
             }
             else if(type == 1){
-                towerImage = new GreenfootImage("Towers/Circle/Offense.png");
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Circle/Offense 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Circle/Offense 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Circle/Offense 3.png");
+                    break;
+                }
             }
             else{
-                towerImage = new GreenfootImage("Towers/Circle/Support.png");
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Circle/Support 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Circle/Support 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Circle/Support 3.png");
+                    break;
+                }
             }
             setImage(towerImage);
         }
         else
         {
             if(type == 0){
-                towerImage = new GreenfootImage("Towers/Square/Defense.png");
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Square/Defense 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Square/Defense 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Square/Defense 3.png");
+                    break;
+                }
             }
             else if(type == 1){
-                towerImage = new GreenfootImage("Towers/Square/Offense.png");
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Square/Offense 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Square/Offense 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Square/Offense 3.png");
+                    break;
+                }
             }
             else{
-                towerImage = new GreenfootImage("Towers/Square/Support.png");
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Square/Support 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Square/Support 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Square/Support 3.png");
+                    break;
+                }
             }
             setImage(towerImage);
         }

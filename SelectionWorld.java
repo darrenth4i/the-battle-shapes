@@ -14,10 +14,15 @@ public class SelectionWorld extends World
     private String squareUnit1, squareUnit2, squareUnit3, squareUnit4, squareUnit5;
     private MenuButtons sU1, sU2, sU3, sU4, sU5;
     
-    private PreSimTower sTower = new PreSimTower("Towers/Square/Offense.png", false, 500, 100, 1, 312);
-    private PreSimTower cTower = new PreSimTower("Towers/Circle/Offense.png", true, 500, 100, 1, 712);
+    private PreSimTower sTower = new PreSimTower("Towers/Square/Offense.png", false, 500, 100, 0, 312);
+    private PreSimTower cTower = new PreSimTower("Towers/Circle/Offense 1.png", true, 500, 100, 0, 712);
+    
+    private int sTowerHealth, sTowerLevel, sTowerType;
+    private int cTowerHealth, cTowerLevel, cTowerType;
     
     private MenuButtons confirmButton = new MenuButtons(2);
+    
+    private MenuButtons startButton;
     
     private SongSelection song = new SongSelection("SongSelection/noSong.png");
     /**
@@ -91,11 +96,19 @@ public class SelectionWorld extends World
                 sU4.moveOffScreen();
                 sU5.moveOffScreen();
                 removeObject(confirmButton);
-                addObject(new MenuButtons(1,  squareUnit1, squareUnit2, squareUnit3, squareUnit4, squareUnit5, circleUnit1, circleUnit2, circleUnit3, circleUnit4, circleUnit5), 512, 640);
-                addObject(sTower, -200, 200);
-                addObject(cTower, 1224, 200);
+                
+                addObject(startButton = new MenuButtons(1,  squareUnit1, squareUnit2, squareUnit3, squareUnit4, squareUnit5, circleUnit1, circleUnit2, circleUnit3, circleUnit4, circleUnit5), 512, 640);
+                addObject(sTower, -200, 300);
+                addObject(cTower, 1224, 300);
+                setTower(sTower);
+                setTower(cTower);
             }
         }
+    }
+    
+    public void setTower(PreSimTower tower)
+    {
+        startButton.setTower(tower);
     }
     
     public void stopAllSongs()

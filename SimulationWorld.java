@@ -10,18 +10,43 @@ public class SimulationWorld extends World
 {
     private GreenfootImage bg = new GreenfootImage("Backgrounds/battlecatsbg.png");
     
+    private int towerX = 100;
+    private int towerY = 270;
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
      */
-    public SimulationWorld(String sU1, String sU2, String sU3, String sU4, String sU5, String cU1, String cU2, String cU3, String cU4, String cU5)
+    public SimulationWorld(String sU1, String sU2, String sU3, String sU4, String sU5, String cU1, String cU2, String cU3, String cU4, String cU5, int[] sTowerVariables, int[] cTowerVariables)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1024, 700, 1, false); 
         setBackground(bg);
-        
-        addObject(new Offense(false, 500, 100), 100, 320);
-        addObject(new Offense(true, 500, 100), 900, 320);
+        switch(sTowerVariables[1])
+        {
+            case 0:
+                addObject(new Defense(false, 500, 100, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
+                break;
+            case 1:
+                addObject(new Offense(false, 500, 100, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
+                break;
+            case 2:
+                addObject(new Support(false, 500, 100, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
+                break;
+        }
+        switch(cTowerVariables[1])
+        {
+            case 0:
+                addObject(new Defense(true, 500, 100, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
+                break;
+            case 1:
+                addObject(new Offense(true, 500, 100, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
+                break;
+            case 2:
+                addObject(new Support(true, 500, 100, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
+                break;
+        }
+        System.out.println(sTowerVariables[1] + " " + cTowerVariables[1]);
         
         //addObject(new CHealer(3), 900, 500);
         

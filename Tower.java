@@ -11,11 +11,13 @@ public abstract class Tower extends Actor
 {
     //Tower vaiables "traits"
     protected int maxHealth = 1000, health = maxHealth;
-    protected SuperStatBar healthBar = new SuperStatBar(maxHealth, health, this, 80, 10, 0, Color.GREEN, Color.GRAY);
+    protected SuperStatBar healthBar;
     //Denotes team
     protected boolean circle;
     protected int towerRange;
     protected int fireInterval; //Higher rate means slower speed
+    protected int type;
+    protected int level;
 
     //Animation index for death
     protected int deathAnim = -1000;
@@ -27,39 +29,17 @@ public abstract class Tower extends Actor
     //Helper variables
     private double distance, nearestDistance, furthestDistance, lowestHealth;
     protected int count;
-    public Tower(boolean circle, int towerRange, int fireInterval, int type)
+    public Tower(boolean circle, int towerRange, int fireInterval, int type, int level, int maxHP)
     {
         this.circle = circle;
         this.towerRange = towerRange;
         this.fireInterval = fireInterval;
-        
+        this.type = type;
+        this.level = level;
+        this.maxHealth = maxHP;
+        healthBar = new SuperStatBar(maxHealth, health, this, 80, 10, 0, Color.GREEN, Color.GRAY);
         //Sets tower image depending on side and type
-        if(circle)
-        {
-            if(type == 0){
-                towerImage = new GreenfootImage("Towers/Circle/Defense.png");
-            }
-            else if(type == 1){
-                towerImage = new GreenfootImage("Towers/Circle/Offense.png");
-            }
-            else{
-                towerImage = new GreenfootImage("Towers/Circle/Support.png");
-            }
-            setImage(towerImage);
-        }
-        else
-        {
-            if(type == 0){
-                towerImage = new GreenfootImage("Towers/Square/Defense.png");
-            }
-            else if(type == 1){
-                towerImage = new GreenfootImage("Towers/Square/Offense.png");
-            }
-            else{
-                towerImage = new GreenfootImage("Towers/Square/Support.png");
-            }
-            setImage(towerImage);
-        }
+        updateImage();
     }
     
     public void addedToWorld(World world)
@@ -254,5 +234,101 @@ public abstract class Tower extends Actor
         health-=damage;
         healthBar.update(health);
         getWorld().addObject(new HitParticle(), getX()+Greenfoot.getRandomNumber(getImage().getWidth())-getImage().getWidth()/2, getY()+Greenfoot.getRandomNumber(getImage().getHeight()/2));
+    }
+    
+    public void updateImage()
+    {
+        if(circle)
+        {
+            if(type == 0){
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Circle/Defense 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Circle/Defense 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Circle/Defense 3.png");
+                    break;
+                }
+            }
+            else if(type == 1){
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Circle/Offense 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Circle/Offense 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Circle/Offense 3.png");
+                    break;
+                }
+            }
+            else{
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Circle/Support 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Circle/Support 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Circle/Support 3.png");
+                    break;
+                }
+            }
+            setImage(towerImage);
+        }
+        else
+        {
+            if(type == 0){
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Square/Defense 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Square/Defense 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Square/Defense 3.png");
+                    break;
+                }
+            }
+            else if(type == 1){
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Square/Offense 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Square/Offense 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Square/Offense 3.png");
+                    break;
+                }
+            }
+            else{
+                switch(level)
+                {
+                    case 0:
+                    towerImage = new GreenfootImage("Towers/Square/Support 1.png");
+                    break;
+                    case 1:
+                    towerImage = new GreenfootImage("Towers/Square/Support 2.png");
+                    break;
+                    case 2:
+                    towerImage = new GreenfootImage("Towers/Square/Support 3.png");
+                    break;
+                }
+            }
+            setImage(towerImage);
+        }
     }
 }

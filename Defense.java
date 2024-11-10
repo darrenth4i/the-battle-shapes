@@ -8,9 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Defense extends Tower
 {
-    public Defense(boolean circle, int towerRange, int fireInterval)
+    public Defense(boolean circle, int towerRange, int fireInterval, int level, int maxHP)
     {
-        super(circle, towerRange, fireInterval, 0);
+        super(circle, towerRange, fireInterval, 0, level, maxHP);
     }
     
     /**

@@ -14,7 +14,8 @@ public class MenuButtons extends Menu
     protected boolean buttonPressed;
     
     //Simulation World Preperation
-    String sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5;
+    private String sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5;
+    private int sTowerHealth, sTowerLevel, sTowerType, cTowerHealth, cTowerLevel, cTowerType;
     
     //Unit select variables
     private boolean menuOpened;
@@ -24,11 +25,15 @@ public class MenuButtons extends Menu
     private Text selectedCost;
     private boolean confirmed = false;
     
+    private GreenfootSound[] clickSounds;
+    private int clickSoundIndex;
+    
     //Song select variables
     private SongSelection origin;
     
     public MenuButtons(int type)
     {
+        this();
         buttonType = type;
         //0 = Play button
         setImage("images/UIElements/MenuButtons/" + buttonType + ".png");
@@ -70,6 +75,11 @@ public class MenuButtons extends Menu
     
     public MenuButtons()
     {
+        clickSounds = new GreenfootSound[10];
+        for (int i = 0; i < clickSounds.length; i++){
+            clickSounds[i] = new GreenfootSound ("click.wav");
+            clickSounds[i].setVolume (70);
+        }
     }
     
 
@@ -114,6 +124,12 @@ public class MenuButtons extends Menu
         if(Greenfoot.mousePressed(this))
         {
             buttonPressed = true;
+            clickSounds[clickSoundIndex].play();
+            clickSoundIndex++;
+            if (clickSoundIndex >= clickSounds.length)
+            {
+                clickSoundIndex = 0;
+            }
         }
         else if (Greenfoot.mouseClicked(this))
         {
@@ -143,7 +159,9 @@ public class MenuButtons extends Menu
                 getWorld().addObject(trans, 512, 1200);
                 break;
             case 1:
-                trans = new FullscreenTransition(new SimulationWorld(sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5));
+                int[] sTowerVariables = {sTowerHealth, sTowerType, sTowerLevel};
+                int[] cTowerVariables = {cTowerHealth, cTowerType, cTowerLevel};
+                trans = new FullscreenTransition(new SimulationWorld(sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5, sTowerVariables, cTowerVariables));
                 getWorldOfType(SelectionWorld.class).stopAllSongs();
                 getWorld().addObject(trans, 512, 1200);
                 break;
@@ -211,6 +229,23 @@ public class MenuButtons extends Menu
         }
     }
     
+    public void setTower(PreSimTower tower)
+    {
+        if(!tower.getCircle())
+        {
+            sTowerHealth = tower.getHP();
+            sTowerType = tower.getType();
+            sTowerLevel = tower.getLevel();
+        }
+        else
+        {
+            cTowerHealth = tower.getHP();
+            cTowerType = tower.getType();
+            cTowerLevel = tower.getLevel();
+        }
+        System.out.println(sTowerType + " " + cTowerType);
+    }
+    
     public void closeMenu()
     {
         menuOpened = false;
@@ -254,14 +289,12 @@ public class MenuButtons extends Menu
     {
         if(getY() > 400)
         {
-            System.out.println(getY());
             setLocation(getX(), getY() - velocity);
             velocity -= 0.45;
         }
         else if(getY() != 400)
         {
             setLocation(getX(), 400);
-            
         }
     }
     

@@ -52,41 +52,41 @@ public class SuperStatBar extends Actor
 
     // When using the simplest constructor, this allows control of whether bars
     // should hide by default when at 100%
-    private static final boolean HIDE_AT_MAX_DEFAULT = false;
+    protected static final boolean HIDE_AT_MAX_DEFAULT = false;
     
     // Declare Instance Variables
-    private int[] maxVals;
-    private int[] currVals;
-    private double currPercentVal;
-    private int[] missingBarSize;
-    private int[] filledBarSize;
-    private boolean hideAtMax;
-    private boolean hasBorder;
+    protected int[] maxVals;
+    protected int[] currVals;
+    protected double currPercentVal;
+    protected int[] missingBarSize;
+    protected int[] filledBarSize;
+    protected boolean hideAtMax;
+    protected boolean hasBorder;
 
     // for multiple bars
-    private int barCount;
-    private int barHeight;
+    protected int barCount;
+    protected int barHeight;
 
     // Declare Instance Images
-    private GreenfootImage bar;
-    private GreenfootImage blank;
+    protected GreenfootImage bar;
+    protected GreenfootImage blank;
 
     // Some constants - can be changed to suit size of related objects
-    private int width;
-    private int height;
-    private int offset;
-    private int borderThickness;
+    protected int width;
+    protected int height;
+    protected int offset;
+    protected int borderThickness;
 
     // Declare Instance Objects
-    private Actor target;
+    protected Actor target;
 
     
     
     
     // Declare some Color objects
-    private Color[] filledColor;
-    private Color[] missingColor;
-    private Color borderColor;
+    protected Color[] filledColor;
+    protected Color[] missingColor;
+    protected Color borderColor;
 
     /**
      * Main constructor - A basic constructor that sets default values. Easy to use, not very flexible.
@@ -235,7 +235,7 @@ public class SuperStatBar extends Actor
      * delete this act() method and call moveMe() directly whenever your Actor moves. 
      */
     public void act () {
-        moveMe();
+        //moveMe();
     }
 
     /**

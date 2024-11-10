@@ -246,41 +246,42 @@ public class SpawnUnitButton extends UI
      */
     public void spawnUnit() {
         //Tanks will offset less since they're taller
-        int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 10 : 70; 
+        int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 30 : 100; 
         yOffset += Greenfoot.getRandomNumber(30);
+        int xOffset = 30;
 
         if(!circle){
             if (unit == "SFodder") {
-                getWorld().addObject(new SFodder(unitStage), spawn.getX(), spawn.getY() + yOffset);
+                getWorld().addObject(new SFodder(unitStage), spawn.getX() + xOffset, spawn.getY() + yOffset);
             } 
             else if (unit == "STank") {
-                getWorld().addObject(new STank(unitStage), spawn.getX(), spawn.getY() + yOffset);
+                getWorld().addObject(new STank(unitStage), spawn.getX() + xOffset, spawn.getY() + yOffset);
             } 
             else if (unit == "SRanger") {
-                getWorld().addObject(new SRanger(unitStage), spawn.getX(), spawn.getY() + yOffset);
+                getWorld().addObject(new SRanger(unitStage), spawn.getX() + xOffset, spawn.getY() + yOffset);
             } 
             else if (unit == "SHealer") {
-                getWorld().addObject(new SHealer(unitStage), spawn.getX(), spawn.getY() + yOffset);
+                getWorld().addObject(new SHealer(unitStage), spawn.getX() + xOffset, spawn.getY() + yOffset);
             } 
             else if (unit == "SWarrior") {
-                getWorld().addObject(new SWarrior(unitStage), spawn.getX(), spawn.getY() + yOffset);
+                getWorld().addObject(new SWarrior(unitStage), spawn.getX() + xOffset, spawn.getY() + yOffset);
             }
             return;
         }
         if (unit == "CFodder") {
-            getWorld().addObject(new CFodder(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            getWorld().addObject(new CFodder(unitStage), spawn.getX() - xOffset, spawn.getY() + yOffset);
         } 
         else if (unit == "CTank") {
-            getWorld().addObject(new CTank(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            getWorld().addObject(new CTank(unitStage), spawn.getX() - xOffset, spawn.getY() + yOffset);
         } 
         else if (unit == "CRanger") {
-            getWorld().addObject(new CRanger(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            getWorld().addObject(new CRanger(unitStage), spawn.getX() - xOffset, spawn.getY() + yOffset);
         } 
         else if (unit == "CHealer") {
-            getWorld().addObject(new CHealer(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            getWorld().addObject(new CHealer(unitStage), spawn.getX() - xOffset, spawn.getY() + yOffset);
         } 
         else if (unit == "CWarrior") {
-            getWorld().addObject(new CWarrior(unitStage), spawn.getX(), spawn.getY() + yOffset);
+            getWorld().addObject(new CWarrior(unitStage), spawn.getX() - xOffset, spawn.getY() + yOffset);
         } 
     }
 
