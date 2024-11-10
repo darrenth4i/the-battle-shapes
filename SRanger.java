@@ -25,15 +25,44 @@ public class SRanger extends Square
         {
             case 1:
             attackXOffset = 0;
-            attackYOffset = -9;
+            attackYOffset = 0;
             loadAnimationFrames("images/Units/SRanger/StageOne");    
             
-            atkCooldown = 100;
+            atkCooldown = 60;
             health = 10;
             knockbacks = 6;
             speed = 2;
             atk = 6;
             attackFrame = 0;
+            break;
+            
+            case 2:
+            attackXOffset = 0;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/SRanger/StageTwo");    
+            
+            atkCooldown = 45;
+            health = 16;
+            knockbacks = 6;
+            speed = 2;
+            atk = 12;
+            attackFrame = 0;
+            break;
+            
+            case 3:
+            attackXOffset = 10;
+            attackYOffset = 0;
+            moveXOffset = 0;
+            moveYOffset = 0;
+            loadAnimationFrames("images/Units/SRanger/StageThree");
+            
+            attackFrame = 3;
+            atkCooldown = 30;
+            knockbacks = 7;
+            speed = 2;
+            atk = 10;
+            health = 20;
+            break;
         }        
     }
     
