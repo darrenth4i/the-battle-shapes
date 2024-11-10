@@ -23,8 +23,8 @@ public class STank extends Square
         switch(stage)
         {
             case 1:
-            totalYOffset = -20;
-            attackXOffset = 25;
+            totalYOffset = -60;
+            attackXOffset = 55;
             attackYOffset = 0;
             loadAnimationFrames("images/Units/STank/StageOne");
             
@@ -33,36 +33,6 @@ public class STank extends Square
             atk = 3;
             health = 90;
             attackFrame = 5;
-            break;
-            
-            case 2:
-            totalYOffset = -60;
-            attackXOffset = 30;
-            attackYOffset = 5;
-            moveYOffset = -20;
-            loadAnimationFrames("images/Units/STank/StageTwo");
-            
-            attackFrame = 8;
-            atkCooldown = 120;
-            knockbacks = 1;
-            speed = 2;
-            atk = 4;
-            health = 50;
-            break;
-            
-            case 3:
-            totalYOffset = -60;
-            attackXOffset = 20;
-            attackYOffset = 0;
-            loadAnimationFrames("images/Units/STank/StageThree");
-            
-            attackFrame = 11;
-            atkCooldown = 120;
-            knockbacks = 1;
-            speed = 2;
-            atk = 6;
-            health = 70;
-            break;
         }
     }
 }
