@@ -285,9 +285,8 @@ public class SpawnUnitButton extends UI
                 hoverBox = new BlackBox(20, this);
                 getWorld().addObject(hoverBox, getX(), getY());    
             }
-            //if button clicked
-            //DEBUG remove Greenfoot.mouseClicked(null)
-            if ((Greenfoot.mouseClicked(null) || clicked) && !onCooldown && wallet.getAmount() > unitCost) {
+            //if button clicked and can afford
+            if (clicked && !onCooldown && wallet.getAmount() > unitCost) {
                 clicked = false;
                 spawnUnit();
                 wallet.spend(unitCost);

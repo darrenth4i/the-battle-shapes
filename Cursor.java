@@ -12,9 +12,7 @@ public class Cursor extends SuperSmoothMover
     //images for idle and held cursor frames
     private GreenfootImage cursorIdle;
     private GreenfootImage cursorHeld;
-    
-    //DEBUG PURPOSES ONLY, follow mouse movement
-    private MouseInfo mouse;
+
     //variables to determine if left clicked
     private boolean clicked;
     private SimulationWorld world;
@@ -115,7 +113,7 @@ public class Cursor extends SuperSmoothMover
     }
     
     /**
-     * DEBUG Method to set cursor movement of mouse via click
+     * Method to move the cursor image smoothly
      */
     public void followCursor(Coordinate target){
         double distanceToDestination = getDistance (new Coordinate(getX(), getY()), target);
