@@ -145,6 +145,7 @@ public class SpawnUnitButton extends UI
 
     public void act() {
         if (spawned) {
+            //when first spawned, find the corresponding tower and wallet object to your team
             ArrayList<Tower> towers = (ArrayList<Tower>)getWorld().getObjects(Tower.class);
             if (towers.size() != 0) {
                 if (towers.get(0).getCircle() == circle) {
@@ -161,9 +162,11 @@ public class SpawnUnitButton extends UI
                     wallet = wallets.get(1);
                 }
             }
-
+            
+            //add text for unit cost on the button
             getWorld().addObject(new Text("$" + unitCost, 18), getX() - getImage().getWidth()/2 + 24, getY() + getImage().getHeight()/2 - 15);
-
+            
+            //add upgrade bar depending on the current unit stage
             if (unitStage == 1) {
                 upgradeBar = new ProgressBar(firstUpgrade, 1, this, 78, 15, 0, Color.YELLOW, Color.WHITE, false, Color.BLACK, 3);
                 getWorld().addObject(upgradeBar, getX(), getY() + 50);
@@ -180,33 +183,40 @@ public class SpawnUnitButton extends UI
                 lvlText = new Text("LVL MAX", 13);
                 getWorld().addObject(lvlText, getX(), getY() + 52);
             }
-
+            
             if(last){
                 preload();   
             }
-
+            
+            //ensure this is only run once.
             spawned = false;
         }
+        //if on cooldown and cooldown is over, run offcooldown()
         if (onCooldown && cooldownTimes >= 50) {
             offCooldown();
         }
+        //create 50 intervals for the cooldown bar to update to simulate the bar decreasing 
         if (onCooldown && timer.millisElapsed() > (unitCooldown/50)) {
             timer.mark();
             cooldownTimes++;
             cooldownBar.update(unitCooldown - (unitCooldown/50 * cooldownTimes));
         }
+        //darken button when cursor is hovering
         darkenOnHover();
-        if(canUpgrade)
-        {
-            if(unitStage == 1 && spent>=firstUpgrade)
+        
+        if(canUpgrade) {
+            //if at stage 1 and you can upgrade, upgrade.
+            if(unitStage == 1 && spent >= firstUpgrade)
             {
                 upgrade();
             }
-            if(unitStage == 2 && spent>=secondUpgrade)
+            //if at stage 2 and you can upgrade, upgrade.
+            if(unitStage == 2 && spent >= secondUpgrade)
             {
                 upgrade();
             }
         }
+        //update upgrade bar
         if (upgradeBar.getWorld() != null && unitStage != 3) {
             upgradeBar.update(spent);
         }
@@ -214,7 +224,7 @@ public class SpawnUnitButton extends UI
 
     public void offCooldown() {
         onCooldown = false;
-
+        
         getWorld().removeObject(blackbox);
         getWorld().removeObject(cooldownBar);
     }
