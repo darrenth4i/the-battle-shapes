@@ -18,25 +18,41 @@ public class Cursor extends SuperSmoothMover
     //variables to determine if left clicked
     private boolean clicked;
     private SimulationWorld world;
-    
-    private ArrayList<SpawnUnitButton> buttons;
-    private SpawnUnitButton targetSpawnUnitButton;
+ 
     private int speed;
     
     //timer to make cursor animation more noticeable
     private int cursorTimer;
+    //index to access buttons list or destinations list
+    private int destinationIndex;
     
-    public Cursor(){
+    //coordinates for cursor to move to
+    private Coordinate currentDestination;
+    
+    //variable to determine if cursor is circle team
+    private boolean circle;
+    private boolean spawned;
+    ArrayList<SpawnUnitButton> buttons;
+    ArrayList<SpawnUnitButton> buttonsCircle;
+    
+    public Cursor(boolean cir){
         cursorIdle = new GreenfootImage("images/cursor.png");
         //Make held frame smaller, visual indicator of clicked
         cursorHeld = new GreenfootImage("images/cursorHeld.png");  
         
         speed = 3;
         cursorTimer = 0;
+        destinationIndex = 0;
         
         world = (SimulationWorld)this.getWorld();
         clicked = false;
         setImage(cursorIdle);
+        
+        circle = cir;
+        spawned = false;
+        
+        buttonsCircle = new ArrayList<SpawnUnitButton>();
+        enableStaticRotation();
     }
     
     /**
@@ -45,6 +61,19 @@ public class Cursor extends SuperSmoothMover
      */
     public void act()
     {
+        if(!spawned){
+            buttons = (ArrayList<SpawnUnitButton>)getWorld().getObjects(SpawnUnitButton.class);
+            if(buttons == null){
+                return;
+            }
+            for(SpawnUnitButton c : buttons){
+                if(c.getCircle()){
+                    buttonsCircle.add(c);
+                }
+            }
+            spawned = true;
+        }
+        
         //if mouse is held, set clicked to true, if let go, set to false
         if(Greenfoot.mousePressed(world)){
             clicked = true;
@@ -53,34 +82,43 @@ public class Cursor extends SuperSmoothMover
             clicked = false;
         }
         
-        followCursor();
-        click(clicked);
-        //Move cursor to closest button
-        cursorMovement(targetClosestSpawnUnitButton());
-        //"Click" button if it exists, cursor is on it, and isnt on cooldown approx every 4s
-        if(Greenfoot.getRandomNumber(240) == 0 && targetClosestSpawnUnitButton() != null && !targetClosestSpawnUnitButton().getOnCooldown() && isTouching(SpawnUnitButton.class)){
-            targetClosestSpawnUnitButton().setClicked(true);
+        //reset destination index if too large
+        if(destinationIndex >= buttonsCircle.size() - 1){
+            destinationIndex = 0;
+        }
+        
+        // Check if there is another destination for me if I don't have one
+        if (currentDestination == null){
+            currentDestination = getNextDestination (destinationIndex);
+        }
+        
+        //move to button coords
+        followCursor(currentDestination);
+        //check to reset mouse held animation
+        click(false);
+        
+        //"Click" button if it exists, cursor is on it, and isnt on cooldown 
+        if(currentDestination == null && !buttonsCircle.get(destinationIndex).getOnCooldown() && isTouching(SpawnUnitButton.class)){
+            buttonsCircle.get(destinationIndex).setClicked(true);
             click(true);
         }
+        
+        if(Greenfoot.isKeyDown("space")){
+            destinationIndex++;
+        }
+    }
+    
+    private Coordinate getNextDestination (int index) {
+        return buttonsCircle.get(index).getCoordinate();
     }
     
     /**
      * DEBUG Method to set cursor movement of mouse via click
      */
-    public void followCursor(){
-        //DEBUG, remove mouse when done
-        mouse = Greenfoot.getMouseInfo();
-        if(mouse != null && Greenfoot.mouseClicked(null)){
-            setLocation(mouse.getX(), mouse.getY());
-        }    
-    }
-    
-    /**
-     * Method to follow cursor movement of mouse 
-     */
-    public void cursorMovement(Actor button){
-        int distanceX = button.getX() - this.getX();
-        int distanceY = button.getY() - this.getY();
+    public void followCursor(Coordinate target){
+        double distanceToDestination = getDistance (new Coordinate(getX(), getY()), target);
+        int distanceX = target.getX() - this.getX();
+        int distanceY = target.getY() - this.getY();
         
         //Normalize the direction vector = get direction/angle, but change magnitude to 1 so speed isn't increased/decrease
         //Math.atan2(y, x) returns the angle of the line formed between Cursor and SpawnUnitButton with respect to 
@@ -92,58 +130,15 @@ public class Cursor extends SuperSmoothMover
         double adjustedSpeedX = speed * Math.cos(angle);
         double adjustedSpeedY = speed * Math.sin(angle);
         
-        //Set a hori/vert distance magnitude limit so it doesnt jitter back and forth
-        if(Math.abs(distanceX) >= 5 || Math.abs(distanceY) >= 5){
-            setLocation(getX() + adjustedSpeedX, getY() + adjustedSpeedY);
+        if (distanceToDestination < speed){
+            setLocation (currentDestination.getX(), currentDestination.getY());
+            currentDestination = null;
         }
+        else {
+            setLocation(getX() + adjustedSpeedX, getY() + adjustedSpeedY);
+        }  
     }
     
-    /**
-     * Private method, called by act(), that constantly checks for closer targets
-     * 
-     * Created by Mr. Cohen, reused/modified for Cursor to glide towards closest SpawnUnitButton
-     */
-    private SpawnUnitButton targetClosestSpawnUnitButton ()
-    {
-        double closestTargetDistance = 0;
-        double distanceToActor;
-        // Get a list of all SpawnUnitButtons in the World, cast it to ArrayList
-        // for easy management
-
-        buttons = (ArrayList<SpawnUnitButton>)getObjectsInRange(40, SpawnUnitButton.class);
-        if (buttons.size() == 0){
-            buttons = (ArrayList<SpawnUnitButton>)getObjectsInRange(150, SpawnUnitButton.class);
-        } 
-        if (buttons.size() == 0){
-            buttons = (ArrayList<SpawnUnitButton>)getObjectsInRange(800, SpawnUnitButton.class);
-        } 
-
-        if (buttons.size() > 0)
-        {
-            // set the first one as my target
-            targetSpawnUnitButton = buttons.get(0);
-            // Use method to get distance to target. This will be used
-            // to check if any other targets are closer
-            closestTargetDistance = getDistance(this, targetSpawnUnitButton);
-
-            // Loop through the objects in the ArrayList to find the closest target
-            for (SpawnUnitButton o : buttons)
-            {
-                // Cast for use in generic method
-                //Actor a = (Actor) o;
-                // Measure distance from me
-                distanceToActor = getDistance(this, o);
-                // If I find a SpawnUnitButton closer than my current target, I will change
-                // targets
-                if (distanceToActor < closestTargetDistance)
-                {
-                    targetSpawnUnitButton = o;
-                }
-            }
-            return targetSpawnUnitButton;
-        }
-        return null;
-    }    
     
     /**
      * Method to return the closest distance between two Actors, a and b
@@ -152,18 +147,47 @@ public class Cursor extends SuperSmoothMover
         return Math.hypot(a.getX() - b.getX(), a.getY() - b.getY());
     }
     
+     /**
+     * Static method that gets the distance between the x,y coordinates of two Actors
+     * using Pythagorean Theorum.
+     *
+     * @param a     First Actor
+     * @param b     Second Actor
+     * @return distance The distance from the center of a to the center of b.
+     */
+    public static double getDistance (Coordinate a, Coordinate b)
+    {
+        double distance;
+        double xLength = a.getX() - b.getX();
+        double yLength = a.getY() - b.getY();
+        distance = Math.sqrt(Math.pow(xLength, 2) + Math.pow(yLength, 2));
+        return distance;
+    }
+    
     /**
      * Method to make image smaller to show it has been clicked
      */
     public void click(boolean c){
-        cursorTimer++;
+        //if currently held, count up timer
+        if(this.getImage() == cursorHeld){
+            cursorTimer++;
+        }
         if(c){
             setImage(cursorHeld);
         }
-        //Only set back to idle if 0.2s passed so its more visible
-        else if(cursorTimer >= 12){
+        //Only set back to idle if 0.3s passed so its more visible
+        else if(cursorTimer >= 18){
             setImage(cursorIdle);
+            cursorTimer = 0;
         }
     }
 
+    public boolean getCircle(){
+        return circle;
+    }
+    
+    public void replaceButtonsCircle(int index, SpawnUnitButton b) {
+        currentDestination = null;
+        buttonsCircle.set(index, b);
+    }
 }

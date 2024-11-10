@@ -31,18 +31,23 @@ public class SpawnUnitButton extends UI
 
     //boolean to check if the last button has been created
     private boolean last;
+    //to help with replacing buttons ArrayList in Cursor class
+    private int unitIndex;
+    //specific cursor to replace arraylist for
+    Cursor targetCursor;
 
     //Constructor for Buttons without "last" boolean = true
-    public SpawnUnitButton(String u, int stage, int cooldown, boolean visible) {
-        this(u, stage, cooldown, true, false, visible);
+    public SpawnUnitButton(String u, int uIndex, int stage, int cooldown, boolean visible) {
+        this(u, uIndex, stage, cooldown, true, false, visible);
     }
 
-    public SpawnUnitButton(String u, int stage, int cooldown, boolean canUpgrade, boolean visible) {
-        this(u, stage, cooldown, canUpgrade, false, visible);
+    public SpawnUnitButton(String u, int uIndex, int stage, int cooldown, boolean canUpgrade, boolean visible) {
+        this(u, uIndex, stage, cooldown, canUpgrade, false, visible);
     }
 
-    public SpawnUnitButton(String u, int stage, int cooldown, boolean canUpgrade, boolean lastButton, boolean visible) {
+    public SpawnUnitButton(String u, int uIndex, int stage, int cooldown, boolean canUpgrade, boolean lastButton, boolean visible) {
         unit = u;
+        unitIndex = uIndex;
         unitStage = stage;
         this.canUpgrade = canUpgrade;
         
@@ -90,6 +95,8 @@ public class SpawnUnitButton extends UI
         clicked = false;
         spawned = true;
         last = lastButton;
+        
+        targetCursor = null;
     }
 
     /**
@@ -301,9 +308,33 @@ public class SpawnUnitButton extends UI
 
     public void upgrade()
     {
-        getWorld().addObject(new SpawnUnitButton(unit, unitStage+1, unitCooldown, true), getX(), getY());
+        SpawnUnitButton upgradedButton = new SpawnUnitButton(unit, unitIndex, unitStage+1, unitCooldown, true);
+        
+        getWorld().addObject(upgradedButton, getX(), getY());
+        
+        ArrayList<Cursor> cursors = (ArrayList<Cursor>)getWorld().getObjects(Cursor.class);
+        for(Cursor c : cursors){
+            if(c.getCircle()){
+                targetCursor = c;
+            }
+        }
+        targetCursor.replaceButtonsCircle(unitIndex, upgradedButton);
         getWorld().removeObject(this);
     }
 
+    /**
+     * Method to return the coordinates of the button
+     */
+    public Coordinate getCoordinate(){
+        return new Coordinate(getX(), getY());
+    }
+    
+    /**
+     * Method to return if button is part of circle team
+     */
+    public boolean getCircle(){
+        return circle;
+    }
+    
     public int getSpent() {return spent;}
 }
