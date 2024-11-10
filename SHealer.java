@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class SHealer here.
@@ -28,10 +29,63 @@ public class SHealer extends Square
             loadAnimationFrames("images/Units/SHealer/StageOne");
             
             knockbacks = 2;
-            speed = 2;
+            speed = 1;
             atk = 4;
             health = 12;
             attackFrame = 5;
+            break;
+            
+            case 2:
+            attackXOffset = 0;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/SHealer/StageTwo");
+            
+            attackFrame = 6;
+            atkCooldown = 60;
+            knockbacks = 2;
+            speed = 1;
+            atk = 4;
+            health = 24;
+            break;
+            
+            case 3:
+            attackXOffset = 0;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/SHealer/StageThree");
+            
+            attackFrame = 6;
+            atkCooldown = 120;
+            knockbacks = 3;
+            speed = 1;
+            atk = 40;
+            health = 40;
+            break;
+        }
+    }
+    
+    //Andy's code
+    protected void attack()
+    {
+        List<Square> potentialTargets = getObjectsInRange(range, Square.class);
+        if(potentialTargets.size() > 0)
+        {
+            Square target = potentialTargets.get(0);
+            for(int i = 0; i < potentialTargets.size(); i++)
+            {
+                if(potentialTargets.get(i).getHealthDividedByMax() < target.getHealthDividedByMax())
+                {
+                    target = potentialTargets.get(i);
+                }
+            }
+            if(target != null)
+            {
+                //System.out.println("S hit");
+                target.heal(atk);
+            }
+            else
+            {
+                //System.out.println("Smiss");
+            }
         }
     }
 }

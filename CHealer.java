@@ -33,7 +33,7 @@ public class CHealer extends Circle
             attackFrame = 26;
             atkCooldown = 60;
             knockbacks = 2;
-            speed = 2;
+            speed = 1;
             atk = 2;
             health = 12;
             break;
