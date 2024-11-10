@@ -46,6 +46,7 @@ public class SimulationWorld extends World
         addObject(new SpawnUnitButton(cU5, 4, 1, 3000, true), 600, 625);
         
         addObject(new Cursor(true), 0, 0);
+        addObject(new Cursor(false), 0, 0);
        
         //Cursor shows up on top of everything
         setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);

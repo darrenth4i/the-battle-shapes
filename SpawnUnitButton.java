@@ -108,17 +108,24 @@ public class SpawnUnitButton extends UI
         String tempUnit = unit;
         int tempStage = unitStage;
         //name of all units
-        String[] unitString = new String[]
-            {
-                "SFodder", "SWarrior", "STank", "SRanger", "SHealer", 
-                "CFodder", "CWarrior", "CTank", "CRanger", "CHealer"
-            };
+        String[] circleUnit = new String[]
+        {
+            "CFodder", "CWarrior", "CTank", "CRanger", "CHealer"
+        };
+        String[] squareUnit = new String[]
+        {
+            "SFodder", "SWarrior", "STank", "SRanger", "SHealer", 
+        };
 
         //create every object so greenfoot can cache img animations
         for(int x = 1; x<4; x++){
             unitStage = x;
-            for(int i = 0; i<unitString.length; i++){
-                unit = unitString[i];
+            for(int i = 0; i<circleUnit.length; i++){
+                circle = true;
+                unit = circleUnit[i];
+                spawnUnit();
+                circle = false;
+                unit = squareUnit[i];
                 spawnUnit();
             }
             unitStage++;
@@ -130,8 +137,10 @@ public class SpawnUnitButton extends UI
             getWorld().removeObject(shapes);
         }
         
+        //reset temp changed variables
         unit = tempUnit;
         unitStage = tempStage;
+        circle = true;
     }
 
     public void act() {
@@ -314,11 +323,11 @@ public class SpawnUnitButton extends UI
         
         ArrayList<Cursor> cursors = (ArrayList<Cursor>)getWorld().getObjects(Cursor.class);
         for(Cursor c : cursors){
-            if(c.getCircle()){
+            if((circle && c.getCircle()) || (!circle && !c.getCircle())){
                 targetCursor = c;
             }
         }
-        targetCursor.replaceButtonsCircle(unitIndex, upgradedButton);
+        targetCursor.replaceButtonsTeam(unitIndex, upgradedButton);
         getWorld().removeObject(this);
     }
 

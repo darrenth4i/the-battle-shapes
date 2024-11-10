@@ -33,7 +33,8 @@ public class Cursor extends SuperSmoothMover
     private boolean circle;
     private boolean spawned;
     ArrayList<SpawnUnitButton> buttons;
-    ArrayList<SpawnUnitButton> buttonsCircle;
+    //shape specific arraylist
+    ArrayList<SpawnUnitButton> buttonsTeam;
     
     public Cursor(boolean cir){
         cursorIdle = new GreenfootImage("images/cursor.png");
@@ -51,7 +52,7 @@ public class Cursor extends SuperSmoothMover
         circle = cir;
         spawned = false;
         
-        buttonsCircle = new ArrayList<SpawnUnitButton>();
+        buttonsTeam = new ArrayList<SpawnUnitButton>();
         enableStaticRotation();
     }
     
@@ -67,8 +68,9 @@ public class Cursor extends SuperSmoothMover
                 return;
             }
             for(SpawnUnitButton c : buttons){
-                if(c.getCircle()){
-                    buttonsCircle.add(c);
+                //add to team specific array list if cursor/button is circle/square
+                if((circle && c.getCircle()) || (!circle && !c.getCircle())){
+                    buttonsTeam.add(c);
                 }
             }
             spawned = true;
@@ -83,7 +85,7 @@ public class Cursor extends SuperSmoothMover
         }
         
         //reset destination index if too large
-        if(destinationIndex >= buttonsCircle.size() - 1){
+        if(destinationIndex >= buttonsTeam.size() - 1){
             destinationIndex = 0;
         }
         
@@ -98,8 +100,8 @@ public class Cursor extends SuperSmoothMover
         click(false);
         
         //"Click" button if it exists, cursor is on it, and isnt on cooldown 
-        if(currentDestination == null && !buttonsCircle.get(destinationIndex).getOnCooldown() && isTouching(SpawnUnitButton.class)){
-            buttonsCircle.get(destinationIndex).setClicked(true);
+        if(currentDestination == null && !buttonsTeam.get(destinationIndex).getOnCooldown() && isTouching(SpawnUnitButton.class)){
+            buttonsTeam.get(destinationIndex).setClicked(true);
             click(true);
         }
         
@@ -109,7 +111,7 @@ public class Cursor extends SuperSmoothMover
     }
     
     private Coordinate getNextDestination (int index) {
-        return buttonsCircle.get(index).getCoordinate();
+        return buttonsTeam.get(index).getCoordinate();
     }
     
     /**
@@ -138,7 +140,6 @@ public class Cursor extends SuperSmoothMover
             setLocation(getX() + adjustedSpeedX, getY() + adjustedSpeedY);
         }  
     }
-    
     
     /**
      * Method to return the closest distance between two Actors, a and b
@@ -186,8 +187,8 @@ public class Cursor extends SuperSmoothMover
         return circle;
     }
     
-    public void replaceButtonsCircle(int index, SpawnUnitButton b) {
+    public void replaceButtonsTeam(int index, SpawnUnitButton b) {
         currentDestination = null;
-        buttonsCircle.set(index, b);
+        buttonsTeam.set(index, b);
     }
 }
