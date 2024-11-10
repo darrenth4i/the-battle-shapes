@@ -176,6 +176,11 @@ public abstract class Unit extends SuperSmoothMover
      */
     protected abstract boolean checkFront();
 
+    /**
+     * Gets the name of the unit
+     */
+    protected abstract String getName();
+    
     protected abstract void knockback();
 
     /**

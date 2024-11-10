@@ -146,4 +146,11 @@ public class CHealer extends Circle
             idleAnim.get(i).scale((int)(idleAnim.get(i).getWidth()*imageScale),(int)(idleAnim.get(i).getHeight()*imageScale));
         }
     }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "CHealer";
+    }
 }

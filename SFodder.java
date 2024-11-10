@@ -63,4 +63,11 @@ public class SFodder extends Square
             break;
         }
     }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "SFodder";
+    }
 }

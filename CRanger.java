@@ -115,4 +115,11 @@ public class CRanger extends Circle
             }
         }
     }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "CRanger";
+    }
 }

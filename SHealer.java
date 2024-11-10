@@ -88,4 +88,11 @@ public class SHealer extends Square
             }
         }
     }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "SHealer";
+    }
 }

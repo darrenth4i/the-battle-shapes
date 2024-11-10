@@ -56,4 +56,11 @@ public class CWarrior extends Circle
             break;
         }
     }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "CWarrior";
+    }
 }

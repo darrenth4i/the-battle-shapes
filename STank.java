@@ -65,4 +65,11 @@ public class STank extends Square
             break;
         }
     }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "STank";
+    }
 }

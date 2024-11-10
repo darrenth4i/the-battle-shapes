@@ -79,4 +79,11 @@ public class CTank extends Circle
             }
         }
     }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "CTank";
+    }
 }

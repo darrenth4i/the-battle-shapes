@@ -60,4 +60,11 @@ public class SWarrior extends Square
             break;
         }
     }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "SWarrior";
+    }
 }
