@@ -355,5 +355,17 @@ public class SpawnUnitButton extends UI
         return circle;
     }
     
-    public int getSpent() {return spent;}
+    /**
+     * Method to return unit name
+     */
+    public String getUnit(){
+        return unit;
+    }
+    
+    /**
+     * Method to return amount spent
+     */
+    public int getSpent() {
+        return spent;
+    }
 }
