@@ -103,16 +103,25 @@ public class SelectionWorld extends World
                 {
                     for(int j = 0; j < circleTeam.size() - 1; j++)
                     {
-                        eligible = i > j && squareTeam.get(i).equals(squareTeam.get(j));
+                        if(i > j && squareTeam.get(i).equals(squareTeam.get(j)))
+                        {
+                            confirmButton.wiggle();
+                            return;
+                        }
                     }
                 }
                 for(int i = 0; i < squareTeam.size() - 1; i++)
                 {
                     for(int j = 0; j < squareTeam.size() - 1; j++)
                     {
-                        eligible = i > j && squareTeam.get(i).equals(squareTeam.get(j)) && eligible != false;
+                        if(i > j && squareTeam.get(i).equals(squareTeam.get(j)))
+                        {
+                            confirmButton.wiggle();
+                            return;
+                        }
                     }
                 }
+                eligible = true;
             }
         }
         if(eligible)
@@ -134,10 +143,6 @@ public class SelectionWorld extends World
             addObject(cTower, 1224, 300);
             setTower(sTower);
             setTower(cTower);
-        }
-        else
-        {
-            confirmButton.wiggle();
         }
     }
     
