@@ -8,9 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Support extends Tower
 {
-    public Support(boolean circle, int towerRange, int fireInterval, int level, int maxHP)
+    public Support(boolean circle, int level, int maxHP)
     {
-        super(circle, towerRange, fireInterval, 2, level, maxHP);
+        super(circle, 2, level, maxHP);
     }
     /**
      * Act - do whatever the Support wants to do. This method is called whenever
