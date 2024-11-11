@@ -15,7 +15,6 @@ public class Cursor extends SuperSmoothMover
 
     //variables to determine if left clicked
     private boolean clicked;
-    private SimulationWorld world;
  
     private int speed;
     
@@ -25,7 +24,7 @@ public class Cursor extends SuperSmoothMover
     //coordinates for cursor to move to
     private Coordinate currentDestination;
     
-    //index to access buttons list or destinations list
+    //index to access buttons list 
     //IMPORTANT: for square team, index is (0-4) LEFT to RIGHT
     //           for circle team, index is (0-4) RIGHT to LEFT
     private int destinationIndex;
@@ -41,7 +40,18 @@ public class Cursor extends SuperSmoothMover
     //string representation of buttonTeams;
     ArrayList<String> buttonNames;
     
+    //arraylist to hold all units alive of one specific team
     ArrayList<Unit> units;
+    
+    //DEBUG remove wallets related code if never used later
+    ArrayList<Wallet> wallets;
+    Wallet myWallet;
+    //determine if it is the start of the game or not;
+    private boolean start;
+    //determine if cursor stopped on a button it wants to press
+    private boolean stopped;
+    //cooldown timer to prevent bestMove() from running too often
+    private SimpleTimer cooldown = new SimpleTimer();
     
     public Cursor(boolean cir){
         cursorIdle = new GreenfootImage("images/cursor.png");
@@ -52,7 +62,6 @@ public class Cursor extends SuperSmoothMover
         cursorTimer = 0;
         destinationIndex = 0;
         
-        world = (SimulationWorld)this.getWorld();
         clicked = false;
         setImage(cursorIdle);
         
@@ -64,6 +73,8 @@ public class Cursor extends SuperSmoothMover
         enableStaticRotation();
         
         units = new ArrayList<Unit>();
+        start = true;
+        stopped = false;
     }
     
     /**
@@ -76,8 +87,9 @@ public class Cursor extends SuperSmoothMover
         if(!spawned){
             //look for buttons
             buttons = (ArrayList<SpawnUnitButton>)getWorld().getObjects(SpawnUnitButton.class);
+            wallets = (ArrayList<Wallet>)getWorld().getObjects(Wallet.class);
             //if buttons not spawned yet, try again
-            if(buttons == null){
+            if(buttons == null || wallets == null){
                 return;
             }
             //only want one team buttons
@@ -91,37 +103,42 @@ public class Cursor extends SuperSmoothMover
             for(SpawnUnitButton b : buttonTeams){
                 buttonNames.add(b.getUnit());
             }
+            
+            //get wallet for own team
+            for(Wallet w : wallets){
+                if((circle && w.getCircle()) || (!circle && !w.getCircle())){
+                    myWallet = w;
+                }
+            }
+            
+            cooldown.mark();
+
             spawned = true;
         }
         
-        //reset destination index if too large DEBUG? maybe remove
-        if(destinationIndex >= buttonTeams.size() - 1){
-            destinationIndex = 0;
+        //find best move every 7 seconds
+        if(cooldown.millisElapsed() >= 420 && !stopped){
+            destinationIndex = bestMove();  
+            cooldown.mark();
         }
         
         // Check if there is another destination for me if I don't have one
         if (currentDestination == null){
             currentDestination = getNextDestination (destinationIndex);
         }
-        
+
         //move to button coords
         followCursor(currentDestination);
         //check to reset mouse held animation
-        click(false);
+        click(false);  
         
-        //"Click" button if it exists, cursor is on it, and isnt on cooldown 
-        if(currentDestination == null && !buttonTeams.get(destinationIndex).getOnCooldown() && isTouching(SpawnUnitButton.class)){
+        //"Click" button if cursor is stopped on it, and isnt on cooldown 
+        if(stopped && !buttonTeams.get(destinationIndex).getOnCooldown()){
+            stopped = false;
             buttonTeams.get(destinationIndex).setClicked(true);
             click(true);
         }
         
-        //DEBUG remove
-        if(Greenfoot.isKeyDown("space")){
-            destinationIndex++;
-        }
-        if(Greenfoot.isKeyDown("w")){
-            System.out.println(checkUnits(true));
-        }
     }
     
     /**
@@ -152,8 +169,10 @@ public class Cursor extends SuperSmoothMover
         if (distanceToDestination < speed){
             setLocation (currentDestination.getX(), currentDestination.getY());
             currentDestination = null;
+            stopped = true;
         }
-        else {
+        //only move if unit has been bought
+        else if(!stopped){
             setLocation(getX() + adjustedSpeedX, getY() + adjustedSpeedY);
         }  
     }
@@ -165,7 +184,83 @@ public class Cursor extends SuperSmoothMover
      * Enemy AI
      */
     public int bestMove(){
-        return 1;
+        //if no team units exists yet
+        if(checkUnits(true).equals("none")){
+            //if nothing worth upgrading yet
+            if(worthUpgrading().equals("none")){
+                //best move fodder if tank doesnt exist or start of the game
+                if((findIndex("Tank") == -1) || (findIndex("Fodder") != -1 && start)){
+                    return findIndex("Fodder");  
+                }
+                //default best choice if no units 
+                else if(findIndex("Tank") != -1){
+                    return findIndex("Tank");
+                }
+            }
+            else{
+                //else go for the unit close to upgrade
+                return findIndex(worthUpgrading());
+            }
+        }
+        //if units exist
+        else{
+            //if we mostly have warriors
+            if(checkUnits(true).equals("Warrior")){
+                //75% healer, 25% ranger
+                if(Greenfoot.getRandomNumber(4) > 0){
+                    return findIndex("Healer");
+                }
+                else{
+                    return findIndex("Ranger");
+                }
+            }
+            else{
+                //if mostly enemy healers
+                if(checkUnits(false).equals("Healer")){
+                    //go ranger, else go warrior if unavailable
+                    if(findIndex("Ranger") != -1){
+                        return findIndex("Ranger");
+                    }
+                    else{
+                        return findIndex("Warrior");
+                    }
+                }
+                //else go warrior or tank if unavailable
+                else{
+                    if(findIndex("Warrior") != -1){
+                        return findIndex("Warrior");
+                    }
+                    else{
+                        return findIndex("Tank");
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+    
+    /**
+     * Find the index where part of a 
+     * unit's name is located
+     */
+    public int findIndex(String u){
+        String unit = "";
+        int index = 0;
+        //add proper prefix to unit name
+        if(circle){
+            unit = "C" + u;
+        }
+        else{
+            unit = "S" + u;
+        }
+        //look for the index the unit is located in
+        for(String s : buttonNames){
+            if(s.contains(unit)){
+                return index;
+            }
+            index++;
+        }
+        return -1;
     }
     
     /**
@@ -189,6 +284,10 @@ public class Cursor extends SuperSmoothMover
         //check square if self is square or check enemy if self is circle
         else{
             units = (ArrayList<Unit>)((ArrayList<?>)getWorld().getObjects(Square.class));
+        }
+        
+        if(units == null){
+            return "none";
         }
         
         //check which subclass each unit alive is part of 
@@ -220,18 +319,38 @@ public class Cursor extends SuperSmoothMover
             }
         }
         
+        //if a unit exists, start of game is over
+        start = false;
         return names[mostIndex];
     }
     
     /**
-     * Method that returns a boolean to bestMove() to
+     * Method that returns the Unit's name to bestMove() to
      * determine if the cursor should buy a specific unit close
      * to being upgraded
      * 
      * part of Enemy AI
      */
-    public boolean worthUpgrading(){
-        return false;
+    public String worthUpgrading(){
+        //check three times for the closest button to being upgraded
+        //return only if it is a specified percentage or closer 
+        for(SpawnUnitButton b : buttonTeams){
+            if(b.getPercentUpgrade() >= 90){
+                return b.getUnit().substring(1, b.getUnit().length() - 1);
+            }
+        }
+        for(SpawnUnitButton b : buttonTeams){
+            if(b.getPercentUpgrade() >= 80){
+                return b.getUnit().substring(1, b.getUnit().length() - 1);
+            }
+        }
+        for(SpawnUnitButton b : buttonTeams){
+            if(b.getPercentUpgrade() >= 75){
+                return b.getUnit().substring(1, b.getUnit().length() - 1);
+            }
+        }
+        //else return none
+        return "none";
     }
     
     /**

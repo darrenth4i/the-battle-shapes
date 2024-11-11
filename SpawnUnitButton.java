@@ -317,7 +317,7 @@ public class SpawnUnitButton extends PlayerUI
     public void setClicked(boolean c){
         clicked = c;   
     }
-
+    
     /**
      * Getter method to return onCooldown
      */
@@ -375,10 +375,10 @@ public class SpawnUnitButton extends PlayerUI
      */
     public int getPercentUpgrade(){
         if(unitStage == 1){
-            return spent / firstUpgrade;
+            return 100 * spent / firstUpgrade;
         }
         else if(unitStage == 2){
-            return spent / secondUpgrade;
+            return 100 * spent / secondUpgrade;
         }
         return -1;
     }
