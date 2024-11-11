@@ -242,6 +242,8 @@ public class Cursor extends SuperSmoothMover
     /**
      * Find the index where part of a 
      * unit's name is located
+     * 
+     * part of Enemy AI, but used elsewhere too
      */
     public int findIndex(String u){
         String unit = "";
@@ -268,6 +270,8 @@ public class Cursor extends SuperSmoothMover
      * on either side based on specified team
      * 
      * @param self - Search for own team? true/false
+     * 
+     * part of Enemy AI
      */
     public String checkUnits(boolean self){
         String mostCommonUnit = "";
