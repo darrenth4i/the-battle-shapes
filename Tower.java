@@ -29,16 +29,36 @@ public abstract class Tower extends Actor
     //Helper variables
     private double distance, nearestDistance, furthestDistance, lowestHealth;
     protected int count;
-    public Tower(boolean circle, int towerRange, int fireInterval, int type, int level, int maxHP)
+    public Tower(boolean circle, int type, int level, int maxHP)
     {
         this.circle = circle;
-        this.towerRange = towerRange;
-        this.fireInterval = fireInterval;
         this.type = type;
         this.level = level;
         this.maxHealth = maxHP;
         health = maxHealth;
         healthBar = new SuperStatBar(maxHealth, health, this, 80, 10, 0, Color.GREEN, Color.GRAY);
+        
+        updateLevel(level);
+    }
+    
+    public void updateLevel(int level)
+    {
+        //Sets tower stats depending on level
+        switch(level)
+        {
+            case 0:
+                towerRange = 200;
+                fireInterval = 150;
+                break;
+            case 1:
+                towerRange = 350;
+                fireInterval = 100;
+                break;
+            case 2:
+                towerRange = 500;
+                fireInterval = 50;
+                break;
+        }
         //Sets tower image depending on side and type
         updateImage();
     }

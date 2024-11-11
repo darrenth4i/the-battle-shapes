@@ -25,25 +25,25 @@ public class SimulationWorld extends World
         switch(sTowerVariables[1])
         {
             case 0:
-                addObject(new Defense(false, 500, 100, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
+                addObject(new Defense(false, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
                 break;
             case 1:
-                addObject(new Offense(false, 500, 100, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
+                addObject(new Offense(false, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
                 break;
             case 2:
-                addObject(new Support(false, 500, 100, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
+                addObject(new Support(false, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
                 break;
         }
         switch(cTowerVariables[1])
         {
             case 0:
-                addObject(new Defense(true, 500, 100, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
+                addObject(new Defense(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
                 break;
             case 1:
-                addObject(new Offense(true, 500, 100, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
+                addObject(new Offense(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
                 break;
             case 2:
-                addObject(new Support(true, 500, 100, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
+                addObject(new Support(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
                 break;
         }
         System.out.println(sTowerVariables[1] + " " + cTowerVariables[1]);
@@ -91,8 +91,8 @@ public class SimulationWorld extends World
         super(1024, 700, 1, false); 
         setBackground(bg);
         
-        addObject(new Offense(false, 500, 100, 0, 1000), 100, 320);
-        addObject(new Offense(true, 500, 100, 0, 1000), 900, 320);
+        addObject(new Offense(false, 0, 1000), 100, 320);
+        addObject(new Offense(true, 0, 1000), 900, 320);
         
         //addObject(new CHealer(3), 900, 500);
         
