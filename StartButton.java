@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class StartButton extends MenuButtons
 {
     private double velocity;
+    private int blackBoxTransparency = 0;
+    private BlackBox mainMenuBox = new BlackBox(blackBoxTransparency, 1024, 100);
     
     public StartButton(int type)
     {

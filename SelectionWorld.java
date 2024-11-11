@@ -105,7 +105,7 @@ public class SelectionWorld extends World
                     {
                         if(i != j && circleTeam.get(i).equals(circleTeam.get(j)))
                         {
-                            confirmButton.playError();
+                            addObject(new Error("UIElements/confirmError.png"), 512, 550);
                             confirmButton.wiggle();
                             return;
                         }
@@ -117,7 +117,7 @@ public class SelectionWorld extends World
                     {
                         if(i != j && squareTeam.get(i).equals(squareTeam.get(j)))
                         {
-                            confirmButton.playError();
+                            addObject(new Error("UIElements/confirmError.png"), 512, 550);
                             confirmButton.wiggle();
                             return;
                         }
@@ -127,15 +127,15 @@ public class SelectionWorld extends World
             }
             else
             {
-                confirmButton.playError();
                 confirmButton.wiggle();
+                addObject(new Error("UIElements/confirmError.png"), 512, 550);
                 return;
             }
         }
         else
         {
-            confirmButton.playError();
             confirmButton.wiggle();
+            addObject(new Error("UIElements/confirmError.png"), 512, 550);
             return;
         }
         if(eligible)

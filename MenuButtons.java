@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class MenuButtons extends Menu
+public abstract class MenuButtons extends UI
 {
     protected int buttonType;
     protected int width, height;

@@ -32,6 +32,7 @@ public abstract class Effect extends Actor
         getImage().setTransparency(trans);
     }
     
+    
     protected void loadAnimationFrames(String path)
     {
         for(int i = 0; i < new File("images/Effects/" + path).listFiles().length-1; i++)

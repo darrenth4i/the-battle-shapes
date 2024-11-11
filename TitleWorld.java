@@ -35,7 +35,7 @@ public class TitleWorld extends World
     
     public void started()
     {
-        mainTheme.setVolume(30);
+        mainTheme.setVolume(60);
         mainTheme.playLoop();
     }
     
