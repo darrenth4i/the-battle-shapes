@@ -70,7 +70,7 @@ public class SimulationWorld extends World
         addObject(new SpawnUnitButton(cU4, 3, 1, 3000, true), 600, 605);
         addObject(new SpawnUnitButton(cU5, 4, 1, 3000, true), 500, 605);
         
-        addObject(new Cursor(true), 0, 0);
+        addObject(new Cursor(true), 1024, 700);
         addObject(new Cursor(false), 0, 0);
        
         //Cursor shows up on top of everything
