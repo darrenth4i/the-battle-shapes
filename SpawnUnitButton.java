@@ -368,4 +368,18 @@ public class SpawnUnitButton extends PlayerUI
     public int getSpent() {
         return spent;
     }
+    
+    /**
+     * Returns the percentage progress of how close
+     * a button is to being upgraded
+     */
+    public int getPercentUpgrade(){
+        if(unitStage == 1){
+            return spent / firstUpgrade;
+        }
+        else if(unitStage == 2){
+            return spent / secondUpgrade;
+        }
+        return -1;
+    }
 }
