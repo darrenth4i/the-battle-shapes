@@ -37,6 +37,7 @@ public abstract class Tower extends Actor
         this.type = type;
         this.level = level;
         this.maxHealth = maxHP;
+        health = maxHealth;
         healthBar = new SuperStatBar(maxHealth, health, this, 80, 10, 0, Color.GREEN, Color.GRAY);
         //Sets tower image depending on side and type
         updateImage();
