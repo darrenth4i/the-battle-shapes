@@ -8,9 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Offense extends Tower
 {
-    public Offense(boolean circle, int towerRange, int fireInterval, int level, int maxHP)
+    public Offense(boolean circle, int level, int maxHP)
     {
-        super(circle, towerRange, fireInterval, 1, level, maxHP);
+        super(circle, 1, level, maxHP);
     }
     /**
      * Act - do whatever the Offense wants to do. This method is called whenever
