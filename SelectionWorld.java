@@ -99,23 +99,25 @@ public class SelectionWorld extends World
                 squareTeam.add(squareUnit3);
                 squareTeam.add(squareUnit4);
                 squareTeam.add(squareUnit5);
-                for(int i = 0; i < circleTeam.size() - 1; i++)
+                for(int i = 0; i < circleTeam.size(); i++)
                 {
-                    for(int j = 0; j < circleTeam.size() - 1; j++)
+                    for(int j = 0; j < circleTeam.size(); j++)
                     {
-                        if(i > j && squareTeam.get(i).equals(squareTeam.get(j)))
+                        if(i != j && circleTeam.get(i).equals(circleTeam.get(j)))
                         {
+                            confirmButton.playError();
                             confirmButton.wiggle();
                             return;
                         }
                     }
                 }
-                for(int i = 0; i < squareTeam.size() - 1; i++)
+                for(int i = 0; i < squareTeam.size(); i++)
                 {
-                    for(int j = 0; j < squareTeam.size() - 1; j++)
+                    for(int j = 0; j < squareTeam.size(); j++)
                     {
-                        if(i > j && squareTeam.get(i).equals(squareTeam.get(j)))
+                        if(i != j && squareTeam.get(i).equals(squareTeam.get(j)))
                         {
+                            confirmButton.playError();
                             confirmButton.wiggle();
                             return;
                         }
@@ -123,6 +125,18 @@ public class SelectionWorld extends World
                 }
                 eligible = true;
             }
+            else
+            {
+                confirmButton.playError();
+                confirmButton.wiggle();
+                return;
+            }
+        }
+        else
+        {
+            confirmButton.playError();
+            confirmButton.wiggle();
+            return;
         }
         if(eligible)
         {

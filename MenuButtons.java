@@ -58,7 +58,7 @@ public abstract class MenuButtons extends Menu
             if (clickSoundIndex >= clickSounds.length)
             {
                 clickSoundIndex = 0;
-            }
+            }    
         }
         else if (Greenfoot.mouseClicked(this))
         {

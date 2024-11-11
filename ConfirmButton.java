@@ -18,8 +18,8 @@ public class ConfirmButton extends MenuButtons
         errorSounds = new GreenfootSound[10];
         for (int i = 0; i < clickSounds.length; i++)
         {
-            errorSounds[i] = new GreenfootSound ("click.wav");
-            errorSounds[i].setVolume (70);
+            errorSounds[i] = new GreenfootSound ("error.wav");
+            errorSounds[i].setVolume (90);
         }
     }
     /**
@@ -28,8 +28,7 @@ public class ConfirmButton extends MenuButtons
      */
     public void act()
     {
-        super.act();
-        if(wiggle > 0 && wiggle < 60)
+        if(wiggle > 0 && wiggle < 30)
         {
             wiggle();
         }
@@ -38,16 +37,29 @@ public class ConfirmButton extends MenuButtons
             wiggle = 0;
             setLocation(512, getY());
         }
+        super.act();
     }
     
     public void buttonFunction()
     {
-         getWorldOfType(SelectionWorld.class).confirm();
+        wiggle = 1;
+        setLocation(512, getY());
+        getWorldOfType(SelectionWorld.class).confirm();
     }
     
     public void wiggle()
     {
         setLocation(getX() + (int)20 * Math.cos(wiggle), getY());
         wiggle++;
+    }
+    
+    public void playError()
+    {
+        errorSounds[errorSoundIndex].play();
+        errorSoundIndex++;
+        if (errorSoundIndex >= errorSounds.length)
+        {
+            errorSoundIndex = 0;
+        }
     }
 }
