@@ -64,6 +64,16 @@ public class SHealer extends Square
     }
     
     //Andy's code
+    public void addedToWorld(World world)
+    {
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range = 300;
+            standingRange = range - range/10;
+        }
+    }
+    
     protected void attack()
     {
         List<Square> potentialTargets = getObjectsInRange(range, Square.class);

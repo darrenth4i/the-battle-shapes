@@ -33,7 +33,7 @@ public class SRanger extends Square
             knockbacks = 6;
             speed = 2;
             atk = 6;
-            attackFrame = 0;
+            attackFrame = 6;
             break;
             
             case 2:
@@ -46,7 +46,7 @@ public class SRanger extends Square
             knockbacks = 6;
             speed = 2;
             atk = 12;
-            attackFrame = 0;
+            attackFrame = 3;
             break;
             
             case 3:
