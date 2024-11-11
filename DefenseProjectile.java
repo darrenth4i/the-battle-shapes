@@ -13,7 +13,7 @@ public class DefenseProjectile extends TowerProjectile
     {
         super(circle, target, speed);
         this.mitigation = mitigation;
-        
+        setImage("images/TowerProjectile/Defense.png");
     }
     public void act()
     {
