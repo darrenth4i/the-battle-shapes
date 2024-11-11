@@ -65,6 +65,7 @@ public class StartButton extends MenuButtons
                 //title world to selection world
                 FullscreenTransition trans = new FullscreenTransition(new SelectionWorld());
                 getWorld().addObject(trans, 512, 1200);
+                ((TitleWorld)getWorld()).stopMusic();
                 break;
             case 1:
                 //selection world to main world
