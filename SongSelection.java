@@ -8,8 +8,8 @@ import java.util.ArrayList;
  */
 public class SongSelection extends Graphic
 {
-    private MenuButtons next = new MenuButtons(4, this);
-    private MenuButtons previous = new MenuButtons(5, this);
+    private MenuButtons next = new SongSelector(4, this);
+    private MenuButtons previous = new SongSelector(5, this);
     private ArrayList<GreenfootImage> songList = new ArrayList();
     private ArrayList<GreenfootSound> songs = new ArrayList();
     private int maxSong = 4;

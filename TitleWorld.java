@@ -29,7 +29,7 @@ public class TitleWorld extends World
     {
         Title title = new Title("TheBattleShapes.png");
         addObject(title,512,1000);
-        MenuButtons play = new MenuButtons(0);
-        addObject(play,512,1500);
+        MenuButtons play = new StartButton(0);
+        addObject(play,512,3000);
     }
 }

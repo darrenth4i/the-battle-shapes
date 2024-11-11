@@ -20,7 +20,7 @@ public class BaseSwitcher extends MenuButtons
      */
     public void act()
     {
-        buttonClick();
+        super.act();
     }
     
     public void buttonFunction()

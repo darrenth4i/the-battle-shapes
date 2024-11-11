@@ -8,14 +8,14 @@ public class VisualSpawnUnit extends MenuButtons
     private String unit;
     private boolean circle;
     private int unitCost;
-    private MenuButtons origin;
+    private UnitSelector origin;
     private boolean visible;
     private Text displayCost;
     
     private int targetX, targetY;
     //Constructor for Buttons without "last" boolean = true
 
-    public VisualSpawnUnit(String u, int cost, MenuButtons origin) {
+    public VisualSpawnUnit(String u, int cost, UnitSelector origin) {
         unit = u;
         unitCost = cost;
         this.origin = origin;
