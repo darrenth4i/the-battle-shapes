@@ -188,14 +188,12 @@ public class Cursor extends SuperSmoothMover
         if(checkUnits(true).equals("none")){
             //if nothing worth upgrading yet
             if(worthUpgrading().equals("none")){
-                //best move fodder if tank doesnt exist or start of the game
-                if((findIndex("Tank") == -1) || (findIndex("Fodder") != -1 && start)){
+                //best move fodder if tank doesnt exist 
+                if((findIndex("Tank") == -1)){
                     return findIndex("Fodder");  
                 }
                 //default best choice if no units 
-                else if(findIndex("Tank") != -1){
-                    return findIndex("Tank");
-                }
+                return findIndex("Tank");
             }
             else{
                 //else go for the unit close to upgrade
@@ -225,6 +223,17 @@ public class Cursor extends SuperSmoothMover
                         return findIndex("Warrior");
                     }
                 }
+                //if enemies have mostly warrior/tanks
+                else if(checkUnits(false).equals("Warrior") || checkUnits(false).equals("Tank")){
+                    //66% chance to go ranger
+                    if(Greenfoot.getRandomNumber(3) > 0){
+                        if(findIndex("Ranger") != -1){
+                            return findIndex("Ranger");
+                        }
+                    }
+                    //33% for healer
+                    return findIndex("Healer");
+                }
                 //else go warrior or tank if unavailable
                 else{
                     if(findIndex("Warrior") != -1){
@@ -236,7 +245,6 @@ public class Cursor extends SuperSmoothMover
                 }
             }
         }
-        return 0;
     }
     
     /**
@@ -290,7 +298,7 @@ public class Cursor extends SuperSmoothMover
             units = (ArrayList<Unit>)((ArrayList<?>)getWorld().getObjects(Square.class));
         }
         
-        if(units == null){
+        if(units.size() == 0){
             return "none";
         }
         
