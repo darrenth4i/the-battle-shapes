@@ -6,15 +6,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Wallet extends UI
+public class Wallet extends PlayerUI
 {
     private boolean circle, spawned;
     private double amount;
     
     private Text display;
+    private GreenfootImage walletImage;
     
     public Wallet(boolean c) {
-        getImage().setTransparency(0);
+        walletImage = new GreenfootImage("/UIElements/wallet.png");
+        walletImage.scale(150,150);
+        setImage(walletImage);
+        
         
         if (c) {
             circle = true;
@@ -24,7 +28,7 @@ public class Wallet extends UI
         spawned = true;
         amount = 0;
         
-        display = new Text("$" + (int) amount, 30);
+        display = new Text("$" + (int) amount, 30, Color.BLACK, Color.WHITE);
     }
     
     public void act() {
@@ -33,7 +37,7 @@ public class Wallet extends UI
             spawned = false;
         }
         amount += 1; //* getMultiplier() When an upgrade to wallet is added
-        display.updateText("$" + (int) amount, 30);
+        display.updateText("$" + (int) amount, 30, Color.BLACK, Color.WHITE);
     }
     
     public void spend(int cost) {

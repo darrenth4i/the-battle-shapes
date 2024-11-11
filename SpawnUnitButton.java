@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
-public class SpawnUnitButton extends UI
+public class SpawnUnitButton extends PlayerUI
 {
     private SimpleTimer timer = new SimpleTimer();
 

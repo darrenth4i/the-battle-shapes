@@ -12,9 +12,18 @@ public class Text extends UI
     public Text(String text, int size) {
         updateText(text, size);
     }
+    
+    public Text(String text, int size, Color color, Color outline) {
+        updateText(text, size, color, outline);
+    }
 
     public void updateText(String text, int size) {
         img = new GreenfootImage(text, size, Color.BLACK , null);
+        setImage(img);
+    }
+    
+    public void updateText(String text, int size, Color color, Color outline) {
+        img = new GreenfootImage(text, size, color , outline);
         setImage(img);
     }
 }
