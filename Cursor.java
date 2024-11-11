@@ -21,18 +21,27 @@ public class Cursor extends SuperSmoothMover
     
     //timer to make cursor animation more noticeable
     private int cursorTimer;
-    //index to access buttons list or destinations list
-    private int destinationIndex;
     
     //coordinates for cursor to move to
     private Coordinate currentDestination;
     
+    //index to access buttons list or destinations list
+    //IMPORTANT: for square team, index is (0-4) LEFT to RIGHT
+    //           for circle team, index is (0-4) RIGHT to LEFT
+    private int destinationIndex;
+    
     //variable to determine if cursor is circle team
     private boolean circle;
+    //variable to run code once
     private boolean spawned;
+    //arraylist for all buttons in world
     ArrayList<SpawnUnitButton> buttons;
-    //shape specific arraylist
-    ArrayList<SpawnUnitButton> buttonsTeam;
+    //shape/team specific arraylist
+    ArrayList<SpawnUnitButton> buttonTeams;
+    //string representation of buttonTeams;
+    ArrayList<String> buttonNames;
+    
+    ArrayList<Unit> units;
     
     public Cursor(boolean cir){
         cursorIdle = new GreenfootImage("images/cursor.png");
@@ -50,8 +59,11 @@ public class Cursor extends SuperSmoothMover
         circle = cir;
         spawned = false;
         
-        buttonsTeam = new ArrayList<SpawnUnitButton>();
+        buttonTeams = new ArrayList<SpawnUnitButton>();
+        buttonNames = new ArrayList<String>();
         enableStaticRotation();
+        
+        units = new ArrayList<Unit>();
     }
     
     /**
@@ -69,17 +81,21 @@ public class Cursor extends SuperSmoothMover
                 return;
             }
             //only want one team buttons
-            for(SpawnUnitButton c : buttons){
+            for(SpawnUnitButton b : buttons){
                 //add to team specific array list if cursor/button is circle/square
-                if((circle && c.getCircle()) || (!circle && !c.getCircle())){
-                    buttonsTeam.add(c);
+                if((circle && b.getCircle()) || (!circle && !b.getCircle())){
+                    buttonTeams.add(b);
                 }
+            }
+            //add name of each button for enemy AI easy access 
+            for(SpawnUnitButton b : buttonTeams){
+                buttonNames.add(b.getUnit());
             }
             spawned = true;
         }
         
         //reset destination index if too large DEBUG? maybe remove
-        if(destinationIndex >= buttonsTeam.size() - 1){
+        if(destinationIndex >= buttonTeams.size() - 1){
             destinationIndex = 0;
         }
         
@@ -94,8 +110,8 @@ public class Cursor extends SuperSmoothMover
         click(false);
         
         //"Click" button if it exists, cursor is on it, and isnt on cooldown 
-        if(currentDestination == null && !buttonsTeam.get(destinationIndex).getOnCooldown() && isTouching(SpawnUnitButton.class)){
-            buttonsTeam.get(destinationIndex).setClicked(true);
+        if(currentDestination == null && !buttonTeams.get(destinationIndex).getOnCooldown() && isTouching(SpawnUnitButton.class)){
+            buttonTeams.get(destinationIndex).setClicked(true);
             click(true);
         }
         
@@ -103,13 +119,16 @@ public class Cursor extends SuperSmoothMover
         if(Greenfoot.isKeyDown("space")){
             destinationIndex++;
         }
+        if(Greenfoot.isKeyDown("w")){
+            System.out.println(checkUnits(true));
+        }
     }
     
     /**
-     * Method to get the coordinates to a specific button's destination in buttonsTeam
+     * Method to get the coordinates to a specific button's destination in buttonTeams
      */
     private Coordinate getNextDestination (int index) {
-        return buttonsTeam.get(index).getCoordinate();
+        return buttonTeams.get(index).getCoordinate();
     }
     
     /**
@@ -137,6 +156,82 @@ public class Cursor extends SuperSmoothMover
         else {
             setLocation(getX() + adjustedSpeedX, getY() + adjustedSpeedY);
         }  
+    }
+    
+    /**
+     * Method that returns an int for destinationsIndex
+     * based on specific factors happening in the simulation
+     * 
+     * Enemy AI
+     */
+    public int bestMove(){
+        return 1;
+    }
+    
+    /**
+     * Method that returns the name of the most common unit
+     * on either side based on specified team
+     * 
+     * @param self - Search for own team? true/false
+     */
+    public String checkUnits(boolean self){
+        String mostCommonUnit = "";
+        //count the number of each subclass
+        int[] numUnits = new int[]{0, 0, 0, 0, 0};
+        //names of each subclass
+        String[] names = new String[]{"Fodder", "Warrior", "Tank", "Ranger", "Healer"};
+        
+        //check circle if self is circle or check enemy if self is square
+        if((self && circle) || (!self && !circle)){
+            //Convert to wildcard type arraylist before to Unit
+            units = (ArrayList<Unit>)((ArrayList<?>)getWorld().getObjects(Circle.class));
+        }
+        //check square if self is square or check enemy if self is circle
+        else{
+            units = (ArrayList<Unit>)((ArrayList<?>)getWorld().getObjects(Square.class));
+        }
+        
+        //check which subclass each unit alive is part of 
+        for(Unit u : units){
+            if(u.getName().contains(names[0])){
+                numUnits[0] += 1;
+            }
+            else if(u.getName().contains(names[1])){
+                numUnits[1] += 1;
+            }
+            else if(u.getName().contains(names[2])){
+                numUnits[2] += 1;
+            }
+            else if(u.getName().contains(names[3])){
+                numUnits[3] += 1;
+            }
+            else if(u.getName().contains(names[4])){
+                numUnits[4] += 1;
+            }
+        }
+        int most = numUnits[0];
+        int mostIndex = 0;
+        
+        //find most common subclass
+        for(int i = 0; i<numUnits.length; i++){
+            if(numUnits[i] > most){
+                most = numUnits[i];
+                mostIndex = i;
+            }
+        }
+        
+        return names[mostIndex];
+    }
+    
+    /**
+     * Method that returns a boolean to bestMove() to
+     * determine if the cursor should buy a specific unit close
+     * to being upgraded
+     * 
+     * part of Enemy AI
+     */
+    public boolean worthUpgrading(){
+        return false;
     }
     
     /**
@@ -187,12 +282,12 @@ public class Cursor extends SuperSmoothMover
     }
     
     /**
-     * Method to replace a SpawnUnitButton in buttonsTeam 
+     * Method to replace a SpawnUnitButton in buttonTeams 
      * when it gets upgraded so the list has the right button
      * at all times
      */
     public void replaceButtonsTeam(int index, SpawnUnitButton b) {
         currentDestination = null;
-        buttonsTeam.set(index, b);
+        buttonTeams.set(index, b);
     }
 }
