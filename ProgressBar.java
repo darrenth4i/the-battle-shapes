@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 //Taken from Mr.Cohen Bug simulation
 
-public class ProgressBar extends UI
+public class ProgressBar extends PlayerUI
 {
 
     // When using the simplest constructor, this allows control of whether bars

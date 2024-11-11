@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class BlackBox extends UI
+public class BlackBox extends PlayerUI
 {
     private int transparency;
     
