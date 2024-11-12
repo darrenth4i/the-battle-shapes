@@ -65,7 +65,7 @@ public abstract class Tower extends Actor
     }
     public void conscription()
     {
-        for(int i=0;i<Greenfoot.getRandomNumber(9);i++)
+        for(int i=0;i<(3+Greenfoot.getRandomNumber(9));i++)
         {
             if(circle)
             {
@@ -139,6 +139,7 @@ public abstract class Tower extends Actor
             if(randomEventCount<1)
             {
                 randomEvent();
+                randomEventCount++;
             }
         }
     }
