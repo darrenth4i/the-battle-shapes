@@ -213,8 +213,8 @@ public class Cursor extends SuperSmoothMover
                 }
             }
             else{
-                //if mostly enemy healers
-                if(checkUnits(false).equals("Healer")){
+                //if mostly enemy healers/rangers
+                if(checkUnits(false).equals("Healer") || checkUnits(false).equals("Ranger")){
                     //go ranger, else go warrior if unavailable
                     if(findIndex("Ranger") != -1){
                         return findIndex("Ranger");
