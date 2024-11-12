@@ -22,7 +22,7 @@ public abstract class Unit extends SuperSmoothMover
     protected int atkCooldown;
     protected int timer;
     //Walk speeds
-    protected int speed;
+    protected double speed;
     //Number of times unit could be knocked back 
     protected int knockbacks;
     protected ArrayList<Integer> knockbackHealth = new ArrayList<Integer>();
@@ -71,8 +71,13 @@ public abstract class Unit extends SuperSmoothMover
     protected SimpleTimer animationTimer = new SimpleTimer();
 
     public Unit(int stage)
-    {   timer = 10000;
+    {   
+        this();
         this.stage = stage;
+    }
+    
+    public Unit()
+    {   timer = 10000;
         animationTimer.mark();
         knockbackTimer = 0;
         isKnockedBack = false;
@@ -258,7 +263,7 @@ public abstract class Unit extends SuperSmoothMover
 
         if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue()&&!isKnockedBack&&knockbackTimer==0)
         {
-            health = knockbackHealth.get(knockbackHealth.size()-1);
+            //health = knockbackHealth.get(knockbackHealth.size()-1);
             isKnockedBack = true;
             isAttacking = false;
             attackIndex = 0;
@@ -280,6 +285,11 @@ public abstract class Unit extends SuperSmoothMover
         barrier.setSpawnTimer(0);
         barrier.animation();
         shield += instance;
+    }
+    
+    protected void shieldBreak()
+    {
+        shield = 0;
     }
     
     protected int getShield()
