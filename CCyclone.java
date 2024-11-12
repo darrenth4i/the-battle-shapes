@@ -20,7 +20,7 @@ public class CCyclone extends Circle
         knockbacks = 2;
         atkCooldown = 0;
         speed = 2;
-        atk = 2;
+        atk = 1;
         health = 16;
     }
     
