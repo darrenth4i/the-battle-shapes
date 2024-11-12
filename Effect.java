@@ -38,7 +38,7 @@ public abstract class Effect extends Actor
         for(int i = 0; i < new File("images/Effects/" + path).listFiles().length-1; i++)
         {
             animation.add(new GreenfootImage("images/Effects/" + path + "/" + i + ".png"));
-            animation.get(i).scale((int)(animation.get(i).getWidth()*imageScale),(int)(animation.get(i).getHeight()*imageScale));
+            animation.get(i).scale((int)(animation.get(i).getWidth()*imageScale)+1,(int)(animation.get(i).getHeight()*imageScale)+1);
         }
     }
     

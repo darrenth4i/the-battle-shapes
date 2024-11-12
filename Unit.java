@@ -14,6 +14,7 @@ public abstract class Unit extends SuperSmoothMover
     protected int health, maxHealth;
     // Shield from defense tower
     protected int shield;
+    protected boolean wasProtected;
 
     //Damage per hit
     protected int atk;
@@ -64,7 +65,8 @@ public abstract class Unit extends SuperSmoothMover
     protected int idleIndex;
     protected ArrayList<GreenfootImage> idleAnim = new ArrayList<GreenfootImage>();
     protected int deathIndex;
-    protected GreenfootImage knockback;
+    
+    protected Shield barrier = new Shield(this);
 
     protected SimpleTimer animationTimer = new SimpleTimer();
 
@@ -107,6 +109,14 @@ public abstract class Unit extends SuperSmoothMover
     {
         if(!isKnockedBack)
         {
+            //dying code
+            if (health <= 0)
+            {
+                createGhost();
+                getWorld().removeObject(this);
+                return;
+            }
+            //Attacking code
             if(atkCooldown <= timer && isAttacking)
             {
                 if(!prepareMoveOffset)
@@ -116,11 +126,13 @@ public abstract class Unit extends SuperSmoothMover
                 }
                 attackAnimation(attackFrame);
             }
+            //idle code
             else if(getImage() == attackAnim.get(attackAnim.size()-1))
             {
                 setLocation(getX() - attackXOffset, getY() - attackYOffset);
                 setImage(idleAnim.get(0));
             }
+            //idling code
             else if(timer < atkCooldown)
             {
                 idleIndex = animate(idleAnim, idleIndex);
@@ -131,6 +143,7 @@ public abstract class Unit extends SuperSmoothMover
                     prepareMoveOffset = true;
                 }
             }
+            //movement code
             else
             {
                 standingXPos = getX();
@@ -142,10 +155,10 @@ public abstract class Unit extends SuperSmoothMover
                 walkIndex = animate(walkAnim, walkIndex);
                 walk();
             }
-            if (health <= 0)
+            
+            if(shield != 0)
             {
-                createGhost();
-                getWorld().removeObject(this);
+                getWorld().addObject(barrier, getX(), getY());
             }
         }
         else
@@ -228,13 +241,19 @@ public abstract class Unit extends SuperSmoothMover
     {
         getWorld().addObject(new HitParticle(), getX()+Greenfoot.getRandomNumber(20)-10, getY()+Greenfoot.getRandomNumber(20)-10);
 
-        if(shield<1) //mitigates the damage dealt if shield is present
+        if(shield < 1) //mitigates the damage dealt if shield is present
         {
             this.health -= damage;
         }
         else 
         {
             shield--;
+            barrier.setSpawnTimer(0);
+            barrier.animation();
+            if(shield == 0)
+            {
+                getWorld().removeObject(barrier);
+            }
         }
 
         if (knockbackHealth.size() > 0 && health <= knockbackHealth.get(knockbackHealth.size()-1).intValue()&&!isKnockedBack&&knockbackTimer==0)
@@ -243,7 +262,7 @@ public abstract class Unit extends SuperSmoothMover
             isKnockedBack = true;
             isAttacking = false;
             attackIndex = 0;
-            setImage(idleAnim.get(0)); // Replace with knockback Sprite later.
+            setImage(idleAnim.get(0));
             timer = 10000;
             knockback();
             knockbackHealth.remove(knockbackHealth.size()-1);
@@ -258,12 +277,29 @@ public abstract class Unit extends SuperSmoothMover
 
     protected void shield(int instance)
     {
-        shield = instance;
+        barrier.setSpawnTimer(0);
+        barrier.animation();
+        shield += instance;
+    }
+    
+    protected int getShield()
+    {
+        return shield;
+    }
+    
+    protected boolean getProtected()
+    {
+        return wasProtected;
     }
 
     protected double getHealthDividedByMax()
     {
         return (double)health/maxHealth;
+    }
+    
+    protected int getNormalHeight()
+    {
+        return idleAnim.get(0).getHeight();
     }
 
     /**

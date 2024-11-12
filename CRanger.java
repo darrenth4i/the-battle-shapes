@@ -24,8 +24,8 @@ public class CRanger extends Circle
         switch(stage)
         {
             case 1:
-            attackXOffset = -12;
-            attackYOffset = -9;
+            attackXOffset = -27;
+            attackYOffset = -5;
             loadAnimationFrames("images/Units/CRanger/StageOne");    
             
             attackFrame = 11;

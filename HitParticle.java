@@ -32,7 +32,6 @@ public class HitParticle extends Effect
         {
             getWorld().removeObject(this);
         }
-        //fade(animation.size()-1 - animationIndex, 1);
         animationIndex = animate(animation, animationIndex);
         animationTimer.mark();
     }

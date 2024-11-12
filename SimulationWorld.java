@@ -96,8 +96,8 @@ public class SimulationWorld extends World
         super(1024, 700, 1, false); 
         setBackground(bg);
         
-        addObject(new Offense(false, 0, 1000), 100, 320);
-        addObject(new Offense(true, 0, 1000), 900, 320);
+        addObject(new Defense(false, 2, 1000), 100, 320);
+        addObject(new Defense(true, 2, 1000), 900, 320);
         
         //addObject(new CHealer(3), 900, 500);
         
