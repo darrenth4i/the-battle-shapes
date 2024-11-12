@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class TowerProjectile extends Actor
+public abstract class TowerProjectile extends SuperSmoothMover
 {
     protected boolean circle;
     protected Unit target;
@@ -19,6 +19,7 @@ public abstract class TowerProjectile extends Actor
         this.speed = speed;
         projectile = getImage();
         projectile.scale(10,10);
+        enableStaticRotation ();
     }
     /**
      * Projectile moves towards target at set speed
