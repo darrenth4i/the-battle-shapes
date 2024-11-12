@@ -51,27 +51,27 @@ public class SimulationWorld extends World
         //addObject(new CHealer(3), 900, 500);
         
         addObject(new Wallet(false), 900, 70);
-        addObject(new Wallet(true), 115, 623);
+        addObject(new Wallet(true), 130, 623);
         
         //SpawnUnitButton Parameters
         //(Name, unitIndex, level, cost, cooldown, canUpgrade, lastButton, visible), x, y)
         //IMPORTANT: ONE STAGE of ONE UNIT MUST have "true" as the 6th parameter + include 7th param. Other buttons may only have four
         //This is to cache images of unitStage 1, 2, and 3 for all Units (get rid of freezing)
         //eg. CU1 level 1 must have the 6th and 7th param
-        addObject(new SpawnUnitButton("SFodder", 0, 1, 3000, true), 100, 65);
-        addObject(new SpawnUnitButton("STank", 1, 1, 3000, true), 200, 65);
-        addObject(new SpawnUnitButton("SWarrior", 2, 1, 3000, true), 300, 65);
-        addObject(new SpawnUnitButton("SRanger", 3, 1, 3000,true), 400, 65);
-        addObject(new SpawnUnitButton("SHealer", 4, 1, 3000, true), 500, 65);
+        addObject(new SpawnUnitButton("SFodder", 0, 1, 3000, true), 100, 59);
+        addObject(new SpawnUnitButton("STank", 1, 1, 3000, true), 200, 59);
+        addObject(new SpawnUnitButton("SWarrior", 2, 1, 3000, true), 300, 59);
+        addObject(new SpawnUnitButton("SRanger", 3, 1, 3000,true), 400, 59);
+        addObject(new SpawnUnitButton("SHealer", 4, 1, 3000, true), 500, 59);
         
-        addObject(new SpawnUnitButton("CFodder", 0, 1, 3000, true, true, true), 900, 615);
-        addObject(new SpawnUnitButton("CTank", 1, 1, 3000, true), 800, 615);
-        addObject(new SpawnUnitButton("CWarrior", 2, 1, 3000, true), 700, 615);
-        addObject(new SpawnUnitButton("CRanger", 3, 1, 3000, true), 600, 615);
-        addObject(new SpawnUnitButton("CHealer", 4, 1, 3000, true), 500, 615);
+        addObject(new SpawnUnitButton("CFodder", 0, 1, 3000, true, true, true), 924, 612);
+        addObject(new SpawnUnitButton("CTank", 1, 1, 3000, true), 824, 612);
+        addObject(new SpawnUnitButton("CWarrior", 2, 1, 3000, true), 724, 612);
+        addObject(new SpawnUnitButton("CRanger", 3, 1, 3000, true), 624, 612);
+        addObject(new SpawnUnitButton("CHealer", 4, 1, 3000, true), 524, 612);
         
-        addObject(new UpgradeButton("wallet", true), 300, 596);
-        addObject(new UpgradeButton("tower", true), 300, 655);
+        addObject(new UpgradeButton("wallet", true), 330, 596);
+        addObject(new UpgradeButton("tower", true), 330, 655);
         addObject(new UpgradeButton("wallet", false), 690, 43);
         addObject(new UpgradeButton("tower", false), 690, 102);
         
