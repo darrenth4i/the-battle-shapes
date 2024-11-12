@@ -25,6 +25,10 @@ public abstract class Circle extends Unit
         imageScale = 0.35;
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
+    public Circle()
+    {
+        super();
+    }
     
     /**
      * Walks forward if nothing is obstructing movement

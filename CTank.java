@@ -73,10 +73,7 @@ public class CTank extends Circle
         if(justAddedToWorld)
         {
             super.addedToWorld(world);
-            if(stage > 1)
-            {
-                range -= 20;
-            }
+            standingRange += 5;
         }
     }
     
