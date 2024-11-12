@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Wallet extends PlayerUI
 {
     private boolean circle, spawned;
-    private double amount, multiplier;
+    private double amount, multiplier, eventMultiplier;
     
     private Text display;
     private GreenfootImage walletImage;
@@ -28,6 +28,7 @@ public class Wallet extends PlayerUI
         spawned = true;
         amount = 0;
         multiplier = 0.5;   
+        eventMultiplier = 1;
         
         display = new Text("$" + (int) amount, 30, Color.BLACK, Color.WHITE);
     }
@@ -37,7 +38,7 @@ public class Wallet extends PlayerUI
             getWorld().addObject(display, getX(), getY());
             spawned = false;
         }
-        amount += 1 * multiplier;
+        amount += 2 * multiplier * eventMultiplier;
         display.updateText("$" + (int) amount, 30, Color.BLACK, Color.WHITE);
     }
     
@@ -46,6 +47,7 @@ public class Wallet extends PlayerUI
     }
     
     public void setMultiplier(double m) {multiplier = m;}
+    public void setEventMultiplier(double m) {eventMultiplier = m;}
     public boolean getCircle() {return circle;}
     public double getAmount() {return amount;}
 }

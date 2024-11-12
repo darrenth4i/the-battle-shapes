@@ -18,6 +18,7 @@ public abstract class Tower extends Actor
     protected int fireInterval; //Higher rate means slower speed
     protected int type;
     protected int level;
+    protected Wallet myWallet;
 
     //Animation index for death
     protected int deathAnim = -1000;
@@ -28,7 +29,8 @@ public abstract class Tower extends Actor
     
     //Helper variables
     private double distance, nearestDistance, furthestDistance, lowestHealth;
-    protected int count;
+    protected int count, randomEventCount;
+    private ArrayList<Wallet> wallets;
     public Tower(boolean circle, int type, int level, int maxHP)
     {
         this.circle = circle;
@@ -39,11 +41,60 @@ public abstract class Tower extends Actor
         healthBar = new SuperStatBar(maxHealth, health, this, 80, 10, 0, Color.GREEN, Color.GRAY);
         
         updateLevel(level);
+        
+    }
+    public void setWallet()
+    {
+        wallets = (ArrayList<Wallet>)getWorld().getObjects(Wallet.class);
+        if(wallets == null){
+            return;
+        }
+        for(Wallet w : wallets){
+            if((circle && w.getCircle()) || (!circle && !w.getCircle())){
+                myWallet = w;
+            }
+        }
+    }
+    public boolean belowFifty()
+    {
+        if((double)health/maxHealth<0.5)
+        {
+            return true;
+        }
+        return false;
+    }
+    public void conscription()
+    {
+        for(int i=0;i<(3+Greenfoot.getRandomNumber(9));i++)
+        {
+            if(circle)
+            {
+                getWorld().addObject(new CFodder(1), getWorld().getWidth()-Greenfoot.getRandomNumber(40), getY()+110+Greenfoot.getRandomNumber(20));
+            }
+            else
+            {
+                getWorld().addObject(new SFodder(1), 0-Greenfoot.getRandomNumber(40), getY()+110+Greenfoot.getRandomNumber(20));
+            }
+        }
+    }
+    public void randomEvent()
+    {
+        int event = Greenfoot.getRandomNumber(2);
+        //System.out.println(event);
+        switch(event)
+        {
+            case 0: //Doubles the rate at which money increases
+                setWallet();
+                myWallet.setEventMultiplier(2);
+            case 1:
+                conscription();
+        }
     }
     
     public void updateLevel(int level)
     {
         //Sets tower stats depending on level
+        this.level = level;
         switch(level)
         {
             case 0:
@@ -82,6 +133,14 @@ public abstract class Tower extends Actor
         if(health<0)
         {
             endSimulation();
+        }
+        if(belowFifty())
+        {
+            if(randomEventCount<1)
+            {
+                randomEvent();
+                randomEventCount++;
+            }
         }
     }
     
@@ -351,5 +410,10 @@ public abstract class Tower extends Actor
             }
             setImage(towerImage);
         }
+    }
+    
+    public double getHealthPercentage()
+    {
+        return (double)health/maxHealth;
     }
 }

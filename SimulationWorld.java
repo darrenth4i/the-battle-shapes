@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class SimulationWorld extends World
 {
-    private GreenfootImage bg = new GreenfootImage("Backgrounds/battlecatsbg.png");
+    private GreenfootImage bg = new GreenfootImage("Backgrounds/bgui.png");
     
     private int towerX = 100;
     private int towerY = 270;
@@ -51,7 +51,7 @@ public class SimulationWorld extends World
         //addObject(new CHealer(3), 900, 500);
         
         addObject(new Wallet(false), 900, 70);
-        addObject(new Wallet(true), 100, 630);
+        addObject(new Wallet(true), 115, 623);
         
         //SpawnUnitButton Parameters
         //(Name, unitIndex, level, cost, cooldown, canUpgrade, lastButton, visible), x, y)
@@ -70,10 +70,10 @@ public class SimulationWorld extends World
         addObject(new SpawnUnitButton("CRanger", 3, 1, 3000, true), 600, 615);
         addObject(new SpawnUnitButton("CHealer", 4, 1, 3000, true), 500, 615);
         
-        addObject(new UpgradeButton("wallet", true), 300, 592);
-        addObject(new UpgradeButton("tower", true), 300, 658);
-        addObject(new UpgradeButton("wallet", false), 690, 52);
-        addObject(new UpgradeButton("tower", false), 690, 118);
+        addObject(new UpgradeButton("wallet", true), 300, 596);
+        addObject(new UpgradeButton("tower", true), 300, 655);
+        addObject(new UpgradeButton("wallet", false), 690, 43);
+        addObject(new UpgradeButton("tower", false), 690, 102);
         
         addObject(new Cursor(true), 1024, 700);
         addObject(new Cursor(false), 0, 0);

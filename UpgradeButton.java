@@ -32,7 +32,7 @@ public class UpgradeButton extends PlayerUI
         buttons = new GreenfootImage[4];
         for (int i = 1; i < buttons.length; i++) {
             buttons[i-1] = new GreenfootImage("/UIElements/upgradebutton_" + type + "_" + i + ".png");
-            buttons[i-1].scale(190,60);
+            buttons[i-1].scale(180,60);
         }
 
         setImage(buttons[0]);
