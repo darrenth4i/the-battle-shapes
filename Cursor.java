@@ -215,8 +215,8 @@ public class Cursor extends SuperSmoothMover
             else{
                 //if mostly enemy healers/rangers
                 if(checkUnits(false).equals("Healer") || checkUnits(false).equals("Ranger")){
-                    //go ranger, else go warrior if unavailable
-                    if(findIndex("Ranger") != -1){
+                    //go ranger 66% of time, else go warrior if unavailable
+                    if(findIndex("Ranger") != -1 && Greenfoot.getRandomNumber(3) > 0){
                         return findIndex("Ranger");
                     }
                     else{
