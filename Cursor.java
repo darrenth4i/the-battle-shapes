@@ -24,7 +24,7 @@ public class Cursor extends SuperSmoothMover
     //coordinates for cursor to move to
     private Coordinate currentDestination;
     
-    //index to access buttons list 
+    //index to access spawnButtons list 
     //IMPORTANT: for square team, index is (0-4) LEFT to RIGHT
     //           for circle team, index is (0-4) RIGHT to LEFT
     private int destinationIndex;
@@ -33,19 +33,37 @@ public class Cursor extends SuperSmoothMover
     private boolean circle;
     //variable to run code once
     private boolean spawned;
-    //arraylist for all buttons in world
-    ArrayList<SpawnUnitButton> buttons;
+    //arraylist for all spawnButtons in world
+    private ArrayList<SpawnUnitButton> spawnButtons;
     //shape/team specific arraylist
-    ArrayList<SpawnUnitButton> buttonTeams;
-    //string representation of buttonTeams;
-    ArrayList<String> buttonNames;
+    private ArrayList<SpawnUnitButton> spawnButtonTeams;
+    //string representation of spawnButtonTeams;
+    private ArrayList<String> buttonNames;
     
     //arraylist to hold all units alive of one specific team
-    ArrayList<Unit> units;
+    private ArrayList<Unit> units;
     
     //DEBUG remove wallets related code if never used later
-    ArrayList<Wallet> wallets;
-    Wallet myWallet;
+    private ArrayList<Wallet> wallets;
+    private Wallet myWallet;
+    
+    //list of all UpgradeButton
+    private ArrayList<UpgradeButton> upgradeButtons;
+    //team specific upgrade button
+    private UpgradeButton myWalletUpgradeButton;
+    private UpgradeButton myTowerUpgradeButton;
+    
+    //list of all UpgradeButton
+    private ArrayList<Tower> towers;
+    //team specific upgrade button
+    private Tower myTower;
+    private Tower enemyTower;
+    
+    //Only run winning() method after increasingly larger tower hp differences
+    private double[] hpDiff;
+    //index to iterate through array
+    private int hpDiffIndex;
+    
     //determine if it is the start of the game or not;
     private boolean start;
     //determine if cursor stopped on a button it wants to press
@@ -68,9 +86,15 @@ public class Cursor extends SuperSmoothMover
         circle = cir;
         spawned = false;
         
-        buttonTeams = new ArrayList<SpawnUnitButton>();
+        spawnButtonTeams = new ArrayList<SpawnUnitButton>();
         buttonNames = new ArrayList<String>();
+        towers = new ArrayList<Tower>();
+        upgradeButtons = new ArrayList<UpgradeButton>();
+        
         enableStaticRotation();
+        
+        hpDiff = new double[]{0.1, 0.2, 0.25, 0.3, 0.35, 0.4};
+        hpDiffIndex = 0;
         
         units = new ArrayList<Unit>();
         start = true;
@@ -85,29 +109,52 @@ public class Cursor extends SuperSmoothMover
     {
         //run only once when object is spawned
         if(!spawned){
-            //look for buttons
-            buttons = (ArrayList<SpawnUnitButton>)getWorld().getObjects(SpawnUnitButton.class);
+            //look for spawnButtons
+            spawnButtons = (ArrayList<SpawnUnitButton>)getWorld().getObjects(SpawnUnitButton.class);
             wallets = (ArrayList<Wallet>)getWorld().getObjects(Wallet.class);
-            //if buttons not spawned yet, try again
-            if(buttons == null || wallets == null){
+            upgradeButtons = (ArrayList<UpgradeButton>)getWorld().getObjects(UpgradeButton.class);
+            towers = (ArrayList<Tower>)getWorld().getObjects(Tower.class);
+            //if all 3 arraylists not spawned yet, try again
+            if(spawnButtons == null || wallets == null || upgradeButtons == null || towers == null){
                 return;
             }
-            //only want one team buttons
-            for(SpawnUnitButton b : buttons){
+            
+            //only want one team spawnButtons
+            for(SpawnUnitButton b : spawnButtons){
                 //add to team specific array list if cursor/button is circle/square
                 if((circle && b.getCircle()) || (!circle && !b.getCircle())){
-                    buttonTeams.add(b);
+                    spawnButtonTeams.add(b);
                 }
             }
             //add name of each button for enemy AI easy access 
-            for(SpawnUnitButton b : buttonTeams){
+            for(SpawnUnitButton b : spawnButtonTeams){
                 buttonNames.add(b.getUnit());
             }
             
-            //get wallet for own team
+            //DEBUG remove if useless, get wallet for own team
             for(Wallet w : wallets){
                 if((circle && w.getCircle()) || (!circle && !w.getCircle())){
                     myWallet = w;
+                }
+            }
+            
+            for(UpgradeButton u : upgradeButtons){
+                if((circle && u.getCircle()) || (!circle && !u.getCircle())){
+                    if(u.getType().equals("wallet")){
+                        myWalletUpgradeButton = u;
+                    }
+                    else{
+                        myTowerUpgradeButton = u;
+                    }
+                }
+            }
+            
+            for(Tower t : towers){
+                if((circle && t.getCircle()) || (!circle && !t.getCircle())){
+                    myTower = t;
+                }
+                else{
+                    enemyTower = t;
                 }
             }
             
@@ -116,36 +163,60 @@ public class Cursor extends SuperSmoothMover
             spawned = true;
         }
         
-        //find best move every 7 seconds
-        if(cooldown.millisElapsed() >= 420 && !stopped){
+        //find best move every 0.5 seconds
+        if(cooldown.millisElapsed() >= 500 && !stopped){
             destinationIndex = bestMove();  
             cooldown.mark();
         }
         
-        // Check if there is another destination for me if I don't have one
-        if (currentDestination == null){
-            currentDestination = getNextDestination (destinationIndex);
+        if(!stopped){
+            //If my tower hp is greater than enemy tower hp and no currentDestination
+            if(currentDestination == null && winning()){
+                //75% chance to upgrade wallet
+                if(Greenfoot.getRandomNumber(4) > 0){
+                    currentDestination = myWalletUpgradeButton.getCoordinate();
+                }
+                //25% to upgrade tower ability
+                else{    
+                    currentDestination = myTowerUpgradeButton.getCoordinate();
+                }
+            }
+            // Check if there is another destination for me if I don't have one
+            if (currentDestination == null){
+                currentDestination = getNextDestination (destinationIndex);
+            }
+    
+            //move to button coords
+            followCursor(currentDestination);
         }
-
-        //move to button coords
-        followCursor(currentDestination);
         //check to reset mouse held animation
         click(false);  
         
         //"Click" button if cursor is stopped on it, and isnt on cooldown 
-        if(stopped && !buttonTeams.get(destinationIndex).getOnCooldown()){
-            stopped = false;
-            buttonTeams.get(destinationIndex).setClicked(true);
+        if(stopped){
+            //upgrade button that cursor touches
+            UpgradeButton touchingButton = (UpgradeButton)getOneIntersectingObject(UpgradeButton.class);
+            
+            //purchase/click the corresponding button if affordable and not on cooldown
+            if(touchingButton != null && myWallet.getAmount() >= touchingButton.getCost()){
+                touchingButton.setClicked(true);
+                stopped = false;
+            }
+            else if(touchingButton == null && !spawnButtonTeams.get(destinationIndex).getOnCooldown()){
+                spawnButtonTeams.get(destinationIndex).setClicked(true);
+                stopped = false;
+            }
+                
             click(true);
         }
         
     }
     
     /**
-     * Method to get the coordinates to a specific button's destination in buttonTeams
+     * Method to get the coordinates to a specific button's destination in spawnButtonTeams
      */
     private Coordinate getNextDestination (int index) {
-        return buttonTeams.get(index).getCoordinate();
+        return spawnButtonTeams.get(index).getCoordinate();
     }
     
     /**
@@ -187,7 +258,7 @@ public class Cursor extends SuperSmoothMover
         //if no team units exists yet
         if(checkUnits(true).equals("none")){
             //if nothing worth upgrading yet
-            if(worthUpgrading().equals("none")){
+            if(worthUpgradingUnit().equals("none")){
                 //best move fodder if tank doesnt exist 
                 if((findIndex("Tank") == -1)){
                     return findIndex("Fodder");  
@@ -197,7 +268,7 @@ public class Cursor extends SuperSmoothMover
             }
             else{
                 //else go for the unit close to upgrade
-                return findIndex(worthUpgrading());
+                return findIndex(worthUpgradingUnit());
             }
         }
         //if units exist
@@ -226,13 +297,23 @@ public class Cursor extends SuperSmoothMover
                 //if enemies have mostly warrior/tanks
                 else if(checkUnits(false).equals("Warrior") || checkUnits(false).equals("Tank")){
                     //66% chance to go ranger
-                    if(Greenfoot.getRandomNumber(3) > 0){
+                    if(Greenfoot.getRandomNumber(3) > 1){
                         if(findIndex("Ranger") != -1){
                             return findIndex("Ranger");
                         }
                     }
-                    //33% for healer
-                    return findIndex("Healer");
+                    else if(Greenfoot.getRandomNumber(3) > 1){
+                        if(findIndex("Healer") != -1){
+                            return findIndex("Healer");
+                        }
+                    }
+                    else if(Greenfoot.getRandomNumber(3) > 0){
+                        if(findIndex("Fodder") != -1){
+                            return findIndex("Fodder");
+                        }
+                    }
+                    //small chance of tank
+                    return findIndex("Tank");
                 }
                 //else go warrior or tank if unavailable
                 else{
@@ -271,6 +352,22 @@ public class Cursor extends SuperSmoothMover
             index++;
         }
         return -1;
+    }
+    
+    /**
+     * Method that returns true if current tower has significantly more Hp
+     * than enemy tower. Else false.
+     */
+    public boolean winning(){
+        //prevent index out of bounds error
+        if(hpDiffIndex >= hpDiff.length){
+            return false;
+        }
+        if(myTower.getHealthPercentage() - enemyTower.getHealthPercentage() >= hpDiff[hpDiffIndex]){
+            hpDiffIndex++;
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -343,20 +440,20 @@ public class Cursor extends SuperSmoothMover
      * 
      * part of Enemy AI
      */
-    public String worthUpgrading(){
+    public String worthUpgradingUnit(){
         //check three times for the closest button to being upgraded
         //return only if it is a specified percentage or closer 
-        for(SpawnUnitButton b : buttonTeams){
+        for(SpawnUnitButton b : spawnButtonTeams){
             if(b.getPercentUpgrade() >= 90){
                 return b.getUnit().substring(1, b.getUnit().length() - 1);
             }
         }
-        for(SpawnUnitButton b : buttonTeams){
+        for(SpawnUnitButton b : spawnButtonTeams){
             if(b.getPercentUpgrade() >= 80){
                 return b.getUnit().substring(1, b.getUnit().length() - 1);
             }
         }
-        for(SpawnUnitButton b : buttonTeams){
+        for(SpawnUnitButton b : spawnButtonTeams){
             if(b.getPercentUpgrade() >= 75){
                 return b.getUnit().substring(1, b.getUnit().length() - 1);
             }
@@ -413,12 +510,12 @@ public class Cursor extends SuperSmoothMover
     }
     
     /**
-     * Method to replace a SpawnUnitButton in buttonTeams 
+     * Method to replace a SpawnUnitButton in spawnButtonTeams 
      * when it gets upgraded so the list has the right button
      * at all times
      */
     public void replaceButtonsTeam(int index, SpawnUnitButton b) {
         currentDestination = null;
-        buttonTeams.set(index, b);
+        spawnButtonTeams.set(index, b);
     }
 }

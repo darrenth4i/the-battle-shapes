@@ -15,7 +15,7 @@ public class UpgradeButton extends PlayerUI
 
     private String type;
     private int level, cost;
-    private boolean buttonPressed, spawned, circle;
+    private boolean buttonPressed, spawned, circle, clicked;
 
     private Tower tower;
     private Wallet wallet;
@@ -25,6 +25,7 @@ public class UpgradeButton extends PlayerUI
         this.type = type;
         level = 0;
         buttonPressed = false;
+        clicked = false;
         spawned = true;
         this.circle = circle;
         cost = 500;
@@ -66,9 +67,8 @@ public class UpgradeButton extends PlayerUI
         setImage(buttons[level]);
 
         if (level < 2) {
-            if (Greenfoot.mouseClicked(this))
+            if (clicked)
             {
-                buttonPressed = false;
                 wallet.spend(cost);
                 cost = 1000;
                 level++;
@@ -79,13 +79,10 @@ public class UpgradeButton extends PlayerUI
                 }
                 text.updateText("$" + cost, 20, Color.BLACK, Color.WHITE);
             } 
-            else if (Greenfoot.getMouseInfo() != null && (Greenfoot.getMouseInfo().getX() < getX()-getImage().getWidth()/2 || Greenfoot.getMouseInfo().getX() > getX()+getImage().getWidth()/2 || Greenfoot.getMouseInfo().getY() < getY()-getImage().getHeight()/2 || Greenfoot.getMouseInfo().getY() > getY()+getImage().getHeight()/2))
-            {
-                buttonPressed = false;
-            }
-            if(buttonPressed)
+            if(clicked)
             {
                 getImage().scale(7*getImage().getWidth()/8, 7*getImage().getHeight()/8);
+                clicked = false;      
             }
             else 
             {
@@ -94,5 +91,40 @@ public class UpgradeButton extends PlayerUI
         } else if (level == 2) {
             getWorld().removeObject(text);
         }
+    }
+    
+    /**
+     * Setter method for clicked variable
+     */
+    public void setClicked(boolean c){
+        clicked = c;
+    }
+    
+    /**
+     * Return if self is part of circle team
+     */
+    public boolean getCircle(){
+        return circle;
+    }
+    
+    /**
+     * String to return type of UpgradeButton
+     */
+    public String getType(){
+        return type;
+    }
+    
+    /**
+     * Method to return the coordinates of the button
+     */
+    public Coordinate getCoordinate(){
+        return new Coordinate(getX(), getY());
+    }
+    
+    /**
+     * Method to return cost of upgrade
+     */
+    public int getCost(){
+        return cost;
     }
 }
