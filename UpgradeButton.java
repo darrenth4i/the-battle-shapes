@@ -10,13 +10,13 @@ import java.util.ArrayList;
  */
 public class UpgradeButton extends PlayerUI
 {
-    private GreenfootImage icon;
+    //array list of the button images
     private GreenfootImage[] buttons;
-
+    
     private String type;
     private int level, cost;
     private boolean buttonPressed, spawned, circle, clicked;
-
+    
     private Tower tower;
     private Wallet wallet;
     private Text text;
@@ -28,19 +28,21 @@ public class UpgradeButton extends PlayerUI
         clicked = false;
         spawned = true;
         this.circle = circle;
-        cost = 500;
-
+        //starting cost
+        cost = 1250;
+        //save button images in the array. New image for each level
         buttons = new GreenfootImage[4];
         for (int i = 1; i < buttons.length; i++) {
             buttons[i-1] = new GreenfootImage("/UIElements/upgradebutton_" + type + "_" + i + ".png");
             buttons[i-1].scale(180,60);
         }
-
+        //set button images to first level
         setImage(buttons[0]);
     }
 
     public void act() {
         if (spawned) {
+            //when first added to world, find out which tower and wallet is your teams'
             ArrayList<Tower> towers = (ArrayList<Tower>)getWorld().getObjects(Tower.class);
             if (towers.size() != 0) {
                 if (towers.get(0).getCircle() == circle) {
@@ -57,27 +59,37 @@ public class UpgradeButton extends PlayerUI
                     wallet = wallets.get(1);
                 }
             }
-
+            //display cost of upgrade
             text = new Text("$" + cost, 15, Color.BLACK, Color.WHITE);
-            getWorld().addObject(text, getX() - 57, getY() + 10);
+            getWorld().addObject(text, getX() - 55, getY() + 10);
 
             spawned = false;
         }   
-
+        //set the image according to the level of the upgrade
         setImage(buttons[level]);
 
         if (level < 2) {
+            //when at level 2 (maxed) dont do anything
             if (clicked)
             {
+                //spend amount and set new cost for the next upgrade
                 wallet.spend(cost);
-                cost = 1000;
+                cost = 2500;
                 level++;
                 if (type.equals("tower")) {
+                    //if this upgrade button is for the tower, upgrade the tower
                     tower.updateLevel(level);
                 } else {
-                    wallet.setMultiplier(level);
+                    //if this upgrade button is for the wallet, upgrade the wallet depending on the level
+                    switch (level) {
+                        case 1:
+                            wallet.setMultiplier(2);
+                        case 2:
+                            wallet.setMultiplier(3);
+                    }
                 }
-                text.updateText("$" + cost, 20, Color.BLACK, Color.WHITE);
+                //update upgrade cost
+                text.updateText("$" + cost, 15, Color.BLACK, Color.WHITE);
             } 
             if(clicked)
             {
@@ -89,8 +101,16 @@ public class UpgradeButton extends PlayerUI
                 getImage().scale(getImage().getWidth(), getImage().getHeight());
             }
         } else if (level == 2) {
+            //remove cost text when maxed
             getWorld().removeObject(text);
         }
+    }
+    
+    /**
+     * Getter method for level
+     */
+    public int getLevel(){
+        return level;
     }
     
     /**

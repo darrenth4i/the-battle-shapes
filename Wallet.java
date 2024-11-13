@@ -15,11 +15,11 @@ public class Wallet extends PlayerUI
     private GreenfootImage walletImage;
     
     public Wallet(boolean c) {
+        //set image
         walletImage = new GreenfootImage("/UIElements/wallet.png");
         walletImage.scale(150,150);
         setImage(walletImage);
-        
-        
+        //determine whether this wallet is on circle team or on square team
         if (c) {
             circle = true;
         } else {
@@ -27,25 +27,33 @@ public class Wallet extends PlayerUI
         }
         spawned = true;
         amount = 0;
-        multiplier = 0.5;   
+        //multiplier affected by the wallet upgrade
+        multiplier = 1;   
+        //eventmultiplier for special events that increase money production
         eventMultiplier = 1;
-        
+        //display current amount
         display = new Text("$" + (int) amount, 30, Color.BLACK, Color.WHITE);
     }
     
     public void act() {
         if (spawned) {
+            //when first added to world
             getWorld().addObject(display, getX(), getY());
             spawned = false;
         }
-        amount += 2 * multiplier * eventMultiplier;
+        
+        //every frame, increase amount in wallet depending on upgrades and event
+        amount += 1 * multiplier * eventMultiplier;
+        //display new amount
         display.updateText("$" + (int) amount, 30, Color.BLACK, Color.WHITE);
     }
     
     public void spend(int cost) {
+        //method for spending units and upgrade buttons
         amount -= cost;
     }
     
+    //getter and setter methods
     public void setMultiplier(double m) {multiplier = m;}
     public void setEventMultiplier(double m) {eventMultiplier = m;}
     public boolean getCircle() {return circle;}

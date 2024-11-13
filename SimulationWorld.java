@@ -25,33 +25,33 @@ public class SimulationWorld extends World
         switch(sTowerVariables[1])
         {
             case 0:
-                addObject(new Defense(false, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
+                addObject(new Defense(false, sTowerVariables[2], sTowerVariables[0]), towerX, 290);
                 break;
             case 1:
-                addObject(new Offense(false, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
+                addObject(new Offense(false, sTowerVariables[2], sTowerVariables[0]), towerX, 290);
                 break;
             case 2:
-                addObject(new Support(false, sTowerVariables[2], sTowerVariables[0]), towerX, 270);
+                addObject(new Support(false, sTowerVariables[2], sTowerVariables[0]), towerX, 290);
                 break;
         }
         switch(cTowerVariables[1])
         {
             case 0:
-                addObject(new Defense(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
+                addObject(new Defense(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 290);
                 break;
             case 1:
-                addObject(new Offense(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
+                addObject(new Offense(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 290);
                 break;
             case 2:
-                addObject(new Support(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 270);
+                addObject(new Support(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 290);
                 break;
         }
         System.out.println(sTowerVariables[1] + " " + cTowerVariables[1]);
         
         //addObject(new CHealer(3), 900, 500);
         
-        addObject(new Wallet(false), 900, 70);
-        addObject(new Wallet(true), 130, 623);
+        addObject(new Wallet(false), 900, 75);
+        addObject(new Wallet(true), 130, 625);
         
         //SpawnUnitButton Parameters
         //(Name, unitIndex, level, cost, cooldown, canUpgrade, lastButton, visible), x, y)
@@ -75,8 +75,9 @@ public class SimulationWorld extends World
         addObject(new UpgradeButton("wallet", false), 690, 43);
         addObject(new UpgradeButton("tower", false), 690, 102);
         
-        addObject(new Cursor(true), 1024, 700);
-        addObject(new Cursor(false), 0, 0);
+        //Parameters Cursor(circle, random)
+        addObject(new Cursor(true, false), 1024, 700);
+        addObject(new Cursor(false, true), 0, 0);
        
         //Cursor shows up on top of everything
         setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);

@@ -1,11 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class GameButtons here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Purely a class for organization
  */
-public abstract class PlayerUI extends UI
-{
-}
+public abstract class PlayerUI extends UI {}
