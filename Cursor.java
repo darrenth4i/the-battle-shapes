@@ -180,11 +180,12 @@ public class Cursor extends SuperSmoothMover
                 //If my tower hp is greater than enemy tower hp and no currentDestination
                 if(currentDestination == null && winning()){
                     //75% chance to upgrade wallet
-                    if(Greenfoot.getRandomNumber(4) > 0 && myWalletUpgradeButton.getLevel() < 2){
+                    int randomNum = Greenfoot.getRandomNumber(4);
+                    if(randomNum > 0 && myWalletUpgradeButton.getLevel() < 2){
                         currentDestination = myWalletUpgradeButton.getCoordinate();
                     }
                     //25% to upgrade tower ability
-                    else if(myWalletUpgradeButton.getLevel() < 2){    
+                    else if(randomNum == 0 && myWalletUpgradeButton.getLevel() < 2){    
                         currentDestination = myTowerUpgradeButton.getCoordinate();
                     }
                 }
@@ -263,7 +264,7 @@ public class Cursor extends SuperSmoothMover
     }
     
     public void randomMove(){
-        int rng = Greenfoot.getRandomNumber(20);
+        int rng = Greenfoot.getRandomNumber(30);
         if(rng == 0){
             currentDestination = myWalletUpgradeButton.getCoordinate();
         }
@@ -390,7 +391,7 @@ public class Cursor extends SuperSmoothMover
         if(hpDiffIndex >= hpDiff.length){
             return false;
         }
-        if(myTower.getHealthPercentage() - enemyTower.getHealthPercentage() >= hpDiff[hpDiffIndex]){
+        if((myTower.getHealthPercentage() - enemyTower.getHealthPercentage()) >= hpDiff[hpDiffIndex]){
             hpDiffIndex++;
             return true;
         }
