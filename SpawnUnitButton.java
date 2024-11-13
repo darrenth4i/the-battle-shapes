@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class SpawnUnitButton extends PlayerUI
 {
     private SimpleTimer timer = new SimpleTimer();
-
+    
     private String unit;
     private Wallet wallet;
     private boolean circle, spawned, onCooldown, canUpgrade;
@@ -17,7 +17,8 @@ public class SpawnUnitButton extends PlayerUI
     private int spent;
     final private int firstUpgrade;
     final private int secondUpgrade;
-
+    
+    //other actors that all are for each spawn unit button
     private BlackBox blackbox;
     private BlackBox hoverBox;
     private ProgressBar cooldownBar;
@@ -50,7 +51,14 @@ public class SpawnUnitButton extends PlayerUI
         unitIndex = uIndex;
         unitStage = stage;
         this.canUpgrade = canUpgrade;
+        unitCooldown = cooldown;
+        if (u.substring(0, 1).equals("C")) {
+            circle = true;
+        } else {
+            circle = false;
+        }
         
+        //set costs if the unit is in the loadout
         if(u.contains("Fodder"))
         {
             unitCost = unitCostIndex[0];
@@ -72,17 +80,11 @@ public class SpawnUnitButton extends PlayerUI
             unitCost = unitCostIndex[4];
         }
         
-
+        //set thresholds for upgrades
         firstUpgrade = unitCost * 5;
         secondUpgrade = unitCost * 10;
         
-        unitCooldown = cooldown;
-        if (u.substring(0, 1).equals("C")) {
-            circle = true;
-        } else {
-            circle = false;
-        }
-
+        //create file path and find image
         String filePath = "/UnitButtons/" + unit + "_" + unitStage + ".png";
         if(visible)
         {
@@ -224,7 +226,7 @@ public class SpawnUnitButton extends PlayerUI
 
     public void offCooldown() {
         onCooldown = false;
-        
+        //remove cooldownbar and darken effect 
         getWorld().removeObject(blackbox);
         getWorld().removeObject(cooldownBar);
     }
@@ -232,12 +234,12 @@ public class SpawnUnitButton extends PlayerUI
     public void cooldown() {
         onCooldown = true;
         cooldownTimes = 0;
-
+        //add cooldownbar and darken effect 
         blackbox = new BlackBox(120, this);
         getWorld().addObject(blackbox, getX(), getY());
         cooldownBar = new ProgressBar(unitCooldown, unitCooldown, this, 78, 15, 0, Color.CYAN, Color.BLACK, false, Color.BLACK, 3);
         getWorld().addObject(cooldownBar, getX(), getY() + 16);
-
+        //timer for cooldown
         timer.mark();
     }
 
@@ -249,7 +251,7 @@ public class SpawnUnitButton extends PlayerUI
         int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 40 : 110; 
         yOffset += Greenfoot.getRandomNumber(20);
         int xOffset = 30;
-
+        //spawn respective unit
         if(!circle){
             if (unit == "SFodder") {
                 getWorld().addObject(new SFodder(unitStage), spawn.getX() + xOffset, spawn.getY() + yOffset);
@@ -310,7 +312,25 @@ public class SpawnUnitButton extends PlayerUI
             getWorld().removeObject(hoverBox);
         }
     }
-
+    
+    public void upgrade()
+    {
+        //create a new spawnunitbutton of the next stage of the unit
+        SpawnUnitButton upgradedButton = new SpawnUnitButton(unit, unitIndex, unitStage+1, unitCooldown, true);
+        
+        getWorld().addObject(upgradedButton, getX(), getY());
+        
+        ArrayList<Cursor> cursors = (ArrayList<Cursor>)getWorld().getObjects(Cursor.class);
+        for(Cursor c : cursors){
+            if((circle && c.getCircle()) || (!circle && !c.getCircle())){
+                targetCursor = c;
+            }
+        }
+        targetCursor.replaceButtonsTeam(unitIndex, upgradedButton);
+        //remove this lower stage spawnunitbutton
+        getWorld().removeObject(this);
+    }
+    
     /**
      * Setter method to change clicked 
      */
@@ -323,22 +343,6 @@ public class SpawnUnitButton extends PlayerUI
      */
     public boolean getOnCooldown(){
         return onCooldown;
-    }
-
-    public void upgrade()
-    {
-        SpawnUnitButton upgradedButton = new SpawnUnitButton(unit, unitIndex, unitStage+1, unitCooldown, true);
-        
-        getWorld().addObject(upgradedButton, getX(), getY());
-        
-        ArrayList<Cursor> cursors = (ArrayList<Cursor>)getWorld().getObjects(Cursor.class);
-        for(Cursor c : cursors){
-            if((circle && c.getCircle()) || (!circle && !c.getCircle())){
-                targetCursor = c;
-            }
-        }
-        targetCursor.replaceButtonsTeam(unitIndex, upgradedButton);
-        getWorld().removeObject(this);
     }
 
     /**

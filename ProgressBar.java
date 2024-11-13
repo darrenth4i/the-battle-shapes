@@ -1,7 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Arrays;
 
-//Taken from Mr.Cohen Bug simulation
+
+
+/**
+ * Taken from Mr.Cohen's Bug Simulation project 2024
+ */
 
 public class ProgressBar extends PlayerUI
 {
@@ -35,9 +39,6 @@ public class ProgressBar extends PlayerUI
 
     // Declare Instance Objects
     private Actor target;
-
-    
-    
     
     // Declare some Color objects
     private Color[] filledColor;
@@ -62,7 +63,6 @@ public class ProgressBar extends PlayerUI
      */
     public ProgressBar (int maxVal,  int currVal, Actor owner, int width, int height, int offset, Color filledColor, Color missingColor, boolean hideAtMax, Color borderColor, int borderThickness){
         this (new int[]{maxVal}, new int[]{currVal}, owner, width, height, offset, new Color[] {filledColor}, new Color[] {missingColor}, hideAtMax, borderColor, borderThickness);
-
     }
 
     /**
