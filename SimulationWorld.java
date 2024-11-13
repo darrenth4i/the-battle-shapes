@@ -75,8 +75,8 @@ public class SimulationWorld extends World
         addObject(new UpgradeButton("wallet", false), 690, 43);
         addObject(new UpgradeButton("tower", false), 690, 102);
         
-        addObject(new Cursor(true), 1024, 700);
-        addObject(new Cursor(false), 0, 0);
+        addObject(new Cursor(true, false), 1024, 700);
+        addObject(new Cursor(false, false), 0, 0);
        
         //Cursor shows up on top of everything
         setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
