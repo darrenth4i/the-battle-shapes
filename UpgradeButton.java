@@ -98,6 +98,13 @@ public class UpgradeButton extends PlayerUI
     }
     
     /**
+     * Getter method for level
+     */
+    public int getLevel(){
+        return level;
+    }
+    
+    /**
      * Setter method for clicked variable
      */
     public void setClicked(boolean c){
