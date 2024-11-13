@@ -27,7 +27,7 @@ public class Wallet extends PlayerUI
         }
         spawned = true;
         amount = 0;
-        multiplier = 0.5;   
+        multiplier = 1;   
         eventMultiplier = 1;
         
         display = new Text("$" + (int) amount, 30, Color.BLACK, Color.WHITE);
@@ -38,7 +38,7 @@ public class Wallet extends PlayerUI
             getWorld().addObject(display, getX(), getY());
             spawned = false;
         }
-        amount += 2 * multiplier * eventMultiplier;
+        amount += 1 * multiplier * eventMultiplier;
         display.updateText("$" + (int) amount, 30, Color.BLACK, Color.WHITE);
     }
     

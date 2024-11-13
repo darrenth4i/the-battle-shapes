@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public class UpgradeButton extends PlayerUI
 {
-    private GreenfootImage icon;
     private GreenfootImage[] buttons;
 
     private String type;
@@ -59,7 +58,7 @@ public class UpgradeButton extends PlayerUI
             }
 
             text = new Text("$" + cost, 15, Color.BLACK, Color.WHITE);
-            getWorld().addObject(text, getX() - 57, getY() + 10);
+            getWorld().addObject(text, getX() - 55, getY() + 10);
 
             spawned = false;
         }   
@@ -75,9 +74,14 @@ public class UpgradeButton extends PlayerUI
                 if (type.equals("tower")) {
                     tower.updateLevel(level);
                 } else {
-                    wallet.setMultiplier(level);
+                    switch (level) {
+                        case 1:
+                            wallet.setMultiplier(2);
+                        case 2:
+                            wallet.setMultiplier(3);
+                    }
                 }
-                text.updateText("$" + cost, 20, Color.BLACK, Color.WHITE);
+                text.updateText("$" + cost, 15, Color.BLACK, Color.WHITE);
             } 
             if(clicked)
             {
