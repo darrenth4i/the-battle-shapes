@@ -268,7 +268,7 @@ public class Cursor extends SuperSmoothMover
             currentDestination = myWalletUpgradeButton.getCoordinate();
         }
         else if(rng == 1){
-            currentDestination = myWalletUpgradeButton.getCoordinate();
+            currentDestination = myTowerUpgradeButton.getCoordinate();
         }
         else{
             currentDestination = getNextDestination(Greenfoot.getRandomNumber(spawnButtonTeams.size() - 1));
