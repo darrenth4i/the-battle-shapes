@@ -12,6 +12,7 @@ public abstract class TowerProjectile extends SuperSmoothMover
     protected Unit target;
     protected int speed;
     protected GreenfootImage projectile;
+    protected boolean contacted;
     public TowerProjectile(boolean circle, Unit target, int speed)
     {
         this.circle = circle;
@@ -50,6 +51,7 @@ public abstract class TowerProjectile extends SuperSmoothMover
      */
     public abstract void effect();
     
+    
     /**
      * A method used to move towards an actor
      * Made by ChatGPT
@@ -73,4 +75,34 @@ public abstract class TowerProjectile extends SuperSmoothMover
 
         setLocation(x1 + dx, y1 + dy);
     }
+    
+    /*protected void moveTowardsTarget() 
+    {
+        int x1 = getX();
+        int y1 = getY();
+        int x2 = target.getNormalX();
+        int y2 = target.getNormalY();
+
+        // Calculate the angle towards the target
+        double angle = Math.atan2(y2 - y1, x2 - x1);
+
+        // Move a certain number of units (speed) towards the target
+        int speed = 8;  // Adjust speed as needed
+        int dx = (int) (Math.cos(angle) * speed);
+        int dy;
+        if(x1 > x2 - 40 && x1 < x2 +40)
+        {
+            dy = 15;
+        }
+        else
+        {
+            dy = -1;
+        }
+
+        setLocation(x1 + dx, y1 + dy);
+        if(x1 > x2 - 40 && x1 < x2 +40 && y1 > y2)
+        {
+            contacted = true;
+        }
+    }*/
 }

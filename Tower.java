@@ -14,11 +14,14 @@ public abstract class Tower extends Actor
     protected SuperStatBar healthBar;
     //Denotes team
     protected boolean circle;
+    
     protected int towerRange;
     protected int fireInterval; //Higher rate means slower speed
     protected int type;
     protected int level;
     protected Wallet myWallet;
+    protected int event;
+    protected ArrayList<Unit> targets;
 
     //Animation index for death
     protected int deathAnim = -1000;
@@ -31,6 +34,7 @@ public abstract class Tower extends Actor
     private double distance, nearestDistance, furthestDistance, lowestHealth;
     protected int count, randomEventCount;
     private ArrayList<Wallet> wallets;
+    private int xOffset;
     public Tower(boolean circle, int type, int level, int maxHP)
     {
         this.circle = circle;
@@ -55,9 +59,9 @@ public abstract class Tower extends Actor
             }
         }
     }
-    public boolean belowFifty()
+    public boolean healthBelow(double below)
     {
-        if((double)health/maxHealth<0.5)
+        if((double)health/maxHealth<below)
         {
             return true;
         }
@@ -65,7 +69,7 @@ public abstract class Tower extends Actor
     }
     public void conscription()
     {
-        for(int i=0;i<(3+Greenfoot.getRandomNumber(9));i++)
+        for(int i=0;i<(5+Greenfoot.getRandomNumber(9));i++)
         {
             if(circle)
             {
@@ -77,17 +81,50 @@ public abstract class Tower extends Actor
             }
         }
     }
+    public void meteorStorm()
+    {
+        targets = getEnemies();
+        if(circle){
+            xOffset = 200;
+        }else{
+            xOffset = -200;
+        }
+        for(Unit u : targets)
+        {
+            //Spawn a meteor above the target offscreen with an xoffset to angle the meteor
+            getWorld().addObject(new Meteor(circle, u, 3), u.getX()+xOffset, -70);
+        }
+    }
+    public void bloodSplatter()
+    {
+        targets = getEnemies();        
+    }
     public void randomEvent()
     {
-        int event = Greenfoot.getRandomNumber(2);
+        event = Greenfoot.getRandomNumber(2);
         //System.out.println(event);
         switch(event)
         {
             case 0: //Doubles the rate at which money increases
                 setWallet();
                 myWallet.setEventMultiplier(2);
+                break;
             case 1:
                 conscription();
+                break;    
+        }
+    }
+    public void alternateRandomEvent()
+    {
+        event = Greenfoot.getRandomNumber(2);
+        switch(event)
+        {
+            case 0:
+                meteorStorm();
+                break;
+            case 1:
+                bloodSplatter();
+                break;
         }
     }
     
@@ -134,11 +171,19 @@ public abstract class Tower extends Actor
         {
             endSimulation();
         }
-        if(belowFifty())
+        if(healthBelow(0.5))
         {
             if(randomEventCount<1)
             {
                 randomEvent();
+                randomEventCount++;
+            }
+        }
+        if(healthBelow(0.25))
+        {
+            if(randomEventCount<1)
+            {
+                alternateRandomEvent();
                 randomEventCount++;
             }
         }
@@ -270,19 +315,32 @@ public abstract class Tower extends Actor
         else
         {
             ArrayList<Circle> nearCircles = (ArrayList<Circle>)getObjectsInRange(towerRange, Circle.class);
-            Circle furthestCircle = null;
-            furthestDistance = -1;
+            Circle lowHealthCircle = null;
+            lowestHealth = 1.0;
             for(Circle c : nearCircles)
             {
-                distance = getDistance(c);
-                if (distance > furthestDistance)
+                if (c.getHealthDividedByMax()<=lowestHealth)
                 {
-                    furthestCircle = c;
-                    furthestDistance = distance;
+                    lowHealthCircle = c;
+                    lowestHealth = c.getHealthDividedByMax();
                 }
             }
-            return furthestCircle;
+            return lowHealthCircle;
         }
+    }
+    
+    public ArrayList<Unit> getEnemies()
+    {
+        ArrayList<Unit> enemies;
+        if(!circle)
+        {
+            enemies = (ArrayList<Unit>)(ArrayList<?>)getWorld().getObjects(Circle.class);
+        }
+        else
+        {
+            enemies = (ArrayList<Unit>)(ArrayList<?>)getWorld().getObjects(Square.class);
+        }
+        return enemies;
     }
     
     /**

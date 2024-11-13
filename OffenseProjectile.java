@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class OffenseProjectile extends TowerProjectile
 {
     private int damage;
-    private boolean contacted;
+    
     public OffenseProjectile(boolean circle, Unit target, int speed, int damage)
     {
         super(circle, target, speed);
