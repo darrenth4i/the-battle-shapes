@@ -77,7 +77,7 @@ public class SimulationWorld extends World
         
         //Parameters Cursor(circle, random)
         addObject(new Cursor(true, false), 1024, 700);
-        addObject(new Cursor(false, false), 0, 0);
+        addObject(new Cursor(false, true), 0, 0);
        
         //Cursor shows up on top of everything
         setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);

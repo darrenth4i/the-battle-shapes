@@ -28,7 +28,7 @@ public class UpgradeButton extends PlayerUI
         clicked = false;
         spawned = true;
         this.circle = circle;
-        cost = 500;
+        cost = 1250;
 
         buttons = new GreenfootImage[4];
         for (int i = 1; i < buttons.length; i++) {
@@ -70,7 +70,7 @@ public class UpgradeButton extends PlayerUI
             if (clicked)
             {
                 wallet.spend(cost);
-                cost = 1000;
+                cost = 2500;
                 level++;
                 if (type.equals("tower")) {
                     tower.updateLevel(level);

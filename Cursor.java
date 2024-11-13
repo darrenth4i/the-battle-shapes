@@ -71,7 +71,10 @@ public class Cursor extends SuperSmoothMover
     //cooldown timer to prevent bestMove() from running too often
     private SimpleTimer cooldown = new SimpleTimer();
     
-    public Cursor(boolean cir){
+    //determine if boolean is smart or randomized
+    private boolean random;
+
+    public Cursor(boolean cir, boolean ran){
         cursorIdle = new GreenfootImage("images/cursor.png");
         //Make held frame smaller, visual indicator of clicked
         cursorHeld = new GreenfootImage("images/cursorHeld.png");  
@@ -99,6 +102,8 @@ public class Cursor extends SuperSmoothMover
         units = new ArrayList<Unit>();
         start = true;
         stopped = false;
+        
+        random = ran;
     }
     
     /**
@@ -170,20 +175,29 @@ public class Cursor extends SuperSmoothMover
         }
         
         if(!stopped){
-            //If my tower hp is greater than enemy tower hp and no currentDestination
-            if(currentDestination == null && winning()){
-                //75% chance to upgrade wallet
-                if(Greenfoot.getRandomNumber(4) > 0){
-                    currentDestination = myWalletUpgradeButton.getCoordinate();
+            //if using smart enemy setting
+            if(!random){
+                //If my tower hp is greater than enemy tower hp and no currentDestination
+                if(currentDestination == null && winning()){
+                    //75% chance to upgrade wallet
+                    if(Greenfoot.getRandomNumber(4) > 0){
+                        currentDestination = myWalletUpgradeButton.getCoordinate();
+                    }
+                    //25% to upgrade tower ability
+                    else{    
+                        currentDestination = myTowerUpgradeButton.getCoordinate();
+                    }
                 }
-                //25% to upgrade tower ability
-                else{    
-                    currentDestination = myTowerUpgradeButton.getCoordinate();
+                // Check if there is another destination for me if I don't have one
+                if (currentDestination == null){
+                    currentDestination = getNextDestination (destinationIndex);
                 }
             }
-            // Check if there is another destination for me if I don't have one
-            if (currentDestination == null){
-                currentDestination = getNextDestination (destinationIndex);
+            //random enemy setting
+            else{
+                if(currentDestination == null){
+                    randomMove();
+                }
             }
     
             //move to button coords
@@ -246,6 +260,19 @@ public class Cursor extends SuperSmoothMover
         else if(!stopped){
             setLocation(getX() + adjustedSpeedX, getY() + adjustedSpeedY);
         }  
+    }
+    
+    public void randomMove(){
+        int rng = Greenfoot.getRandomNumber(20);
+        if(rng == 0){
+            currentDestination = myWalletUpgradeButton.getCoordinate();
+        }
+        else if(rng == 1){
+            currentDestination = myWalletUpgradeButton.getCoordinate();
+        }
+        else{
+            currentDestination = getNextDestination(Greenfoot.getRandomNumber(spawnButtonTeams.size() - 1));
+        }
     }
     
     /**
