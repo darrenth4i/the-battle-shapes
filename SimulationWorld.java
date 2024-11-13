@@ -75,6 +75,7 @@ public class SimulationWorld extends World
         addObject(new UpgradeButton("wallet", false), 690, 43);
         addObject(new UpgradeButton("tower", false), 690, 102);
         
+        //Parameters Cursor(circle, random)
         addObject(new Cursor(true, false), 1024, 700);
         addObject(new Cursor(false, false), 0, 0);
        
