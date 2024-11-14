@@ -90,12 +90,17 @@ public abstract class Tower extends Actor
         for(Unit u : targets)
         {
             //Spawn a meteor above the target offscreen with an xoffset to angle the meteor
-            getWorld().addObject(new Meteor(circle, u, 3), u.getX()+xOffset, -70);
+            getWorld().addObject(new Meteor(circle, u, 4), u.getX()+xOffset, -70);
         }
     }
     public void bloodSplatter()
     {
-        targets = getEnemies();        
+        targets = getEnemies();    
+        for(Unit u : targets)
+        {
+            u.getWorld().addObject(new BloodSplat(), u.getX(), u.getY());
+            u.getWorld().removeObject(u);
+        }
     }
     public void randomEvent()
     {
@@ -135,14 +140,26 @@ public abstract class Tower extends Actor
             case 0:
                 towerRange = 200;
                 fireInterval = 150;
+                if(type==0)
+                {
+                    fireInterval = 300;
+                }
                 break;
             case 1:
                 towerRange = 350;
                 fireInterval = 100;
+                if(type==0)
+                {
+                    fireInterval = 200;
+                }
                 break;
             case 2:
                 towerRange = 500;
                 fireInterval = 50;
+                if(type==0)
+                {
+                    fireInterval = 100;
+                }
                 break;
         }
         //Sets tower image depending on side and type
@@ -179,7 +196,7 @@ public abstract class Tower extends Actor
         }
         if(healthBelow(0.25))
         {
-            if(randomEventCount<1)
+            if(randomEventCount<2)
             {
                 alternateRandomEvent();
                 randomEventCount++;

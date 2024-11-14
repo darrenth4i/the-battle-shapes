@@ -15,7 +15,7 @@ public class Meteor extends TowerProjectile
         super(circle, target, speed);
         this.damage = 100;
         
-        image.scale(55, 55);
+        image.scale(65, 65);
         setImage(image);
         if(!circle)
         {
