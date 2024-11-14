@@ -117,7 +117,8 @@ public class SimulationWorld extends World
         if(loadingScreen.getIsDone() == true && isActed == false)
         {
             instantiateMusic();
-            if(musicIndex != -1){
+            if(musicIndex != -1)
+            {
                 soundTrack.get(musicIndex).playLoop();
             }
             isActed = true;
@@ -156,7 +157,8 @@ public class SimulationWorld extends World
     
     public void stopped()
     {
-        if(musicIndex != -1){
+        if(musicIndex != -1)
+        {
             soundTrack.get(musicIndex).stop();
         }
     }
