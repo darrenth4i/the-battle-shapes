@@ -14,7 +14,6 @@ public abstract class Unit extends SuperSmoothMover
     protected int health, maxHealth;
     // Shield from defense tower
     protected int shield;
-    protected boolean wasProtected;
 
     //Damage per hit
     protected int atk;
@@ -70,12 +69,21 @@ public abstract class Unit extends SuperSmoothMover
 
     protected SimpleTimer animationTimer = new SimpleTimer();
 
+    
+    /**
+     * Constructor for Units that can evolve.
+     * 
+     * @param stage - The form the unit will use.
+     */
     public Unit(int stage)
     {   
         this();
         this.stage = stage;
     }
     
+    /**
+     * Constructor for Units.
+     */
     public Unit()
     {   timer = 10000;
         animationTimer.mark();
@@ -86,6 +94,9 @@ public abstract class Unit extends SuperSmoothMover
         attackFrame = 0; //Placeholder
     }
 
+    /**
+     * Sets variables that require position in the world
+     */
     protected void addedToWorld(World world)
     {
         if(justAddedToWorld)
@@ -241,6 +252,8 @@ public abstract class Unit extends SuperSmoothMover
 
     /**
      * Takes damage from attack
+     * 
+     * @param damage - The damage the unit will take
      */
     protected void hurt(int damage)
     {
@@ -274,12 +287,26 @@ public abstract class Unit extends SuperSmoothMover
         }
     }
 
+    /**
+     * Recovers a certain amount of health up to max health
+     * 
+     * @param recover - The health the unit will heal
+     */
     protected void heal(int recover)
     {
         getWorld().addObject(new HealEffect(), getNormalX(), feetYPos);
         this.health += recover;
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
     }
 
+    /**
+     * Protects the Unit from the next few attacks.
+     * 
+     * @param instance - Number of hits the shield will protect the Unit from
+     */
     protected void shield(int instance)
     {
         barrier.setSpawnTimer(0);
@@ -287,26 +314,39 @@ public abstract class Unit extends SuperSmoothMover
         shield += instance;
     }
     
+    /**
+     * Destroys the shield
+     */
     protected void shieldBreak()
     {
         shield = 0;
     }
     
+    /**
+     * Gets the shield level
+     * 
+     * @return - Strength of the shield/hits the shield has before breaking
+     */
     protected int getShield()
     {
         return shield;
     }
-    
-    protected boolean getProtected()
-    {
-        return wasProtected;
-    }
 
+    /**
+     * Gets the health percentage
+     * 
+     * @return - Percentage of health over total health
+     */
     protected double getHealthDividedByMax()
     {
         return (double)health/maxHealth;
     }
     
+    /**
+     * Gets the idle sprite's height
+     * 
+     * @return - The expected height of the sprite
+     */
     protected int getNormalHeight()
     {
         return idleAnim.get(0).getHeight();
@@ -314,6 +354,10 @@ public abstract class Unit extends SuperSmoothMover
 
     /**
      * Simple Animations
+     * 
+     * @param animation - Sprites used for the animation
+     * @param index - The current frame
+     * @return index + 1
      */
     protected int animate(ArrayList<GreenfootImage> animation, int index)
     {
@@ -330,6 +374,11 @@ public abstract class Unit extends SuperSmoothMover
         return index;
     }
 
+    /**
+     * Loads in every frame for every animation
+     * 
+     * @param path - The file path for the unit
+     */
     protected void loadAnimationFrames(String path)
     {
         //Important: Ensure all folders are labelled with "attack", "move", and "stand"
@@ -350,11 +399,21 @@ public abstract class Unit extends SuperSmoothMover
         }
     }
 
+    /**
+     * Gets the X value that is expected
+     * 
+     * @return expected X position
+     */
     public int getNormalX()
     {
         return standingXPos;
     }
 
+    /**
+     * Gets the Y value that is expected
+     * 
+     * @return expected Y position
+     */
     public int getNormalY()
     {
         return startYPos;

@@ -30,6 +30,13 @@ public class UnitSelector extends MenuButtons
     public void act()
     {
         super.act();
+        if(Greenfoot.getMouseInfo() != null && Greenfoot.mouseClicked(null))
+        {
+            if((getX() < 512 && Greenfoot.getMouseInfo().getX() > 512) || (getX() > 512 && Greenfoot.getMouseInfo().getX() < 512))
+            {
+                closeMenu();
+            }
+        }
         if(confirmed)
         {
             moveOffScreen();

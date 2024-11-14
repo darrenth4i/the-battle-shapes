@@ -89,10 +89,10 @@ public class CBomb extends Circle
             attackIndex++;
             if(attackIndex == attackAnim.size()) //Arbitrary number, replace with total animation index later
             {
-                getWorld().removeObject(this);
                 isAttacking = false;
                 attackIndex = 0;
                 timer = 0;
+                getWorld().removeObject(this);
             }
             animationTimer.mark();
         }

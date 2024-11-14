@@ -31,12 +31,14 @@ public class Shield extends Effect
         }
         loadAnimationFrames("shield/breakAnim");
     }
+    
     public void addedToWorld(World world)
     {
         shieldPow = origin.getShield();
         getImage().scale(40, origin.getNormalHeight());
         animation();
     }
+    
     /**
      * Act - do whatever the Shield wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

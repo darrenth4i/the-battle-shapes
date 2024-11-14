@@ -32,7 +32,7 @@ public class CFodder extends Circle
             knockbacks = 2;
             speed = 2;
             atk = 4;
-            health = 12;
+            health = 16;
             attackFrame = 5;
             break;
             
@@ -48,7 +48,7 @@ public class CFodder extends Circle
             knockbacks = 2;
             speed = 4;
             atk = 8;
-            health = 24;
+            health = 28;
             break;
             
             case 3:
@@ -64,7 +64,7 @@ public class CFodder extends Circle
             knockbacks = 3;
             speed = 4;
             atk = 10;
-            health = 30;
+            health = 34;
             break;
         }
     }

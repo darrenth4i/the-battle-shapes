@@ -20,7 +20,7 @@ public class CDragon extends Circle
         
         loadAnimationFrames("images/Units/CDragon");
         atkCooldown = 240;
-        knockbacks = 2;
+        knockbacks = 3;
         speed = 0.5;
         atk = 70;
         health = 16;

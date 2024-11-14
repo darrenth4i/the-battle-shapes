@@ -11,6 +11,8 @@ public class StartButton extends MenuButtons
     private double velocity;
     private int blackBoxTransparency = 0;
     private BlackBox mainMenuBox = new BlackBox(blackBoxTransparency, 1024, 100);
+    private String sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5;
+    private boolean cIsSmart, sIsSmart;
     
     public StartButton(int type)
     {
@@ -18,9 +20,11 @@ public class StartButton extends MenuButtons
         velocity = 17;
     }
     
-    public StartButton(int type, String sUnit1, String sUnit2, String sUnit3, String sUnit4, String sUnit5, String cUnit1, String cUnit2, String cUnit3, String cUnit4, String cUnit5)
+    public StartButton(int type, String sUnit1, String sUnit2, String sUnit3, String sUnit4, String sUnit5, String cUnit1, String cUnit2, String cUnit3, String cUnit4, String cUnit5, boolean squareIsSmart, boolean circleIsSmart)
     {
         this(type);
+        cIsSmart = circleIsSmart;
+        sIsSmart = squareIsSmart;
         this.sUnit1 = sUnit1;
         this.sUnit2 = sUnit2;
         this.sUnit3 = sUnit3;
@@ -73,7 +77,7 @@ public class StartButton extends MenuButtons
                 //selection world to main world
                 int[] sTowerVariables = {sTowerHealth, sTowerType, sTowerLevel};
                 int[] cTowerVariables = {cTowerHealth, cTowerType, cTowerLevel};
-                trans = new FullscreenTransition(new SimulationWorld(sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5, sTowerVariables, cTowerVariables));
+                trans = new FullscreenTransition(new SimulationWorld(sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5, sTowerVariables, cTowerVariables, cIsSmart, sIsSmart));
                 getWorldOfType(SelectionWorld.class).stopAllSongs();
                 getWorld().addObject(trans, 512, 1200);
                 break;

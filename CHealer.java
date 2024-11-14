@@ -46,7 +46,7 @@ public class CHealer extends Circle
             attackFrame = 26;
             atkCooldown = 60;
             knockbacks = 2;
-            speed = 4;
+            speed = 1;
             atk = 4;
             health = 24;
             break;
@@ -59,7 +59,7 @@ public class CHealer extends Circle
             attackFrame = 30;
             atkCooldown = 30;
             knockbacks = 3;
-            speed = 4;
+            speed = 1;
             atk = 6;
             health = 30;
             break;

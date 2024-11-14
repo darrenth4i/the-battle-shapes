@@ -13,7 +13,6 @@ public abstract class MenuButtons extends UI
     protected boolean buttonPressed;
     
     //Simulation World Preperation
-    protected String sUnit1, sUnit2, sUnit3, sUnit4, sUnit5, cUnit1, cUnit2, cUnit3, cUnit4, cUnit5;
     protected int sTowerHealth, sTowerLevel, sTowerType, cTowerHealth, cTowerLevel, cTowerType;
     
     protected GreenfootSound[] clickSounds;
@@ -23,7 +22,6 @@ public abstract class MenuButtons extends UI
     {
         this();
         buttonType = type;
-        //0 = Play button
         setImage("images/UIElements/MenuButtons/" + buttonType + ".png");
         getImage().scale(getImage().getWidth()/2, getImage().getHeight()/2);
         width = getImage().getWidth();

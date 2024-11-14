@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 public class SelectionWorld extends World
 {
+    private TeamGraphic team = new TeamGraphic("UIElements/teamGraphic.png");
+    
     private String circleUnit1, circleUnit2, circleUnit3, circleUnit4, circleUnit5;
     private UnitSelector cU1, cU2, cU3, cU4, cU5;
     private String squareUnit1, squareUnit2, squareUnit3, squareUnit4, squareUnit5;
@@ -19,6 +21,9 @@ public class SelectionWorld extends World
     
     private int sTowerHealth, sTowerLevel, sTowerType;
     private int cTowerHealth, cTowerLevel, cTowerType;
+    
+    private AISelector sAI = new AISelector(10);
+    private AISelector cAI = new AISelector(10);
     
     private ConfirmButton confirmButton = new ConfirmButton(2);
     
@@ -34,6 +39,8 @@ public class SelectionWorld extends World
         // Create a new world with 1024x700 cells with a cell size of 1x1 pixels.
         super(1024, 700, 1, false); 
         setBackground("images/Backgrounds/selection.png");
+        
+        addObject(team, 512, 290);
         
         cU1 = new UnitSelector(3);
         cU2 = new UnitSelector(3);
@@ -60,8 +67,11 @@ public class SelectionWorld extends World
         addObject(sU4, 324, 410);
         addObject(sU5, 324, 480);
         
-    
+        addObject(sAI, 120, 600);
+        addObject(cAI, 904, 600);
+        
         addObject(song, 512, 0);
+        
         
         addObject(confirmButton, 512, 640);
         addObject(new FullscreenTransition(), 512, 300);
@@ -151,8 +161,9 @@ public class SelectionWorld extends World
             sU4.moveOffScreen();
             sU5.moveOffScreen();
             removeObject(confirmButton);
+            removeObject(team);
             
-            addObject(startButton = new StartButton(1,  squareUnit1, squareUnit2, squareUnit3, squareUnit4, squareUnit5, circleUnit1, circleUnit2, circleUnit3, circleUnit4, circleUnit5), 512, 640);
+            addObject(startButton = new StartButton(1,  squareUnit1, squareUnit2, squareUnit3, squareUnit4, squareUnit5, circleUnit1, circleUnit2, circleUnit3, circleUnit4, circleUnit5, sAI.isSmart(), cAI.isSmart()), 512, 640);
             addObject(sTower, -200, 300);
             addObject(cTower, 1224, 300);
             setTower(sTower);

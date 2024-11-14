@@ -17,7 +17,7 @@ public class SimulationWorld extends World
      * Constructor for objects of class MyWorld.
      * 
      */
-    public SimulationWorld(String sU1, String sU2, String sU3, String sU4, String sU5, String cU1, String cU2, String cU3, String cU4, String cU5, int[] sTowerVariables, int[] cTowerVariables)
+    public SimulationWorld(String sU1, String sU2, String sU3, String sU4, String sU5, String cU1, String cU2, String cU3, String cU4, String cU5, int[] sTowerVariables, int[] cTowerVariables, boolean sIsSmart, boolean cIsSmart)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1024, 700, 1, false); 
@@ -46,9 +46,6 @@ public class SimulationWorld extends World
                 addObject(new Support(true, cTowerVariables[2], cTowerVariables[0]), 1024 - towerX, 290);
                 break;
         }
-        System.out.println(sTowerVariables[1] + " " + cTowerVariables[1]);
-        
-        //addObject(new CHealer(3), 900, 500);
         
         addObject(new Wallet(false), 900, 75);
         addObject(new Wallet(true), 130, 625);
@@ -76,8 +73,8 @@ public class SimulationWorld extends World
         addObject(new UpgradeButton("tower", false), 690, 102);
         
         //Parameters Cursor(circle, random)
-        addObject(new Cursor(true, false), 1024, 700);
-        addObject(new Cursor(false, true), 0, 0);
+        addObject(new Cursor(true, !cIsSmart), 1024, 700);
+        addObject(new Cursor(false, !sIsSmart), 0, 0);
        
         //Cursor shows up on top of everything
         setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
@@ -94,6 +91,6 @@ public class SimulationWorld extends World
     public SimulationWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CWarrior", "CTank", "CRanger", "CHealer", new int[]{1000, 0, 0}, new int[]{1000, 0, 0});
+        this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CWarrior", "CTank", "CRanger", "CHealer", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, false, false);
     }
 }
