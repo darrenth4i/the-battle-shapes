@@ -12,8 +12,8 @@ public class SongSelection extends Graphic
     private SongSelector previous = new SongSelector(5, this);
     private ArrayList<GreenfootImage> songList = new ArrayList();
     private ArrayList<GreenfootSound> songs = new ArrayList();
+    private static int currentSongIndex = -1;
     private int maxSong = 4;
-    private int currentSongIndex;
     
     public SongSelection(String path)
     {
@@ -22,25 +22,27 @@ public class SongSelection extends Graphic
         {
             songList.add(new GreenfootImage("images/SongSelection/" + i + ".png"));
         }
-        songs.add(new GreenfootSound("sounds/Music/battle1.mp3"));
+        songs.add(new GreenfootSound("sounds/Music/battle1.mp3")); 
         songs.add(new GreenfootSound("sounds/Music/battle2.mp3"));
         songs.add(new GreenfootSound("sounds/Music/battle3.mp3"));
         songs.add(new GreenfootSound("sounds/Music/rush.mp3"));
-        currentSongIndex = -1;
     }
+    
     public void addedToWorld(World world)
     {
         getWorld().addObject(next, getX() + 350, getY() + getImage().getHeight()/4);
         getWorld().addObject(previous, getX() - 350, getY() + getImage().getHeight()/4);
     }
+    
     /**
      * Act - do whatever the SongSelection wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        // Add your action code here.
+        
     }
+    
     public void nextSong()
     {
         stopAllSongs();
@@ -52,6 +54,7 @@ public class SongSelection extends Graphic
         setImage(songList.get(currentSongIndex));
         songs.get(currentSongIndex).playLoop();
     }
+    
     public void previousSong()
     {
         stopAllSongs();
@@ -63,18 +66,28 @@ public class SongSelection extends Graphic
         setImage(songList.get(currentSongIndex));
         songs.get(currentSongIndex).playLoop();
     }
+    
     public void stopAllSongs()
     {
-        for(int i = 0; i < maxSong; i++) //change 4 to add more songs
-        {
-            songs.get(i).stop();
+        for( GreenfootSound song: songs){
+            song.stop();
         }
     }
+    
     public void pauseAllSongs()
     {
-        for(int i = 0; i < maxSong; i++) //change 4 to add more songs
-        {
-            songs.get(i).pause();
+        for( GreenfootSound song: songs){
+            song.pause();
         }
+    }
+    
+    public int getCurrentIndex()
+    {
+        return currentSongIndex;
+    }
+    
+    public ArrayList<GreenfootSound> getPlaylist()
+    {
+        return songs;
     }
 }

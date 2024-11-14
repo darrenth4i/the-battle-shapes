@@ -1,7 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Collections;
 import java.util.ArrayList;
-
 /**
  * Write a description of class MyWorld here.
  * 
@@ -11,9 +10,14 @@ import java.util.ArrayList;
 public class SimulationWorld extends World
 {
     private GreenfootImage bg = new GreenfootImage("Backgrounds/bgui.png");
-    
+    private SongSelection song = new SongSelection("LiterallyNothing.png");
+    private FullscreenTransition loadingScreen = new FullscreenTransition();
+    private ArrayList<GreenfootSound> soundTrack;
+    private int musicIndex;
     private int towerX = 100;
     private int towerY = 270;
+    private int acts;
+    private boolean isActed;
     
     private double exactX;
     private double exactY;
@@ -88,11 +92,14 @@ public class SimulationWorld extends World
         //Cursor shows up on top of everything
         setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
         
-        addObject(new FullscreenTransition(), 512, 300);
+        addObject(loadingScreen, 512, 300);
         
         Greenfoot.setSpeed(50);
+        
+        acts = 0;
+        isActed = false;
     }
-    
+
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -106,6 +113,13 @@ public class SimulationWorld extends World
     public void act()
     {
         zSort((ArrayList<Unit>)(getObjects(Unit.class)), this);
+        acts++;
+        if(loadingScreen.getIsDone() == true && isActed == false)
+        {
+            instantiateMusic();
+            soundTrack.get(musicIndex).playLoop();
+            isActed = true;
+        }
     }
     
     /**
@@ -130,6 +144,17 @@ public class SimulationWorld extends World
             world.removeObject(actor);
             world.addObject(actor, a.getX(), a.getY());
         }
+    }
+    
+    public void instantiateMusic()
+    {
+        musicIndex = song.getCurrentIndex();
+        soundTrack = song.getPlaylist();
+    }
+    
+    public void stopped()
+    {
+        soundTrack.get(musicIndex).stop();
     }
 }
 

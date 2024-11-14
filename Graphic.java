@@ -15,6 +15,7 @@ public class Graphic extends UI
         image = new GreenfootImage("images/" + path);
         setImage(image);
     }
+    
     /**
      * Act - do whatever the Graphic wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

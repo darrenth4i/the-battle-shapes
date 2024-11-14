@@ -9,10 +9,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class FullscreenTransition extends Effect
 {
     private boolean isExiting = false;
+    private boolean isDone;
     private World newWorld;
     public FullscreenTransition()
     {
         setImage("images/Effects/transition.png");
+        isDone = false;
     }
     public FullscreenTransition(World newWorld)
     {
@@ -39,14 +41,20 @@ public class FullscreenTransition extends Effect
         }
         else
         {
-            if(getY() < 2000)
+            if(getY() < 1050)
             {
                 setLocation(getX(), getY()+20);
             }
             else
             {
+                isDone = true;
                 getWorld().removeObject(this);
             }
         }
+    }
+    
+    public boolean getIsDone()
+    {
+        return isDone;
     }
 }
