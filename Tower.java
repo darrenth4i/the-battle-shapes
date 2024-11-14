@@ -472,4 +472,8 @@ public abstract class Tower extends Actor
     {
         return (double)health/maxHealth;
     }
+    
+    public int getHealth(){
+        return health;
+    }
 }

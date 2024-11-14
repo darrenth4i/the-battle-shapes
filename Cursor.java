@@ -58,6 +58,7 @@ public class Cursor extends SuperSmoothMover
     //team specific upgrade button
     private Tower myTower;
     private Tower enemyTower;
+    private int previousHp;
     
     //Only run winning() method after increasingly larger tower hp differences
     private double[] hpDiff;
@@ -96,7 +97,7 @@ public class Cursor extends SuperSmoothMover
         
         enableStaticRotation();
         
-        hpDiff = new double[]{0.1, 0.2, 0.25, 0.3, 0.35, 0.4};
+        hpDiff = new double[]{0.05, 0.2, 0.4, 0.50};
         hpDiffIndex = 0;
         
         units = new ArrayList<Unit>();
@@ -157,6 +158,7 @@ public class Cursor extends SuperSmoothMover
             for(Tower t : towers){
                 if((circle && t.getCircle()) || (!circle && !t.getCircle())){
                     myTower = t;
+                    previousHp = myTower.getHealth();
                 }
                 else{
                     enemyTower = t;
@@ -179,19 +181,20 @@ public class Cursor extends SuperSmoothMover
             if(!random){
                 //If my tower hp is greater than enemy tower hp and no currentDestination
                 if(currentDestination == null && winning()){
-                    int randomNum = Greenfoot.getRandomNumber(4);
-                    //prioritize wallet upgrade first
-                    if(myWalletUpgradeButton.getLevel() == 0){
+                    //focus on wallet upgrade until maxed
+                    if(myWalletUpgradeButton.getLevel() < 2){
                         currentDestination = myWalletUpgradeButton.getCoordinate();
                     }
-                    //25% to upgrade tower ability
-                    else if(randomNum == 0 && myTowerUpgradeButton.getLevel() < 2){    
+                    else{
                         currentDestination = myTowerUpgradeButton.getCoordinate();
                     }
-                    //75% to upgrade wallet;
-                    else{    
-                        currentDestination = myWalletUpgradeButton.getCoordinate();
-                    }
+                }
+                //if tower is getting hit, redirect current destination
+                if(gettingHit()){
+                    //update current hp once cursor registers 
+                    //tower has been hit
+                    previousHp = myTower.getHealth();
+                    currentDestination = null;
                 }
                 // Check if there is another destination for me if I don't have one
                 if (currentDestination == null){
@@ -267,12 +270,19 @@ public class Cursor extends SuperSmoothMover
         }  
     }
     
+    public boolean gettingHit(){
+        if(previousHp > myTower.getHealth()){
+            return true;
+        }
+        return false;
+    }
+    
     public void randomMove(){
-        int rng = Greenfoot.getRandomNumber(30);
-        if(rng == 0){
+        int rng = Greenfoot.getRandomNumber(20);
+        if(rng == 0 && myWalletUpgradeButton.getLevel() < 2){
             currentDestination = myWalletUpgradeButton.getCoordinate();
         }
-        else if(rng == 1){
+        else if(rng == 1 && myTowerUpgradeButton.getLevel() < 2){
             currentDestination = myTowerUpgradeButton.getCoordinate();
         }
         else{
@@ -329,20 +339,18 @@ public class Cursor extends SuperSmoothMover
                 //if enemies have mostly warrior/tanks
                 else if(checkUnits(false).equals("Warrior") || checkUnits(false).equals("Tank")){
                     //66% chance to go ranger
-                    if(Greenfoot.getRandomNumber(3) > 1){
+                    if(Greenfoot.getRandomNumber(3) >= 1){
                         if(findIndex("Ranger") != -1){
                             return findIndex("Ranger");
                         }
                     }
-                    else if(Greenfoot.getRandomNumber(3) > 1){
+                    else if(Greenfoot.getRandomNumber(3) >= 1){
                         if(findIndex("Healer") != -1){
                             return findIndex("Healer");
                         }
                     }
-                    else if(Greenfoot.getRandomNumber(3) > 0){
-                        if(findIndex("Fodder") != -1){
-                            return findIndex("Fodder");
-                        }
+                    if(findIndex("Fodder") != -1){
+                        return findIndex("Fodder");
                     }
                     //small chance of tank
                     return findIndex("Tank");
