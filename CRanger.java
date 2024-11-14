@@ -29,11 +29,11 @@ public class CRanger extends Circle
             loadAnimationFrames("images/Units/CRanger/StageOne");    
             
             attackFrame = 11;
-            atkCooldown = 60;
+            atkCooldown = 90;
             knockbacks = 6;
             speed = 2;
-            atk = 6;
-            health = 12;
+            atk = 5;
+            health = 10;
             break;
             
             case 2:
@@ -42,10 +42,10 @@ public class CRanger extends Circle
             loadAnimationFrames("images/Units/CRanger/StageTwo");    
             
             attackFrame = 6;
-            atkCooldown = 45;
+            atkCooldown = 60;
             knockbacks = 6;
             speed = 2;
-            atk = 8;
+            atk = 12;
             health = 16;
             break;
             
@@ -58,10 +58,10 @@ public class CRanger extends Circle
             loadAnimationFrames("images/Units/CRanger/StageThree");
             
             attackFrame = 33;
-            atkCooldown = 30;
+            atkCooldown = 45;
             knockbacks = 7;
             speed = 2;
-            atk = 10;
+            atk = 15;
             health = 20;
             break;
         }

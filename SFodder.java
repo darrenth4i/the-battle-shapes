@@ -31,7 +31,7 @@ public class SFodder extends Square
             knockbacks = 2;
             speed = 2;
             atk = 4;
-            health = 12;
+            health = 16;
             attackFrame = 5;
             
             break;
@@ -45,7 +45,7 @@ public class SFodder extends Square
             knockbacks = 2;
             speed = 4;
             atk = 8;
-            health = 24;
+            health = 30;
             attackFrame = 5;
             break;
             
@@ -58,8 +58,8 @@ public class SFodder extends Square
             atkCooldown = 30;
             knockbacks = 3;
             speed = 4;
-            atk = 10;
-            health = 30;
+            atk = 12;
+            health = 50;
             break;
         }
     }

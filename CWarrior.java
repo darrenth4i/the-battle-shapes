@@ -40,7 +40,7 @@ public class CWarrior extends Circle
             atkCooldown = 30;
             knockbacks = 2;
             speed = 3;
-            atk = 12;
+            atk = 15;
             health = 40;
             break;
             
@@ -51,7 +51,7 @@ public class CWarrior extends Circle
             atkCooldown = 30;
             knockbacks = 2;
             speed = 3;
-            atk = 16;
+            atk = 22;
             health = 50;
             break;
         }

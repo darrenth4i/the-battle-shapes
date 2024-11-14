@@ -29,7 +29,7 @@ public class UpgradeButton extends PlayerUI
         spawned = true;
         this.circle = circle;
         //starting cost
-        cost = 1250;
+        cost = 2000;
         //save button images in the array. New image for each level
         buttons = new GreenfootImage[4];
         for (int i = 1; i < buttons.length; i++) {
@@ -74,7 +74,7 @@ public class UpgradeButton extends PlayerUI
             {
                 //spend amount and set new cost for the next upgrade
                 wallet.spend(cost);
-                cost = 3500;
+                cost = 5000;
                 level++;
                 if (type.equals("tower")) {
                     //if this upgrade button is for the tower, upgrade the tower
@@ -83,9 +83,9 @@ public class UpgradeButton extends PlayerUI
                     //if this upgrade button is for the wallet, upgrade the wallet depending on the level
                     switch (level) {
                         case 1:
-                            wallet.setMultiplier(2);
+                            wallet.setMultiplier(1.75);
                         case 2:
-                            wallet.setMultiplier(3);
+                            wallet.setMultiplier(2.5);
                     }
                 }
                 //update upgrade cost

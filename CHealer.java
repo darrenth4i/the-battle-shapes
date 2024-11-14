@@ -31,10 +31,10 @@ public class CHealer extends Circle
             loadStageOneAnimationFrames("images/Units/CHealer/StageOne");    
             
             attackFrame = 26;
-            atkCooldown = 60;
+            atkCooldown = 180;
             knockbacks = 2;
             speed = 1;
-            atk = 2;
+            atk = 15;
             health = 12;
             break;
             
@@ -44,10 +44,10 @@ public class CHealer extends Circle
             loadStageTwoAnimationFrames("images/Units/CHealer/StageTwo");
             
             attackFrame = 26;
-            atkCooldown = 60;
+            atkCooldown = 150;
             knockbacks = 2;
             speed = 1;
-            atk = 4;
+            atk = 20;
             health = 24;
             break;
             
@@ -57,10 +57,10 @@ public class CHealer extends Circle
             loadAnimationFrames("images/Units/CHealer/StageThree");
             
             attackFrame = 30;
-            atkCooldown = 30;
+            atkCooldown = 120;
             knockbacks = 3;
             speed = 1;
-            atk = 6;
+            atk = 40;
             health = 30;
             break;
         }

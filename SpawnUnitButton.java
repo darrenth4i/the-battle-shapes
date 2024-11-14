@@ -61,28 +61,28 @@ public class SpawnUnitButton extends PlayerUI
         //set costs if the unit is in the loadout
         if(u.contains("Fodder"))
         {
-            unitCost = unitCostIndex[0];
+            unitCost = unitCostIndex[0] * stage;
         }
         else if(u.contains("Tank"))
         {
-            unitCost = unitCostIndex[1];
+            unitCost = unitCostIndex[1] * stage;
         }
         else if(u.contains("Warrior"))
         {
-            unitCost = unitCostIndex[2];
+            unitCost = unitCostIndex[2] * stage;
         }
         else if(u.contains("Ranger"))
         {
-            unitCost = unitCostIndex[3];
+            unitCost = unitCostIndex[3] * stage;
         }
         else if(u.contains("Healer"))
         {
-            unitCost = unitCostIndex[4];
+            unitCost = unitCostIndex[4] * stage;
         }
         
         //set thresholds for upgrades
         firstUpgrade = unitCost * 5;
-        secondUpgrade = unitCost * 10;
+        secondUpgrade = unitCost * 5;
         
         //create file path and find image
         String filePath = "/UnitButtons/" + unit + "_" + unitStage + ".png";

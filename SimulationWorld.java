@@ -70,15 +70,15 @@ public class SimulationWorld extends World
         //eg. CU1 level 1 must have the 6th and 7th param
         addObject(new SpawnUnitButton("SFodder", 0, 1, 3000, true), 100, 59);
         addObject(new SpawnUnitButton("STank", 1, 1, 3000, true), 200, 59);
-        addObject(new SpawnUnitButton("SWarrior", 2, 1, 3000, true), 300, 59);
-        addObject(new SpawnUnitButton("SRanger", 3, 1, 3000,true), 400, 59);
-        addObject(new SpawnUnitButton("SHealer", 4, 1, 3000, true), 500, 59);
+        addObject(new SpawnUnitButton("SWarrior", 2, 1, 4000, true), 300, 59);
+        addObject(new SpawnUnitButton("SRanger", 3, 1, 5000,true), 400, 59);
+        addObject(new SpawnUnitButton("SHealer", 4, 1, 6000, true), 500, 59);
         
         addObject(new SpawnUnitButton("CFodder", 0, 1, 3000, true, true, true), 924, 612);
         addObject(new SpawnUnitButton("CTank", 1, 1, 3000, true), 824, 612);
-        addObject(new SpawnUnitButton("CWarrior", 2, 1, 3000, true), 724, 612);
-        addObject(new SpawnUnitButton("CRanger", 3, 1, 3000, true), 624, 612);
-        addObject(new SpawnUnitButton("CHealer", 4, 1, 3000, true), 524, 612);
+        addObject(new SpawnUnitButton("CWarrior", 2, 1, 4000, true), 724, 612);
+        addObject(new SpawnUnitButton("CRanger", 3, 1, 5000, true), 624, 612);
+        addObject(new SpawnUnitButton("CHealer", 4, 1, 6000, true), 524, 612);
         
         addObject(new UpgradeButton("wallet", true), 330, 596);
         addObject(new UpgradeButton("tower", true), 330, 655);

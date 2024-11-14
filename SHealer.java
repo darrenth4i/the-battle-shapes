@@ -28,9 +28,10 @@ public class SHealer extends Square
             attackYOffset = 0;
             loadAnimationFrames("images/Units/SHealer/StageOne");
             
+            atkCooldown = 180;
             knockbacks = 2;
             speed = 1;
-            atk = 4;
+            atk = 15;
             health = 12;
             attackFrame = 5;
             break;
@@ -41,10 +42,10 @@ public class SHealer extends Square
             loadAnimationFrames("images/Units/SHealer/StageTwo");
             
             attackFrame = 6;
-            atkCooldown = 60;
+            atkCooldown = 150;
             knockbacks = 2;
             speed = 1;
-            atk = 4;
+            atk = 20;
             health = 24;
             break;
             

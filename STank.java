@@ -28,10 +28,10 @@ public class STank extends Square
             attackYOffset = 0;
             loadAnimationFrames("images/Units/STank/StageOne");
             
-            knockbacks = 3;
+            knockbacks = 1;
             speed = 2;
-            atk = 3;
-            health = 30;
+            atk = 2;
+            health = 50;
             attackFrame = 5;
             break;
             
@@ -47,7 +47,7 @@ public class STank extends Square
             knockbacks = 1;
             speed = 2;
             atk = 4;
-            health = 50;
+            health = 75;
             break;
             
             case 3:
@@ -61,7 +61,7 @@ public class STank extends Square
             knockbacks = 1;
             speed = 2;
             atk = 6;
-            health = 70;
+            health = 100;
             break;
         }
     }
