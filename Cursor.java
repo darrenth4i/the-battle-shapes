@@ -105,6 +105,7 @@ public class Cursor extends SuperSmoothMover
         stopped = false;
         
         random = ran;
+        
     }
     
     /**
@@ -195,6 +196,7 @@ public class Cursor extends SuperSmoothMover
                     //tower has been hit
                     previousHp = myTower.getHealth();
                     currentDestination = null;
+                    System.out.println(1);
                 }
                 // Check if there is another destination for me if I don't have one
                 if (currentDestination == null){
@@ -278,7 +280,7 @@ public class Cursor extends SuperSmoothMover
     }
     
     public void randomMove(){
-        int rng = Greenfoot.getRandomNumber(20);
+        int rng = Greenfoot.getRandomNumber(30);
         if(rng == 0 && myWalletUpgradeButton.getLevel() < 2){
             currentDestination = myWalletUpgradeButton.getCoordinate();
         }
