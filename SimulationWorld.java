@@ -30,7 +30,7 @@ public class SimulationWorld extends World
      * Constructor for objects of class MyWorld.
      * 
      */
-    public SimulationWorld(String sU1, String sU2, String sU3, String sU4, String sU5, String cU1, String cU2, String cU3, String cU4, String cU5, int[] sTowerVariables, int[] cTowerVariables, boolean sIsSmart, boolean cIsSmart)
+    public SimulationWorld(String sU1, String sU2, String sU3, String sU4, String sU5, String cU1, String cU2, String cU3, String cU4, String cU5, int[] sTowerVariables, int[] cTowerVariables, boolean cIsSmart, boolean sIsSmart)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1024, 700, 1, false); 
@@ -86,8 +86,8 @@ public class SimulationWorld extends World
         addObject(new UpgradeButton("tower", false), 690, 102);
         
         //Parameters Cursor(circle, random)
-        addObject(new Cursor(true, cIsSmart), 1024, 700);
-        addObject(new Cursor(false, sIsSmart), 0, 0);
+        addObject(new Cursor(true, !cIsSmart), 1024, 700);
+        addObject(new Cursor(false, !sIsSmart), 0, 0);
        
         //Cursor shows up on top of everything
         setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
