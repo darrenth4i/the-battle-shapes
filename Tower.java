@@ -42,10 +42,8 @@ public abstract class Tower extends Actor
         this.level = level;
         this.maxHealth = maxHP;
         health = maxHealth;
-        healthBar = new SuperStatBar(maxHealth, health, this, 80, 10, 0, Color.GREEN, Color.GRAY);
-        
         updateLevel(level);
-        
+        healthBar= new SuperStatBar(maxHealth, health, this, getImage().getWidth() , 30, 200, circle ? new Color(255, 124, 124) : new Color(130, 124, 225), Color.GRAY ,false, Color.BLACK, 5);
     }
     public void setWallet()
     {

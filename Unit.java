@@ -114,6 +114,7 @@ public abstract class Unit extends SuperSmoothMover
             {
                 knockbackHealth.add((Integer)(maxHealth/knockbacks*i));
             }
+            standingXPos = getX();
             justAddedToWorld = false;
         }
     }
@@ -123,6 +124,10 @@ public abstract class Unit extends SuperSmoothMover
      */
     public void act()
     {
+        if(shield != 0)
+        {
+            getWorld().addObject(barrier, getX(), getY());
+        }
         if(!isKnockedBack)
         {
             //dying code
@@ -142,12 +147,6 @@ public abstract class Unit extends SuperSmoothMover
                 }
                 attackAnimation(attackFrame);
             }
-            //idle code
-            else if(getImage() == attackAnim.get(attackAnim.size()-1))
-            {
-                setLocation(getX() - attackXOffset, getY() - attackYOffset);
-                setImage(idleAnim.get(0));
-            }
             //idling code
             else if(timer < atkCooldown)
             {
@@ -162,7 +161,6 @@ public abstract class Unit extends SuperSmoothMover
             //movement code
             else
             {
-                standingXPos = getX();
                 if(prepareMoveOffset)
                 {
                     setLocation(getX() + moveXOffset, getY() + moveYOffset);
@@ -170,11 +168,6 @@ public abstract class Unit extends SuperSmoothMover
                 }
                 walkIndex = animate(walkAnim, walkIndex);
                 walk();
-            }
-            
-            if(shield != 0)
-            {
-                getWorld().addObject(barrier, getX(), getY());
             }
         }
         else
@@ -229,6 +222,13 @@ public abstract class Unit extends SuperSmoothMover
         }
         if(isAttacking)
         {
+            if(attackIndex == attackAnim.size()) 
+            {
+                isAttacking = false;
+                attackIndex = 0;
+                timer = 0;
+                return;
+            }
             if(attackIndex == 0)
             {
                 setLocation(getX() + attackXOffset, getY() + attackYOffset);
@@ -240,14 +240,18 @@ public abstract class Unit extends SuperSmoothMover
                 attack();
             }
             attackIndex++;
-            if(attackIndex == attackAnim.size()) //Arbitrary number, replace with total animation index later
-            {
-                isAttacking = false;
-                attackIndex = 0;
-                timer = 0;
-            }
             animationTimer.mark();
         }
+    }
+    
+    protected boolean getAttacking()
+    {
+        return isAttacking;
+    }
+    
+    protected boolean getKnockedback()
+    {
+        return isKnockedBack;
     }
 
     /**
@@ -417,5 +421,10 @@ public abstract class Unit extends SuperSmoothMover
     public int getNormalY()
     {
         return startYPos;
+    }
+    
+    public int getFeet()
+    {
+        return feetYPos;
     }
 }

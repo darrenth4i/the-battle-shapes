@@ -1,4 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.Collections;
+import java.util.ArrayList;
 
 /**
  * Write a description of class MyWorld here.
@@ -12,6 +14,13 @@ public class SimulationWorld extends World
     
     private int towerX = 100;
     private int towerY = 270;
+    
+    private double exactX;
+    private double exactY;
+    private double preciseRotation;
+    private boolean staticRotation = false;
+    private double cosRotation;
+    private double sinRotation;
     
     /**
      * Constructor for objects of class MyWorld.
@@ -93,4 +102,79 @@ public class SimulationWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CWarrior", "CTank", "CRanger", "CHealer", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, false, false);
     }
+    
+    public void act()
+    {
+        zSort((ArrayList<Unit>)(getObjects(Unit.class)), this);
+    }
+    
+    /**
+     * A z-sort method which will sort Actors so that Actors that are
+     * displayed "higher" on the screen (lower y values) will show up underneath
+     * Actors that are drawn "lower" on the screen (higher y values), creating a
+     * better perspective. 
+     */
+    public static void zSort (ArrayList<Unit> actorsToSort, World world){
+        ArrayList<ActorContent> acList = new ArrayList<ActorContent>();
+        // Create a list of ActorContent objects and populate it with all Actors sent to be sorted
+        for (Unit a : actorsToSort){
+            acList.add (new ActorContent (a, a.getAttacking() || a.getKnockedback() ? a.getX() : a.getNormalX(), a.getAttacking() || a.getKnockedback() ? a.getY() : a.getNormalY(), a.getFeet()));
+        }    
+        // Sort the Actor, using the ActorContent comparitor (compares by y coordinate)
+        Collections.sort(acList);
+        // Replace the Actors from the ActorContent list into the World, inserting them one at a time
+        // in the desired paint order (in this case lowest y value first, so objects further down the 
+        // screen will appear in "front" of the ones above them).
+        for (ActorContent a : acList){
+            Unit actor  = a.getUnit();
+            world.removeObject(actor);
+            world.addObject(actor, a.getX(), a.getY());
+        }
+    }
 }
+
+/**
+ * Container to hold and Actor and an LOCAL position (so the data isn't lost when the Actor is temporarily
+ * removed from the World).
+ */
+class ActorContent implements Comparable <ActorContent> 
+{
+    private Unit unit;
+    private int xx, yy, feet;
+    public ActorContent(Unit unit, int xx, int yy, int feet){
+        this.unit = unit;
+        this.xx = xx;
+        this.yy = yy;
+        this.feet = feet;
+    }
+
+    public void setLocation (int x, int y){
+        xx = x;
+        yy = y;
+    }
+
+    public int getX() {
+        return xx;
+    }
+
+    public int getY() {
+        return yy;
+    }
+    
+    public int getFeet() {
+        return feet;
+    }
+
+    public Unit getUnit(){
+        return unit;
+    }
+
+    public String toString () {
+        return "Unit: " + unit + " at " + xx + ", " + yy;
+    }
+
+    public int compareTo (ActorContent a){
+        return (int)this.getFeet() - (int)a.getFeet();
+    }
+}
+    

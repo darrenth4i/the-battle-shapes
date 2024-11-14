@@ -21,11 +21,19 @@ public class CDragon extends Circle
         loadAnimationFrames("images/Units/CDragon");
         atkCooldown = 240;
         knockbacks = 3;
-        speed = 0.5;
+        speed = 1;
         atk = 70;
         health = 16;
-        range = 300;
-        standingRange = 200;
+    }
+    
+    public void addedToWorld(World world)
+    {
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range = 300;
+            standingRange = 200;
+        }
     }
     
     /**

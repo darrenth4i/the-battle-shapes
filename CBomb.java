@@ -27,8 +27,12 @@ public class CBomb extends Circle
     
     public void addedToWorld(World world)
     {
-        range = 300;
-        standingRange = 70;
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range = 300;
+            standingRange = 70;
+        }
     }
     
     /**

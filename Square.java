@@ -30,7 +30,8 @@ public abstract class Square extends Unit
     {
         if(checkFront()&& !isAttacking)
         {
-            move(speed);
+            //move(speed);
+            standingXPos = getX() + (int) speed;
         }
         else
         {
@@ -75,6 +76,7 @@ public abstract class Square extends Unit
     protected void knockback()
     {
         setLocation(getX()-10, getY()+(3*(knockbackTimer-5)));
+        standingXPos = getX() - 10;
         setRotation(-20);
     }
     

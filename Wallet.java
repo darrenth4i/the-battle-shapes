@@ -17,7 +17,7 @@ public class Wallet extends PlayerUI
     public Wallet(boolean c) {
         //set image
         walletImage = new GreenfootImage("/UIElements/wallet.png");
-        walletImage.scale(150,150);
+        walletImage.scale(125,125);
         setImage(walletImage);
         //determine whether this wallet is on circle team or on square team
         if (c) {
