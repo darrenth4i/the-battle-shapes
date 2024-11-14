@@ -105,7 +105,6 @@ public class Cursor extends SuperSmoothMover
         stopped = false;
         
         random = ran;
-        
     }
     
     /**
@@ -190,14 +189,6 @@ public class Cursor extends SuperSmoothMover
                         currentDestination = myTowerUpgradeButton.getCoordinate();
                     }
                 }
-                //if tower is getting hit, redirect current destination
-                if(gettingHit()){
-                    //update current hp once cursor registers 
-                    //tower has been hit
-                    previousHp = myTower.getHealth();
-                    currentDestination = null;
-                    System.out.println(1);
-                }
                 // Check if there is another destination for me if I don't have one
                 if (currentDestination == null){
                     currentDestination = getNextDestination (destinationIndex);
@@ -212,6 +203,17 @@ public class Cursor extends SuperSmoothMover
     
             //move to button coords
             followCursor(currentDestination);
+        }
+        else{
+            //if tower is getting hit, redirect current destination
+            if(gettingHit() && !random){
+                //update current hp once cursor registers 
+                //tower has been hit
+                previousHp = myTower.getHealth();
+                currentDestination = null;
+                stopped = false;
+                System.out.println(1);
+            }
         }
         //check to reset mouse held animation
         click(false);  
