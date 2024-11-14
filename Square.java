@@ -26,6 +26,11 @@ public abstract class Square extends Unit
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
+    public Square()
+    {
+        super();
+    }
+    
     protected void walk()
     {
         if(checkFront()&& !isAttacking)
