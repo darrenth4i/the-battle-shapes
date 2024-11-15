@@ -63,6 +63,15 @@ public class SFodder extends Square
             break;
         }
     }
+    public void addedToWorld(World world)
+    {
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range += 20;
+            standingRange += 20;
+        }
+    }
     
     /**
      * Gets the name of the unit

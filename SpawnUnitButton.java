@@ -11,7 +11,7 @@ public class SpawnUnitButton extends PlayerUI
     private Tower spawn;
     private int unitCost, unitStage, unitCooldown, cooldownTimes;
     
-    private int[] unitCostIndex = {100, 150, 300, 400, 400};
+    private int[] unitCostIndex = {50, 100, 200, 300, 300};
 
     //Used for upgrade of the buttons to spawn upgraded units
     private int spent;
@@ -62,22 +62,27 @@ public class SpawnUnitButton extends PlayerUI
         if(u.contains("Fodder"))
         {
             unitCost = unitCostIndex[0] * stage;
+            unitCooldown = 1000;
         }
         else if(u.contains("Tank"))
         {
             unitCost = unitCostIndex[1] * stage;
+            unitCooldown = 1000;
         }
         else if(u.contains("Warrior"))
         {
             unitCost = unitCostIndex[2] * stage;
+            unitCooldown = 2000;
         }
         else if(u.contains("Ranger"))
         {
             unitCost = unitCostIndex[3] * stage;
+            unitCooldown = 4000;
         }
         else if(u.contains("Healer"))
         {
             unitCost = unitCostIndex[4] * stage;
+            unitCooldown = 4000;
         }
         
         //set thresholds for upgrades

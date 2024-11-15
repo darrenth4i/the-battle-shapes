@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Write a description of class Warrior here.
@@ -9,6 +10,8 @@ import java.util.List;
  */
 public class CDragon extends Circle
 {   
+    private boolean isHalfStep = true;
+    
     public CDragon()
     {
         super();
@@ -43,6 +46,26 @@ public class CDragon extends Circle
     public void act()
     {
         super.act();
+    }
+    
+    /**
+     * Walks forward if nothing is obstructing movement
+     */
+    protected void walk()
+    {
+        if(checkFront()&& !isAttacking)
+        {
+            //move(-speed);
+            if(isHalfStep)
+            {
+                standingXPos = getX() - (int) speed;
+            }
+            isHalfStep = !isHalfStep;
+        }
+        else
+        {
+            isAttacking = true;
+        }
     }
     
     /**

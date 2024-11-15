@@ -83,7 +83,7 @@ public abstract class Square extends Unit
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getObjectsInRange(standingRange, Circle.class).size() == 0 && (getOneObjectAtOffset(standingRange, 0, Tower.class) == null || !((Tower)getOneObjectAtOffset(standingRange, 0, Tower.class)).getCircle());
+        return (getObjectsInRange(standingRange, Circle.class).size() == 0 && (getOneObjectAtOffset(standingRange, 0, Tower.class) == null || !((Tower)getOneObjectAtOffset(standingRange, 0, Tower.class)).getCircle()));
     }
     
     protected void createGhost()

@@ -12,6 +12,8 @@ public class Slider extends SuperStatBar
     private int clickSoundIndex;
     private PreSimTower towerOwner;
     
+    private Text hp = new Text("HP", 20);
+    
     public Slider (int maxVal, int currVal, Actor owner, int width, int height, int offset)
     {
         super (maxVal, currVal, owner, width, height, offset, Color.GREEN, Color.RED);
@@ -25,6 +27,12 @@ public class Slider extends SuperStatBar
             clickSounds[i].setVolume (70);
         }
     }
+    
+    public void addedToWorld()
+    {
+        getWorld().addObject(hp, getX(), getY());
+    }
+    
     /**
      * Act - do whatever the Slider wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -32,6 +40,7 @@ public class Slider extends SuperStatBar
     public void act()
     {
         mouseSet();
+        getWorld().addObject(hp, getX(), getY() + 30);
     }
     
     public void mouseSet()
@@ -49,6 +58,7 @@ public class Slider extends SuperStatBar
             {
                 towerOwner.changeHP(currVals[0]);
             }
+            getWorld().addObject(hp, getX(), getY() + 30);
         }
     }
 }

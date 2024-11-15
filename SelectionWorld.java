@@ -169,6 +169,12 @@ public class SelectionWorld extends World
             setTower(sTower);
             setTower(cTower);
         }
+        else
+        {
+            confirmButton.wiggle();
+            addObject(new Error("UIElements/confirmError.png"), 512, 550);
+            return;
+        }
     }
     
     public void setTower(PreSimTower tower)

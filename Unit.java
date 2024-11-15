@@ -148,7 +148,7 @@ public abstract class Unit extends SuperSmoothMover
                 attackAnimation(attackFrame);
             }
             //idling code
-            else if(timer < atkCooldown)
+            else if(timer < atkCooldown && !checkFront())
             {
                 idleIndex = animate(idleAnim, idleIndex);
                 timer++;
@@ -426,5 +426,10 @@ public abstract class Unit extends SuperSmoothMover
     public int getFeet()
     {
         return feetYPos;
+    }
+    
+    public double getSpeed()
+    {
+        return speed;
     }
 }

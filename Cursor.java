@@ -299,7 +299,8 @@ public class Cursor extends SuperSmoothMover
             currentDestination = myTowerUpgradeButton.getCoordinate();
         }
         else{
-            currentDestination = getNextDestination(Greenfoot.getRandomNumber(spawnButtonTeams.size() - 1));
+            int randomUnit = Greenfoot.getRandomNumber(spawnButtonTeams.size() - 1);
+            currentDestination = getNextDestination(!spawnButtonTeams.get(randomUnit).getOnCooldown() ? randomUnit : Greenfoot.getRandomNumber(spawnButtonTeams.size() - 1));
         }
     }
     
@@ -315,7 +316,7 @@ public class Cursor extends SuperSmoothMover
             //if nothing worth upgrading yet
             if(worthUpgradingUnit().equals("none")){
                 //best move fodder if tank doesnt exist 
-                if((findIndex("Tank") == -1)){
+                if((findIndex("Tank") == -1) || spawnButtonTeams.get(findIndex("Tank")).getOnCooldown()){
                     return findIndex("Fodder");  
                 }
                 //default best choice if no units 
@@ -328,21 +329,34 @@ public class Cursor extends SuperSmoothMover
         }
         //if units exist
         else{
+            if((circle && getWorld().getObjects(Circle.class).size() > 20) || (!circle && getWorld().getObjects(Square.class).size() > 20))
+            {
+                return findIndex("Healer");
+            }
             //if we mostly have warriors
             if(checkUnits(true).equals("Warrior")){
                 //75% healer, 25% ranger
-                if(Greenfoot.getRandomNumber(4) > 0){
+                if(Greenfoot.getRandomNumber(4) > 0 && findIndex("Healer") != -1 && !spawnButtonTeams.get(findIndex("Healer")).getOnCooldown()){
                     return findIndex("Healer");
                 }
                 else{
                     return findIndex("Ranger");
                 }
             }
+            else if(checkUnits(true).equals("Ranger"))
+            {
+                if(Greenfoot.getRandomNumber(4) > 0 || spawnButtonTeams.get(findIndex("Warrior")).getOnCooldown()){
+                    return findIndex("Fodder");
+                }
+                else{
+                    return findIndex("Warrior");
+                }
+            }
             else{
                 //if mostly enemy healers/rangers
                 if(checkUnits(false).equals("Healer") || checkUnits(false).equals("Ranger")){
                     //go ranger 66% of time, else go warrior if unavailable
-                    if(findIndex("Ranger") != -1 && Greenfoot.getRandomNumber(3) > 0){
+                    if(findIndex("Ranger") != -1 && Greenfoot.getRandomNumber(3) > 0 && !spawnButtonTeams.get(findIndex("Ranger")).getOnCooldown()){
                         return findIndex("Ranger");
                     }
                     else{

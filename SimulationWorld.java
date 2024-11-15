@@ -26,6 +26,7 @@ public class SimulationWorld extends World
     private double cosRotation;
     private double sinRotation;
     
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -68,17 +69,17 @@ public class SimulationWorld extends World
         //IMPORTANT: ONE STAGE of ONE UNIT MUST have "true" as the 6th parameter + include 7th param. Other buttons may only have four
         //This is to cache images of unitStage 1, 2, and 3 for all Units (get rid of freezing)
         //eg. CU1 level 1 must have the 6th and 7th param
-        addObject(new SpawnUnitButton("SFodder", 0, 1, 3000, true), 100, 59);
-        addObject(new SpawnUnitButton("STank", 1, 1, 3000, true), 200, 59);
-        addObject(new SpawnUnitButton("SWarrior", 2, 1, 4000, true), 300, 59);
-        addObject(new SpawnUnitButton("SRanger", 3, 1, 5000,true), 400, 59);
-        addObject(new SpawnUnitButton("SHealer", 4, 1, 6000, true), 500, 59);
+        addObject(new SpawnUnitButton(sU1, 0, 1, 3000, true), 100, 59);
+        addObject(new SpawnUnitButton(sU2, 1, 1, 3000, true), 200, 59);
+        addObject(new SpawnUnitButton(sU3, 2, 1, 3000, true), 300, 59);
+        addObject(new SpawnUnitButton(sU4, 3, 1, 3000,true), 400, 59);
+        addObject(new SpawnUnitButton(sU5, 4, 1, 3000, true), 500, 59);
         
-        addObject(new SpawnUnitButton("CFodder", 0, 1, 3000, true, true, true), 924, 612);
-        addObject(new SpawnUnitButton("CTank", 1, 1, 3000, true), 824, 612);
-        addObject(new SpawnUnitButton("CWarrior", 2, 1, 4000, true), 724, 612);
-        addObject(new SpawnUnitButton("CRanger", 3, 1, 5000, true), 624, 612);
-        addObject(new SpawnUnitButton("CHealer", 4, 1, 6000, true), 524, 612);
+        addObject(new SpawnUnitButton(cU1, 0, 1, 3000, true, true, true), 924, 612);
+        addObject(new SpawnUnitButton(cU2, 1, 1, 3000, true), 824, 612);
+        addObject(new SpawnUnitButton(cU3, 2, 1, 3000, true), 724, 612);
+        addObject(new SpawnUnitButton(cU4, 3, 1, 3000, true), 624, 612);
+        addObject(new SpawnUnitButton(cU5, 4, 1, 3000, true), 524, 612);
         
         addObject(new UpgradeButton("wallet", true), 330, 596);
         addObject(new UpgradeButton("tower", true), 330, 655);
@@ -107,7 +108,7 @@ public class SimulationWorld extends World
     public SimulationWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CWarrior", "CTank", "CRanger", "CHealer", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, false, true);
+        this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CWarrior", "CTank", "CRanger", "CHealer", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, true, true);
     }
     
     public void act()
@@ -135,7 +136,7 @@ public class SimulationWorld extends World
         ArrayList<ActorContent> acList = new ArrayList<ActorContent>();
         // Create a list of ActorContent objects and populate it with all Actors sent to be sorted
         for (Unit a : actorsToSort){
-            acList.add (new ActorContent (a, a.getAttacking() || a.getKnockedback() ? a.getX() : a.getNormalX(), a.getAttacking() || a.getKnockedback() ? a.getY() : a.getNormalY(), a.getFeet()));
+            acList.add (new ActorContent (a, a.getAttacking() || a.getKnockedback() ? a.getX() : a.getNormalX(), a.getAttacking() || a.getKnockedback() ? a.getY() : a.getNormalY(), a.getFeet(), a.getSpeed(), a.getExactX()));
         }    
         // Sort the Actor, using the ActorContent comparitor (compares by y coordinate)
         Collections.sort(acList);
@@ -172,11 +173,15 @@ class ActorContent implements Comparable <ActorContent>
 {
     private Unit unit;
     private int xx, yy, feet;
-    public ActorContent(Unit unit, int xx, int yy, int feet){
+    private double speed;
+    private double exactX;
+    public ActorContent(Unit unit, int xx, int yy, int feet, double speed, double exactX){
         this.unit = unit;
         this.xx = xx;
         this.yy = yy;
         this.feet = feet;
+        this.speed = speed;
+        this.exactX = exactX;
     }
 
     public void setLocation (int x, int y){
@@ -187,6 +192,10 @@ class ActorContent implements Comparable <ActorContent>
     public int getX() {
         return xx;
     }
+    
+    public double getExactX() {
+        return (xx+speed + (Math.signum(xx+speed) * 0.5));
+    }
 
     public int getY() {
         return yy;
@@ -194,6 +203,10 @@ class ActorContent implements Comparable <ActorContent>
     
     public int getFeet() {
         return feet;
+    }
+    
+    public double getSpeed() {
+        return speed;
     }
 
     public Unit getUnit(){
