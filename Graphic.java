@@ -16,6 +16,12 @@ public class Graphic extends UI
         setImage(image);
     }
     
+    public Graphic()
+    {
+        image = new GreenfootImage("images/LiterallyNothing.png");
+        setImage(image);
+    }
+    
     /**
      * Act - do whatever the Graphic wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

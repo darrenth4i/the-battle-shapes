@@ -69,7 +69,7 @@ public class StartButton extends MenuButtons
         {
             case 0:
                 //title world to selection world
-                FullscreenTransition trans = new FullscreenTransition(new SelectionWorld());
+                FullscreenTransition trans = new FullscreenTransition(new CutsceneWorld());
                 getWorld().addObject(trans, 512, 1200);
                 ((TitleWorld)getWorld()).stopMusic();
                 break;
