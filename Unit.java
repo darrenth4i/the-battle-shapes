@@ -143,18 +143,20 @@ public abstract class Unit extends SuperSmoothMover
                 if(!prepareMoveOffset)
                 {
                     setLocation(getX() - moveXOffset, getY() - moveYOffset);
+                    startYPos -= moveYOffset;
                     prepareMoveOffset = true;
                 }
                 attackAnimation(attackFrame);
             }
             //idling code
-            else if(timer < atkCooldown && !checkFront())
+            else if(timer < atkCooldown)
             {
                 idleIndex = animate(idleAnim, idleIndex);
                 timer++;
                 if(!prepareMoveOffset)
                 {
                     setLocation(getX() - moveXOffset, getY() - moveYOffset);
+                    startYPos -= moveYOffset;
                     prepareMoveOffset = true;
                 }
             }
@@ -164,6 +166,7 @@ public abstract class Unit extends SuperSmoothMover
                 if(prepareMoveOffset)
                 {
                     setLocation(getX() + moveXOffset, getY() + moveYOffset);
+                    startYPos += moveYOffset;
                     prepareMoveOffset = false;
                 }
                 walkIndex = animate(walkAnim, walkIndex);

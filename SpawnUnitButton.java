@@ -12,6 +12,8 @@ public class SpawnUnitButton extends PlayerUI
     private int unitCost, unitStage, unitCooldown, cooldownTimes;
     
     private int[] unitCostIndex = {50, 100, 200, 300, 300};
+    
+    private int[] specialCircleUnitCostIndex = {200, 600, 2000};
 
     //Used for upgrade of the buttons to spawn upgraded units
     private int spent;
@@ -25,8 +27,6 @@ public class SpawnUnitButton extends PlayerUI
     private ProgressBar upgradeBar;
     private Text lvlText;
     
-    private boolean visible;
-
     //Boolean to determine if the cursor code "clicks" button 
     private boolean clicked;
 
@@ -38,15 +38,15 @@ public class SpawnUnitButton extends PlayerUI
     Cursor targetCursor;
 
     //Constructor for Buttons without "last" boolean = true
-    public SpawnUnitButton(String u, int uIndex, int stage, int cooldown, boolean visible) {
-        this(u, uIndex, stage, cooldown, true, false, visible);
+    public SpawnUnitButton(String u, int uIndex, int stage, int cooldown) {
+        this(u, uIndex, stage, cooldown, true, false);
     }
 
-    public SpawnUnitButton(String u, int uIndex, int stage, int cooldown, boolean canUpgrade, boolean visible) {
-        this(u, uIndex, stage, cooldown, canUpgrade, false, visible);
+    public SpawnUnitButton(String u, int uIndex, int stage, int cooldown, boolean canUpgrade) {
+        this(u, uIndex, stage, cooldown, canUpgrade, false);
     }
 
-    public SpawnUnitButton(String u, int uIndex, int stage, int cooldown, boolean canUpgrade, boolean lastButton, boolean visible) {
+    public SpawnUnitButton(String u, int uIndex, int stage, int cooldown, boolean canUpgrade, boolean lastButton) {
         unit = u;
         unitIndex = uIndex;
         unitStage = stage;
@@ -84,18 +84,30 @@ public class SpawnUnitButton extends PlayerUI
             unitCost = unitCostIndex[4] * stage;
             unitCooldown = 4000;
         }
+        else if(u.contains("Dragon"))
+        {
+            unitCost = specialCircleUnitCostIndex[2];
+            unitCooldown = 12000;
+        }
+        else if(u.contains("Bomb"))
+        {
+            unitCost = specialCircleUnitCostIndex[1];
+            unitCooldown = 8000;
+        }
+        else if(u.contains("Cyclone"))
+        {
+            unitCost = specialCircleUnitCostIndex[0];
+            unitCooldown = 4000;
+        }
         
         //set thresholds for upgrades
         firstUpgrade = unitCost * 5;
         secondUpgrade = unitCost * 5;
         
         //create file path and find image
-        String filePath = "/UnitButtons/" + unit + "_" + unitStage + ".png";
-        if(visible)
-        {
-            setImage(filePath);
-            getImage().scale(90,60);
-        }
+        String filePath = canUpgrade ? "/UnitButtons/" + unit + "_" + unitStage + ".png" : "/UnitButtons/" + unit + ".png";
+        setImage(filePath);
+        getImage().scale(90,60);
 
         cooldownTimes = 0;
         onCooldown = false;
@@ -117,11 +129,11 @@ public class SpawnUnitButton extends PlayerUI
         //name of all units
         String[] circleUnit = new String[]
         {
-            "CFodder", "CWarrior", "CTank", "CRanger", "CHealer"
+            "CFodder", "CWarrior", "CTank", "CRanger", "CHealer", "CDragon"
         };
         String[] squareUnit = new String[]
         {
-            "SFodder", "SWarrior", "STank", "SRanger", "SHealer", 
+            "SFodder", "SWarrior", "STank", "SRanger", "SHealer" , "SFodder"
         };
 
         //create every object so greenfoot can cache img animations
@@ -289,6 +301,15 @@ public class SpawnUnitButton extends PlayerUI
         } 
         else if (unit == "CWarrior") {
             getWorld().addObject(new CWarrior(unitStage), spawn.getX() - xOffset, spawn.getY() + yOffset);
+        } 
+        else if (unit == "CDragon") {
+            getWorld().addObject(new CDragon(), spawn.getX() - xOffset, spawn.getY() + yOffset);
+        } 
+        else if (unit == "CBomb") {
+            getWorld().addObject(new CBomb(), spawn.getX() - xOffset, spawn.getY() + yOffset);
+        } 
+        else if (unit == "CCyclone") {
+            getWorld().addObject(new CCyclone(), spawn.getX() - xOffset, spawn.getY() + yOffset);
         } 
     }
 

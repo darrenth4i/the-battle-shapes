@@ -9,23 +9,27 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Meteor extends TowerProjectile
 {
     private int damage;
-    private GreenfootImage image = new GreenfootImage("images/TowerProjectile/MeteorProjectile.png");
+    private GreenfootImage squareImage = new GreenfootImage("images/TowerProjectile/SquareMeteor.png");
+    private GreenfootImage circleImage = new GreenfootImage("images/TowerProjectile/CircleMeteor.png");
     public Meteor(boolean circle, Unit target, int speed)
     {
-        super(circle, target, speed);
+        super(circle, target, 10);
         this.damage = 100;
         
-        image.scale(65, 65);
-        setImage(image);
         if(!circle)
         {
-            image.mirrorHorizontally();
+            squareImage.scale(65, 120);
+            setImage(squareImage);
+        }
+        else
+        {
+            circleImage.scale(65, 120);
+            setImage(circleImage);
         }
     }
     public void act()
     {
         super.act();
-        
     }
     public void effect()
     {

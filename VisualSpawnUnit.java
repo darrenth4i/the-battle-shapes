@@ -36,7 +36,7 @@ public class VisualSpawnUnit extends MenuButtons
     {
         displayCost = new Text("$" + unitCost, 18);
         targetX = getX();
-        targetY = origin.getY();
+        targetY = getY();
         setLocation(origin.getX(), origin.getY());
     }
     
@@ -44,7 +44,7 @@ public class VisualSpawnUnit extends MenuButtons
     {
         if(getX() == targetX && getY() == targetY)
         {
-            String filePath = "/UnitButtons/" + unit + "_" + 1 + ".png";
+            String filePath = !origin.getFinal() ? "/UnitButtons/" + unit + "_1.png" : "/UnitButtons/" + unit + ".png";
             setImage(filePath);
             getImage().scale(width,height);
             getWorld().addObject(displayCost, getX() - getImage().getWidth()/2 + 24, getY() + getImage().getHeight()/2 - 15);

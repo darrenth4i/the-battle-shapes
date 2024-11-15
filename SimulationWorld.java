@@ -65,7 +65,8 @@ public class SimulationWorld extends World
         addObject(new Wallet(true), 130, 625);
         
         //SpawnUnitButton Parameters
-        //(Name, unitIndex, level, cost, cooldown, canUpgrade, lastButton, visible), x, y)
+        //String u, int uIndex, int stage, int cooldown, boolean canUpgrade, boolean lastButton, boolean visible
+        //(Name, unitIndex, level, cost, cooldown, canUpgrade, lastButton), x, y)
         //IMPORTANT: ONE STAGE of ONE UNIT MUST have "true" as the 6th parameter + include 7th param. Other buttons may only have four
         //This is to cache images of unitStage 1, 2, and 3 for all Units (get rid of freezing)
         //eg. CU1 level 1 must have the 6th and 7th param
@@ -75,11 +76,11 @@ public class SimulationWorld extends World
         addObject(new SpawnUnitButton(sU4, 3, 1, 3000,true), 400, 59);
         addObject(new SpawnUnitButton(sU5, 4, 1, 3000, true), 500, 59);
         
-        addObject(new SpawnUnitButton(cU1, 0, 1, 3000, true, true, true), 924, 612);
+        addObject(new SpawnUnitButton(cU1, 0, 1, 3000, true, true), 924, 612);
         addObject(new SpawnUnitButton(cU2, 1, 1, 3000, true), 824, 612);
         addObject(new SpawnUnitButton(cU3, 2, 1, 3000, true), 724, 612);
         addObject(new SpawnUnitButton(cU4, 3, 1, 3000, true), 624, 612);
-        addObject(new SpawnUnitButton(cU5, 4, 1, 3000, true), 524, 612);
+        addObject(new SpawnUnitButton(cU5, 4, 1, 3000, false), 524, 612);
         
         addObject(new UpgradeButton("wallet", true), 330, 596);
         addObject(new UpgradeButton("tower", true), 330, 655);
@@ -108,7 +109,7 @@ public class SimulationWorld extends World
     public SimulationWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CWarrior", "CTank", "CRanger", "CHealer", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, true, true);
+        this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CWarrior", "CTank", "CRanger", "CBomb", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, true, true);
     }
     
     public void act()

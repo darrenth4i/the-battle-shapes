@@ -200,7 +200,7 @@ public class Cursor extends SuperSmoothMover
                 }
                 // Check if there is another destination for me if I don't have one
                 if (currentDestination == null){
-                    currentDestination = getNextDestination (destinationIndex);
+                    currentDestination = getNextDestination (destinationIndex > -1 ? destinationIndex : Greenfoot.getRandomNumber(5));
                 }
             }
             //random enemy setting

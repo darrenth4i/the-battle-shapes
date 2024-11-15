@@ -15,12 +15,19 @@ public class UnitSelector extends MenuButtons
     private String selectedUnit;
     private Text selectedCost;
     private boolean confirmed = false;
+    private boolean isFinal;
+    
+    public UnitSelector(int type, boolean isFinal)
+    {
+        super(type);
+        this.isFinal = isFinal;
+        width = 90;
+        height = 60;
+    }
     
     public UnitSelector(int type)
     {
-        super(type);
-        width = 90;
-        height = 60;
+        this(type, false);
     }
     
     /**
@@ -52,32 +59,43 @@ public class UnitSelector extends MenuButtons
             //square
             menuOpened = true;
             
-            sU1 = new VisualSpawnUnit("SFodder", 100, this);
-            sU2 = new VisualSpawnUnit("STank", 150, this);
-            sU3 = new VisualSpawnUnit("SWarrior", 300, this);
-            sU4 = new VisualSpawnUnit("SRanger", 400, this);
-            sU5 = new VisualSpawnUnit("SHealer", 400, this);
-            getWorld().addObject(sU1, getX()-200, getY() + 70);
-            getWorld().addObject(sU2, getX()-100, getY() + 70);
-            getWorld().addObject(sU3, getX(), getY() + 70);
-            getWorld().addObject(sU4, getX()+100, getY() + 70);
-            getWorld().addObject(sU5, getX()+200, getY() + 70);
+            sU1 = new VisualSpawnUnit("SFodder", 50, this);
+            sU2 = new VisualSpawnUnit("STank", 100, this);
+            sU3 = new VisualSpawnUnit("SWarrior", 200, this);
+            sU4 = new VisualSpawnUnit("SRanger", 300, this);
+            sU5 = new VisualSpawnUnit("SHealer", 300, this);
+            getWorld().addObject(sU1, getX()-200, getY());
+            getWorld().addObject(sU2, getX()-100, getY());
+            getWorld().addObject(sU3, getX(), getY());
+            getWorld().addObject(sU4, getX()+100, getY());
+            getWorld().addObject(sU5, getX()+200, getY());
         }
         else if(getX() > 512 && !menuOpened)
         {
             //circle
             menuOpened = true;
-            
-            cU1 = new VisualSpawnUnit("CFodder", 100, this);
-            cU2 = new VisualSpawnUnit("CTank", 150, this);
-            cU3 = new VisualSpawnUnit("CWarrior", 300, this);
-            cU4 = new VisualSpawnUnit("CRanger", 400, this);
-            cU5 = new VisualSpawnUnit("CHealer", 400, this);
-            getWorld().addObject(cU1, getX()-200, getY() + 70);
-            getWorld().addObject(cU2, getX()-100, getY() + 70);
-            getWorld().addObject(cU3, getX(), getY() + 70);
-            getWorld().addObject(cU4, getX()+100, getY() + 70);
-            getWorld().addObject(cU5, getX()+200, getY() + 70);
+            if(!isFinal)
+            {
+                cU1 = new VisualSpawnUnit("CFodder", 50, this);
+                cU2 = new VisualSpawnUnit("CTank", 100, this);
+                cU3 = new VisualSpawnUnit("CWarrior", 200, this);
+                cU4 = new VisualSpawnUnit("CRanger", 300, this);
+                cU5 = new VisualSpawnUnit("CHealer", 300, this);
+                getWorld().addObject(cU1, getX()-200, getY());
+                getWorld().addObject(cU2, getX()-100, getY());
+                getWorld().addObject(cU3, getX(), getY());
+                getWorld().addObject(cU4, getX()+100, getY());
+                getWorld().addObject(cU5, getX()+200, getY());
+            }
+            else
+            {
+                cU1 = new VisualSpawnUnit("CDragon", 2000, this);
+                cU2 = new VisualSpawnUnit("CBomb", 150, this);
+                cU3 = new VisualSpawnUnit("CCyclone", 300, this);
+                getWorld().addObject(cU1, getX()-100, getY() + 70);
+                getWorld().addObject(cU2, getX(), getY() + 70);
+                getWorld().addObject(cU3, getX()+100, getY() + 70);
+            }
         }
         else if(menuOpened)
         {
@@ -91,12 +109,17 @@ public class UnitSelector extends MenuButtons
         {
             getWorld().removeObject(selectedCost);
             selectedUnit = unit;
-            String filePath = "/UnitButtons/" + selectedUnit + "_1.png";
+            String filePath = !isFinal ? "/UnitButtons/" + selectedUnit + "_1.png" : "/UnitButtons/" + selectedUnit + ".png";
             setImage(filePath);
             getImage().scale(width, height);
             selectedCost = new Text("$" + unitCost, 18);
             getWorld().addObject(selectedCost, getX() - getImage().getWidth()/2 + 24, getY() + getImage().getHeight()/2 - 15);
         }
+    }
+    
+    public boolean getFinal()
+    {
+        return isFinal;
     }
     
     public void closeMenu()

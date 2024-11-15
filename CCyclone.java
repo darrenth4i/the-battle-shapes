@@ -17,10 +17,10 @@ public class CCyclone extends Circle
         attackYOffset = -0;
         
         loadAnimationFrames("images/Units/CCyclone");
-        knockbacks = 2;
+        knockbacks = 3;
         atkCooldown = 0;
         speed = 2;
-        atk = 1;
+        atk = 2;
         health = 28;
     }
     

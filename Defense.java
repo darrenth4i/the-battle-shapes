@@ -26,7 +26,7 @@ public class Defense extends Tower
     {
         if(getFurthestSameShape() != null)
         {
-            getWorld().addObject(new DefenseProjectile(circle,getFurthestSameShape(),1, 1), getX(), getY());
+            getWorld().addObject(new DefenseProjectile(circle,getFurthestSameShape(),4, 1), getX(), getY());
         }
     }
 }
