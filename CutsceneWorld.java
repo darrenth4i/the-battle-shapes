@@ -18,7 +18,7 @@ public class CutsceneWorld extends World
     private SimpleTimer animationTimer = new SimpleTimer();
     private int index = 0;
     
-    private FullscreenTransition transgender = new FullscreenTransition(true);
+    private FullscreenTransition transition = new FullscreenTransition(true);
     
     //Currently loaded frame
     private int frameNum = 0;
@@ -38,20 +38,20 @@ public class CutsceneWorld extends World
     {
         if(frameNum == 240)
         {
-            addObject(transgender, 512, 1200);
+            addObject(transition, 512, 1200);
         }
         if(frameNum < 241)
         {
             loadImage();
         }
-        else if(!transgender.getisExiting()&&transgender.getWorld() != null)
+        else if(!transition.getisExiting()&&transition.getWorld() != null)
         {
             setBackground(animation.get(0));
             removeObject(text);
             removeObject(loadingSpinner);
             removeObject(percentage);
         }
-        else if(transgender.getWorld() == null)
+        else if(transition.getWorld() == null)
         {
             index = animate(animation, index);
         }

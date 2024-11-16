@@ -231,14 +231,22 @@ public class Cursor extends SuperSmoothMover
         if(stopped){
             //upgrade button that cursor touches
             UpgradeButton touchingButton = (UpgradeButton)getOneIntersectingObject(UpgradeButton.class);
+            SpawnUnitButton randomTouchingButton = (SpawnUnitButton)getOneIntersectingObject(SpawnUnitButton.class);
             
             //purchase/click the corresponding button if affordable and not on cooldown
             if(touchingButton != null && myWallet.getAmount() >= touchingButton.getCost()){
                 touchingButton.setClicked(true);
                 stopped = false;
             }
-            else if(touchingButton == null && !spawnButtonTeams.get(destinationIndex).getOnCooldown()){
-                spawnButtonTeams.get(destinationIndex).setClicked(true);
+            else if(touchingButton == null && ((!random && !spawnButtonTeams.get(destinationIndex).getOnCooldown()) || (random && !randomTouchingButton.getOnCooldown()))){
+                //spawn specific unit based on if it is random or not
+                if(!random){
+                    spawnButtonTeams.get(destinationIndex).setClicked(true);
+                }
+                else{
+                    randomTouchingButton.setClicked(true);
+                }
+                    
                 stopped = false;
             }
                 
@@ -291,7 +299,7 @@ public class Cursor extends SuperSmoothMover
     }
     
     public void randomMove(){
-        int rng = Greenfoot.getRandomNumber(30);
+        int rng = Greenfoot.getRandomNumber(50);
         if(rng == 0 && myWalletUpgradeButton.getLevel() < 2){
             currentDestination = myWalletUpgradeButton.getCoordinate();
         }
@@ -299,8 +307,8 @@ public class Cursor extends SuperSmoothMover
             currentDestination = myTowerUpgradeButton.getCoordinate();
         }
         else{
-            int randomUnit = Greenfoot.getRandomNumber(spawnButtonTeams.size() - 1);
-            currentDestination = getNextDestination(!spawnButtonTeams.get(randomUnit).getOnCooldown() ? randomUnit : Greenfoot.getRandomNumber(spawnButtonTeams.size() - 1));
+            int randomUnit = Greenfoot.getRandomNumber(spawnButtonTeams.size());
+            currentDestination = getNextDestination(!spawnButtonTeams.get(randomUnit).getOnCooldown() ? randomUnit : Greenfoot.getRandomNumber(spawnButtonTeams.size()));
         }
     }
     
@@ -312,6 +320,7 @@ public class Cursor extends SuperSmoothMover
      */
     public int bestMove(){
         //if no team units exists yet
+        
         if(checkUnits(true).equals("none")){
             //if nothing worth upgrading yet
             if(worthUpgradingUnit().equals("none")){
@@ -331,7 +340,9 @@ public class Cursor extends SuperSmoothMover
         else{
             if((circle && getWorld().getObjects(Circle.class).size() > 20) || (!circle && getWorld().getObjects(Square.class).size() > 20))
             {
-                return findIndex("Healer");
+                if(findIndex("Healer") != -1){
+                    return findIndex("Healer");
+                }
             }
             //if we mostly have warriors
             if(checkUnits(true).equals("Warrior")){
@@ -340,16 +351,22 @@ public class Cursor extends SuperSmoothMover
                     return findIndex("Healer");
                 }
                 else{
-                    return findIndex("Ranger");
+                    if(findIndex("Ranger") != -1){
+                        return findIndex("Ranger");
+                    }
                 }
             }
             else if(checkUnits(true).equals("Ranger"))
             {
                 if(Greenfoot.getRandomNumber(4) > 0 || spawnButtonTeams.get(findIndex("Warrior")).getOnCooldown()){
-                    return findIndex("Fodder");
+                    if(findIndex("Fodder") != -1){
+                        return findIndex("Fodder");
+                    }
                 }
                 else{
-                    return findIndex("Warrior");
+                    if(findIndex("Warrior") != -1){
+                        return findIndex("Warrior");
+                    }
                 }
             }
             else{
@@ -387,12 +404,12 @@ public class Cursor extends SuperSmoothMover
                     if(findIndex("Warrior") != -1){
                         return findIndex("Warrior");
                     }
-                    else{
-                        return findIndex("Tank");
-                    }
+                    return findIndex("Tank");
                 }
             }
         }
+        //incase error
+        return 0;
     }
     
     /**

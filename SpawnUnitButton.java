@@ -129,11 +129,11 @@ public class SpawnUnitButton extends PlayerUI
         //name of all units
         String[] circleUnit = new String[]
         {
-            "CFodder", "CWarrior", "CTank", "CRanger", "CHealer", "CDragon"
+            "CFodder", "CWarrior", "CTank", "CRanger", "CHealer", "CDragon", "CBomb", "CCyclone"
         };
         String[] squareUnit = new String[]
         {
-            "SFodder", "SWarrior", "STank", "SRanger", "SHealer" , "SFodder"
+            "SFodder", "SWarrior", "STank", "SRanger", "SHealer", "SPlaceHolder", "SPlaceHolder", "SPlaceHolder"
         };
 
         //create every object so greenfoot can cache img animations
