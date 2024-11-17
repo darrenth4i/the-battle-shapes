@@ -29,7 +29,7 @@ public abstract class TowerProjectile extends SuperSmoothMover
      */
     public void act()
     {
-        if (target != null && target.getWorld() != null) 
+        if ((target != null && target.getWorld() != null) && !target.getName().equals("CDragonHitbox")) 
         {
             // The target is still in the world
             moveTowardsTarget();

@@ -249,6 +249,10 @@ public class Cursor extends SuperSmoothMover
                     
                 stopped = false;
             }
+            else if(touchingButton == null && ((!random && spawnButtonTeams.get(destinationIndex).getOnCooldown()) || (random && randomTouchingButton.getOnCooldown())))
+            {
+                stopped = false;
+            }
                 
             click(true);
         }
@@ -338,6 +342,26 @@ public class Cursor extends SuperSmoothMover
         }
         //if units exist
         else{
+            //Meatshield
+            if((circle && getWorld().getObjects(Circle.class).size() < 5) || (!circle && getWorld().getObjects(Square.class).size() < 5))
+            {
+                if(findIndex("Tank") != -1 && !spawnButtonTeams.get(findIndex("Tank")).getOnCooldown())
+                {
+                    return findIndex("Tank");
+                }
+                else if(findIndex("Fodder") != -1 && !spawnButtonTeams.get(findIndex("Fodder")).getOnCooldown())
+                {
+                    return findIndex("Fodder");
+                }
+            }
+            
+            //check if Dragon is on team, and then check number of units. If it is greater than 10, attempt to summon Dragon
+            if(circle && (findIndex("Dragon") != -1) && getWorld().getObjects(Circle.class).size() > 10 && !spawnButtonTeams.get(findIndex("Dragon")).getOnCooldown())
+            {
+                return findIndex("Dragon");
+            }
+            
+            //attempt to spawn healers if abundance of units
             if((circle && getWorld().getObjects(Circle.class).size() > 20) || (!circle && getWorld().getObjects(Square.class).size() > 20))
             {
                 if(findIndex("Healer") != -1){
@@ -356,8 +380,13 @@ public class Cursor extends SuperSmoothMover
                     }
                 }
             }
+            //if we have mostly rangers
             else if(checkUnits(true).equals("Ranger"))
             {
+                if(findIndex("Cyclone") != -1 && !spawnButtonTeams.get(findIndex("Cyclone")).getOnCooldown())
+                {
+                    return findIndex("Cyclone");
+                }
                 if(Greenfoot.getRandomNumber(4) > 0 || spawnButtonTeams.get(findIndex("Warrior")).getOnCooldown()){
                     if(findIndex("Fodder") != -1){
                         return findIndex("Fodder");
@@ -372,6 +401,11 @@ public class Cursor extends SuperSmoothMover
             else{
                 //if mostly enemy healers/rangers
                 if(checkUnits(false).equals("Healer") || checkUnits(false).equals("Ranger")){
+                    //Check if enemy has mostly ranger or tank, and try to summon bomb
+                    if((checkUnits(false).equals("Ranger") ||  checkUnits(false).equals("Tank")) && findIndex("Bomb") != -1 && !spawnButtonTeams.get(findIndex("Bomb")).getOnCooldown())
+                    {
+                        return findIndex("Bomb");
+                    }
                     //go ranger 66% of time, else go warrior if unavailable
                     if(findIndex("Ranger") != -1 && Greenfoot.getRandomNumber(3) > 0 && !spawnButtonTeams.get(findIndex("Ranger")).getOnCooldown()){
                         return findIndex("Ranger");
@@ -382,6 +416,11 @@ public class Cursor extends SuperSmoothMover
                 }
                 //if enemies have mostly warrior/tanks
                 else if(checkUnits(false).equals("Warrior") || checkUnits(false).equals("Tank")){
+                    //Check if enemy has mostly ranger or tank, and try to summon bomb
+                    if((checkUnits(false).equals("Ranger") ||  checkUnits(false).equals("Tank")) && findIndex("Bomb") != -1 && !spawnButtonTeams.get(findIndex("Bomb")).getOnCooldown())
+                    {
+                        return findIndex("Bomb");
+                    }
                     //66% chance to go ranger
                     if(Greenfoot.getRandomNumber(3) >= 1){
                         if(findIndex("Ranger") != -1){
@@ -467,7 +506,7 @@ public class Cursor extends SuperSmoothMover
         //count the number of each subclass
         int[] numUnits = new int[]{0, 0, 0, 0, 0};
         //names of each subclass
-        String[] names = new String[]{"Fodder", "Warrior", "Tank", "Ranger", "Healer"};
+        String[] names = new String[]{"Fodder", "Warrior", "Tank", "Ranger", "Healer", "Dragon", "Cyclone", "Bomb"};
         
         //check circle if self is circle or check enemy if self is square
         if((self && circle) || (!self && !circle)){

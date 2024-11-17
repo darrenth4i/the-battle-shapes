@@ -142,6 +142,7 @@ public abstract class Unit extends SuperSmoothMover
             {
                 if(!prepareMoveOffset)
                 {
+                    feetYPos = getY() + idleAnim.get(0).getHeight()/2;
                     setLocation(getX() - moveXOffset, getY() - moveYOffset);
                     startYPos -= moveYOffset;
                     prepareMoveOffset = true;
@@ -155,6 +156,7 @@ public abstract class Unit extends SuperSmoothMover
                 timer++;
                 if(!prepareMoveOffset)
                 {
+                    feetYPos = getY() + idleAnim.get(0).getHeight()/2;
                     setLocation(getX() - moveXOffset, getY() - moveYOffset);
                     startYPos -= moveYOffset;
                     prepareMoveOffset = true;
@@ -165,6 +167,7 @@ public abstract class Unit extends SuperSmoothMover
             {
                 if(prepareMoveOffset)
                 {
+                    feetYPos = getY() + idleAnim.get(0).getHeight()/2 - moveYOffset;
                     setLocation(getX() + moveXOffset, getY() + moveYOffset);
                     startYPos += moveYOffset;
                     prepareMoveOffset = false;

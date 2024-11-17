@@ -18,11 +18,11 @@ public class CBomb extends Circle
         attackYOffset = -50;
         
         loadAnimationFrames("images/Units/CBomb");
-        knockbacks = 2;
+        knockbacks = 1;
         atkCooldown = 5;
         speed = 2;
         atk = 20;
-        health = 70;
+        health = 370;
     }
     
     public void addedToWorld(World world)
@@ -89,6 +89,7 @@ public class CBomb extends Circle
             if(attackIndex == attackFrame)
             {
                 attack();
+                getWorld().addObject(new Shockwave(true, 6), getX()-25, getNormalY());
             }
             attackIndex++;
             if(attackIndex == attackAnim.size()) //Arbitrary number, replace with total animation index later

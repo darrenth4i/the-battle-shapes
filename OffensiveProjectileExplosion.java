@@ -24,6 +24,7 @@ public class OffensiveProjectileExplosion extends Effect
         if(animationIndex == animation.size()-1)
         {
             getWorld().removeObject(this);
+            return;
         }
         //fade(animation.size()-1 - animationIndex, 1);
         animationIndex = animate(animation, animationIndex);

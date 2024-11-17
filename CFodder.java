@@ -69,6 +69,12 @@ public class CFodder extends Circle
         }
     }
     
+    public void addedToWorld(World world)
+    {
+        super.addedToWorld(world);
+        feetYPos = getY() + idleAnim.get(0).getHeight()/2 - moveYOffset;
+    }
+    
     /**
      * Gets the name of the unit
      */

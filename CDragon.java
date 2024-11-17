@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class CDragon extends Circle
 {   
     private boolean isHalfStep = true;
+    private CDragonHitbox hitbox ;
     
     public CDragon()
     {
@@ -34,6 +35,8 @@ public class CDragon extends Circle
         if(justAddedToWorld)
         {
             super.addedToWorld(world);
+            hitbox = new CDragonHitbox(this);
+            getWorld().addObject(hitbox, getX(), getFeet());
             range = 300;
             standingRange = 200;
         }
@@ -94,6 +97,12 @@ public class CDragon extends Circle
                 getWorld().addObject(new DragonExplosion(), tower.getX(), 400);
             }
         }
+    }
+    
+    protected void createGhost()
+    {
+        getWorld().removeObject(hitbox);
+        super.createGhost();
     }
     
     /**
