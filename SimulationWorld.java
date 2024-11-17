@@ -93,8 +93,8 @@ public class SimulationWorld extends World
         addObject(new Cursor(true, !cIsSmart), 1024, 700);
         addObject(new Cursor(false, !sIsSmart), 0, 0);
         
-        addObject(new Notification(false, 198), -200, 167);
-        addObject(new Notification(true, 826), 1300, 535);
+        addObject(new Notification(false, 198, "Take these Meteors!"), -200, 167);
+        addObject(new Notification(true, 826, "Explode!!!"), 1300, 535);
        
         //make sure nothing overlaps in correctly
         setPaintOrder(FullscreenTransition.class, MenuButtons.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);

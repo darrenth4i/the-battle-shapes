@@ -13,17 +13,28 @@ public class Notification extends PlayerUI
     private boolean circle;
     private double velocity;
     private GreenfootImage image;
+    private Text message;
     
-    public Notification(boolean cir, int x){
+    public Notification(boolean cir, int x, String text){
         circle = cir;
         direction = cir ? -1 : 1;
         endX = x;
+        message = new Text(text, 18);
         
         velocity = 19;
         
         //set image based on team
         image = cir ? new GreenfootImage("images/UIElements/cNotification.png") : new GreenfootImage("images/UIElements/sNotification.png");
         setImage(image);
+    }
+    
+    /**
+     * Set message object to follow Notification after it has been added
+     * to the world
+     */
+    public void addedToWorld(World w){
+        SimulationWorld world = (SimulationWorld)w;
+        world.addObject(message, getX(), getY());
     }
     
     /**
@@ -34,6 +45,8 @@ public class Notification extends PlayerUI
     {
         // Add your action code here.
         scrollToEnd();
+        //message follows notification
+        message.setLocation(getX(), getY());
     }
     
     /**
