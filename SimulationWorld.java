@@ -30,7 +30,7 @@ public class SimulationWorld extends World
     protected ToSimOverWorld exitButton;
     
     /**
-     * Constructor for objects of class MyWorld.
+     * Take user set values and pass it to SimulationWorld
      * 
      */
     public SimulationWorld(String sU1, String sU2, String sU3, String sU4, String sU5, String cU1, String cU2, String cU3, String cU4, String cU5, int[] sTowerVariables, int[] cTowerVariables, boolean cIsSmart, boolean sIsSmart)
@@ -92,8 +92,11 @@ public class SimulationWorld extends World
         //Parameters Cursor(circle, random)
         addObject(new Cursor(true, !cIsSmart), 1024, 700);
         addObject(new Cursor(false, !sIsSmart), 0, 0);
+        
+        addObject(new Notification(false, 198), -200, 167);
+        addObject(new Notification(true, 826), 1300, 535);
        
-        //Cursor shows up on top of everything
+        //make sure nothing overlaps in correctly
         setPaintOrder(FullscreenTransition.class, MenuButtons.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
         
         addObject(loadingScreen, 512, 300);
@@ -105,7 +108,8 @@ public class SimulationWorld extends World
     }
 
     /**
-     * Constructor for objects of class MyWorld.
+     * Fast creation of SimulationWorld with preset values
+     * for debugging purposes
      * 
      */
     public SimulationWorld()

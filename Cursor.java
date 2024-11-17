@@ -105,15 +105,6 @@ public class Cursor extends SuperSmoothMover
         stopped = false;
         
         random = ran;
-        
-        if(circle){
-            System.out.println("circle");
-            System.out.println(random);
-        }
-        if(!circle){
-            System.out.println("square");
-            System.out.println(random);
-        }
     }
     
     /**
@@ -221,7 +212,6 @@ public class Cursor extends SuperSmoothMover
                 previousHp = myTower.getHealth();
                 currentDestination = null;
                 stopped = false;
-                System.out.println(1);
             }
         }
         //check to reset mouse held animation
