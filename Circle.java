@@ -95,6 +95,7 @@ public abstract class Circle extends Unit
     
     protected void createGhost()
     {
+        health = -1000;
         getWorld().addObject(new Ghost(true),getNormalX(), getNormalY());
     }
 }

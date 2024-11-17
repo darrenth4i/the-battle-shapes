@@ -24,17 +24,17 @@ public abstract class Tower extends Actor
     protected ArrayList<Unit> targets;
 
     //Animation index for death
-    protected int deathAnim = -1000;
+    protected int deathAnim = -1001;
     
     //Tower images - placeholders
     protected GreenfootImage towerImage;
-    
-    
+
     //Helper variables
     private double distance, nearestDistance, furthestDistance, lowestHealth;
     protected int count, randomEventCount;
     private ArrayList<Wallet> wallets;
     private int xOffset;
+    
     public Tower(boolean circle, int type, int level, int maxHP)
     {
         this.circle = circle;
@@ -210,20 +210,17 @@ public abstract class Tower extends Actor
      */
     protected void endSimulation()
     {
+        if(deathAnim == -1001)
+        {
+            getWorldOfType(SimulationWorld.class).simulationOver(!circle);
+        }
         setLocation(getX() + (int)(Math.sin(deathAnim) * 5), getY());
         deathAnim ++;
         if(deathAnim > 1000)
         {
             deathAnim = -1000;
         }
-        if(circle)
-        {
-            //System.out.println("Square Victory");
-        }
-        else
-        {
-            //System.out.println("Circle Victory");
-        }
+        
     }
     
     /**

@@ -26,6 +26,8 @@ public class SimulationWorld extends World
     private double cosRotation;
     private double sinRotation;
     
+    //End Simulation Variables
+    protected ToSimOverWorld exitButton;
     
     /**
      * Constructor for objects of class MyWorld.
@@ -92,7 +94,7 @@ public class SimulationWorld extends World
         addObject(new Cursor(false, !sIsSmart), 0, 0);
        
         //Cursor shows up on top of everything
-        setPaintOrder(FullscreenTransition.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
+        setPaintOrder(FullscreenTransition.class, MenuButtons.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
         
         addObject(loadingScreen, 512, 300);
         
@@ -162,6 +164,49 @@ public class SimulationWorld extends World
         if(musicIndex != -1)
         {
             soundTrack.get(musicIndex).stop();
+        }
+    }
+    /**
+     * Method for ending the simulation
+     */
+    public void simulationOver(boolean circle)
+    {
+        killAllUnitsOnTeam(Unit.class, !circle);
+        removeAllClassObjects(Cursor.class);
+        exitButton = new ToSimOverWorld(12,circle);
+        addObject(exitButton, 512, 3000);
+    }
+    
+    public void removeUI()
+    {
+        setBackground("Backgrounds/battlecatsbg.png");
+        removeAllClassObjects(SpawnUnitButton.class);
+        removeAllClassObjects(UpgradeButton.class);
+        removeAllClassObjects(Text.class);
+        removeAllClassObjects(PlayerUI.class);
+    }
+    
+    public void killAllUnitsOnTeam(Class<Unit> team, boolean isCircle)
+    {
+        ArrayList<Unit> unit = (ArrayList)getObjects(team);
+        for (Unit u : unit) {
+            if(isCircle && u instanceof Circle)
+            {
+                u.createGhost();
+            }
+            else
+            if(!isCircle && u instanceof Square)
+            {
+                u.createGhost();
+            }
+        }
+    }
+    
+    public void removeAllClassObjects(Class<?> theClass)
+    {
+        ArrayList<?> obj = (ArrayList)getObjects(theClass);
+        for (Object thing : obj) {
+            removeObject((Actor) thing);
         }
     }
 }

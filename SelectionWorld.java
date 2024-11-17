@@ -176,6 +176,7 @@ public class SelectionWorld extends World
             return;
         }
     }
+
     
     public void setTower(PreSimTower tower)
     {

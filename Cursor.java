@@ -329,7 +329,7 @@ public class Cursor extends SuperSmoothMover
             //if nothing worth upgrading yet
             if(worthUpgradingUnit().equals("none")){
                 //best move fodder if tank doesnt exist 
-                if((findIndex("Tank") == -1) || spawnButtonTeams.get(findIndex("Tank")).getOnCooldown()){
+                if(findIndex("Fodder") != 0 && ((findIndex("Tank") == -1) || spawnButtonTeams.get(findIndex("Tank")).getOnCooldown())){
                     return findIndex("Fodder");  
                 }
                 //default best choice if no units 

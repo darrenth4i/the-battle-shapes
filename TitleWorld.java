@@ -20,6 +20,7 @@ public class TitleWorld extends World
         prepare();
         setBackground("images/Backgrounds/title.png");
         setPaintOrder(Effect.class, Title.class, MenuButtons.class, BlackBox.class);
+        addObject(new FullscreenTransition(), 512, 300);
     }
     /**
      * Prepare the world for the start of the program.
@@ -31,6 +32,7 @@ public class TitleWorld extends World
         addObject(title,512,1000);
         MenuButtons play = new StartButton(0);
         addObject(play,512,3000);
+        started();
     }
     
     public void started()

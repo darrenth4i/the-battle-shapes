@@ -88,6 +88,7 @@ public abstract class Square extends Unit
     
     protected void createGhost()
     {
+        health = -1000;
         getWorld().addObject(new Ghost(false),getNormalX(), getNormalY());
     }
 }
