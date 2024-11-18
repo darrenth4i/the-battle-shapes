@@ -94,7 +94,7 @@ public class SimulationWorld extends World
         addObject(new Cursor(false, !sIsSmart), 0, 0);
        
         //make sure nothing overlaps in correctly
-        setPaintOrder(FullscreenTransition.class, MenuButtons.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
+        setPaintOrder(FullscreenTransition.class,MenuButtons.class, Cursor.class, UI.class, Effect.class,TowerProjectile.class);
         
         addObject(loadingScreen, 512, 300);
         

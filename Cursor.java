@@ -172,7 +172,8 @@ public class Cursor extends SuperSmoothMover
 
             spawned = true;
         }
-        if(3000 < myWallet.getAmount() && random)
+        
+        if(3500 < myWallet.getAmount() || random)
         {
             spamming = true;
         }
@@ -211,6 +212,11 @@ public class Cursor extends SuperSmoothMover
                     randomMove();
                 }
             }
+            
+            if(currentDestination == null && spamming)
+            {
+                randomMove();
+            }
     
             //move to button coords
             followCursor(currentDestination);
@@ -239,9 +245,9 @@ public class Cursor extends SuperSmoothMover
                 touchingButton.setClicked(true);
                 stopped = false;
             }
-            else if(touchingButton == null && destinationIndex >= 0 &&((!random && !spawnButtonTeams.get(destinationIndex).getOnCooldown()) || (random && !randomTouchingButton.getOnCooldown()))){
+            else if(touchingButton == null && destinationIndex >= 0 &&((!random && !spawnButtonTeams.get(destinationIndex).getOnCooldown()) || ((random||spamming) && !randomTouchingButton.getOnCooldown()))){
                 //spawn specific unit based on if it is random or not
-                if(!random){
+                if(!random && !spamming){
                     spawnButtonTeams.get(destinationIndex).setClicked(true);
                 }
                 else{
@@ -250,8 +256,12 @@ public class Cursor extends SuperSmoothMover
                     
                 stopped = false;
             }
-            else if(touchingButton == null && destinationIndex >= 0 && ((!random && spawnButtonTeams.get(destinationIndex).getOnCooldown()) || (random && randomTouchingButton.getOnCooldown())))
+            else if(touchingButton == null && destinationIndex >= 0 && ((!random && spawnButtonTeams.get(destinationIndex).getOnCooldown()) || ((random||spamming) && randomTouchingButton.getOnCooldown())))
             {
+                if(myWallet.getAmount() > 3500)
+                {
+                    randomTouchingButton.setClicked(true);
+                }
                 stopped = false;
             }
             else if(destinationIndex < 0)
@@ -321,7 +331,7 @@ public class Cursor extends SuperSmoothMover
             currentDestination = getNextDestination(!spawnButtonTeams.get(randomUnit).getOnCooldown() ? randomUnit : Greenfoot.getRandomNumber(spawnButtonTeams.size()));
         }
     }
-    
+        
     /**
      * Method that returns an int for destinationsIndex
      * based on specific factors happening in the simulation
