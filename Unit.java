@@ -407,6 +407,7 @@ public abstract class Unit extends SuperSmoothMover
             idleAnim.add(new GreenfootImage(path + "/stand/" + i + ".png"));
             idleAnim.get(i).scale((int)(idleAnim.get(i).getWidth()*imageScale),(int)(idleAnim.get(i).getHeight()*imageScale));
         }
+        //System.out.println(attackAnim +" "+ walkAnim +" "+ idleAnim);
     }
 
     /**
