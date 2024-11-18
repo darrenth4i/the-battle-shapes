@@ -78,9 +78,9 @@ public class Cursor extends SuperSmoothMover
     private boolean random;
 
     public Cursor(boolean cir, boolean ran){
-        cursorIdle = new GreenfootImage("images/cursor.png");
+        cursorIdle = cir ? new GreenfootImage("images/cCursor.png") : new GreenfootImage("images/sCursor.png");
         //Make held frame smaller, visual indicator of clicked
-        cursorHeld = new GreenfootImage("images/cursorHeld.png");  
+        cursorHeld = cir ? new GreenfootImage("images/cCursorHeld.png") : new GreenfootImage("images/sCursorHeld.png");  
         
         speed = 3;
         cursorTimer = 0;
@@ -365,12 +365,6 @@ public class Cursor extends SuperSmoothMover
                 return selectedUnit;
             }
             
-            //check if Dragon is on team, and then check number of units. If it is greater than 10, attempt to summon Dragon
-            if(circle && (findIndex("Dragon") != -1) && getWorld().getObjects(Circle.class).size() > 10 && !spawnButtonTeams.get(findIndex("Dragon")).getOnCooldown())
-            {
-                return findIndex("Dragon");
-            }
-            
             //attempt to spawn healers if abundance of units
             if((circle && getWorld().getObjects(Circle.class).size() > 20) || (!circle && getWorld().getObjects(Square.class).size() > 20))
             {
@@ -396,6 +390,7 @@ public class Cursor extends SuperSmoothMover
                 else{
                     selectedUnit = checkUnit("Warrior", selectedUnit);
                 }
+                selectedUnit = checkUnit("Tesseract", selectedUnit);
                 selectedUnit = checkUnit("Cyclone", selectedUnit);
             }
             else{
@@ -420,7 +415,9 @@ public class Cursor extends SuperSmoothMover
                     //Check if enemy has mostly ranger or tank, and try to summon bomb
                     if(checkUnits(false).equals("Tank"))
                     {
+                        selectedUnit = checkUnit("Cyclone", selectedUnit);
                         selectedUnit = checkUnit("Bomb", selectedUnit);
+                        selectedUnit = checkUnit("Tesseract", selectedUnit);
                     }
                     //66% chance to go ranger
                     if(Greenfoot.getRandomNumber(3) >= 1){
@@ -441,6 +438,26 @@ public class Cursor extends SuperSmoothMover
                 }
             }
         }
+        
+        //check if Dragon is on team, and then check number of units. If it is greater than 10, attempt to summon Dragon
+        if(circle&& getWorld().getObjects(Circle.class).size() > 10)
+        {
+            selectedUnit = checkUnit("Dragon", selectedUnit);
+            selectedUnit = checkUnit("Railgun", selectedUnit);
+        }
+        else if (!checkTeam())
+        {
+            selectedUnit = checkUnit("Bomb", selectedUnit);
+        }
+        if(checkTeam())
+        {
+            selectedUnit = checkUnit("Reaper", selectedUnit);
+        }
+        if(checkUnits(false).equals("Fodder"))
+        {
+            selectedUnit = checkUnit("Tesseract", selectedUnit);
+        }
+        
         return selectedUnit;
         //incase error
         //return 0;
@@ -558,6 +575,33 @@ public class Cursor extends SuperSmoothMover
         //if a unit exists, start of game is over
         start = false;
         return names[mostIndex];
+    }
+    
+    /**
+     * Method that returns the team with the most units alive
+     *
+     * @return True if circle is majority, false if square is majority
+     * 
+     * part of Enemy AI
+     */
+    public boolean checkTeam(){
+        int circleTeamNum = 0;
+        int squareTeamNum = 0;
+        
+        ArrayList<Unit> allUnits = (ArrayList)getWorld().getObjects(Unit.class);
+        
+        //check which subclass each unit alive is part of 
+        for(Unit u : allUnits)
+        {
+            if(u instanceof Circle){
+                circleTeamNum++;
+            }
+            //check square if self is square or check enemy if self is circle
+            else{
+                squareTeamNum++;
+            }
+        }
+        return circleTeamNum > squareTeamNum;
     }
     
     /**

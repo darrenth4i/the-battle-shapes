@@ -76,7 +76,7 @@ public class SimulationWorld extends World
         addObject(new SpawnUnitButton(sU2, 1, 1, 3000, true), 200, 59);
         addObject(new SpawnUnitButton(sU3, 2, 1, 3000, true), 300, 59);
         addObject(new SpawnUnitButton(sU4, 3, 1, 3000,true), 400, 59);
-        addObject(new SpawnUnitButton(sU5, 4, 1, 3000, true), 500, 59);
+        addObject(new SpawnUnitButton(sU5, 4, 1, 3000, false), 500, 59);
         
         addObject(new SpawnUnitButton(cU1, 0, 1, 3000, true, true), 924, 612);
         addObject(new SpawnUnitButton(cU2, 1, 1, 3000, true), 824, 612);
@@ -112,7 +112,7 @@ public class SimulationWorld extends World
     public SimulationWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CHealer", "CTank", "CRanger", "CCyclone", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, true, true);
+        this("SFodder", "SWarrior", "STank", "SRanger", "STesseract", "CFodder", "CHealer", "CWarrior", "CRanger", "CDragon", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, true, true);
     }
     
     public void act()

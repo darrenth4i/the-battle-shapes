@@ -52,7 +52,7 @@ public class SelectionWorld extends World
         sU2 = new UnitSelector(3);
         sU3= new UnitSelector(3);
         sU4 = new UnitSelector(3);
-        sU5 = new UnitSelector(3);// ,true);   Add this when the special units are added
+        sU5 = new UnitSelector(3,true); 
 
         
         addObject(cU1, 700, 200);

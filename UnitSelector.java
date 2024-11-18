@@ -58,17 +58,28 @@ public class UnitSelector extends MenuButtons
         {
             //square
             menuOpened = true;
-            
-            sU1 = new VisualSpawnUnit("SFodder", 50, this);
-            sU2 = new VisualSpawnUnit("STank", 100, this);
-            sU3 = new VisualSpawnUnit("SWarrior", 200, this);
-            sU4 = new VisualSpawnUnit("SRanger", 300, this);
-            sU5 = new VisualSpawnUnit("SHealer", 300, this);
-            getWorld().addObject(sU1, getX()-200, getY());
-            getWorld().addObject(sU2, getX()-100, getY());
-            getWorld().addObject(sU3, getX(), getY());
-            getWorld().addObject(sU4, getX()+100, getY());
-            getWorld().addObject(sU5, getX()+200, getY());
+            if(!isFinal)
+            {
+                sU1 = new VisualSpawnUnit("SFodder", 50, this);
+                sU2 = new VisualSpawnUnit("STank", 100, this);
+                sU3 = new VisualSpawnUnit("SWarrior", 200, this);
+                sU4 = new VisualSpawnUnit("SRanger", 300, this);
+                sU5 = new VisualSpawnUnit("SHealer", 300, this);
+                getWorld().addObject(sU1, getX()-200, getY());
+                getWorld().addObject(sU2, getX()-100, getY());
+                getWorld().addObject(sU3, getX(), getY());
+                getWorld().addObject(sU4, getX()+100, getY());
+                getWorld().addObject(sU5, getX()+200, getY());
+            }
+            else
+            {
+                cU1 = new VisualSpawnUnit("SReaper", 600, this);
+                cU2 = new VisualSpawnUnit("SRailgun", 2500, this);
+                cU3 = new VisualSpawnUnit("STesseract", 300, this);
+                getWorld().addObject(cU1, getX()-100, getY() + 70);
+                getWorld().addObject(cU2, getX(), getY() + 70);
+                getWorld().addObject(cU3, getX()+100, getY() + 70);
+            }
         }
         else if(getX() > 512 && !menuOpened)
         {
