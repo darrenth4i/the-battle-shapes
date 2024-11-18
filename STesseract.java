@@ -35,11 +35,11 @@ public class STesseract extends Square
      */
     public void act()
     {
-        super.act();
         if (attackTimer.millisElapsed() >= attackDelay) {
             attack(); 
             attackTimer.mark(); 
         }
+        super.act();
     }
     
     protected void attack()
