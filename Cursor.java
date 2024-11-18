@@ -390,6 +390,7 @@ public class Cursor extends SuperSmoothMover
                 else{
                     selectedUnit = checkUnit("Warrior", selectedUnit);
                 }
+                selectedUnit = checkUnit("Tesseract", selectedUnit);
                 selectedUnit = checkUnit("Cyclone", selectedUnit);
             }
             else{
@@ -414,7 +415,9 @@ public class Cursor extends SuperSmoothMover
                     //Check if enemy has mostly ranger or tank, and try to summon bomb
                     if(checkUnits(false).equals("Tank"))
                     {
+                        selectedUnit = checkUnit("Cyclone", selectedUnit);
                         selectedUnit = checkUnit("Bomb", selectedUnit);
+                        selectedUnit = checkUnit("Tesseract", selectedUnit);
                     }
                     //66% chance to go ranger
                     if(Greenfoot.getRandomNumber(3) >= 1){
@@ -437,14 +440,24 @@ public class Cursor extends SuperSmoothMover
         }
         
         //check if Dragon is on team, and then check number of units. If it is greater than 10, attempt to summon Dragon
-        if(circle && (findIndex("Dragon") != -1) && getWorld().getObjects(Circle.class).size() > 10 && !spawnButtonTeams.get(findIndex("Dragon")).getOnCooldown())
+        if(circle&& getWorld().getObjects(Circle.class).size() > 10)
         {
-            return findIndex("Dragon");
+            selectedUnit = checkUnit("Dragon", selectedUnit);
+            selectedUnit = checkUnit("Railgun", selectedUnit);
         }
         else if (!checkTeam())
         {
-            return findIndex("Bomb");
+            selectedUnit = checkUnit("Bomb", selectedUnit);
         }
+        if(checkTeam())
+        {
+            selectedUnit = checkUnit("Reaper", selectedUnit);
+        }
+        if(checkUnits(false).equals("Fodder"))
+        {
+            selectedUnit = checkUnit("Tesseract", selectedUnit);
+        }
+        
         return selectedUnit;
         //incase error
         //return 0;

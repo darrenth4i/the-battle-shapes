@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Notification extends PlayerUI
 {
     private int direction; //+1 is right, -1 is left
-    private int endX; //final x coord the notification goes to
+    private int finalX; //final x coord the notification goes to
     private boolean circle;
     private double velocity;
     private GreenfootImage image;
@@ -18,19 +18,34 @@ public class Notification extends PlayerUI
     private int removeCounter;
     
     public Notification(boolean cir, int x, String text){
+        this(cir, x, text, false);
+    }
+    
+    public Notification(boolean cir, int x, String text, boolean end){
         circle = cir;
         direction = cir ? -1 : 1;
-        endX = x;
-        message = new Text(text, 18);
+        finalX = x;
         
-        velocity = 19;
+        if(end){
+            velocity = 35;
+            message = new Text(text, 32);
+        }
+        else{
+            velocity = 19; 
+            message = new Text(text, 18);
+        }
         
         removeCounter = 0;
         
         stopped = false;
         
-        //set image based on team
-        image = cir ? new GreenfootImage("images/UIElements/cNotification.png") : new GreenfootImage("images/UIElements/sNotification.png");
+        //set image based on team and based on if it's the event notif or end screen notif
+        if(end){
+            image = cir ? new GreenfootImage("images/UIElements/cNotificationEnd.png") : new GreenfootImage("images/UIElements/sNotificationEnd.png");
+        }
+        else{
+            image = cir ? new GreenfootImage("images/UIElements/cNotification.png") : new GreenfootImage("images/UIElements/sNotification.png");
+        }
         setImage(image);
     }
     
@@ -70,16 +85,16 @@ public class Notification extends PlayerUI
     }
     
     /**
-     * Method to move Notification to the endX position
+     * Method to move Notification to the finalX position
      */
     public void scrollToEnd(){
         if(!stopped){
-            if((circle && getX() > endX) || (!circle && getX() < endX)){
+            if((circle && getX() > finalX) || (!circle && getX() < finalX)){
                 setLocation(getX() + (int)(direction * velocity), getY());
                 velocity -= 0.3;
             }
-            else if((circle && getX() < endX) || (!circle && getX() > endX)){
-                setLocation(endX, getY());
+            else if((circle && getX() < finalX) || (!circle && getX() > finalX)){
+                setLocation(finalX, getY());
                 velocity = 1;
                 stopped = true;
             } 
