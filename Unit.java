@@ -72,9 +72,21 @@ public abstract class Unit extends SuperSmoothMover
     protected GreenfootSound atkSoundEffect;
     
     public void setAtkSoundEffect() {
-        String filePath = "";
+        String filePath = "/attackSounds/";
         filePath += this.getClass().getName() + "_" + stage + ".wav";
-        atkSoundEffect = new GreenfootSound(filePath);
+        try {
+            atkSoundEffect = new GreenfootSound(filePath);
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    public void playAtkSoundEffect() {
+        try {
+            atkSoundEffect.play();
+        } catch (Exception e) {
+        
+        }
     }
     
     
