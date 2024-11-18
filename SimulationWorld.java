@@ -82,7 +82,7 @@ public class SimulationWorld extends World
         addObject(new SpawnUnitButton(cU2, 1, 1, 3000, true), 824, 612);
         addObject(new SpawnUnitButton(cU3, 2, 1, 3000, true), 724, 612);
         addObject(new SpawnUnitButton(cU4, 3, 1, 3000, true), 624, 612);
-        addObject(new SpawnUnitButton(cU5, 4, 1, 3000, false), 524, 612);
+        addObject(new SpawnUnitButton(cU5, 4, 3, 3000, false), 524, 612);
         
         addObject(new UpgradeButton("wallet", true), 330, 596);
         addObject(new UpgradeButton("tower", true), 330, 655);

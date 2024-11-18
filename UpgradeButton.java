@@ -74,7 +74,7 @@ public class UpgradeButton extends PlayerUI
             {
                 //spend amount and set new cost for the next upgrade
                 wallet.spend(cost);
-                cost = 5000;
+                cost = 2500;
                 level++;
                 if (type.equals("tower")) {
                     //if this upgrade button is for the tower, upgrade the tower
