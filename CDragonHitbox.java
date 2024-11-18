@@ -28,4 +28,11 @@ public class CDragonHitbox extends CDragon
     {
         setLocation(origin.getNormalX(), origin.getFeet());
     }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "CDragonHitbox";
+    }
 }

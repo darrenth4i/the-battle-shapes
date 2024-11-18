@@ -61,27 +61,27 @@ public class SpawnUnitButton extends PlayerUI
         //set costs if the unit is in the loadout
         if(u.contains("Fodder"))
         {
-            unitCost = unitCostIndex[0] * stage;
+            unitCost = unitCostIndex[0] * stage / stage;
             unitCooldown = 1000;
         }
         else if(u.contains("Tank"))
         {
-            unitCost = unitCostIndex[1] * stage;
+            unitCost = unitCostIndex[1] * stage / stage;
             unitCooldown = 1000;
         }
         else if(u.contains("Warrior"))
         {
-            unitCost = unitCostIndex[2] * stage;
+            unitCost = unitCostIndex[2] * stage / stage;
             unitCooldown = 2000;
         }
         else if(u.contains("Ranger"))
         {
-            unitCost = unitCostIndex[3] * stage;
+            unitCost = unitCostIndex[3] * stage / stage;
             unitCooldown = 4000;
         }
         else if(u.contains("Healer"))
         {
-            unitCost = unitCostIndex[4] * stage;
+            unitCost = unitCostIndex[4] * stage / stage;
             unitCooldown = 4000;
         }
         else if(u.contains("Dragon"))

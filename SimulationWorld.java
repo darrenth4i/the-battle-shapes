@@ -112,7 +112,7 @@ public class SimulationWorld extends World
     public SimulationWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CWarrior", "CTank", "CRanger", "CDragon", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, true, true);
+        this("SFodder", "SWarrior", "STank", "SRanger", "SHealer", "CFodder", "CHealer", "CTank", "CRanger", "CCyclone", new int[]{1000, 0, 0}, new int[]{1000, 0, 0}, true, true);
     }
     
     public void act()

@@ -24,6 +24,16 @@ public class CCyclone extends Circle
         health = 28;
     }
     
+    public void addedToWorld(World world)
+    {
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range += 40;
+            standingRange += 40;
+        }
+    }
+    
     /**
      * Act - do whatever the Warrior wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

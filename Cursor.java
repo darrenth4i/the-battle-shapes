@@ -72,6 +72,8 @@ public class Cursor extends SuperSmoothMover
     //cooldown timer to prevent bestMove() from running too often
     private SimpleTimer cooldown = new SimpleTimer();
     
+    private boolean spamming;
+    
     //determine if boolean is smart or randomized
     private boolean random;
 
@@ -105,6 +107,7 @@ public class Cursor extends SuperSmoothMover
         stopped = false;
         
         random = ran;
+        spamming = ran;
     }
     
     /**
@@ -169,6 +172,14 @@ public class Cursor extends SuperSmoothMover
 
             spawned = true;
         }
+        if(3000 < myWallet.getAmount() && random)
+        {
+            spamming = true;
+        }
+        else
+        {
+            spamming = false;
+        }
         
         //find best move every 0.5 seconds
         if(cooldown.millisElapsed() >= 500 && !stopped){
@@ -178,7 +189,7 @@ public class Cursor extends SuperSmoothMover
         
         if(!stopped){
             //if using smart enemy setting
-            if(!random){
+            if(!random && !spamming){
                 //If my tower hp is greater than enemy tower hp and no currentDestination
                 if(currentDestination == null && winning()){
                     //focus on wallet upgrade until maxed
@@ -228,7 +239,7 @@ public class Cursor extends SuperSmoothMover
                 touchingButton.setClicked(true);
                 stopped = false;
             }
-            else if(touchingButton == null && ((!random && !spawnButtonTeams.get(destinationIndex).getOnCooldown()) || (random && !randomTouchingButton.getOnCooldown()))){
+            else if(touchingButton == null && destinationIndex >= 0 &&((!random && !spawnButtonTeams.get(destinationIndex).getOnCooldown()) || (random && !randomTouchingButton.getOnCooldown()))){
                 //spawn specific unit based on if it is random or not
                 if(!random){
                     spawnButtonTeams.get(destinationIndex).setClicked(true);
@@ -239,9 +250,14 @@ public class Cursor extends SuperSmoothMover
                     
                 stopped = false;
             }
-            else if(touchingButton == null && ((!random && spawnButtonTeams.get(destinationIndex).getOnCooldown()) || (random && randomTouchingButton.getOnCooldown())))
+            else if(touchingButton == null && destinationIndex >= 0 && ((!random && spawnButtonTeams.get(destinationIndex).getOnCooldown()) || (random && randomTouchingButton.getOnCooldown())))
             {
                 stopped = false;
+            }
+            else if(destinationIndex < 0)
+            {
+                stopped = false;
+                return;
             }
                 
             click(true);
@@ -314,16 +330,15 @@ public class Cursor extends SuperSmoothMover
      */
     public int bestMove(){
         //if no team units exists yet
+        int selectedUnit = findIndex("Fodder") != -1 ? findIndex("Fodder") : findIndex("Tank");
         
         if(checkUnits(true).equals("none")){
             //if nothing worth upgrading yet
             if(worthUpgradingUnit().equals("none")){
                 //best move fodder if tank doesnt exist 
-                if(findIndex("Fodder") != 0 && ((findIndex("Tank") == -1) || spawnButtonTeams.get(findIndex("Tank")).getOnCooldown())){
-                    return findIndex("Fodder");  
-                }
-                //default best choice if no units 
-                return findIndex("Tank");
+                selectedUnit = checkUnit("Fodder", selectedUnit);
+                selectedUnit = checkUnit("Tank", selectedUnit);
+                return selectedUnit;
             }
             else{
                 //else go for the unit close to upgrade
@@ -335,14 +350,9 @@ public class Cursor extends SuperSmoothMover
             //Meatshield
             if((circle && getWorld().getObjects(Circle.class).size() < 5) || (!circle && getWorld().getObjects(Square.class).size() < 5))
             {
-                if(findIndex("Tank") != -1 && !spawnButtonTeams.get(findIndex("Tank")).getOnCooldown())
-                {
-                    return findIndex("Tank");
-                }
-                else if(findIndex("Fodder") != -1 && !spawnButtonTeams.get(findIndex("Fodder")).getOnCooldown())
-                {
-                    return findIndex("Fodder");
-                }
+                selectedUnit = checkUnit("Fodder", selectedUnit);
+                selectedUnit = checkUnit("Tank", selectedUnit);
+                return selectedUnit;
             }
             
             //check if Dragon is on team, and then check number of units. If it is greater than 10, attempt to summon Dragon
@@ -354,91 +364,85 @@ public class Cursor extends SuperSmoothMover
             //attempt to spawn healers if abundance of units
             if((circle && getWorld().getObjects(Circle.class).size() > 20) || (!circle && getWorld().getObjects(Square.class).size() > 20))
             {
-                if(findIndex("Healer") != -1){
-                    return findIndex("Healer");
-                }
+                selectedUnit = checkUnit("Healer", selectedUnit);
             }
             //if we mostly have warriors
             if(checkUnits(true).equals("Warrior")){
-                //75% healer, 25% ranger
-                if(Greenfoot.getRandomNumber(4) > 0 && findIndex("Healer") != -1 && !spawnButtonTeams.get(findIndex("Healer")).getOnCooldown()){
-                    return findIndex("Healer");
+                if(Greenfoot.getRandomNumber(4) > 0)
+                {
+                    selectedUnit = checkUnit("Ranger", selectedUnit);
                 }
-                else{
-                    if(findIndex("Ranger") != -1){
-                        return findIndex("Ranger");
-                    }
+                else
+                {
+                    selectedUnit = checkUnit("Healer", selectedUnit);
                 }
             }
             //if we have mostly rangers
             else if(checkUnits(true).equals("Ranger"))
             {
-                if(findIndex("Cyclone") != -1 && !spawnButtonTeams.get(findIndex("Cyclone")).getOnCooldown())
-                {
-                    return findIndex("Cyclone");
-                }
-                if(Greenfoot.getRandomNumber(4) > 0 || spawnButtonTeams.get(findIndex("Warrior")).getOnCooldown()){
-                    if(findIndex("Fodder") != -1){
-                        return findIndex("Fodder");
-                    }
+                if(Greenfoot.getRandomNumber(4) > 0){
+                    selectedUnit = checkUnit("Fodder", selectedUnit);
                 }
                 else{
-                    if(findIndex("Warrior") != -1){
-                        return findIndex("Warrior");
-                    }
+                    selectedUnit = checkUnit("Warrior", selectedUnit);
                 }
+                selectedUnit = checkUnit("Cyclone", selectedUnit);
             }
             else{
                 //if mostly enemy healers/rangers
                 if(checkUnits(false).equals("Healer") || checkUnits(false).equals("Ranger")){
                     //Check if enemy has mostly ranger or tank, and try to summon bomb
-                    if((checkUnits(false).equals("Ranger") ||  checkUnits(false).equals("Tank")) && findIndex("Bomb") != -1 && !spawnButtonTeams.get(findIndex("Bomb")).getOnCooldown())
+                    if((checkUnits(false).equals("Ranger")))
                     {
-                        return findIndex("Bomb");
+                        selectedUnit = checkUnit("Bomb", selectedUnit);
                     }
                     //go ranger 66% of time, else go warrior if unavailable
-                    if(findIndex("Ranger") != -1 && Greenfoot.getRandomNumber(3) > 0 && !spawnButtonTeams.get(findIndex("Ranger")).getOnCooldown()){
-                        return findIndex("Ranger");
+                    if(Greenfoot.getRandomNumber(3) > 0){
+                        selectedUnit = checkUnit("Ranger", selectedUnit);
                     }
                     else{
-                        return findIndex("Warrior");
+                        selectedUnit = checkUnit("Warrior", selectedUnit);
                     }
                 }
                 //if enemies have mostly warrior/tanks
-                else if(checkUnits(false).equals("Warrior") || checkUnits(false).equals("Tank")){
+                else if(checkUnits(false).equals("Warrior") || checkUnits(false).equals("Tank"))
+                {
                     //Check if enemy has mostly ranger or tank, and try to summon bomb
-                    if((checkUnits(false).equals("Ranger") ||  checkUnits(false).equals("Tank")) && findIndex("Bomb") != -1 && !spawnButtonTeams.get(findIndex("Bomb")).getOnCooldown())
+                    if(checkUnits(false).equals("Tank"))
                     {
-                        return findIndex("Bomb");
+                        selectedUnit = checkUnit("Bomb", selectedUnit);
                     }
                     //66% chance to go ranger
                     if(Greenfoot.getRandomNumber(3) >= 1){
-                        if(findIndex("Ranger") != -1){
-                            return findIndex("Ranger");
-                        }
+                        selectedUnit = checkUnit("Healer", selectedUnit);
+                        selectedUnit = checkUnit("Ranger", selectedUnit);
                     }
                     else if(Greenfoot.getRandomNumber(3) >= 1){
-                        if(findIndex("Healer") != -1){
-                            return findIndex("Healer");
-                        }
+                        selectedUnit = checkUnit("Ranger", selectedUnit);
+                        selectedUnit = checkUnit("Healer", selectedUnit);
                     }
-                    if(findIndex("Fodder") != -1){
-                        return findIndex("Fodder");
-                    }
-                    //small chance of tank
-                    return findIndex("Tank");
                 }
                 //else go warrior or tank if unavailable
-                else{
-                    if(findIndex("Warrior") != -1){
-                        return findIndex("Warrior");
-                    }
-                    return findIndex("Tank");
+                else if(checkUnits(false).equals("Fodder"))
+                {
+                    selectedUnit = checkUnit("Warrior", selectedUnit);
+                    selectedUnit = checkUnit("Tank", selectedUnit);
+                    selectedUnit = checkUnit("Cyclone", selectedUnit);
                 }
             }
         }
+        return selectedUnit;
         //incase error
-        return 0;
+        //return 0;
+    }
+    
+    public int checkUnit(String selectedUnit, int previousUnit)
+    {
+        if(findIndex(selectedUnit) != -1 && !spawnButtonTeams.get(findIndex(selectedUnit)).getOnCooldown())
+        {
+            return findIndex(selectedUnit); 
+        }
+        return previousUnit;
     }
     
     /**

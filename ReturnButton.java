@@ -26,7 +26,7 @@ public class ReturnButton extends MenuButtons
     public void buttonFunction()
     {
         //SimOverWorld to title world
-        FullscreenTransition trans = new FullscreenTransition(new TitleWorld());
+        FullscreenTransition trans = new FullscreenTransition(new TitleWorld(true));
         getWorld().addObject(trans, 512, 1200);
     }
 }
