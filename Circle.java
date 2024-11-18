@@ -79,10 +79,12 @@ public abstract class Circle extends Unit
             if(target != null)
             {
                 target.hurt(atk);
+                atkSoundEffect.play();
             }
             else if(tower != null)
             {
                 tower.hurt(atk);
+                atkSoundEffect.play();
             }
         }
     }

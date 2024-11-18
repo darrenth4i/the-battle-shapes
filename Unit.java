@@ -38,7 +38,7 @@ public abstract class Unit extends SuperSmoothMover
     //boolean for when it is knocked back
     protected boolean isKnockedBack;
     protected int knockbackTimer; 
-
+    
     protected int stage;
 
     protected int attackXOffset;
@@ -69,6 +69,14 @@ public abstract class Unit extends SuperSmoothMover
 
     protected SimpleTimer animationTimer = new SimpleTimer();
 
+    protected GreenfootSound atkSoundEffect;
+    
+    public void setAtkSoundEffect() {
+        String filePath = "";
+        filePath += this.getClass().getName() + "_" + stage + ".wav";
+        atkSoundEffect = new GreenfootSound(filePath);
+    }
+    
     
     /**
      * Constructor for Units that can evolve.
@@ -79,13 +87,15 @@ public abstract class Unit extends SuperSmoothMover
     {   
         this();
         this.stage = stage;
+        setAtkSoundEffect();
     }
     
     /**
      * Constructor for Units.
      */
     public Unit()
-    {   timer = 10000;
+    {   
+        timer = 10000;
         animationTimer.mark();
         knockbackTimer = 0;
         isKnockedBack = false;
