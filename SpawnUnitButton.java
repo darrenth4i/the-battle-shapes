@@ -37,6 +37,9 @@ public class SpawnUnitButton extends PlayerUI
     private int unitIndex;
     //specific cursor to replace arraylist for
     Cursor targetCursor;
+    
+    private GreenfootSound buy = new GreenfootSound("buy.wav");
+    private GreenfootSound reload = new GreenfootSound("reload.wav");
 
     //Constructor for Buttons without "last" boolean = true
     public SpawnUnitButton(String u, int uIndex, int stage, int cooldown) {
@@ -48,6 +51,8 @@ public class SpawnUnitButton extends PlayerUI
     }
 
     public SpawnUnitButton(String u, int uIndex, int stage, int cooldown, boolean canUpgrade, boolean lastButton) {
+        buy.setVolume(80);
+        reload.setVolume(80);
         unit = u;
         unitIndex = uIndex;
         unitStage = stage;
@@ -259,6 +264,7 @@ public class SpawnUnitButton extends PlayerUI
     }
 
     public void offCooldown() {
+        reload.play();
         onCooldown = false;
         //remove cooldownbar and darken effect 
         getWorld().removeObject(blackbox);
@@ -281,6 +287,7 @@ public class SpawnUnitButton extends PlayerUI
      * Method to spawn a preloaded unit based on its unitIndex 
      */
     public void spawnUnit() {
+        buy.play();
         //Tanks will offset less since they're taller
         int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 40 : 110; 
         yOffset += Greenfoot.getRandomNumber(20);

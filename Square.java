@@ -96,6 +96,7 @@ public abstract class Square extends Unit
     protected void createGhost()
     {
         health = -1000;
+        dieSoundEffect.play();
         getWorld().addObject(new Ghost(false),getNormalX(), getNormalY());
     }
 }

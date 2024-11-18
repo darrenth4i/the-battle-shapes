@@ -70,22 +70,38 @@ public abstract class Unit extends SuperSmoothMover
     protected SimpleTimer animationTimer = new SimpleTimer();
 
     protected GreenfootSound atkSoundEffect;
+    protected GreenfootSound dieSoundEffect = new GreenfootSound("death.wav");
     
     public void setAtkSoundEffect() {
         String filePath = "/attackSounds/";
         filePath += this.getClass().getName() + "_" + stage + ".wav";
         try {
             atkSoundEffect = new GreenfootSound(filePath);
+            atkSoundEffect.setVolume (70);
         } catch (Exception e) {
-            
+            System.out.println(filePath);
+        }
+    }
+    
+    public void setAtkSpecialSoundEffect() {
+        String filePath = "/attackSounds/";
+        filePath += this.getClass().getName() + ".wav";
+        try {
+            atkSoundEffect = new GreenfootSound(filePath);
+            atkSoundEffect.setVolume (80);
+        } catch (Exception e) {
+            System.out.println(filePath);
         }
     }
     
     public void playAtkSoundEffect() {
-        try {
+        try 
+        {
             atkSoundEffect.play();
-        } catch (Exception e) {
-        
+        } 
+        catch (Exception e) 
+        {
+            
         }
     }
     
@@ -107,6 +123,7 @@ public abstract class Unit extends SuperSmoothMover
      */
     public Unit()
     {   
+        dieSoundEffect.setVolume(70);
         timer = 10000;
         animationTimer.mark();
         knockbackTimer = 0;
@@ -123,6 +140,10 @@ public abstract class Unit extends SuperSmoothMover
     {
         if(justAddedToWorld)
         {
+            if(atkSoundEffect == null)
+            {
+                setAtkSpecialSoundEffect();
+            }
             range = attackAnim.get(0).getWidth()/2 + 25;
             standingRange = attackAnim.get(0).getWidth()/2;
             startYPos = getY()+totalYOffset;

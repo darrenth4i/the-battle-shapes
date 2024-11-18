@@ -13,11 +13,15 @@ public class Shockwave extends OffensiveProjectileExplosion
     private int level;
     private Unit target;
     private int index;
+    private int damage;
     
-    public Shockwave(boolean circle, int level)
+    private GreenfootSound explode = new GreenfootSound("Shockwave.wav");
+    
+    public Shockwave(boolean circle, int level, int damage)
     {
         this.circle = circle;
         this.level = level;
+        this.damage = damage;
         index = 0;
     }
     /**
@@ -35,10 +39,12 @@ public class Shockwave extends OffensiveProjectileExplosion
         if(index == 0)
         {
             effect();
+            explode.setVolume(70);
+            explode.play();
         }
         else if(index == 3)
         {
-            getWorld().addObject(new Shockwave(circle, level-1), circle ? getX() - getImage().getWidth() : getX() + getImage().getWidth(), getY());
+            getWorld().addObject(new Shockwave(circle, level-1, damage), circle ? getX() - getImage().getWidth() : getX() + getImage().getWidth(), getY());
         }
         index++;
     }

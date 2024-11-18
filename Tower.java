@@ -35,8 +35,17 @@ public abstract class Tower extends Actor
     private ArrayList<Wallet> wallets;
     private int xOffset;
     
+    private GreenfootSound[] damage;
+    private int damageIndex;
+    
     public Tower(boolean circle, int type, int level, int maxHP)
     {
+        damage = new GreenfootSound[10];
+        for (int i = 0; i < damage.length; i++){
+            damage[i] = new GreenfootSound ("baseDamage.wav");
+            damage[i].setVolume (80);
+        }
+        
         this.circle = circle;
         this.type = type;
         this.level = level;
@@ -400,6 +409,7 @@ public abstract class Tower extends Actor
     
     public void hurt(int damage)
     {
+        playSound();
         health-=damage;
         healthBar.update(health);
         getWorld().addObject(new HitParticle(), getX()+Greenfoot.getRandomNumber(getImage().getWidth())-getImage().getWidth()/2, getY()+Greenfoot.getRandomNumber(getImage().getHeight()/2));
@@ -498,6 +508,16 @@ public abstract class Tower extends Actor
                 }
             }
             setImage(towerImage);
+        }
+    }
+    
+    public void playSound()
+    {
+        damage[damageIndex].play();
+        damageIndex++;
+        if (damageIndex >= damage.length)
+        {
+            damageIndex = 0;
         }
     }
     

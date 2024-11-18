@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class CCyclone extends Circle
 {   
+    private GreenfootSound[] atkSoundEffect;
+    private int atkSoundEffectIndex;
     public CCyclone()
     {
         super();
@@ -22,6 +24,11 @@ public class CCyclone extends Circle
         speed = 2;
         atk = 2;
         health = 28;
+        atkSoundEffect = new GreenfootSound[10];
+        for (int i = 0; i < atkSoundEffect.length; i++){
+            atkSoundEffect[i] = new GreenfootSound ("/attackSounds/" + this.getClass().getName() + ".wav");
+            atkSoundEffect[i].setVolume (70);
+        }
     }
     
     public void addedToWorld(World world)
@@ -43,6 +50,15 @@ public class CCyclone extends Circle
         super.act();
     }
 
+    public void playAtkSoundEffect()
+    {
+        atkSoundEffect[atkSoundEffectIndex].play();
+        atkSoundEffectIndex++;
+        if (atkSoundEffectIndex >= atkSoundEffect.length)
+        {
+            atkSoundEffectIndex = 0;
+        }
+    }
     
     /**
      * Animation for an attack
@@ -61,7 +77,7 @@ public class CCyclone extends Circle
             //Animation code here
             setImage(attackAnim.get(attackIndex));
             attackIndex++;
-            if(attackIndex == attackAnim.size()) //Arbitrary number, replace with total animation index later
+            if(attackIndex == attackAnim.size())
             {
                 attack();
                 isAttacking = false;

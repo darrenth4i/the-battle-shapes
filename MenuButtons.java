@@ -32,8 +32,8 @@ public abstract class MenuButtons extends UI
     {
         clickSounds = new GreenfootSound[10];
         for (int i = 0; i < clickSounds.length; i++){
-            clickSounds[i] = new GreenfootSound ("click.wav");
-            clickSounds[i].setVolume (70);
+            clickSounds[i] = new GreenfootSound ("menuClick.wav");
+            clickSounds[i].setVolume (80);
         }
     }
     

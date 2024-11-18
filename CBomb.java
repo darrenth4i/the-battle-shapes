@@ -67,6 +67,7 @@ public class CBomb extends Circle
                 tower = towerTarget.get(0);
                 tower.hurt(atk);
             }
+            playAtkSoundEffect();
         }
     }
     
@@ -89,7 +90,7 @@ public class CBomb extends Circle
             if(attackIndex == attackFrame)
             {
                 attack();
-                getWorld().addObject(new Shockwave(true, 6), getX()-25, getNormalY());
+                getWorld().addObject(new Shockwave(true, 6, 6), getX()-25, getNormalY());
             }
             attackIndex++;
             if(attackIndex == attackAnim.size()) //Arbitrary number, replace with total animation index later

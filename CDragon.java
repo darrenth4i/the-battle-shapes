@@ -96,6 +96,7 @@ public class CDragon extends Circle
                 tower.hurt(atk);
                 getWorld().addObject(new DragonExplosion(), tower.getX(), 400);
             }
+            playAtkSoundEffect();
         }
     }
     
