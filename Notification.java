@@ -8,12 +8,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Notification extends PlayerUI
 {
-    private int direction; //+1 is down, -1 is up
+    private int direction; //+1 is right, -1 is left
     private int endX; //final x coord the notification goes to
     private boolean circle;
     private double velocity;
     private GreenfootImage image;
     private Text message;
+    private boolean stopped;
+    private int removeCounter;
     
     public Notification(boolean cir, int x, String text){
         circle = cir;
@@ -22,6 +24,10 @@ public class Notification extends PlayerUI
         message = new Text(text, 18);
         
         velocity = 19;
+        
+        removeCounter = 0;
+        
+        stopped = false;
         
         //set image based on team
         image = cir ? new GreenfootImage("images/UIElements/cNotification.png") : new GreenfootImage("images/UIElements/sNotification.png");
@@ -47,18 +53,36 @@ public class Notification extends PlayerUI
         scrollToEnd();
         //message follows notification
         message.setLocation(getX(), getY());
+        
+        if(stopped){
+            removeCounter++;
+            //Reverse movements
+            if(removeCounter >= 300){
+                velocity += 0.6;
+                setLocation(getX() + (int)(-1 * direction * velocity), getY());
+            }
+            //remove after it is offscreen
+            if((circle && getX() > 1300) || (!circle && getX() < -200)){
+                getWorld().removeObject(this);
+            }
+        }
+        
     }
     
     /**
      * Method to move Notification to the endX position
      */
     public void scrollToEnd(){
-        if((circle && getX() > endX) || (!circle && getX() < endX)){
-            setLocation(getX() + (int)(direction * velocity), getY());
-            velocity -= 0.3;
-        }
-        else if((circle && getX() < endX) || (!circle && getX() > endX)){
-            setLocation(endX, getY());
+        if(!stopped){
+            if((circle && getX() > endX) || (!circle && getX() < endX)){
+                setLocation(getX() + (int)(direction * velocity), getY());
+                velocity -= 0.3;
+            }
+            else if((circle && getX() < endX) || (!circle && getX() > endX)){
+                setLocation(endX, getY());
+                velocity = 1;
+                stopped = true;
+            } 
         }
     }
 }

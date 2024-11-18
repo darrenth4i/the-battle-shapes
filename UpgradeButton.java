@@ -29,7 +29,7 @@ public class UpgradeButton extends PlayerUI
         spawned = true;
         this.circle = circle;
         //starting cost
-        cost = 2000;
+        cost = 1000;
         //save button images in the array. New image for each level
         buttons = new GreenfootImage[4];
         for (int i = 1; i < buttons.length; i++) {

@@ -67,6 +67,7 @@ public abstract class Tower extends Actor
     }
     public void conscription()
     {
+        createNotification("Attack the Enemies!!!", "Push them back!!!");
         for(int i=0;i<(5+Greenfoot.getRandomNumber(9));i++)
         {
             if(circle)
@@ -81,6 +82,7 @@ public abstract class Tower extends Actor
     }
     public void meteorStorm()
     {
+        createNotification("Scorch them!", "Eat fire!");
         targets = getEnemies();
         if(circle){
             xOffset = 200;
@@ -95,6 +97,7 @@ public abstract class Tower extends Actor
     }
     public void bloodSplatter()
     {
+        createNotification("NONE. SHALL. PASS.", "REVERSAL!");
         targets = getEnemies();    
         for(Unit u : targets)
         {
@@ -109,6 +112,7 @@ public abstract class Tower extends Actor
         switch(event)
         {
             case 0: //Doubles the rate at which money increases
+                createNotification("Extra Money!", "Double my Money and Give it to ME!");
                 setWallet();
                 myWallet.setEventMultiplier(2);
                 break;
@@ -117,6 +121,21 @@ public abstract class Tower extends Actor
                 break;    
         }
     }
+    
+    /**
+     * Method to create a notification to alert
+     * people watching that an event is happening
+     * 
+     */
+    public void createNotification(String cText, String sText){
+        if(circle){
+            getWorld().addObject(new Notification(true, 826, cText), 1300, 535);
+        }
+        else{
+            getWorld().addObject(new Notification(false, 198, sText), -200, 167);
+        }
+    }
+    
     public void alternateRandomEvent()
     {
         event = Greenfoot.getRandomNumber(2);
