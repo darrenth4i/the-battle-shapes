@@ -13,7 +13,8 @@ public class SpawnUnitButton extends PlayerUI
     
     private int[] unitCostIndex = {50, 100, 200, 300, 300};
     
-    private int[] specialCircleUnitCostIndex = {200, 600, 2000};
+    private int[] specialCircleUnitCostIndex = {300, 150, 2000};
+    private int[] specialSquareUnitCostIndex = {300, 600, 2500};
 
     //Used for upgrade of the buttons to spawn upgraded units
     private int spent;
@@ -92,13 +93,29 @@ public class SpawnUnitButton extends PlayerUI
         else if(u.contains("Bomb"))
         {
             unitCost = specialCircleUnitCostIndex[1];
-            unitCooldown = 8000;
+            unitCooldown = 12000;
         }
         else if(u.contains("Cyclone"))
         {
             unitCost = specialCircleUnitCostIndex[0];
             unitCooldown = 4000;
         }
+        else if(u.contains("Reaper"))
+        {
+            unitCost = specialCircleUnitCostIndex[0];
+            unitCooldown = 12000;
+        }
+        else if(u.contains("Railgun"))
+        {
+            unitCost = specialCircleUnitCostIndex[0];
+            unitCooldown = 18000;
+        }
+        else if(u.contains("Tesseract"))
+        {
+            unitCost = specialCircleUnitCostIndex[0];
+            unitCooldown = 4000;
+        }
+        
         
         //set thresholds for upgrades
         firstUpgrade = unitCost * 5;
@@ -133,7 +150,7 @@ public class SpawnUnitButton extends PlayerUI
         };
         String[] squareUnit = new String[]
         {
-            "SFodder", "SWarrior", "STank", "SRanger", "SHealer", "SPlaceHolder", "SPlaceHolder", "SPlaceHolder"
+            "SFodder", "SWarrior", "STank", "SRanger", "SHealer", "STesseract", "SReaper", "SRailgun"
         };
 
         //create every object so greenfoot can cache img animations
@@ -284,6 +301,15 @@ public class SpawnUnitButton extends PlayerUI
             } 
             else if (unit == "SWarrior") {
                 getWorld().addObject(new SWarrior(unitStage), spawn.getX() + xOffset, spawn.getY() + yOffset);
+            }
+            else if (unit == "STesseract") {
+                getWorld().addObject(new STesseract(), spawn.getX() + xOffset, spawn.getY() + yOffset);
+            }
+            else if (unit == "SReaper") {
+                getWorld().addObject(new SReaper(), spawn.getX() + xOffset, spawn.getY() + yOffset);
+            }
+            else if (unit == "SRailgun") {
+                getWorld().addObject(new SRailgun(), spawn.getX() + xOffset, spawn.getY() + yOffset);
             }
             return;
         }
