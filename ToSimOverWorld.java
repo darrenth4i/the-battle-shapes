@@ -13,12 +13,14 @@ public class ToSimOverWorld extends MenuButtons
     private BlackBox simOverOverlay1 = new BlackBox(blackBoxTransparency, 1024, 300);
     private BlackBox simOverOverlay2 = new BlackBox(blackBoxTransparency, 1024, 300);
     private boolean circleWinner;
+    private int timer = 0;
     
     public ToSimOverWorld(int type, boolean circleWinner)
     {
         super(type);
         this.circleWinner = circleWinner;
-        velocity = 15;
+        velocity = 25;
+        setImage("UIElements/simOver.png");
     }
     
     public void addedToWorld(World world)
@@ -33,7 +35,12 @@ public class ToSimOverWorld extends MenuButtons
      */
     public void act()
     {
-        super.act();
+        timer++;
+        if(timer == 300)
+        {
+            FullscreenTransition trans = new FullscreenTransition(new SimOverWorld(circleWinner));
+            getWorld().addObject(trans, 512, 1200);
+        }
         if(buttonType == 12)
         {
             playButtonAnimation();
@@ -59,14 +66,12 @@ public class ToSimOverWorld extends MenuButtons
     
     public void buttonFunction()
     {
-        //SimOverWorld to title world
-        FullscreenTransition trans = new FullscreenTransition(new SimOverWorld(circleWinner));
-        getWorld().addObject(trans, 512, 1200);
     }
+    
     
     public void playButtonAnimation()
     {
-        if(getY() > 550)
+        if(getY() > 100)
         {
             setLocation(getX(), getY() - velocity);
             if(getY() < 900)
@@ -74,9 +79,9 @@ public class ToSimOverWorld extends MenuButtons
                 velocity -= 0.32;
             }
         }
-        else if(getY() != 550)
+        else if(getY() != 100)
         {
-            setLocation(getX(), 550);
+            setLocation(getX(), 100);
         }
     }
 }
