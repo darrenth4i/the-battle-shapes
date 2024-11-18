@@ -51,8 +51,8 @@ public class STank extends Square
             break;
             
             case 3:
-            totalYOffset = -60;
-            attackXOffset = 20;
+            totalYOffset = -50;
+            attackXOffset = 30;
             attackYOffset = 0;
             loadAnimationFrames("images/Units/STank/StageThree");
             

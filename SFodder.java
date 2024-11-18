@@ -63,6 +63,7 @@ public class SFodder extends Square
             break;
         }
     }
+    
     public void addedToWorld(World world)
     {
         if(justAddedToWorld)

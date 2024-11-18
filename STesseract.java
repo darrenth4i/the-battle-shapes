@@ -10,30 +10,23 @@ import java.io.File;
  */
 public class STesseract extends Square
 {   
+    private SimpleTimer attackTimer = new SimpleTimer(); 
+    private int attackDelay = 100;
+    private int currentFrame = 0;
     public STesseract()
     {
         super();
-        imageScale = 0.35;
+        imageScale = 0.6;
         attackFrame = 0;
-        attackXOffset = -0;
-        attackYOffset = -50;
+        attackXOffset = 0;
+        attackYOffset = 0;
         
         loadAnimationFrames("images/Units/STesseract");
         knockbacks = 1;
         atkCooldown = 5;
-        speed = 2;
-        atk = 20;
-        health = 370;
-    }
-    
-    public void addedToWorld(World world)
-    {
-        if(justAddedToWorld)
-        {
-            super.addedToWorld(world);
-            range = 300;
-            standingRange = 70;
-        }
+        speed = 1;
+        atk = 2;
+        health = 30;
     }
     
     /**
@@ -43,8 +36,31 @@ public class STesseract extends Square
     public void act()
     {
         super.act();
+        if (attackTimer.millisElapsed() >= attackDelay) {
+            attack(); 
+            attackTimer.mark(); 
+        }
     }
     
+    protected void attack()
+    {
+        List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
+        if (getWorld() == null) {
+            return;
+        }
+        
+        if (potentialTargets.size() > 0) {
+            Circle target = potentialTargets.get(0);
+            setImage(attackAnim.get(currentFrame)); 
+            if (target != null && target.getWorld() != null) {
+                target.hurt(atk);
+            }
+            currentFrame++;
+            if (currentFrame >= attackAnim.size()) {
+                currentFrame = 0; 
+            }
+        }
+    }
     
     protected void loadAnimationFrames(String path)
     {
@@ -54,14 +70,14 @@ public class STesseract extends Square
             attackAnim.add(new GreenfootImage(path + "/attack/" + i + ".gif"));
             attackAnim.get(i).scale((int)(attackAnim.get(i).getWidth()*imageScale),(int)(attackAnim.get(i).getHeight()*imageScale));
         }
-        for(int i = 0; i < new File(path+"/move").listFiles().length-1; i++)
+        for(int i = 0; i < new File(path+"/attack").listFiles().length-1; i++)
         {
-            walkAnim.add(new GreenfootImage(path + "/move/" + i + ".gif"));
+            walkAnim.add(new GreenfootImage(path + "/attack/" + i + ".gif"));
             walkAnim.get(i).scale((int)(walkAnim.get(i).getWidth()*imageScale),(int)(walkAnim.get(i).getHeight()*imageScale));
         }
-        for(int i = 0; i < new File(path+"/stand").listFiles().length-1; i++)
+        for(int i = 0; i < new File(path+"/attack").listFiles().length-1; i++)
         {
-            idleAnim.add(new GreenfootImage(path + "/stand/" + i + ".gif"));
+            idleAnim.add(new GreenfootImage(path + "/attack/" + i + ".gif"));
             idleAnim.get(i).scale((int)(idleAnim.get(i).getWidth()*imageScale),(int)(idleAnim.get(i).getHeight()*imageScale));
         }
     }
