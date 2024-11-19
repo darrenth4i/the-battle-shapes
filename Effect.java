@@ -17,7 +17,7 @@ public abstract class Effect extends Actor
     protected double imageScale;
     protected SimpleTimer animationTimer = new SimpleTimer();
     protected GreenfootImage notGreenFoot = new GreenfootImage("images/LiterallyNothing.png");
-    
+    protected GreenfootSound effectSound;
     protected Effect()
     {
         setImage(notGreenFoot);

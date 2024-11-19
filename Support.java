@@ -26,6 +26,7 @@ public class Support extends Tower
         if(getLowestHealthSameShape() != null)
         {
             getWorld().addObject(new SupportProjectile(circle,getLowestHealthSameShape(),4, 1), getX(), getY());
+            shootSound.play();
         }
     }
 }

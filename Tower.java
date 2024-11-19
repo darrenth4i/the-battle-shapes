@@ -28,7 +28,12 @@ public abstract class Tower extends Actor
     
     //Tower images - placeholders
     protected GreenfootImage towerImage;
-
+    
+    //Tower sounds
+    protected GreenfootSound shootSound = new GreenfootSound("sounds/Effects/towershoot.wav");
+    private GreenfootSound bloodSound = new GreenfootSound("sounds/Effects/blood-splatter.wav");
+    protected GreenfootSound healthSound = new GreenfootSound("sounds/Effects/health.wav");
+    
     //Helper variables
     private double distance, nearestDistance, furthestDistance, lowestHealth;
     protected int count, randomEventCount;
@@ -45,7 +50,7 @@ public abstract class Tower extends Actor
             damage[i] = new GreenfootSound ("baseDamage.wav");
             damage[i].setVolume (80);
         }
-        
+        shootSound.setVolume(50);
         this.circle = circle;
         this.type = type;
         this.level = level;
@@ -107,6 +112,7 @@ public abstract class Tower extends Actor
     public void bloodSplatter()
     {
         createNotification("NONE. SHALL. PASS.", "REVERSAL!");
+        bloodSound.play();
         targets = getEnemies();    
         for(Unit u : targets)
         {
@@ -220,6 +226,7 @@ public abstract class Tower extends Actor
             {
                 randomEvent();
                 randomEventCount++;
+                healthSound.play();
             }
         }
         if(healthBelow(0.25))
@@ -228,11 +235,12 @@ public abstract class Tower extends Actor
             {
                 alternateRandomEvent();
                 randomEventCount++;
+                healthSound.play();
             }
         }
     }
     
-    /** {NOT IMPLEMENTED YET}
+    /** 
      * The method that is run to end the simulation, resulting 
      * in either square's or circle's victory
      */

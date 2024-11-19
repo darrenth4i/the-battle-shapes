@@ -378,6 +378,7 @@ public class SpawnUnitButton extends PlayerUI
         SpawnUnitButton upgradedButton = new SpawnUnitButton(unit, unitIndex, unitStage+1, unitCooldown, true);
         
         getWorld().addObject(upgradedButton, getX(), getY());
+        getWorld().addObject(new LevelUpEffect(circle), getX(), getY());
         
         ArrayList<Cursor> cursors = (ArrayList<Cursor>)getWorld().getObjects(Cursor.class);
         for(Cursor c : cursors){

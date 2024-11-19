@@ -13,6 +13,7 @@ public abstract class TowerProjectile extends SuperSmoothMover
     protected int speed;
     protected GreenfootImage projectile;
     protected boolean contacted;
+    protected GreenfootSound effectSound;
     public TowerProjectile(boolean circle, Unit target, int speed)
     {
         this.circle = circle;

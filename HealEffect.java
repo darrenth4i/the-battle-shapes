@@ -10,15 +10,20 @@ public class HealEffect extends Effect
 {
     private int healParticleNumber = 10;
     private int actNum = 0;
-    
+    private GreenfootSound healSound = new GreenfootSound("sounds/Effects/heal.wav");
     public HealEffect()
     {
         setImage("images/Effects/heal/HealEffect.png");
+        healSound.setVolume(60);
     }
     /**
      * Act - do whatever the HealEffect wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    public void addedToWorld(World world)
+    {
+        healSound.play();
+    }
     public void act()
     {
         if(healParticleNumber < 0)

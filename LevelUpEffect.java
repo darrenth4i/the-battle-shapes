@@ -8,35 +8,52 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class LevelUpEffect extends Effect
 {
-    private int count;
+    protected int count;
     private int index;
     private GreenfootImage[] effect;
-    public LevelUpEffect()
+    private boolean circle;
+    
+    public LevelUpEffect(boolean circle)
     {
+        this.circle = circle;
         effect = new GreenfootImage[4];
         for(int i=0;i<4;i++)
         {
             effect[i] = new GreenfootImage("images/Effects/LevelUp/flame" + i +".png");
-            effect[i].scale(65,65);
+            effect[i].scale(275,185);
         }
+        effectSound = new GreenfootSound("sounds/Effects/level-up.wav");
+    }
+    public void addedToWorld(World world)
+    {   if(circle)
+        {
+            getWorld().addObject(new LevelUp(), getX(),getY()-60);
+        } else
+        {
+            getWorld().addObject(new LevelUp(), getX(),getY()+80);
+        }
+        
     }
     public void act()
     {
         // Add your action code here.
-        if(count%7 == 0)
+        if(count%2 == 0)
         {
             index++;
+            if(index>3)
+            {
+                index=0;
+            }
+            setImage(effect[index]);
         }
         if(count>140)
         {
             getWorld().removeObject(this);
             return;
         }
-        if(index<4)
-        {
-            setImage(effect[index]);
-        }
+        
         
         count++;
+        effectSound.play();
     }
 }

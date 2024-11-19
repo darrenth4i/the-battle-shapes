@@ -16,6 +16,8 @@ public class OffenseProjectile extends TowerProjectile
         this.damage = damage;
         setImage("images/TowerProjectile/Offense.png");
         getImage().setTransparency(0);
+        effectSound = new GreenfootSound("sounds/Effects/offenseprojectile.wav");
+        effectSound.setVolume(70);
     }
     public void act()
     {
@@ -27,6 +29,7 @@ public class OffenseProjectile extends TowerProjectile
             {
                 effect();
                 getWorld().addObject(new OffensiveProjectileExplosion(), getX(), getY());
+                effectSound.play();
                 getWorld().removeObject(this);
             }
         }

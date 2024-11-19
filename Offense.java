@@ -25,6 +25,7 @@ public class Offense extends Tower
         if(getNearestOppositeShape() != null)
         {
             getWorld().addObject(new OffenseProjectile(circle,getNearestOppositeShape(),4, 1), getX(), getY());
+            shootSound.play();
         }
     }
 }

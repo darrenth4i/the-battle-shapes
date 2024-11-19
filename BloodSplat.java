@@ -15,6 +15,7 @@ public class BloodSplat extends Effect
     private int count;
     private int index;
     private GreenfootImage[] splat;
+    private GreenfootSound bloodSound = new GreenfootSound("sounds/Effects/blood-splatter.wav");
     public BloodSplat()
     {
         splat = new GreenfootImage[7];
@@ -23,11 +24,13 @@ public class BloodSplat extends Effect
             splat[i] = new GreenfootImage("images/Effects/BloodSplats/bloodsplat" + i +".png");
             splat[i].scale(95,95);
         }
+        
     }
+    
     public void act()
     {
         // Add your action code here.
-        if(count%8 == 0)
+        if(count%13 == 0)
         {
             index++;
         }
@@ -40,5 +43,6 @@ public class BloodSplat extends Effect
             getWorld().removeObject(this);
         }
         count++;
+        
     }
 }
