@@ -26,7 +26,7 @@ public class CDragonHitbox extends CDragon
      */
     public void act()
     {
-        setLocation(origin.getNormalX(), origin.getFeet());
+        setLocation(origin.getX(), origin.getFeet());
         if(origin.getWorld() == null)
         {
             getWorld().removeObject(this);

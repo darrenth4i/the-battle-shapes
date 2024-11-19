@@ -43,7 +43,7 @@ public class CDragon extends Circle
     }
     
     /**
-     * Act - do whatever the Warrior wants to do. This method is called whenever
+     * Act - do whatever the Dragon wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()

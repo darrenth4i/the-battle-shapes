@@ -2,10 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Write a description of class SelectionWorld here.
+ * World where the user can pick the units and parameters of the simulation world
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Andy Li
+ * @version 2
  */
 public class SelectionWorld extends World
 {

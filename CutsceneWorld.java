@@ -2,10 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.io.File;
 import java.util.ArrayList;
 /**
- * Write a description of class CutsceneWorld here.
+ * The world containing the cutscene
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Andy Li
+ * @version 1
  */
 public class CutsceneWorld extends World
 {
