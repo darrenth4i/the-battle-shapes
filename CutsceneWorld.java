@@ -13,6 +13,7 @@ public class CutsceneWorld extends World
     private LoadingSpinner loadingSpinner = new LoadingSpinner();
     private Text percentage = new Text("0/241", 50);
     
+    private GreenfootSound loopingSound = new GreenfootSound("loadingTheme.mp3");
     
     private ArrayList<GreenfootImage> animation = new ArrayList<GreenfootImage>();
     private SimpleTimer animationTimer = new SimpleTimer();
@@ -46,6 +47,7 @@ public class CutsceneWorld extends World
         }
         else if(!transition.getisExiting()&&transition.getWorld() != null)
         {
+            loopingSound.stop();
             setBackground(animation.get(0));
             removeObject(text);
             removeObject(loadingSpinner);
@@ -61,6 +63,10 @@ public class CutsceneWorld extends World
     {
         animation.add(new GreenfootImage("images/Cutscene/" + frameNum + ".png"));
         frameNum++;
+        if(frameNum == 20)
+        {
+            loopingSound.playLoop();
+        }
         percentage.updateText(frameNum + "/241", 50);
     }
     /**
@@ -83,18 +89,46 @@ public class CutsceneWorld extends World
             case 0:
             case 13:
             case 29:
+                if(animationTimer.millisElapsed() < 2000)
+                {
+                    return index;
+                }
+                break;
             case 102:
+                if(animationTimer.millisElapsed() < 2000)
+                {
+                    return index;
+                }
+                new GreenfootSound("Cutscene/4.mp3").play();
+                break;
             case 103:
             case 116:
             case 145:
             case 197:
-                if(animationTimer.millisElapsed() < 1200)
+                if(animationTimer.millisElapsed() < 2000)
                 {
                     return index;
                 }
                 break;
             case 240:
                 addObject(new FullscreenTransition(new SelectionWorld()), 512, 1200);
+                break;
+                
+            case 1:
+                new GreenfootSound("Cutscene/0.mp3").play();
+                new GreenfootSound("Cutscene/2.wav").play();
+                break;
+            case 19:
+                new GreenfootSound("Cutscene/2.wav").play();
+                break;
+            case 30:
+                new GreenfootSound("Cutscene/1.wav").play();
+                break;
+            case 80:
+                new GreenfootSound("Cutscene/3.wav").play();
+                break;
+            case 159:
+                new GreenfootSound("Cutscene/5.wav").play();
                 break;
         }
         setBackground(animation.get(index));

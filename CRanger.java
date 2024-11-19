@@ -101,7 +101,7 @@ public class CRanger extends Circle
             if(tower != null && (target == null || (target.getNormalX() > getNormalX() - 200 && tower.getX() > target.getNormalX())))
             {
                 target = null;
-                
+                playAtkSoundEffect();
                 tower.hurt(atk);
                 if(stage == 3)
                 {
@@ -110,6 +110,7 @@ public class CRanger extends Circle
             }
             if(target != null && target.getNormalX() < getNormalX() - 200)
             {
+                playAtkSoundEffect();
                 target.hurt(atk);
                 if(stage == 3)
                 {
