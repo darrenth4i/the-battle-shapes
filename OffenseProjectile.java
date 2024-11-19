@@ -27,13 +27,13 @@ public class OffenseProjectile extends TowerProjectile
             moveTowardsTarget();
             if(contacted)
             {
-                effect();
+                effect();//deals damage
                 getWorld().addObject(new OffensiveProjectileExplosion(), getX(), getY());
                 effectSound.play();
                 getWorld().removeObject(this);
             }
         }
-        else
+        else //if target has been removed from world
         {
             getWorld().removeObject(this);
         }

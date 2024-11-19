@@ -21,6 +21,6 @@ public class SupportProjectile extends TowerProjectile
     }
     public void effect()
     {
-        target.heal(heal);
+        target.heal(heal); //heals target by heal int
     }
 }
