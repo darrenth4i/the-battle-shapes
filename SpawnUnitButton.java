@@ -11,7 +11,7 @@ public class SpawnUnitButton extends PlayerUI
     private Tower spawn;
     private int unitCost, unitStage, unitCooldown, cooldownTimes;
     
-    private int[] unitCostIndex = {50, 100, 200, 300, 300};
+    private int[] unitCostIndex = {100, 150, 250, 300, 300};
     
     private int[] specialCircleUnitCostIndex = {300, 150, 2000};
     private int[] specialSquareUnitCostIndex = {300, 600, 2500};
@@ -123,8 +123,8 @@ public class SpawnUnitButton extends PlayerUI
         
         
         //set thresholds for upgrades
-        firstUpgrade = unitCost * 5;
-        secondUpgrade = unitCost * 5;
+        firstUpgrade = 1000;
+        secondUpgrade = 2000;
         
         //create file path and find image
         String filePath = canUpgrade ? "/UnitButtons/" + unit + "_" + unitStage + ".png" : "/UnitButtons/" + unit + ".png";
@@ -287,7 +287,11 @@ public class SpawnUnitButton extends PlayerUI
      * Method to spawn a preloaded unit based on its unitIndex 
      */
     public void spawnUnit() {
-        buy.play();
+        ArrayList<FullscreenTransition> ft = (ArrayList<FullscreenTransition>)getWorld().getObjects(FullscreenTransition.class);
+        if (ft.size() == 0) {
+            buy.play();
+        }
+        
         //Tanks will offset less since they're taller
         int yOffset = unit.substring(1, unit.length() - 1).equals("Tank") ? 40 : 110; 
         yOffset += Greenfoot.getRandomNumber(20);
