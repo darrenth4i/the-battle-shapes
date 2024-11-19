@@ -107,17 +107,17 @@ public class SpawnUnitButton extends PlayerUI
         }
         else if(u.contains("Reaper"))
         {
-            unitCost = specialCircleUnitCostIndex[1];
+            unitCost = specialSquareUnitCostIndex[1];
             unitCooldown = 12000;
         }
         else if(u.contains("Railgun"))
         {
-            unitCost = specialCircleUnitCostIndex[2];
+            unitCost = specialSquareUnitCostIndex[2];
             unitCooldown = 18000;
         }
         else if(u.contains("Tesseract"))
         {
-            unitCost = specialCircleUnitCostIndex[0];
+            unitCost = specialSquareUnitCostIndex[0];
             unitCooldown = 4000;
         }
         

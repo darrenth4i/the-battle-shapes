@@ -15,7 +15,7 @@ public class Error extends Graphic
     public Error(String path)
     {
         super(path);
-        errorSound = new GreenfootSound ("error.wav");
+        errorSound = new GreenfootSound ("eror.wav");
         errorSound.setVolume(70);
         errorSound.play();
     }

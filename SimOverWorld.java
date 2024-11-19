@@ -15,6 +15,7 @@ public class SimOverWorld extends World
     private GreenfootSound cirWin = new GreenfootSound("sounds/CircleVictory.mp3");
     private GreenfootSound squWin = new GreenfootSound("sounds/SquareVictory.mp3");
     private boolean isCircle;
+    private int actTimer;
     public SimOverWorld(boolean circleWinner)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -32,6 +33,22 @@ public class SimOverWorld extends World
         }
         addObject(new ReturnButton(13),512,650);
         addObject(new FullscreenTransition(), 512, 300);
+    }
+    public void act()
+    {
+        if(isCircle)
+        {
+            if(Greenfoot.getRandomNumber(30) > 0 && (actTimer > 10 || actTimer == 0))
+            {
+                actTimer = 0;
+                setBackground("Backgrounds/CircleVictory.png");
+            }
+            else
+            {
+                actTimer++;
+                setBackground("Backgrounds/CircleVictoryAlt.png");
+            }
+        }
     }
     
     public void stopped()

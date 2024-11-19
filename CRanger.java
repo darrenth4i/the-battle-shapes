@@ -34,7 +34,7 @@ public class CRanger extends Circle
             speed = 2;
             atk = 5;
             health = 10;
-            setAtkSoundEffect(1, 100);
+            setAtkSoundEffect(1, 80);
             break;
             
             case 2:
@@ -48,7 +48,7 @@ public class CRanger extends Circle
             speed = 2;
             atk = 12;
             health = 16;
-            setAtkSoundEffect(1, 100);
+            setAtkSoundEffect(1, 80);
             break;
             
             case 3:
@@ -65,7 +65,7 @@ public class CRanger extends Circle
             speed = 2;
             atk = 20;
             health = 20;
-            setAtkSoundEffect(1, 60);
+            setAtkSoundEffect(1, 80);
             break;
         }
     }
