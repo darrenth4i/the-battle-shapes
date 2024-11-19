@@ -32,7 +32,7 @@ public class CRanger extends Circle
             atkCooldown = 90;
             knockbacks = 6;
             speed = 2;
-            atk = 5;
+            atk = 6;
             health = 10;
             setAtkSoundEffect(1, 80);
             break;
@@ -46,7 +46,7 @@ public class CRanger extends Circle
             atkCooldown = 75;
             knockbacks = 6;
             speed = 2;
-            atk = 12;
+            atk = 10;
             health = 16;
             setAtkSoundEffect(1, 80);
             break;
@@ -63,7 +63,7 @@ public class CRanger extends Circle
             atkCooldown = 75;
             knockbacks = 7;
             speed = 2;
-            atk = 20;
+            atk = 18;
             health = 20;
             setAtkSoundEffect(1, 80);
             break;

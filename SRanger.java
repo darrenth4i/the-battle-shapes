@@ -28,7 +28,7 @@ public class SRanger extends Square
             attackYOffset = 0;
             loadAnimationFrames("images/Units/SRanger/StageOne");    
             setAtkSoundEffect(1,70);
-            atkCooldown = 90;
+            atkCooldown = 75;
             health = 10;
             knockbacks = 6;
             speed = 2;
@@ -41,7 +41,7 @@ public class SRanger extends Square
             attackYOffset = 0;
             loadAnimationFrames("images/Units/SRanger/StageTwo");    
             setAtkSoundEffect(2,65);
-            atkCooldown = 100;
+            atkCooldown = 75;
             health = 16;
             knockbacks = 6;
             speed = 2;
@@ -57,7 +57,7 @@ public class SRanger extends Square
             loadAnimationFrames("images/Units/SRanger/StageThree");
             setAtkSoundEffect(3,80);
             attackFrame = 3;
-            atkCooldown = 120;
+            atkCooldown = 75;
             knockbacks = 7;
             speed = 2;
             atk = 20;

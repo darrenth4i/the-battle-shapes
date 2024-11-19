@@ -34,7 +34,7 @@ public class CHealer extends Circle
             atkCooldown = 180;
             knockbacks = 2;
             speed = 1;
-            atk = 15;
+            atk = 30;
             health = 12;
             setAtkSoundEffect(1, 80);
             break;
@@ -48,7 +48,7 @@ public class CHealer extends Circle
             atkCooldown = 150;
             knockbacks = 2;
             speed = 1;
-            atk = 20;
+            atk = 50;
             health = 24;
             setAtkSoundEffect(1, 80);
             break;
@@ -59,10 +59,10 @@ public class CHealer extends Circle
             loadAnimationFrames("images/Units/CHealer/StageThree");
             
             attackFrame = 30;
-            atkCooldown = 120;
+            atkCooldown = 150;
             knockbacks = 3;
             speed = 1;
-            atk = 40;
+            atk = 75;
             health = 30;
             setAtkSoundEffect(1, 80);
             break;
