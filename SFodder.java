@@ -31,7 +31,7 @@ public class SFodder extends Square
             attackYOffset = -30;
             loadAnimationFrames("images/Units/SFodder/StageOne");
             setAtkSoundEffect(1,80);
-            atkCooldown = 60;
+            atkCooldown = 50;
             knockbacks = 2;
             speed = 2;
             atk = 4;
@@ -44,7 +44,7 @@ public class SFodder extends Square
             attackYOffset = -30;
             loadAnimationFrames("images/Units/SFodder/StageTwo");
             setAtkSoundEffect(2,80);
-            atkCooldown = 60;
+            atkCooldown = 50;
             knockbacks = 2;
             speed = 4;
             atk = 8;

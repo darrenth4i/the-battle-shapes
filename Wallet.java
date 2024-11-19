@@ -58,4 +58,5 @@ public class Wallet extends PlayerUI
     public void setEventMultiplier(double m) {eventMultiplier = m;}
     public boolean getCircle() {return circle;}
     public double getAmount() {return amount;}
+    public double getMultiplier() {return multiplier;}
 }

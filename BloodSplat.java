@@ -19,6 +19,7 @@ public class BloodSplat extends Effect
     public BloodSplat()
     {
         splat = new GreenfootImage[7];
+        //Sets up each individual image of the bloodsplat
         for(int i=0;i<7;i++)
         {
             splat[i] = new GreenfootImage("images/Effects/BloodSplats/bloodsplat" + i +".png");
@@ -29,7 +30,7 @@ public class BloodSplat extends Effect
     
     public void act()
     {
-        // Add your action code here.
+        //Blood splat changes image to progress animation a few times a second, once fully progress, removes itself
         if(count%13 == 0)
         {
             index++;

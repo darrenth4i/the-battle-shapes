@@ -21,6 +21,6 @@ public class DefenseProjectile extends TowerProjectile
     }
     public void effect()
     {
-        target.shield(mitigation);
+        target.shield(mitigation); //Gives units a shield that mitigates a certain number of hits
     }
 }

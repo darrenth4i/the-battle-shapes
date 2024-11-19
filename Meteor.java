@@ -17,6 +17,7 @@ public class Meteor extends TowerProjectile
         super(circle, target, 10);
         this.damage = 100;
         
+        //Changes image depending on team
         if(!circle)
         {
             squareImage.scale(65, 120);
@@ -34,7 +35,7 @@ public class Meteor extends TowerProjectile
     }
     public void effect()
     {
-        meteorSound.play();
+        meteorSound.play(); // plays noise when impacting target
         target.hurt(damage);
     }
 }
