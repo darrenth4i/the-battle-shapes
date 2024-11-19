@@ -20,7 +20,6 @@ public class STesseract extends Square
         attackFrame = 0;
         attackXOffset = 0;
         attackYOffset = 0;
-        
         loadAnimationFrames("images/Units/STesseract");
         knockbacks = 1;
         atkCooldown = 5;

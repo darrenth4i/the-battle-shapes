@@ -27,7 +27,7 @@ public class SRanger extends Square
             attackXOffset = 0;
             attackYOffset = 0;
             loadAnimationFrames("images/Units/SRanger/StageOne");    
-            
+            setAtkSoundEffect(1,70);
             atkCooldown = 90;
             health = 10;
             knockbacks = 6;
@@ -40,8 +40,8 @@ public class SRanger extends Square
             attackXOffset = 0;
             attackYOffset = 0;
             loadAnimationFrames("images/Units/SRanger/StageTwo");    
-            
-            atkCooldown = 60;
+            setAtkSoundEffect(2,65);
+            atkCooldown = 100;
             health = 16;
             knockbacks = 6;
             speed = 2;
@@ -55,12 +55,12 @@ public class SRanger extends Square
             moveXOffset = 0;
             moveYOffset = 0;
             loadAnimationFrames("images/Units/SRanger/StageThree");
-            
+            setAtkSoundEffect(3,80);
             attackFrame = 3;
-            atkCooldown = 45;
+            atkCooldown = 120;
             knockbacks = 7;
             speed = 2;
-            atk = 15;
+            atk = 20;
             health = 20;
             break;
         }        
@@ -94,12 +94,13 @@ public class SRanger extends Square
             if(tower != null && (target == null || (target.getNormalX() < getNormalX() + 200 && tower.getX() < target.getNormalX())))
             {
                 target = null;
-                
                 tower.hurt(atk);
+                atkSoundEffect.play();
             }
             if(target != null && target.getNormalX() > getNormalX() + 200)
             {
                 target.hurt(atk);
+                atkSoundEffect.play();
             }
         }
     }

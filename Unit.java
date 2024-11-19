@@ -72,7 +72,7 @@ public abstract class Unit extends SuperSmoothMover
     protected GreenfootSound atkSoundEffect;
     protected GreenfootSound dieSoundEffect = new GreenfootSound("death.wav");
     
-    public void setAtkSoundEffect() {
+    public void setAtkSoundEffect(int lvl, int volume) {
         String filePath = "/attackSounds/";
         filePath += this.getClass().getName() + "_" + stage + ".wav";
         try {
@@ -115,7 +115,6 @@ public abstract class Unit extends SuperSmoothMover
     {   
         this();
         this.stage = stage;
-        setAtkSoundEffect();
     }
     
     /**

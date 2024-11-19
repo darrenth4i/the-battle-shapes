@@ -25,7 +25,7 @@ public class CFodder extends Circle
             case 1:
             attackXOffset = -45;
             attackYOffset = 0;
-            loadAnimationFrames("images/Units/CFodder/StageOne");    
+            loadAnimationFrames("images/Units/CFodder/StageOne");  
             
             attackFrame = 5;
             atkCooldown = 60;

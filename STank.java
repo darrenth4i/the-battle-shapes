@@ -27,7 +27,7 @@ public class STank extends Square
             attackXOffset = 25;
             attackYOffset = 0;
             loadAnimationFrames("images/Units/STank/StageOne");
-            
+            setAtkSoundEffect(1,90);
             knockbacks = 1;
             speed = 2;
             atk = 2;
@@ -41,7 +41,7 @@ public class STank extends Square
             attackYOffset = 5;
             moveYOffset = -20;
             loadAnimationFrames("images/Units/STank/StageTwo");
-            
+            setAtkSoundEffect(2,80);
             attackFrame = 8;
             atkCooldown = 120;
             knockbacks = 1;
@@ -55,8 +55,8 @@ public class STank extends Square
             attackXOffset = 30;
             attackYOffset = 0;
             loadAnimationFrames("images/Units/STank/StageThree");
-            
-            attackFrame = 11;
+            setAtkSoundEffect(3,65);
+            attackFrame = 4;
             atkCooldown = 120;
             knockbacks = 1;
             speed = 2;

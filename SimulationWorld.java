@@ -1,6 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.List;
 /**
  * Write a description of class MyWorld here.
  * 
@@ -11,6 +12,7 @@ public class SimulationWorld extends World
 {
     private GreenfootImage bg = new GreenfootImage("Backgrounds/bgui.png");
     private SongSelection song = new SongSelection("LiterallyNothing.png");
+    private GreenfootSound music = new GreenfootSound("sounds/attackSounds/STesseract_0.wav");
     private FullscreenTransition loadingScreen = new FullscreenTransition();
     private ArrayList<GreenfootSound> soundTrack;
     private int musicIndex;
@@ -38,6 +40,7 @@ public class SimulationWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1024, 700, 1, false); 
         setBackground(bg);
+        music.setVolume(35);
         switch(sTowerVariables[1])
         {
             case 0:
@@ -119,6 +122,7 @@ public class SimulationWorld extends World
     {
         zSort((ArrayList<Unit>)(getObjects(Unit.class)), this);
         acts++;
+        checkTesseracts();
         if(loadingScreen.getIsDone() == true && isActed == false)
         {
             instantiateMusic();
@@ -127,6 +131,20 @@ public class SimulationWorld extends World
                 soundTrack.get(musicIndex).playLoop();
             }
             isActed = true;
+        }
+    }
+    /** checks if Tesseracts exist in the world 
+    */
+    public void checkTesseracts()
+    {
+        List<STesseract> tesseract = getObjects(STesseract.class);
+        if(tesseract.isEmpty()) 
+        {
+            music.stop();
+        }
+        else if(!music.isPlaying())
+        {
+            music.playLoop();
         }
     }
     
