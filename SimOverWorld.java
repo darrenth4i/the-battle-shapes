@@ -49,6 +49,22 @@ public class SimOverWorld extends World
                 setBackground("Backgrounds/CircleVictoryAlt.png");
             }
         }
+        else
+        {
+            if(actTimer > 50)
+            {
+                setBackground("Backgrounds/SquareVictory.png");
+            }
+            else
+            {
+                setBackground("Backgrounds/SquareVictoryAlt.png");
+            }
+            actTimer++;
+            if(actTimer > 100)
+            {
+                actTimer = 0;
+            }
+        }
     }
     
     public void stopped()
