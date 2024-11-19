@@ -25,7 +25,9 @@ public class LevelUpEffect extends Effect
         effectSound = new GreenfootSound("sounds/Effects/level-up.wav");
     }
     public void addedToWorld(World world)
-    {   if(circle)
+    {   
+        //creates a LevelUp object depending on team when added to world, otherwise for square, it is placed offscreen
+        if(circle)
         {
             getWorld().addObject(new LevelUp(), getX(),getY()-60);
         } else
@@ -36,7 +38,6 @@ public class LevelUpEffect extends Effect
     }
     public void act()
     {
-        // Add your action code here.
         if(count%2 == 0)
         {
             index++;
@@ -51,8 +52,6 @@ public class LevelUpEffect extends Effect
             getWorld().removeObject(this);
             return;
         }
-        
-        
         count++;
         effectSound.play();
     }

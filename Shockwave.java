@@ -31,6 +31,7 @@ public class Shockwave extends OffensiveProjectileExplosion
     public void act()
     {
         super.act();
+        //Creates more shockwaves and sounds until the level of the shockwave reaches 0
         if(level < 0)
         {
             getWorld().removeObject(this);
