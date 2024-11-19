@@ -43,7 +43,6 @@ public class Cursor extends SuperSmoothMover
     //arraylist to hold all units alive of one specific team
     private ArrayList<Unit> units;
     
-    //DEBUG remove wallets related code if never used later
     private ArrayList<Wallet> wallets;
     private Wallet myWallet;
     
@@ -140,7 +139,7 @@ public class Cursor extends SuperSmoothMover
                 buttonNames.add(b.getUnit());
             }
             
-            //DEBUG remove if useless, get wallet for own team
+            //get wallet for own team
             for(Wallet w : wallets){
                 if((circle && w.getCircle()) || (!circle && !w.getCircle())){
                     myWallet = w;

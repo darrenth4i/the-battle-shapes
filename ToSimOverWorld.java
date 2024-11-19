@@ -62,7 +62,7 @@ public class ToSimOverWorld extends MenuButtons
                 blackBoxTransparency += 10000;
                 getWorld().addObject(simOverOverlay1, 512, 75);
                 getWorld().addObject(simOverOverlay2, 512, 700-75);
-                if(circleWinner){
+                if(!circleWinner){
                     getWorld().addObject(new Notification(true, 512, "This is not over...", true), 1300, 565);
                 }
                 else{
