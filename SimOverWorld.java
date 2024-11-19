@@ -24,11 +24,13 @@ public class SimOverWorld extends World
         if(circleWinner)
         {   
             setBackground("Backgrounds/CircleVictory.png");
+            cirWin.stop();
             cirWin.playLoop();
         }
         else
         {
             setBackground("Backgrounds/SquareVictory.png");
+            squWin.stop();
             squWin.playLoop();
         }
         addObject(new ReturnButton(13),512,650);
@@ -71,11 +73,23 @@ public class SimOverWorld extends World
     {
         if(isCircle)
         {   
-            cirWin.stop();
+            cirWin.pause();
         }
         else
         {
-            squWin.stop();
+            squWin.pause();
+        }
+    }
+    
+    public void started()
+    {
+        if(isCircle)
+        {   
+            cirWin.playLoop();
+        }
+        else
+        {
+            squWin.playLoop();
         }
     }
     

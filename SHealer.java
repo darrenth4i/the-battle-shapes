@@ -18,6 +18,10 @@ public class SHealer extends Square
         super.act();
     }
     
+    /** 
+     * This constructor creates the SHealer, depending on what stage it is, it will take atk, health,
+     * atkCooldown and access new frames to animate.
+     */
     public SHealer(int stage)
     {
         super(stage);
@@ -75,6 +79,9 @@ public class SHealer extends Square
         }
     }
     
+    /**
+     * Takes all squares in range and chooses a target to heal, the heal amount depends on the atk value.
+     */
     protected void attack()
     {
         List<Square> potentialTargets = getObjectsInRange(range, Square.class);
@@ -90,13 +97,8 @@ public class SHealer extends Square
             }
             if(target != null)
             {
-                //System.out.println("S hit");
                 target.heal(atk);
                 atkSoundEffect.play();
-            }
-            else
-            {
-                //System.out.println("Smiss");
             }
         }
     }

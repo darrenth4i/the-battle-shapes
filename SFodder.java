@@ -17,6 +17,10 @@ public class SFodder extends Square
         super.act();
     }
     
+    /** 
+     * This constructor creates the SFodders, depending on what stage it is, it will take atk, health,
+     * atkCooldown and access new frames to animate.
+     */
     public SFodder(int stage)
     {
         super(stage);
@@ -33,7 +37,6 @@ public class SFodder extends Square
             atk = 4;
             health = 16;
             attackFrame = 5;
-            
             break;
             
             case 2:
@@ -63,7 +66,7 @@ public class SFodder extends Square
             break;
         }
     }
-    
+
     public void addedToWorld(World world)
     {
         if(justAddedToWorld)
