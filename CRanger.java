@@ -34,6 +34,7 @@ public class CRanger extends Circle
             speed = 2;
             atk = 5;
             health = 10;
+            setAtkSoundEffect(1, 100);
             break;
             
             case 2:
@@ -42,11 +43,12 @@ public class CRanger extends Circle
             loadAnimationFrames("images/Units/CRanger/StageTwo");    
             
             attackFrame = 6;
-            atkCooldown = 60;
+            atkCooldown = 90;
             knockbacks = 6;
             speed = 2;
             atk = 12;
             health = 16;
+            setAtkSoundEffect(1, 100);
             break;
             
             case 3:
@@ -58,11 +60,12 @@ public class CRanger extends Circle
             loadAnimationFrames("images/Units/CRanger/StageThree");
             
             attackFrame = 33;
-            atkCooldown = 45;
+            atkCooldown = 90;
             knockbacks = 7;
             speed = 2;
-            atk = 15;
+            atk = 20;
             health = 20;
+            setAtkSoundEffect(1, 60);
             break;
         }
     }

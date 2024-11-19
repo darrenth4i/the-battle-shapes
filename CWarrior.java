@@ -33,6 +33,8 @@ public class CWarrior extends Circle
             speed = 3;
             atk = 8;
             health = 30;
+            
+            setAtkSoundEffect(1, 100);
             break;
             
             case 2:
@@ -42,6 +44,8 @@ public class CWarrior extends Circle
             speed = 3;
             atk = 15;
             health = 40;
+            
+            setAtkSoundEffect(1, 100);
             break;
             
             case 3:
@@ -53,6 +57,8 @@ public class CWarrior extends Circle
             speed = 3;
             atk = 22;
             health = 50;
+            
+            setAtkSoundEffect(1, 80);
             break;
         }
     }

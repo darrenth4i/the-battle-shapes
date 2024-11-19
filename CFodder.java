@@ -34,6 +34,8 @@ public class CFodder extends Circle
             atk = 4;
             health = 16;
             attackFrame = 5;
+            
+            setAtkSoundEffect(1, 100);
             break;
             
             case 2:
@@ -49,6 +51,8 @@ public class CFodder extends Circle
             speed = 4;
             atk = 8;
             health = 30;
+            
+            setAtkSoundEffect(1, 80);
             break;
             
             case 3:
@@ -65,6 +69,8 @@ public class CFodder extends Circle
             speed = 4;
             atk = 12;
             health = 50;
+            
+            setAtkSoundEffect(1, 80);
             break;
         }
     }

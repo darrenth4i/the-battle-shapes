@@ -36,6 +36,7 @@ public class CHealer extends Circle
             speed = 1;
             atk = 15;
             health = 12;
+            setAtkSoundEffect(1, 70);
             break;
             
             case 2:
@@ -49,6 +50,7 @@ public class CHealer extends Circle
             speed = 1;
             atk = 20;
             health = 24;
+            setAtkSoundEffect(1, 70);
             break;
             
             case 3:
@@ -62,6 +64,7 @@ public class CHealer extends Circle
             speed = 1;
             atk = 40;
             health = 30;
+            setAtkSoundEffect(1, 70);
             break;
         }
     }
@@ -96,6 +99,7 @@ public class CHealer extends Circle
             {
                 //System.out.println("Chit");
                 target.heal(atk);
+                playAtkSoundEffect();
             }
             else
             {
