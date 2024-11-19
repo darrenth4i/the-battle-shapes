@@ -33,6 +33,7 @@ public abstract class Tower extends Actor
     protected GreenfootSound shootSound = new GreenfootSound("sounds/Effects/towershoot.wav");
     private GreenfootSound bloodSound = new GreenfootSound("sounds/Effects/blood-splatter.wav");
     protected GreenfootSound healthSound = new GreenfootSound("sounds/Effects/health.wav");
+    private GreenfootSound meteorShowerSound = new GreenfootSound("sounds/Effects/meteor-shower.wav");
     
     //Helper variables
     private double distance, nearestDistance, furthestDistance, lowestHealth;
@@ -97,6 +98,7 @@ public abstract class Tower extends Actor
     public void meteorStorm()
     {
         createNotification("Scorch them!", "Eat fire!");
+        meteorShowerSound.play();
         targets = getEnemies();
         if(circle){
             xOffset = 200;
