@@ -88,10 +88,10 @@ public class SimulationWorld extends World
         addObject(new SpawnUnitButton(cU4, 3, 1, 3000, true), 624, 612);
         addObject(new SpawnUnitButton(cU5, 4, 3, 3000, false), 524, 612);
         
-        addObject(new UpgradeButton("wallet", true), 330, 596);
-        addObject(new UpgradeButton("tower", true), 330, 655);
-        addObject(new UpgradeButton("wallet", false), 690, 43);
-        addObject(new UpgradeButton("tower", false), 690, 102);
+        addObject(new UpgradeButton("wallet", true, cTowerVariables[2]), 330, 596);
+        addObject(new UpgradeButton("tower", true, cTowerVariables[2]), 330, 655);
+        addObject(new UpgradeButton("wallet", false, sTowerVariables[2]), 690, 43);
+        addObject(new UpgradeButton("tower", false, sTowerVariables[2]), 690, 102);
         
         //Parameters Cursor(circle, random)
         addObject(new Cursor(true, !cIsSmart), 1024, 700);
