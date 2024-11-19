@@ -12,6 +12,7 @@ public class Ghost extends Effect
     {
         super();
         imageScale = 0.75;
+        //changes ghost image depending on team
         if(isCircle)
         {
             setImage("images/Effects/ghosts/CircleGhost.png");
