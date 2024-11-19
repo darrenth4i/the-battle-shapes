@@ -4,8 +4,8 @@ import java.util.List;
 /**
  * Write a description of class SRanger here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Justin Ye 
+ * @version 10
  */
 public class SRanger extends Square
 {
@@ -18,6 +18,10 @@ public class SRanger extends Square
         super.act();
     }
     
+    /** 
+     * This constructor creates the SRanger, depending on what stage it is, it will take atk, health,
+     * atkCooldown and access new frames to animate.
+     */
     public SRanger(int stage)
     {
         super(stage);
@@ -76,6 +80,10 @@ public class SRanger extends Square
         }
     }
     
+    /**
+     * Basically just like the Railgun attack(), but it takes only one target that is closest and in 
+     * range, it attacks circles and its circle tower when it gets in range.
+     */
     protected void attack()
     { 
         List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);

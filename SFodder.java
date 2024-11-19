@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class SFodder here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Justin Ye 
+ * @version 10
  */
 public class SFodder extends Square
 {

@@ -5,14 +5,19 @@ import java.io.File;
 /**
  * Write a description of class Warrior here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Justin Ye 
+ * @version 10
  */
 public class STesseract extends Square
 {   
     private SimpleTimer attackTimer = new SimpleTimer(); 
     private int attackDelay = 100;
     private int currentFrame = 0;
+    /** 
+     * This constructor creates the STesseract, since its a special unit it has no stage, 
+     * it will still take atk, health, atkCooldown and frames to use methods from superclass Square 
+     * and Unit.
+     */
     public STesseract()
     {
         super();
@@ -29,7 +34,7 @@ public class STesseract extends Square
     }
     
     /**
-     * Act - do whatever the Warrior wants to do. This method is called whenever
+     * Act - do whatever the STesseract wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
@@ -41,6 +46,10 @@ public class STesseract extends Square
         super.act();
     }
     
+    /**
+     * Takes one circle in range or tower in range and for every frame it attacks, making it good for 
+     * wiping out small hordes of Fodders
+     */
     protected void attack()
     {
         List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
@@ -63,6 +72,10 @@ public class STesseract extends Square
         }
     }
     
+    /**
+     * Loads in the gif files instead of png because for some reason the png files get corrupted when 
+     * trying to implement them.
+     */
     protected void loadAnimationFrames(String path)
     {
         //Important: Ensure all folders are labelled with "attack", "move", and "stand"

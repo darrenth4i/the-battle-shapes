@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class SWarrior here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Justin Ye 
+ * @version 10
  */
 public class SWarrior extends Square
 {
@@ -17,6 +17,10 @@ public class SWarrior extends Square
         super.act();
     }
     
+    /** 
+     * This constructor creates the SWarrior, depending on what stage it is, it will take atk, health,
+     * atkCooldown and access new frames to animate.
+     */
     public SWarrior(int stage)
     {
         super(stage);

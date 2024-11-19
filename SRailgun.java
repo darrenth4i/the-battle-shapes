@@ -3,8 +3,8 @@ import java.util.List;
 /**
  * Write a description of class SRailgun here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Justin Ye 
+ * @version 10
  */
 public class SRailgun extends Square
 {
@@ -18,6 +18,11 @@ public class SRailgun extends Square
         super.act();
     }
     
+    /** 
+     * This constructor creates the SRailgun, since its a special unit it has no stage, 
+     * it will still take atk, health, atkCooldown and frames to use methods from superclass Square 
+     * and Unit.
+     */
     public SRailgun()
     {
         super();
@@ -44,11 +49,13 @@ public class SRailgun extends Square
         }
     }
     
+    /**
+     * makes it "walk" slower
+     */
     protected void walk()
     {
         if(checkFront()&& !isAttacking)
         {
-            //move(-speed);
             if(isHalfStep)
             {
                 standingXPos = getX() + (int) speed;
@@ -61,6 +68,10 @@ public class SRailgun extends Square
         }
     }
     
+    /**
+     * Takes all circle units and does damage to all units considered in range, and also takes enemy 
+     * tower and does damage when close enough. Adds an explsoion effect to both scenarios.
+     */
     protected void attack()
     { 
         List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
@@ -88,6 +99,9 @@ public class SRailgun extends Square
         }
     }
     
+    /**
+     * Gets the name of the unit
+     */
     protected String getName(){
         return "SRailgun";
     }

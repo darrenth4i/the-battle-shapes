@@ -31,6 +31,9 @@ public abstract class Square extends Unit
         super();
     }
     
+    /**
+     * walks if not attacking
+     */
     protected void walk()
     {
         if(checkFront()&& !isAttacking)
@@ -80,6 +83,9 @@ public abstract class Square extends Unit
         }
     }
     
+    /**
+     * knocks them back
+     */
     protected void knockback()
     {
         setLocation(getX()-10, getY()+(3*(knockbackTimer-5)));
@@ -87,12 +93,18 @@ public abstract class Square extends Unit
         setRotation(-20);
     }
     
+    /**
+     * checks the front
+     */
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
         return (getObjectsInRange(standingRange, Circle.class).size() == 0 && (getOneObjectAtOffset(standingRange, 0, Tower.class) == null || !((Tower)getOneObjectAtOffset(standingRange, 0, Tower.class)).getCircle()));
     }
     
+    /**
+     * creates a ghost sprite
+     */
     protected void createGhost()
     {
         health = -1000;

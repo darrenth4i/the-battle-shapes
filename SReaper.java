@@ -4,15 +4,15 @@
     /**
      * Write a description of class SReaper here.
      * 
-     * @author (your name) 
-     * @version (a version number or a date)
+     * @author Justin Ye 
+     * @version 10
      */
     public class SReaper extends Square
     {
         private int deathCount;
         /**
-         * Act - do whatever the SReaper wants to do. This method is called whenever
-         * the 'Act' or 'Run' button gets pressed in the environment.
+         * Act - do whatever the SReaper wants to do. once death count exceeds limit it will 
+         * automatically die
          */
         public void act()
         {
@@ -24,6 +24,11 @@
             }
         }
         
+        /**
+         * This constructor creates the SReaper, since its a special unit it has no stage, 
+         * it will still take atk, health, atkCooldown and frames to use methods from superclass Square 
+         * and Unit.
+         */
         public SReaper()
         {
             super();
@@ -41,6 +46,10 @@
             health = 50;
         }
         
+        /**
+         * It takes a circle in range and everytime it kills a circle its deathcount goes up. The 
+         * Tower takes its attack/25 to balance out the game and not have an instant game over.
+         */
         protected void attack(){
             List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
             List<Tower> towerTarget = getObjectsInRange(2 * range,Tower.class);
@@ -75,6 +84,9 @@
             }
         }
         
+        /**
+         * The png version corrupts the animation method for some reason.
+         */
         protected void loadAnimationFrames(String path)
         {
             //Important: Ensure all folders are labelled with "attack", "move", and "stand"
@@ -95,6 +107,9 @@
             }
         }
         
+        /**
+         * Gets the name of the unit
+         */
         protected String getName(){
             return "SReaper";
         }
