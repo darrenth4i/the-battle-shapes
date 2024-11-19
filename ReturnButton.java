@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ReturnButton extends MenuButtons
 {
-    
     public ReturnButton(int type)
     {
         super(type);
@@ -26,6 +25,11 @@ public class ReturnButton extends MenuButtons
     public void buttonFunction()
     {
         //SimOverWorld to title world
+        if (getWorld() instanceof SimOverWorld) {
+            SimOverWorld simWorld = (SimOverWorld) getWorld();
+            simWorld.stopCirMusic();
+            simWorld.stopSquMusic();
+        }
         FullscreenTransition trans = new FullscreenTransition(new TitleWorld(true));
         getWorld().addObject(trans, 512, 1200);
     }
