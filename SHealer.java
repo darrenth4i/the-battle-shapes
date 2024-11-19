@@ -31,7 +31,7 @@ public class SHealer extends Square
             atkCooldown = 180;
             knockbacks = 2;
             speed = 1;
-            atk = 15;
+            atk = 30;
             health = 12;
             attackFrame = 5;
             break;
@@ -45,7 +45,7 @@ public class SHealer extends Square
             atkCooldown = 150;
             knockbacks = 2;
             speed = 1;
-            atk = 20;
+            atk = 50;
             health = 24;
             break;
             
@@ -55,10 +55,10 @@ public class SHealer extends Square
             loadAnimationFrames("images/Units/SHealer/StageThree");
             setAtkSoundEffect(3,80);
             attackFrame = 6;
-            atkCooldown = 120;
+            atkCooldown = 150;
             knockbacks = 3;
             speed = 1;
-            atk = 40;
+            atk = 75;
             health = 40;
             break;
         }

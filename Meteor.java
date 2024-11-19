@@ -11,11 +11,13 @@ public class Meteor extends TowerProjectile
     private int damage;
     private GreenfootImage squareImage = new GreenfootImage("images/TowerProjectile/SquareMeteor.png");
     private GreenfootImage circleImage = new GreenfootImage("images/TowerProjectile/CircleMeteor.png");
+    private GreenfootSound meteorSound = new GreenfootSound("sounds/Effects/meteorcrash.wav");
     public Meteor(boolean circle, Unit target, int speed)
     {
         super(circle, target, 10);
         this.damage = 100;
         
+        //Changes image depending on team
         if(!circle)
         {
             squareImage.scale(65, 120);
@@ -33,6 +35,7 @@ public class Meteor extends TowerProjectile
     }
     public void effect()
     {
+        meteorSound.play(); // plays noise when impacting target
         target.hurt(damage);
     }
 }

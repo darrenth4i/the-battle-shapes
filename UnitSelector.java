@@ -39,7 +39,7 @@ public class UnitSelector extends MenuButtons
         super.act();
         if(Greenfoot.getMouseInfo() != null && Greenfoot.mouseClicked(null))
         {
-            if((getX() < 512 && Greenfoot.getMouseInfo().getX() > 512) || (getX() > 512 && Greenfoot.getMouseInfo().getX() < 512))
+            if((getX() < 512 && Greenfoot.getMouseInfo().getX() > 600) || (getX() > 512 && Greenfoot.getMouseInfo().getX() < 400))
             {
                 closeMenu();
             }

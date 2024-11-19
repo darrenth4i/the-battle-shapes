@@ -1,9 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class TowerProjectile here.
+ * TowerProjectile is the superclass of all of tower projectiles, bestowing upon them the necessary variables and methods
+ * to move towards given targets.
  * 
- * @author (your name) 
+ * @author Brennan Lyn
  * @version (a version number or a date)
  */
 public abstract class TowerProjectile extends SuperSmoothMover
@@ -34,13 +35,13 @@ public abstract class TowerProjectile extends SuperSmoothMover
         {
             // The target is still in the world
             moveTowardsTarget();
-            if(intersects(target))
+            if(intersects(target)) //When the projectile reaches the target, the does its effect, then removes itself
             {
                 effect();
                 getWorld().removeObject(this);
             }
         }
-        else
+        else //If target is removed from world, removes itself
         {
             getWorld().removeObject(this);
         }

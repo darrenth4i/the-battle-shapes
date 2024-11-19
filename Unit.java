@@ -77,9 +77,8 @@ public abstract class Unit extends SuperSmoothMover
         filePath += this.getClass().getName() + "_" + stage + ".wav";
         try {
             atkSoundEffect = new GreenfootSound(filePath);
-            atkSoundEffect.setVolume (70);
+            atkSoundEffect.setVolume (volume);
         } catch (Exception e) {
-            System.out.println(filePath);
         }
     }
     
@@ -209,7 +208,7 @@ public abstract class Unit extends SuperSmoothMover
             {
                 if(prepareMoveOffset)
                 {
-                    feetYPos = getY() + idleAnim.get(0).getHeight()/2 - moveYOffset;
+                    feetYPos = getY() + idleAnim.get(0).getHeight()/2 + moveYOffset;
                     setLocation(getX() + moveXOffset, getY() + moveYOffset);
                     startYPos += moveYOffset;
                     prepareMoveOffset = false;

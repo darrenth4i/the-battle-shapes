@@ -22,10 +22,10 @@ public class STesseract extends Square
         attackYOffset = 0;
         loadAnimationFrames("images/Units/STesseract");
         knockbacks = 1;
-        atkCooldown = 5;
+        atkCooldown = 1;
         speed = 1;
         atk = 2;
-        health = 30;
+        health = 36;
     }
     
     /**
@@ -44,6 +44,8 @@ public class STesseract extends Square
     protected void attack()
     {
         List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
+        List<Tower> towerTarget = getObjectsInRange(2 * range,Tower.class);
+        Tower tower = towerTarget.size() > 0 ? towerTarget.get(0) : null;
         if (getWorld() == null) {
             return;
         }

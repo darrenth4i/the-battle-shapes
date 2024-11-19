@@ -33,6 +33,7 @@ public abstract class Tower extends Actor
     protected GreenfootSound shootSound = new GreenfootSound("sounds/Effects/towershoot.wav");
     private GreenfootSound bloodSound = new GreenfootSound("sounds/Effects/blood-splatter.wav");
     protected GreenfootSound healthSound = new GreenfootSound("sounds/Effects/health.wav");
+    private GreenfootSound meteorShowerSound = new GreenfootSound("sounds/Effects/meteor-shower.wav");
     
     //Helper variables
     private double distance, nearestDistance, furthestDistance, lowestHealth;
@@ -61,10 +62,12 @@ public abstract class Tower extends Actor
     }
     public void setWallet()
     {
+        //Finds wallets that exists
         wallets = (ArrayList<Wallet>)getWorld().getObjects(Wallet.class);
         if(wallets == null){
             return;
         }
+        //Looks for the wallet of the same team, sets it as myWallet
         for(Wallet w : wallets){
             if((circle && w.getCircle()) || (!circle && !w.getCircle())){
                 myWallet = w;
@@ -73,6 +76,7 @@ public abstract class Tower extends Actor
     }
     public boolean healthBelow(double below)
     {
+        //returns true when health is below the parameter
         if((double)health/maxHealth<below)
         {
             return true;
@@ -82,6 +86,7 @@ public abstract class Tower extends Actor
     public void conscription()
     {
         createNotification("Attack the Enemies!!!", "Push them back!!!");
+        //Creates a semi random number of warriors for the team
         for(int i=0;i<(5+Greenfoot.getRandomNumber(9));i++)
         {
             if(circle)
@@ -97,6 +102,7 @@ public abstract class Tower extends Actor
     public void meteorStorm()
     {
         createNotification("Scorch them!", "Eat fire!");
+        meteorShowerSound.play();
         targets = getEnemies();
         if(circle){
             xOffset = 200;
@@ -132,7 +138,7 @@ public abstract class Tower extends Actor
                 myWallet.setEventMultiplier(2);
                 break;
             case 1:
-                conscription();
+                conscription(); //Spawns allies
                 break;    
         }
     }
@@ -212,15 +218,15 @@ public abstract class Tower extends Actor
     public void act()
     {
         count++;
-        if(count%fireInterval == 0)
+        if(count%fireInterval == 0)//shoots when count reaches a multiple of the fireInterval
         {
             shoot();
         }
-        if(health<0)
+        if(health<0)//Ends simulation when health reaches below 0
         {
             endSimulation();
         }
-        if(healthBelow(0.5))
+        if(healthBelow(0.99))
         {
             if(randomEventCount<1)
             {
@@ -229,9 +235,27 @@ public abstract class Tower extends Actor
                 healthSound.play();
             }
         }
-        if(healthBelow(0.25))
+        if(healthBelow(0.75))
         {
             if(randomEventCount<2)
+            {
+                randomEvent();
+                randomEventCount++;
+                healthSound.play();
+            }
+        }
+        if(healthBelow(0.5))
+        {
+            if(randomEventCount<3)
+            {
+                randomEvent();
+                randomEventCount++;
+                healthSound.play();
+            }
+        }
+        if(healthBelow(0.25))
+        {
+            if(randomEventCount<4)
             {
                 alternateRandomEvent();
                 randomEventCount++;

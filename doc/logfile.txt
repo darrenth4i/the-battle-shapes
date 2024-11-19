@@ -20,10 +20,18 @@ C:\Users\mrpap\OneDrive\Documents\GitHub\the-battle-shapes\doc
 windows-1252
 -charset
 windows-1252
-C:\Users\mrpap\OneDrive\Documents\GitHub\the-battle-shapes\Unit.java
+C:\Users\mrpap\OneDrive\Documents\GitHub\the-battle-shapes\SFodder.java
 <---- end of javadoc command ---->
-Loading source file C:\Users\mrpap\OneDrive\Documents\GitHub\the-battle-shapes\Unit.java...
-C:\Users\mrpap\OneDrive\Documents\GitHub\the-battle-shapes\Unit.java:77: error: the try-with-resources resource must either be a variable declaration or an expression denoting a reference to a final or effectively final variable
-        try(new GreenfootSound(filePath)) {
-            ^
-1 error
+Loading source file C:\Users\mrpap\OneDrive\Documents\GitHub\the-battle-shapes\SFodder.java...
+Constructing Javadoc information...
+warning: unknown enum constant Tag.Any
+  reason: class file for threadchecker.Tag not found
+warning: unknown enum constant Tag.Any
+warning: unknown enum constant Tag.Any
+warning: unknown enum constant Tag.Any
+Standard Doclet version 17.0.4.1+1
+Building tree for all the packages and classes...
+Generating C:\Users\mrpap\OneDrive\Documents\GitHub\the-battle-shapes\doc\SFodder.html...
+Generating C:\Users\mrpap\OneDrive\Documents\GitHub\the-battle-shapes\doc\package-summary.html...
+Generating C:\Users\mrpap\OneDrive\Documents\GitHub\the-battle-shapes\doc\index.html...
+4 warnings

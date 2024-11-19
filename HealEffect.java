@@ -26,10 +26,13 @@ public class HealEffect extends Effect
     }
     public void act()
     {
+        //Remove object if out of heal particles
         if(healParticleNumber < 0)
         {
             getWorld().removeObject(this);
         }
+        
+        //Every 10 acts, creates a heal particle, lowering its heal particle count
         if(actNum < 10)
         {
             actNum++;
