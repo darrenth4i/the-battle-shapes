@@ -43,7 +43,7 @@ public class CRanger extends Circle
             loadAnimationFrames("images/Units/CRanger/StageTwo");    
             
             attackFrame = 6;
-            atkCooldown = 90;
+            atkCooldown = 75;
             knockbacks = 6;
             speed = 2;
             atk = 12;
@@ -60,7 +60,7 @@ public class CRanger extends Circle
             loadAnimationFrames("images/Units/CRanger/StageThree");
             
             attackFrame = 33;
-            atkCooldown = 90;
+            atkCooldown = 75;
             knockbacks = 7;
             speed = 2;
             atk = 20;
