@@ -23,35 +23,26 @@ public class SimOverWorld extends World
         if(circleWinner)
         {   
             setBackground("Backgrounds/CircleVictory.png");
-        }
-        else
-        {
-            setBackground("Backgrounds/SquareVictory.png");
-        }
-        addObject(new ReturnButton(13),512,650);
-        addObject(new FullscreenTransition(), 512, 300);
-    }
-    public void started()
-    {
-        if(isCircle)
-        {   
             cirWin.playLoop();
         }
         else
         {
+            setBackground("Backgrounds/SquareVictory.png");
             squWin.playLoop();
         }
+        addObject(new ReturnButton(13),512,650);
+        addObject(new FullscreenTransition(), 512, 300);
     }
     
     public void stopped()
     {
         if(isCircle)
         {   
-            cirWin.pause();
+            cirWin.stop();
         }
         else
         {
-            squWin.pause();
+            squWin.stop();
         }
     }
     

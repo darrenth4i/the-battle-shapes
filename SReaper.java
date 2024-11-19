@@ -17,7 +17,7 @@
         public void act()
         {
             super.act();
-            if(deathCount > 5)
+            if(deathCount > 10)
             {
                 createGhost();
                 getWorld().removeObject(this);
@@ -35,10 +35,10 @@
             loadAnimationFrames("images/Units/SReaper");
             attackFrame = 1;        
             knockbacks = 0;
-            atkCooldown = 70;
+            atkCooldown = 2;
             speed = 2;
             atk = 500;
-            health = 30;
+            health = 50;
         }
         
         protected void attack(){
