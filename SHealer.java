@@ -27,7 +27,7 @@ public class SHealer extends Square
             attackXOffset = 0;
             attackYOffset = 0;
             loadAnimationFrames("images/Units/SHealer/StageOne");
-            
+            setAtkSoundEffect(1,80);
             atkCooldown = 180;
             knockbacks = 2;
             speed = 1;
@@ -40,7 +40,7 @@ public class SHealer extends Square
             attackXOffset = 0;
             attackYOffset = 0;
             loadAnimationFrames("images/Units/SHealer/StageTwo");
-            
+            setAtkSoundEffect(2,80);
             attackFrame = 6;
             atkCooldown = 150;
             knockbacks = 2;
@@ -53,7 +53,7 @@ public class SHealer extends Square
             attackXOffset = 0;
             attackYOffset = 0;
             loadAnimationFrames("images/Units/SHealer/StageThree");
-            
+            setAtkSoundEffect(3,80);
             attackFrame = 6;
             atkCooldown = 120;
             knockbacks = 3;
@@ -92,6 +92,7 @@ public class SHealer extends Square
             {
                 //System.out.println("S hit");
                 target.heal(atk);
+                atkSoundEffect.play();
             }
             else
             {

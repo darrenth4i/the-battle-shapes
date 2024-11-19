@@ -31,11 +31,11 @@
             imageScale = 0.85;
             attackXOffset = 0;
             attackYOffset = 0;
-            
+            setAtkSoundEffect(0,80);
             loadAnimationFrames("images/Units/SReaper");
             attackFrame = 1;        
             knockbacks = 0;
-            atkCooldown = 5;
+            atkCooldown = 70;
             speed = 2;
             atk = 500;
             health = 30;
@@ -63,11 +63,13 @@
                 if(target != null)
                 {
                     target.hurt(atk);
+                    atkSoundEffect.play();
                     deathCount++;
                 }
                 else if(tower != null)
                 {
-                    tower.hurt(atk/10);
+                    tower.hurt(atk/25);
+                    atkSoundEffect.play();
                     deathCount++;
                 }
             }

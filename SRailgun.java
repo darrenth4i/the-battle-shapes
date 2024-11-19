@@ -25,7 +25,7 @@ public class SRailgun extends Square
         attackXOffset = 40;
         attackYOffset = 0;
         loadAnimationFrames("images/Units/SRailgun");    
-        
+        setAtkSoundEffect(0,80);
         atkCooldown = 400;
         health = 20;
         knockbacks = 6;
@@ -74,6 +74,7 @@ public class SRailgun extends Square
                 {
                     potentialTargets.get(i).shieldBreak();
                     potentialTargets.get(i).hurt(atk);
+                    atkSoundEffect.play();
                     getWorld().addObject(new RailgunExplosion(), potentialTargets.get(i).getNormalX(), potentialTargets.get(i).getNormalY());
                 }
             }
@@ -81,6 +82,7 @@ public class SRailgun extends Square
             {
                 tower = towerTarget.get(0);
                 tower.hurt(atk);
+                atkSoundEffect.play();
                 getWorld().addObject(new RailgunExplosion(), tower.getX(), 400);
             }
         }

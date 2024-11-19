@@ -26,7 +26,7 @@ public class SWarrior extends Square
             attackXOffset = 60;
             attackYOffset = -30;
             loadAnimationFrames("images/Units/SWarrior/StageOne");
-        
+            setAtkSoundEffect(1,70);
             atkCooldown = 30;
             knockbacks = 2;
             speed = 3;
@@ -39,6 +39,7 @@ public class SWarrior extends Square
             attackXOffset = 65;
             attackYOffset = -30;
             loadAnimationFrames("images/Units/SWarrior/StageTwo");
+            setAtkSoundEffect(2,80);
             atkCooldown = 30;
             attackFrame = 14;
             knockbacks = 2;
@@ -51,8 +52,9 @@ public class SWarrior extends Square
             attackXOffset = 78;
             attackYOffset = -28;
             loadAnimationFrames("images/Units/SWarrior/StageThree");
-            atkCooldown = 30;
-            attackFrame = 8;
+            setAtkSoundEffect(3,70);
+            atkCooldown = 40;
+            attackFrame = 6;
             knockbacks = 2;
             speed = 3;
             atk = 16;
