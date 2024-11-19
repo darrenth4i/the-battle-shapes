@@ -24,8 +24,8 @@ public class STesseract extends Square
         knockbacks = 1;
         atkCooldown = 1;
         speed = 1;
-        atk = 3;
-        health = 30;
+        atk = 2;
+        health = 36;
     }
     
     /**

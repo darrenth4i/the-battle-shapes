@@ -187,4 +187,9 @@ public class SelectionWorld extends World
     {
         song.stopAllSongs();
     }
+    
+    public void stopped()
+    {
+        song.pauseAllSongs();
+    }
 }

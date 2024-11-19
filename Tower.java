@@ -222,7 +222,7 @@ public abstract class Tower extends Actor
         {
             endSimulation();
         }
-        if(healthBelow(0.5))
+        if(healthBelow(0.99))
         {
             if(randomEventCount<1)
             {
@@ -231,9 +231,27 @@ public abstract class Tower extends Actor
                 healthSound.play();
             }
         }
-        if(healthBelow(0.25))
+        if(healthBelow(0.75))
         {
             if(randomEventCount<2)
+            {
+                randomEvent();
+                randomEventCount++;
+                healthSound.play();
+            }
+        }
+        if(healthBelow(0.5))
+        {
+            if(randomEventCount<3)
+            {
+                randomEvent();
+                randomEventCount++;
+                healthSound.play();
+            }
+        }
+        if(healthBelow(0.25))
+        {
+            if(randomEventCount<4)
             {
                 alternateRandomEvent();
                 randomEventCount++;

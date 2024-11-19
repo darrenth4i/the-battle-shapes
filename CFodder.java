@@ -28,7 +28,7 @@ public class CFodder extends Circle
             loadAnimationFrames("images/Units/CFodder/StageOne");  
             
             attackFrame = 5;
-            atkCooldown = 60;
+            atkCooldown = 90;
             knockbacks = 2;
             speed = 2;
             atk = 4;
@@ -46,10 +46,10 @@ public class CFodder extends Circle
             loadAnimationFrames("images/Units/CFodder/StageTwo");
             
             attackFrame = 8;
-            atkCooldown = 60;
+            atkCooldown = 75;
             knockbacks = 2;
             speed = 4;
-            atk = 8;
+            atk = 6;
             health = 30;
             
             setAtkSoundEffect(1, 80);
@@ -64,11 +64,11 @@ public class CFodder extends Circle
             loadAnimationFrames("images/Units/CFodder/StageThree");
             
             attackFrame = 8;
-            atkCooldown = 30;
+            atkCooldown = 60;
             knockbacks = 3;
             speed = 4;
-            atk = 12;
-            health = 50;
+            atk = 9;
+            health = 40;
             
             setAtkSoundEffect(1, 80);
             break;
