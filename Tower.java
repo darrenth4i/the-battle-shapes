@@ -232,7 +232,7 @@ public abstract class Tower extends Actor
         }
     }
     
-    /** {NOT IMPLEMENTED YET}
+    /** 
      * The method that is run to end the simulation, resulting 
      * in either square's or circle's victory
      */
