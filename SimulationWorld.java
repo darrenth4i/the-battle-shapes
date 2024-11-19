@@ -15,6 +15,7 @@ public class SimulationWorld extends World
     private GreenfootSound music = new GreenfootSound("sounds/attackSounds/STesseract_0.wav");
     private FullscreenTransition loadingScreen = new FullscreenTransition();
     private ArrayList<GreenfootSound> soundTrack;
+    private GreenfootSound end = new GreenfootSound("end.wav");
     private int musicIndex;
     private int towerX = 100;
     private int towerY = 270;
@@ -133,6 +134,7 @@ public class SimulationWorld extends World
             isActed = true;
         }
     }
+    
     /** checks if Tesseracts exist in the world 
     */
     public void checkTesseracts()
@@ -178,11 +180,19 @@ public class SimulationWorld extends World
         soundTrack = song.getPlaylist();
     }
     
+    public void started()
+    {
+        if(musicIndex != -1)
+        {
+            soundTrack.get(musicIndex).play();
+        }
+    }
+    
     public void stopped()
     {
         if(musicIndex != -1)
         {
-            soundTrack.get(musicIndex).stop();
+            soundTrack.get(musicIndex).pause();
         }
     }
     /**
@@ -190,6 +200,15 @@ public class SimulationWorld extends World
      */
     public void simulationOver(boolean circle)
     {
+        try
+        {
+            soundTrack.get(musicIndex).stop();
+            end.play();
+        }
+        catch(Exception e)
+        {
+            end.play();
+        }
         killAllUnitsOnTeam(Unit.class, !circle);
         removeAllClassObjects(Cursor.class);
         exitButton = new ToSimOverWorld(12,circle);

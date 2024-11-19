@@ -81,11 +81,11 @@ public abstract class Tower extends Actor
         {
             if(circle)
             {
-                getWorld().addObject(new CFodder(1), getWorld().getWidth()-Greenfoot.getRandomNumber(40), getY()+110+Greenfoot.getRandomNumber(20));
+                getWorld().addObject(new CWarrior(1), getWorld().getWidth()-Greenfoot.getRandomNumber(40), getY()+110+Greenfoot.getRandomNumber(20));
             }
             else
             {
-                getWorld().addObject(new SFodder(1), 0-Greenfoot.getRandomNumber(40), getY()+110+Greenfoot.getRandomNumber(20));
+                getWorld().addObject(new SWarrior(1), 0-Greenfoot.getRandomNumber(40), getY()+110+Greenfoot.getRandomNumber(20));
             }
         }
     }
