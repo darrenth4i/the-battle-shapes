@@ -21,9 +21,9 @@ public class UpgradeButton extends PlayerUI
     private Wallet wallet;
     private Text text;
 
-    public UpgradeButton(String type, boolean circle) {
+    public UpgradeButton(String type, boolean circle, int lvl) {
         this.type = type;
-        level = 0;
+        level = lvl;
         buttonPressed = false;
         clicked = false;
         spawned = true;
@@ -45,24 +45,59 @@ public class UpgradeButton extends PlayerUI
             //when first added to world, find out which tower and wallet is your teams'
             ArrayList<Tower> towers = (ArrayList<Tower>)getWorld().getObjects(Tower.class);
             if (towers.size() != 0) {
-                if (towers.get(0).getCircle() == circle) {
-                    tower = towers.get(0);
-                } else {
-                    tower = towers.get(1);
+                if (towers.get(0).getCircle()){
+                    if(this.circle){
+                        tower = towers.get(0);
+                    }
+                    else {
+                        tower = towers.get(1);
+                    }
+                }
+                else{
+                    if(this.circle){
+                        tower = towers.get(1);
+                    }
+                    else {
+                        tower = towers.get(0);
+                    }
                 }
             }
             ArrayList<Wallet> wallets = (ArrayList<Wallet>)getWorld().getObjects(Wallet.class);
             if (wallets.size() != 0) {
-                if (wallets.get(0).getCircle() == circle) {
-                    wallet = wallets.get(0);
-                } else {
-                    wallet = wallets.get(1);
+                if (wallets.get(0).getCircle()) {
+                    if(this.circle){
+                        wallet = wallets.get(0);
+                    }
+                    else {
+                        wallet = wallets.get(1);
+                    }
+                }
+                else{
+                    if(this.circle){
+                        wallet = wallets.get(1);
+                    }
+                    else {
+                        wallet = wallets.get(0);
+                    }
                 }
             }
             //display cost of upgrade
             text = new Text("$" + cost, 15, Color.BLACK, Color.WHITE);
             getWorld().addObject(text, getX() - 55, getY() + 10);
-
+            
+            if(level != 0){
+                cost = 2500;
+                tower.updateLevel(level);
+                switch (level) {
+                    case 1:
+                        wallet.setMultiplier(1.75);
+                        break;
+                    case 2:
+                        wallet.setMultiplier(2.5);
+                        break;
+                }
+            }
+            text.updateText("$" + cost, 15, Color.BLACK, Color.WHITE);
             spawned = false;
         }   
         //set the image according to the level of the upgrade

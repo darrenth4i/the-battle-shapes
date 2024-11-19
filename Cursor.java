@@ -52,7 +52,7 @@ public class Cursor extends SuperSmoothMover
     private UpgradeButton myWalletUpgradeButton;
     private UpgradeButton myTowerUpgradeButton;
     
-    //list of all UpgradeButton
+    //list of all Towers
     private ArrayList<Tower> towers;
     //team specific upgrade button
     private Tower myTower;
