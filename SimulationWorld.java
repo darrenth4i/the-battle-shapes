@@ -16,7 +16,7 @@ public class SimulationWorld extends World
     private FullscreenTransition loadingScreen = new FullscreenTransition();
     private ArrayList<GreenfootSound> soundTrack;
     private GreenfootSound end = new GreenfootSound("end.wav");
-    private int musicIndex;
+    private int musicIndex = -1;
     private int towerX = 100;
     private int towerY = 270;
     private int acts;
