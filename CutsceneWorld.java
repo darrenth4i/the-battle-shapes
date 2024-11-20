@@ -32,6 +32,7 @@ public class CutsceneWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1024, 700, 1, false); 
         prepare();
+        loopingSound.setVolume(80);
         addObject(new FullscreenTransition(false), 512, 300);
     }
     
@@ -99,7 +100,7 @@ public class CutsceneWorld extends World
                 {
                     return index;
                 }
-                new GreenfootSound("Cutscene/4.mp3").play();
+                new GreenfootSound("Cutscene/4.wav").play();
                 break;
             case 103:
             case 116:
@@ -115,7 +116,7 @@ public class CutsceneWorld extends World
                 break;
                 
             case 1:
-                new GreenfootSound("Cutscene/0.mp3").play();
+                new GreenfootSound("Cutscene/0.wav").play();
                 new GreenfootSound("Cutscene/2.wav").play();
                 break;
             case 19:
