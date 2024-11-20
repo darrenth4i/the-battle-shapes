@@ -76,6 +76,7 @@ public class CDragon extends Circle
      */
     protected void attack()
     {
+        //multihit code
         List<Square> potentialTargets = getObjectsInRange(range, Square.class);
         List<Tower> towerTarget = getObjectsInRange(range,Tower.class);
         Tower tower = towerTarget.size() > 0 ? towerTarget.get(0) : null;

@@ -64,6 +64,7 @@ public abstract class Circle extends Unit
         if(potentialTargets.size() > 0||towerTarget.size() > 0)
         {
             Square target = potentialTargets.size() > 0 ? potentialTargets.get(0) : null;
+            //searches for units to target
             for(int i = 0; i < potentialTargets.size(); i++)
             {
                 if(potentialTargets.get(i).getNormalX() > target.getNormalX())
@@ -71,16 +72,19 @@ public abstract class Circle extends Unit
                     target = potentialTargets.get(i);
                 }
             }
+            //checks if tower is a target
             if(tower != null && !tower.getCircle() && (target == null || tower.getX() > target.getNormalX()))
             {
                 tower = towerTarget.get(0);
                 target = null;
             }
+            //attack target
             if(target != null)
             {
                 target.hurt(atk);
                 playAtkSoundEffect();
             }
+            //attack tower
             else if(tower != null)
             {
                 tower.hurt(atk);

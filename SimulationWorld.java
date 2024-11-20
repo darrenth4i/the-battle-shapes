@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Write a description of class MyWorld here.
+ * The world in which the simulation takes place
  * 
  * @author Andy Li and Darren T
  * @version (a version number or a date)
