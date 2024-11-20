@@ -32,7 +32,7 @@ public class CFodder extends Circle
             knockbacks = 2;
             speed = 2;
             atk = 4;
-            health = 16;
+            health = 8;
             attackFrame = 5;
             
             setAtkSoundEffect(1, 100);
@@ -50,7 +50,7 @@ public class CFodder extends Circle
             knockbacks = 2;
             speed = 4;
             atk = 6;
-            health = 30;
+            health = 15;
             
             setAtkSoundEffect(1, 80);
             break;
@@ -68,7 +68,7 @@ public class CFodder extends Circle
             knockbacks = 3;
             speed = 4;
             atk = 9;
-            health = 40;
+            health = 20;
             
             setAtkSoundEffect(1, 80);
             break;

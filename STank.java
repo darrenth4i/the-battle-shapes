@@ -35,7 +35,7 @@ public class STank extends Square
             knockbacks = 1;
             speed = 2;
             atk = 2;
-            health = 60;
+            health = 30;
             attackFrame = 5;
             break;
             
@@ -51,7 +51,7 @@ public class STank extends Square
             knockbacks = 1;
             speed = 2;
             atk = 3;
-            health = 100;
+            health = 50;
             break;
             
             case 3:
@@ -65,7 +65,7 @@ public class STank extends Square
             knockbacks = 1;
             speed = 2;
             atk = 4;
-            health = 140;
+            health = 70;
             break;
         }
     }

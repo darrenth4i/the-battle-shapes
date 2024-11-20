@@ -35,7 +35,7 @@ public class SWarrior extends Square
             knockbacks = 2;
             speed = 3;
             atk = 8;
-            health = 30;
+            health = 15;
             attackFrame = 11;
             break;
             
@@ -49,7 +49,7 @@ public class SWarrior extends Square
             knockbacks = 2;
             speed = 3;
             atk = 12;
-            health = 40;
+            health = 20;
             break;
             
             case 3:
@@ -62,7 +62,7 @@ public class SWarrior extends Square
             knockbacks = 2;
             speed = 3;
             atk = 16;
-            health = 50;
+            health = 25;
             break;
         }
     }

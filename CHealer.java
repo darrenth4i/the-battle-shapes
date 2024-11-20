@@ -34,8 +34,8 @@ public class CHealer extends Circle
             atkCooldown = 180;
             knockbacks = 2;
             speed = 1;
-            atk = 30;
-            health = 12;
+            atk = 15;
+            health = 6;
             setAtkSoundEffect(1, 80);
             break;
             
@@ -48,8 +48,8 @@ public class CHealer extends Circle
             atkCooldown = 150;
             knockbacks = 2;
             speed = 1;
-            atk = 50;
-            health = 24;
+            atk = 25;
+            health = 12;
             setAtkSoundEffect(1, 80);
             break;
             
@@ -62,8 +62,8 @@ public class CHealer extends Circle
             atkCooldown = 150;
             knockbacks = 3;
             speed = 1;
-            atk = 75;
-            health = 30;
+            atk = 40;
+            health = 15;
             setAtkSoundEffect(1, 80);
             break;
         }

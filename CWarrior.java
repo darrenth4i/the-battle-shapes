@@ -32,7 +32,7 @@ public class CWarrior extends Circle
             knockbacks = 2;
             speed = 3;
             atk = 8;
-            health = 30;
+            health = 15;
             
             setAtkSoundEffect(1, 80);
             break;
@@ -43,7 +43,7 @@ public class CWarrior extends Circle
             knockbacks = 2;
             speed = 3;
             atk = 15;
-            health = 40;
+            health = 20;
             
             setAtkSoundEffect(1, 80);
             break;
@@ -56,7 +56,7 @@ public class CWarrior extends Circle
             knockbacks = 2;
             speed = 3;
             atk = 22;
-            health = 50;
+            health = 25;
             
             setAtkSoundEffect(1, 85);
             break;

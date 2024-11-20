@@ -33,7 +33,7 @@ public class SRanger extends Square
             loadAnimationFrames("images/Units/SRanger/StageOne");    
             setAtkSoundEffect(1,70);
             atkCooldown = 75;
-            health = 10;
+            health = 5;
             knockbacks = 6;
             speed = 2;
             atk = 5;
@@ -46,7 +46,7 @@ public class SRanger extends Square
             loadAnimationFrames("images/Units/SRanger/StageTwo");    
             setAtkSoundEffect(2,65);
             atkCooldown = 75;
-            health = 16;
+            health = 8;
             knockbacks = 6;
             speed = 2;
             atk = 12;
@@ -65,7 +65,7 @@ public class SRanger extends Square
             knockbacks = 7;
             speed = 2;
             atk = 20;
-            health = 20;
+            health = 10;
             break;
         }        
     }

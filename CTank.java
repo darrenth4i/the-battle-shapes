@@ -31,7 +31,7 @@ public class CTank extends Circle
             knockbacks = 1;
             speed = 2;
             atk = 2;
-            health = 60;
+            health = 30;
             setAtkSoundEffect(1, 80);
             break;
             
@@ -48,7 +48,7 @@ public class CTank extends Circle
             knockbacks = 1;
             speed = 2;
             atk = 3;
-            health = 100;
+            health = 50;
             setAtkSoundEffect(1, 80);
             break;
             
@@ -65,7 +65,7 @@ public class CTank extends Circle
             knockbacks = 1;
             speed = 2;
             atk = 4;
-            health = 140;
+            health = 70;
             setAtkSoundEffect(1, 80);
             break;
         }

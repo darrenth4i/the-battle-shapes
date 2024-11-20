@@ -33,7 +33,7 @@ public class CRanger extends Circle
             knockbacks = 6;
             speed = 2;
             atk = 6;
-            health = 10;
+            health = 5;
             setAtkSoundEffect(1, 80);
             break;
             
@@ -47,7 +47,7 @@ public class CRanger extends Circle
             knockbacks = 6;
             speed = 2;
             atk = 10;
-            health = 16;
+            health = 8;
             setAtkSoundEffect(1, 80);
             break;
             
@@ -64,7 +64,7 @@ public class CRanger extends Circle
             knockbacks = 7;
             speed = 2;
             atk = 18;
-            health = 20;
+            health = 10;
             setAtkSoundEffect(1, 80);
             break;
         }
