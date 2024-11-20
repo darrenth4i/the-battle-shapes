@@ -23,13 +23,16 @@ public class Notification extends PlayerUI
     
     public Notification(boolean cir, int x, String text, boolean end){
         circle = cir;
+        //if circle, move left, else, move right
         direction = cir ? -1 : 1;
         finalX = x;
         
+        //if this is an end notification, make it move faster and larger text
         if(end){
             velocity = 35;
             message = new Text(text, 32);
         }
+        //else normal
         else{
             velocity = 19; 
             message = new Text(text, 18);
