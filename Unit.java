@@ -89,7 +89,8 @@ public abstract class Unit extends SuperSmoothMover
             atkSoundEffect = new GreenfootSound(filePath);
             atkSoundEffect.setVolume (80);
         } catch (Exception e) {
-            System.out.println(filePath);
+            //debug only
+            //System.out.println(filePath);
         }
     }
     
