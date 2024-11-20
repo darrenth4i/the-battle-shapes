@@ -3,17 +3,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class DefenseProjectile here.
  * 
- * @author (your name) 
+ * @author Brennan Lyn
  * @version (a version number or a date)
  */
 public class DefenseProjectile extends TowerProjectile
 {
-    private int mitigation;
+    private int mitigation; //Times the shield will mitigate damage
     public DefenseProjectile(boolean circle, Unit target, int speed, int mitigation)
     {
         super(circle, target, speed);
         this.mitigation = mitigation;
-        
+        setImage("images/TowerProjectile/Defense.png");
     }
     public void act()
     {
@@ -21,6 +21,6 @@ public class DefenseProjectile extends TowerProjectile
     }
     public void effect()
     {
-        //not yet implemented
+        target.shield(mitigation); //Gives units a shield that mitigates a certain number of hits
     }
 }

@@ -3,14 +3,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Defence here.
  * 
- * @author (your name) 
+ * @author Brennan Lyn
  * @version (a version number or a date)
  */
 public class Defense extends Tower
 {
-    public Defense(boolean circle, int towerRange, int fireInterval)
+    public Defense(boolean circle, int level, int maxHP)
     {
-        super(circle, towerRange, fireInterval);
+        super(circle, 0, level, maxHP);
     }
     
     /**
@@ -19,11 +19,15 @@ public class Defense extends Tower
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
     public void shoot()
     {
-        
+        if(getFurthestSameShape() != null)
+        {
+            getWorld().addObject(new DefenseProjectile(circle,getFurthestSameShape(),4, 1), getX(), getY());
+            shootSound.play();
+        }
     }
 }

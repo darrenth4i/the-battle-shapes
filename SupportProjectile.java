@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class SupportProjectile here.
  * 
- * @author (your name) 
+ * @author Brennan Lyn
  * @version (a version number or a date)
  */
 public class SupportProjectile extends TowerProjectile
@@ -13,7 +13,7 @@ public class SupportProjectile extends TowerProjectile
     {
         super(circle, target, speed);
         this.heal = heal;
-        
+        setImage("images/TowerProjectile/Support.png");
     }
     public void act()
     {
@@ -21,6 +21,6 @@ public class SupportProjectile extends TowerProjectile
     }
     public void effect()
     {
-        target.heal(heal);
+        target.heal(heal); //heals target by heal int
     }
 }

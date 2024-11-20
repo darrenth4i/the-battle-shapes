@@ -1,9 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class SHealer here.
  * 
- * @author (your name) 
+ * @author Justin Ye
  * @version (a version number or a date)
  */
 public class SHealer extends Square
@@ -14,13 +15,98 @@ public class SHealer extends Square
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
-    public SHealer()
+    /** 
+     * This constructor creates the SHealer, depending on what stage it is, it will take atk, health,
+     * atkCooldown and access new frames to animate.
+     */
+    public SHealer(int stage)
     {
-        speed = 2;
-        atk = 1;
-        health = 4;
+        super(stage);
+        switch(stage)
+        {
+            case 1:
+            attackXOffset = 0;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/SHealer/StageOne");
+            setAtkSoundEffect(1,80);
+            atkCooldown = 180;
+            knockbacks = 2;
+            speed = 1;
+            atk = 15;
+            health = 6;
+            attackFrame = 5;
+            break;
+            
+            case 2:
+            attackXOffset = 0;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/SHealer/StageTwo");
+            setAtkSoundEffect(2,80);
+            attackFrame = 6;
+            atkCooldown = 150;
+            knockbacks = 2;
+            speed = 1;
+            atk = 25;
+            health = 12;
+            break;
+            
+            case 3:
+            attackXOffset = 0;
+            attackYOffset = 0;
+            loadAnimationFrames("images/Units/SHealer/StageThree");
+            setAtkSoundEffect(3,80);
+            attackFrame = 6;
+            atkCooldown = 150;
+            knockbacks = 3;
+            speed = 1;
+            atk = 30;
+            health = 20;
+            break;
+        }
+    }
+    
+    //Andy's code
+    public void addedToWorld(World world)
+    {
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range = 300;
+            standingRange = range - range/10;
+        }
+    }
+    
+    /**
+     * Takes all squares in range and chooses a target to heal, the heal amount depends on the atk value.
+     */
+    protected void attack()
+    {
+        List<Square> potentialTargets = getObjectsInRange(range, Square.class);
+        if(potentialTargets.size() > 0)
+        {
+            Square target = potentialTargets.get(0);
+            for(int i = 0; i < potentialTargets.size(); i++)
+            {
+                if(potentialTargets.get(i).getHealthDividedByMax() < target.getHealthDividedByMax())
+                {
+                    target = potentialTargets.get(i);
+                }
+            }
+            if(target != null)
+            {
+                target.heal(atk);
+                atkSoundEffect.play();
+            }
+        }
+    }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "SHealer";
     }
 }

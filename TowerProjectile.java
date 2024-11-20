@@ -1,21 +1,28 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class TowerProjectile here.
+ * TowerProjectile is the superclass of all of tower projectiles, bestowing upon them the necessary variables and methods
+ * to move towards given targets.
  * 
- * @author (your name) 
+ * @author Brennan Lyn
  * @version (a version number or a date)
  */
-public abstract class TowerProjectile extends Actor
+public abstract class TowerProjectile extends SuperSmoothMover
 {
     protected boolean circle;
     protected Unit target;
     protected int speed;
+    protected GreenfootImage projectile;
+    protected boolean contacted;
+    protected GreenfootSound effectSound;
     public TowerProjectile(boolean circle, Unit target, int speed)
     {
         this.circle = circle;
         this.target = target;
         this.speed = speed;
+        projectile = getImage();
+        projectile.scale(10,10);
+        enableStaticRotation ();
     }
     /**
      * Projectile moves towards target at set speed
@@ -24,10 +31,19 @@ public abstract class TowerProjectile extends Actor
      */
     public void act()
     {
-        moveTowards(target, speed);
-        if(intersects(target))
+        if ((target != null && target.getWorld() != null) && !target.getName().equals("CDragonHitbox")) 
         {
-            effect();
+            // The target is still in the world
+            moveTowardsTarget();
+            if(intersects(target)) //When the projectile reaches the target, the does its effect, then removes itself
+            {
+                effect();
+                getWorld().removeObject(this);
+            }
+        }
+        else //If target is removed from world, removes itself
+        {
+            getWorld().removeObject(this);
         }
     }
     
@@ -37,42 +53,57 @@ public abstract class TowerProjectile extends Actor
      */
     public abstract void effect();
     
+    
     /**
      * A method used to move towards an actor
      * Made by ChatGPT
      */
-    public void moveTowards(Actor targetObject, int speed) {
-        // Get the target's coordinates
-        if(targetObject.getWorld()==null)
-        {
-            return;
-        }
-        int targetX = targetObject.getX();
-        int targetY = targetObject.getY();
-    
-        // Get the moving object's current coordinates
-        int currentX = getX();
-        int currentY = getY();
-    
-        // Calculate the difference (direction vector)
-        int deltaX = targetX - currentX;
-        int deltaY = targetY - currentY;
-    
-        // Calculate the distance between the two objects
-        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    
-        // If the distance is not zero, move towards the target
-        if (distance != 0) {
-            // Calculate the normalized direction (unit vector)
-            double directionX = deltaX / distance;
-            double directionY = deltaY / distance;
-    
-            // Move in the direction of the target by 'speed' units
-            int newX = (int) (currentX + directionX * speed);
-            int newY = (int) (currentY + directionY * speed);
-    
-            // Set the new position of the moving object
-            setLocation(newX, newY);
-        }
+    protected void moveTowardsTarget() {
+        int x1 = getX();
+        int y1 = getY();
+        int x2 = target.getNormalX();
+        int y2 = target.getNormalY();
+
+        // Calculate the angle towards the target
+        double angle = Math.atan2(y2 - y1, x2 - x1);
+
+        // Set rotation to face the target (optional)
+        setRotation((int) Math.toDegrees(angle));
+
+        // Move a certain number of units (speed) towards the target
+        int dx = (int) (Math.cos(angle) * speed);
+        int dy = (int) (Math.sin(angle) * speed);
+
+        setLocation(x1 + dx, y1 + dy);
     }
+    
+    /*protected void moveTowardsTarget() 
+    {
+        int x1 = getX();
+        int y1 = getY();
+        int x2 = target.getNormalX();
+        int y2 = target.getNormalY();
+
+        // Calculate the angle towards the target
+        double angle = Math.atan2(y2 - y1, x2 - x1);
+
+        // Move a certain number of units (speed) towards the target
+        int speed = 8;  // Adjust speed as needed
+        int dx = (int) (Math.cos(angle) * speed);
+        int dy;
+        if(x1 > x2 - 40 && x1 < x2 +40)
+        {
+            dy = 15;
+        }
+        else
+        {
+            dy = -1;
+        }
+
+        setLocation(x1 + dx, y1 + dy);
+        if(x1 > x2 - 40 && x1 < x2 +40 && y1 > y2)
+        {
+            contacted = true;
+        }
+    }*/
 }

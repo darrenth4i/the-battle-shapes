@@ -1,9 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Ranger here.
  * 
- * @author (your name) 
+ * @author Andy Li
  * @version (a version number or a date)
  */
 public class CRanger extends Circle
@@ -14,13 +15,115 @@ public class CRanger extends Circle
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     
-    public CRanger()
+    public CRanger(int stage)
     {
-        speed = 2;
-        atk = 1;
-        health = 4;
+        super(stage);
+        switch(stage)
+        {
+            case 1:
+            attackXOffset = -27;
+            attackYOffset = -5;
+            loadAnimationFrames("images/Units/CRanger/StageOne");    
+            
+            attackFrame = 11;
+            atkCooldown = 90;
+            knockbacks = 6;
+            speed = 2;
+            atk = 6;
+            health = 5;
+            setAtkSoundEffect(1, 80);
+            break;
+            
+            case 2:
+            attackXOffset = -25;
+            attackYOffset = -35;
+            loadAnimationFrames("images/Units/CRanger/StageTwo");    
+            
+            attackFrame = 6;
+            atkCooldown = 75;
+            knockbacks = 6;
+            speed = 2;
+            atk = 10;
+            health = 8;
+            setAtkSoundEffect(1, 80);
+            break;
+            
+            case 3:
+            totalYOffset = -30;
+            attackXOffset = -65;
+            attackYOffset = 21;
+            moveXOffset = 0;
+            moveYOffset = 0;
+            loadAnimationFrames("images/Units/CRanger/StageThree");
+            
+            attackFrame = 33;
+            atkCooldown = 75;
+            knockbacks = 7;
+            speed = 2;
+            atk = 18;
+            health = 10;
+            setAtkSoundEffect(1, 80);
+            break;
+        }
+    }
+    
+    public void addedToWorld(World world)
+    {
+        if(justAddedToWorld)
+        {
+            super.addedToWorld(world);
+            range = 400;
+            standingRange = range - 50;
+        }
+    }
+    
+    /**
+     * Does damage to a target from a distance within a certain range.
+     */
+    protected void attack()
+    {
+        List<Square> potentialTargets = getObjectsInRange(range, Square.class);
+        Tower tower = stage == 3 ? (Tower)getOneObjectAtOffset(-range+30, 0,Tower.class) : (Tower)getOneObjectAtOffset(-range+10, 0,Tower.class);
+
+        if(potentialTargets.size() > 0||tower != null)
+        {
+            Square target = potentialTargets.size() > 0 ? potentialTargets.get(0) : null;
+            for(int i = 0; i < potentialTargets.size(); i++)
+            {
+                if(potentialTargets.get(i).getNormalX() < target.getNormalX())
+                {
+                    target = potentialTargets.get(i);
+                }
+            }
+            if(tower != null && (target == null || (target.getNormalX() > getNormalX() - 200 && tower.getX() > target.getNormalX())))
+            {
+                target = null;
+                playAtkSoundEffect();
+                tower.hurt(atk);
+                if(stage == 3)
+                {
+                    getWorld().addObject(new RangerExplosion(), tower.getX(), tower.getY()+20);
+                }
+            }
+            if(target != null && target.getNormalX() < getNormalX() - 200)
+            {
+                playAtkSoundEffect();
+                target.hurt(atk);
+                if(stage == 3)
+                {
+                    getWorld().addObject(new RangerExplosion(), target.getNormalX(), target.getNormalY());
+                }
+            }
+        }
+    }
+    
+    /**
+     * Gets the name of the unit
+     */
+    protected String getName(){
+        return "CRanger";
     }
 }

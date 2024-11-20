@@ -1,9 +1,14 @@
 #BlueJ class context
 comment0.target=CTank
-comment0.text=\n\ Write\ a\ description\ of\ class\ Tank\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Tank\ here.\r\n\ \r\n\ @author\ Andy\ Li\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\n\ Act\ -\ do\ whatever\ the\ Tank\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
-comment2.params=
-comment2.target=CTank()
-numComments=3
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ Tank\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment2.params=stage
+comment2.target=CTank(int)
+comment3.params=world
+comment3.target=void\ addedToWorld(greenfoot.World)
+comment4.params=
+comment4.target=java.lang.String\ getName()
+comment4.text=\r\n\ Gets\ the\ name\ of\ the\ unit\r\n
+numComments=5

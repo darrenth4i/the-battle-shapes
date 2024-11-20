@@ -3,14 +3,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Offense here.
  * 
- * @author (your name) 
+ * @author Brennan Lyn
  * @version (a version number or a date)
  */
 public class Offense extends Tower
 {
-    public Offense(boolean circle, int towerRange, int fireInterval)
+    public Offense(boolean circle, int level, int maxHP)
     {
-        super(circle, towerRange, fireInterval);
+        super(circle, 1, level, maxHP);
     }
     /**
      * Act - do whatever the Offense wants to do. This method is called whenever
@@ -18,11 +18,14 @@ public class Offense extends Tower
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
     public void shoot()
     {
-        Unit target = getNearestOppositeShape();
-        getWorld().addObject(new OffenseProjectile(circle,getNearestOppositeShape(),1, 1), getX(), getY());
+        if(getNearestOppositeShape() != null)
+        {
+            getWorld().addObject(new OffenseProjectile(circle,getNearestOppositeShape(),4, 1), getX(), getY());
+            shootSound.play();
+        }
     }
 }

@@ -1,9 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Square here.
  * 
- * @author (your name) 
+ * @author Justin Ye
  * @version (a version number or a date)
  */
 public abstract class Square extends Unit
@@ -17,19 +18,28 @@ public abstract class Square extends Unit
         super.act();
     }
     
-    public Square()
+    public Square(int stage)
     {
-        super();
+        super(stage);
         //Sets image size
         imageScale = 1;
         getImage().scale((int)(getImage().getWidth()*imageScale),(int)(getImage().getHeight()*imageScale));
     }
     
+    public Square()
+    {
+        super();
+    }
+    
+    /**
+     * walks if not attacking
+     */
     protected void walk()
     {
         if(checkFront()&& !isAttacking)
         {
-            move(speed);
+            //move(speed);
+            standingXPos = getX() + (int) speed;
         }
         else
         {
@@ -42,22 +52,63 @@ public abstract class Square extends Unit
      */
     protected void attack()
     {
-        Circle target = getObjectsInRange(getImage().getWidth()/2, Circle.class).size() != 0 ? getObjectsInRange(getImage().getWidth()/2, Circle.class).get(0) : null;
-        if(target != null)
+        List<Circle> potentialTargets = getObjectsInRange(range, Circle.class);
+        List<Tower> towerTarget = getObjectsInRange(2 * range,Tower.class);
+        Tower tower = towerTarget.size() > 0 ? towerTarget.get(0) : null;
+        if(potentialTargets.size() > 0||towerTarget.size() > 0)
         {
-            target.hurt(atk);
+            Circle target = potentialTargets.size() > 0 ? potentialTargets.get(0) : null;
+            for(int i = 0; i < potentialTargets.size(); i++)
+            {
+                if(potentialTargets.get(i).getNormalX() < target.getNormalX())
+                {
+                    target = potentialTargets.get(i);
+                }
+            }
+            if(tower != null && tower.getCircle() && (target == null || tower.getX() < target.getNormalX()))
+            {
+                tower = towerTarget.get(0);
+                target = null;
+            }
+            if(target != null)
+            {
+                target.hurt(atk);
+                playAtkSoundEffect();
+            }
+            else if(tower != null)
+            {
+                tower.hurt(atk);
+                playAtkSoundEffect();
+            }
         }
     }
     
+    /**
+     * knocks them back
+     */
     protected void knockback()
     {
         setLocation(getX()-10, getY()+(3*(knockbackTimer-5)));
+        standingXPos = getX() - 10;
         setRotation(-20);
     }
     
+    /**
+     * checks the front
+     */
     protected boolean checkFront()
     {
         //if it is empty, the front is clear
-        return getOneObjectAtOffset(getImage().getWidth(), 0, Circle.class) == null;
+        return (getObjectsInRange(standingRange, Circle.class).size() == 0 && (getOneObjectAtOffset(standingRange, 0, Tower.class) == null || !((Tower)getOneObjectAtOffset(standingRange, 0, Tower.class)).getCircle()));
+    }
+    
+    /**
+     * creates a ghost sprite
+     */
+    protected void createGhost()
+    {
+        health = -1000;
+        dieSoundEffect.play();
+        getWorld().addObject(new Ghost(false),getNormalX(), getNormalY());
     }
 }
