@@ -61,7 +61,6 @@ public class Shockwave extends OffensiveProjectileExplosion
         {
             targetList = (ArrayList)getIntersectingObjects(Circle.class);
         }
-        System.out.println(targetList);
         for(Unit u : targetList)
         {
             u.hurt(level);
