@@ -74,7 +74,7 @@ public class UnitSelector extends MenuButtons
             else
             {
                 cU1 = new VisualSpawnUnit("SReaper", 600, this);
-                cU2 = new VisualSpawnUnit("SRailgun", 2500, this);
+                cU2 = new VisualSpawnUnit("SRailgun", 1250, this);
                 cU3 = new VisualSpawnUnit("STesseract", 300, this);
                 getWorld().addObject(cU1, getX()-100, getY() + 70);
                 getWorld().addObject(cU2, getX(), getY() + 70);
@@ -100,8 +100,8 @@ public class UnitSelector extends MenuButtons
             }
             else
             {
-                cU1 = new VisualSpawnUnit("CDragon", 2000, this);
-                cU2 = new VisualSpawnUnit("CBomb", 150, this);
+                cU1 = new VisualSpawnUnit("CDragon", 1000, this);
+                cU2 = new VisualSpawnUnit("CBomb", 750, this);
                 cU3 = new VisualSpawnUnit("CCyclone", 300, this);
                 getWorld().addObject(cU1, getX()-100, getY() + 70);
                 getWorld().addObject(cU2, getX(), getY() + 70);

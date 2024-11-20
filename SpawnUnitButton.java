@@ -13,8 +13,8 @@ public class SpawnUnitButton extends PlayerUI
     
     private int[] unitCostIndex = {100, 150, 250, 300, 300};
     
-    private int[] specialCircleUnitCostIndex = {300, 150, 2000};
-    private int[] specialSquareUnitCostIndex = {300, 600, 2500};
+    private int[] specialCircleUnitCostIndex = {300, 750, 1000};
+    private int[] specialSquareUnitCostIndex = {300, 600, 1250};
 
     //Used for upgrade of the buttons to spawn upgraded units
     private int spent;
