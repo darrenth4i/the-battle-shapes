@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class WalletUpgrade here.
  * 
- * @author (your name) 
+ * @author Brennan Lyn
  * @version (a version number or a date)
  */
 public class UpgradeButton extends PlayerUI

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Write a description of class MyWorld here.
  * 
- * @author (your name) 
+ * @author Andy Li and Darren T
  * @version (a version number or a date)
  */
 public class SimulationWorld extends World

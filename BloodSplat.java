@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class BloodSplat here.
  * 
- * @author (your name) 
+ * @author Brennan Lyn
  * @version (a version number or a date)
  */
 public class BloodSplat extends Effect

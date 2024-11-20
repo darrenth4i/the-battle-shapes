@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class Cursor here.
  * 
- * @author (your name) 
+ * @author Darren T and Andy L
  * @version (a version number or a date)
  */
 public class Cursor extends SuperSmoothMover

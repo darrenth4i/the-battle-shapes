@@ -1,6 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
-
+/**
+ * Write a description of class UnitSelector here.
+ * 
+ * @author Andy Li
+ * @version (a version number or a date)
+ */
 public class VisualSpawnUnit extends MenuButtons
 {
     private SimpleTimer timer = new SimpleTimer();

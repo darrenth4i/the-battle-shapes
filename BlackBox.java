@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class BlackBox here.
  * 
- * @author (your name) 
+ * @author Braden Chan
  * @version (a version number or a date)
  */
 public class BlackBox extends PlayerUI

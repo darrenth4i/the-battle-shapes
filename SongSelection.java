@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class SongSelection here.
  * 
- * @author (your name) 
+ * @author Justin Ye
  * @version (a version number or a date)
  */
 public class SongSelection extends Graphic

@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class RailgunExplosion here.
  * 
- * @author (your name) 
+ * @author Justin Ye
  * @version (a version number or a date)
  */
 
@@ -13,7 +13,6 @@ public class RailgunExplosion extends Effect
      * Act - do whatever the RailgunExplosion wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    //taken from https://orangemushroom.net/2018/06/16/kmst-ver-1-2-069-maplestory-black-mage-begins/wild-grenade-effect-explosion/
     public RailgunExplosion()
     {
         super();

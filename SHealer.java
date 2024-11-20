@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Write a description of class SHealer here.
  * 
- * @author (your name) 
+ * @author Justin Ye
  * @version (a version number or a date)
  */
 public class SHealer extends Square

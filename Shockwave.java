@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class Shockwave here.
  * 
- * @author (your name) 
+ * @author Andy Li
  * @version (a version number or a date)
  */
 public class Shockwave extends OffensiveProjectileExplosion

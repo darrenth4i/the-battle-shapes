@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class ToSimOverWorld here.
  * 
- * @author (your name) 
+ * @author Andy Li
  * @version (a version number or a date)
  */
 public class ToSimOverWorld extends MenuButtons

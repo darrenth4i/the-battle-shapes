@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Write a description of class Ranger here.
  * 
- * @author (your name) 
+ * @author Andy Li
  * @version (a version number or a date)
  */
 public class CRanger extends Circle

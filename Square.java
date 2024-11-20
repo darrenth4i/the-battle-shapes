@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Write a description of class Square here.
  * 
- * @author (your name) 
+ * @author Justin Ye
  * @version (a version number or a date)
  */
 public abstract class Square extends Unit

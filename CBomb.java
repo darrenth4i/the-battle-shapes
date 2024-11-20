@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Write a description of class Warrior here.
  * 
- * @author (your name) 
+ * @author Andy Li
  * @version (a version number or a date)
  */
 public class CBomb extends Circle

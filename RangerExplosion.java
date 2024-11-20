@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class RangerExplosion here.
  * 
- * @author (your name) 
+ * @author Justin Ye
  * @version (a version number or a date)
  */
 public class RangerExplosion extends Effect

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class Warrior here.
  * 
- * @author (your name) 
+ * @author Andy Li
  * @version (a version number or a date)
  */
 public class CDragon extends Circle

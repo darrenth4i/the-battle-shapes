@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Write a description of class Healer here.
  * 
- * @author (your name) 
+ * @author Andy Li
  * @version (a version number or a date)
  */
 public class CHealer extends Circle
