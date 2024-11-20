@@ -40,6 +40,7 @@ public abstract class Tower extends Actor
     protected int count, randomEventCount;
     private ArrayList<Wallet> wallets;
     private int xOffset;
+    private boolean incomeDoubled;
     
     private GreenfootSound[] damage;
     private int damageIndex;
@@ -51,6 +52,7 @@ public abstract class Tower extends Actor
             damage[i] = new GreenfootSound ("baseDamage.wav");
             damage[i].setVolume (80);
         }
+        meteorShowerSound.setVolume(85);
         shootSound.setVolume(50);
         this.circle = circle;
         this.type = type;
@@ -132,11 +134,20 @@ public abstract class Tower extends Actor
         //System.out.println(event);
         switch(event)
         {
-            case 0: //Doubles the rate at which money increases
+            case 0: //Doubles the rate at which money increases, 
+                if(incomeDoubled==false)
+                {
+                    createNotification("Inflation good! Means more money", "MORE INFLATION. MORE MONEY");
+                    setWallet();
+                    myWallet.setEventMultiplier(2);
+                    incomeDoubled=true;
+                    break;
+                }
+                //Doubles current money
                 createNotification("Extra Money!", "Double my Money and Give it to ME!");
-                setWallet();
-                myWallet.setEventMultiplier(2);
+                myWallet.doubleMoney();
                 break;
+                
             case 1:
                 conscription(); //Spawns allies
                 break;    

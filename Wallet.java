@@ -43,7 +43,7 @@ public class Wallet extends PlayerUI
         }
         
         //every frame, increase amount in wallet depending on upgrades and event
-        amount += 1 * multiplier * eventMultiplier;
+        amount += 2 * multiplier * eventMultiplier;
         //display new amount
         display.updateText("$" + (int) amount, 30, Color.BLACK, Color.WHITE);
     }
@@ -56,6 +56,7 @@ public class Wallet extends PlayerUI
     //getter and setter methods
     public void setMultiplier(double m) {multiplier = m;}
     public void setEventMultiplier(double m) {eventMultiplier = m;}
+    public void doubleMoney(){amount=amount*2;}
     public boolean getCircle() {return circle;}
     public double getAmount() {return amount;}
     public double getMultiplier() {return multiplier;}

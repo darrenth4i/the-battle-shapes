@@ -1,18 +1,18 @@
 #BlueJ class context
 comment0.target=SHealer
-comment0.text=\n\ Write\ a\ description\ of\ class\ SHealer\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ SHealer\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\n\ Act\ -\ do\ whatever\ the\ SHealer\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ SHealer\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment2.params=stage
 comment2.target=SHealer(int)
-comment2.text=\ \n\ This\ constructor\ creates\ the\ SHealer,\ depending\ on\ what\ stage\ it\ is,\ it\ will\ take\ atk,\ health,\n\ atkCooldown\ and\ access\ new\ frames\ to\ animate.\n
+comment2.text=\ \r\n\ This\ constructor\ creates\ the\ SHealer,\ depending\ on\ what\ stage\ it\ is,\ it\ will\ take\ atk,\ health,\r\n\ atkCooldown\ and\ access\ new\ frames\ to\ animate.\r\n
 comment3.params=world
 comment3.target=void\ addedToWorld(greenfoot.World)
 comment4.params=
 comment4.target=void\ attack()
-comment4.text=\n\ Takes\ all\ squares\ in\ range\ and\ chooses\ a\ target\ to\ heal,\ the\ heal\ amount\ depends\ on\ the\ atk\ value.\n
+comment4.text=\r\n\ Takes\ all\ squares\ in\ range\ and\ chooses\ a\ target\ to\ heal,\ the\ heal\ amount\ depends\ on\ the\ atk\ value.\r\n
 comment5.params=
 comment5.target=java.lang.String\ getName()
-comment5.text=\n\ Gets\ the\ name\ of\ the\ unit\n
+comment5.text=\r\n\ Gets\ the\ name\ of\ the\ unit\r\n
 numComments=6

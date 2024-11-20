@@ -1,15 +1,15 @@
 #BlueJ class context
 comment0.target=STank
-comment0.text=\n\ Write\ a\ description\ of\ class\ STank\ here.\n\ \n\ @author\ Justin\ Ye\ \n\ @version\ 10\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ STank\ here.\r\n\ \r\n\ @author\ Justin\ Ye\ \r\n\ @version\ 10\r\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\n\ Act\ -\ do\ whatever\ the\ STank\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ STank\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment2.params=stage
 comment2.target=STank(int)
-comment2.text=\ \n\ This\ constructor\ creates\ the\ STank,\ depending\ on\ what\ stage\ it\ is,\ it\ will\ take\ atk,\ health,\n\ atkCooldown\ and\ access\ new\ frames\ to\ animate.\n
+comment2.text=\ \r\n\ This\ constructor\ creates\ the\ STank,\ depending\ on\ what\ stage\ it\ is,\ it\ will\ take\ atk,\ health,\r\n\ atkCooldown\ and\ access\ new\ frames\ to\ animate.\r\n
 comment3.params=world
 comment3.target=void\ addedToWorld(greenfoot.World)
 comment4.params=
 comment4.target=java.lang.String\ getName()
-comment4.text=\n\ Gets\ the\ name\ of\ the\ unit\n
+comment4.text=\r\n\ Gets\ the\ name\ of\ the\ unit\r\n
 numComments=5
